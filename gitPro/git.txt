@@ -15,7 +15,10 @@
 修改和新文件添加到索引（不包含删除文件） git add .
 查看提交历史 git log
 查看已选定版本 git show b6b93a05854f2cbc6d375c1544ad6c2432547ebe
-
+暂存 git stash save "暂存"
+恢复暂存 git stash pop
+查看暂存 git stash list
+移除暂存 git stash drop stash@{0}
 
 error: failed to push some refs to(远程库与本地库不一致)
 执行git pull --rebase origin yan（远程库同步到本地库）
