@@ -1,0 +1,4 @@
+初始化仓库 git init
+将文件内容添加到索引 git add README.md
+将暂存区改动提交到本地版本库 git commit -m "first commit"
+本地分支推送到远程分支 push -u origin master
