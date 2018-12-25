@@ -13,9 +13,13 @@
 所有变化文件添加到索引 git add -A
 修改和删除文件添加到索引（不包含新文件） git add -u 
 修改和新文件添加到索引（不包含删除文件） git add .
+查看提交历史 git log
+查看已选定版本 git show b6b93a05854f2cbc6d375c1544ad6c2432547ebe
+
 
 error: failed to push some refs to(远程库与本地库不一致)
 执行git pull --rebase origin yan（远程库同步到本地库）
+
 
 
 
