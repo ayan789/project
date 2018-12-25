@@ -1,0 +1,11 @@
+初始化仓库 git init
+将文件内容添加到索引 git add README.md
+将暂存区改动提交到本地版本库 git commit -m "first commit"
+本地分支推送到远程分支 push -u origin master
+查看分支 git branch
+创建新分支testing git branch testing
+切换分支 git checkout testing
+删除分支 git branch -d testing
+推送分支 git push origin yan:yan
+
+
