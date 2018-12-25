@@ -6,4 +6,6 @@
 创建新分支testing git branch testing
 切换分支 git checkout testing
 删除分支 git branch -d testing
+推送分支 git push origin yan:yan
+
 
