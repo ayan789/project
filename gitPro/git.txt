@@ -20,6 +20,13 @@
 查看暂存 git stash list
 移除暂存 git stash drop stash@{0}
 
+ add过，没commit
+ 执行 git reset HEAD .（暂存区回退到工作区）
+ 执行 git checkout . （重置本地修改的文件）
+ add过，commit过
+ 执行 git log （查看commit日志）
+ 执行 git reset --hard 8579ea56f7b1dd9a2bb845b3fd27f9e77340598b （回滚到指定版本）
+
 error: failed to push some refs to(远程库与本地库不一致)
 执行git pull --rebase origin yan（远程库同步到本地库）
 
