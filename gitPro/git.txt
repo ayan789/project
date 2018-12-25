@@ -9,6 +9,7 @@
 删除服务器分支 git push origin -d testing
 推送分支 git push origin yan:yan
 合并分支（合并完之后要推送） git merge yan
+查看文件状态 git status
 
 
 
