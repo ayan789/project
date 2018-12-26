@@ -35,8 +35,17 @@
  执行 git log （查看提交历史）
  执行 git push origin yan:yan （推送分支）
 
+ 删除某次提交 
+ 执行 git log （查看提交历史）
+ 执行 git rebase -i 3b8e1da69faf7ec10ad38b1d7b8a7112b20dfb65 （压缩合并）
+ 修改对应提交为drop （删除这次提交）
+ 执行 git log （查看提交历史）
+ 执行 git push origin yan:yan （推送分支）
+
 error: failed to push some refs to(远程库与本地库不一致)
 执行git pull --rebase origin yan（远程库同步到本地库）
+
+
 
 
 
