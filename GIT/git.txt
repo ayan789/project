@@ -44,6 +44,3 @@
 
 error: failed to push some refs to(远程库与本地库不一致)
 执行git pull --rebase origin yan（远程库同步到本地库）
-
-
-
