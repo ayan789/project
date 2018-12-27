@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mail>
+	<title>建议书</title>
+	<content>
+		尊敬的#customerName#：#br#
+		#nbsp##nbsp##nbsp##nbsp##nbsp#感谢您选择北大方正人寿保险有限公司，感谢您选择我们专业忠诚的寿险规划师#agentName#为您提供服务！#br#
+		#nbsp##nbsp##nbsp##nbsp##nbsp#现将您的《建议书》电子版发送给您，请您查阅并妥善保存。#br#
+		#nbsp##nbsp##nbsp##nbsp##nbsp#感谢您对本公司的支持与信赖，我们将在您的身边，竭诚为您提供优质服务。#br##br##br##br#
+		北大方正人寿保险有限公司#br#
+		本邮件由系统自动发出，请勿直接回复，谢谢！
+	</content>
+</mail>

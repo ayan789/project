@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import com.common.util.MailUtil;
+import com.n22.ehero.base.xml.dom4j.XmlTool;
+import org.dom4j.Document;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -29,5 +32,15 @@ public class DemoApplicationTests {
 
     }
 
+    @Test
+    public void emailTest() throws Exception {
+        Document doc = XmlTool.bulidXmlDocByFile("templatePath");
+        String title = doc.selectSingleNode("/mail/title").getText();
+        String content = doc.selectSingleNode("/mail/content").getText();
+        content = content.replaceAll("#br#", "<br/>");
+        content = content.replaceAll("#nbsp#", "&nbsp;");
+        //测试使用 (测试用自己的)
+        MailUtil.sendMail("smtp.126.com", "true", "zsxn_2016@126.com", "ftp123", "email", null, null, title, content);
+    }
 }
 

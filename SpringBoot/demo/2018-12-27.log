@@ -1030,3 +1030,7 @@ Unconditional classes:
 ［Ayan］2018-12-27 15:07:22 -GET "/favicon.ico", parameters={}
 ［Ayan］2018-12-27 15:07:22 -Mapped to ResourceHttpRequestHandler [class path resource [META-INF/resources/], class path resource [resources/], class path resource [static/], class path resource [public/], ServletContext resource [/], class path resource []]
 ［Ayan］2018-12-27 15:07:22 -Completed 200 OK
+［Ayan］2018-12-27 15:10:27 -Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@3e92efc3, started on Thu Dec 27 15:07:04 CST 2018
+［Ayan］2018-12-27 15:10:27 -Found key 'spring.liveBeansView.mbeanDomain' in PropertySource 'systemProperties' with value of type String
+［Ayan］2018-12-27 15:10:27 -Unregistering JMX-exposed beans on shutdown
+［Ayan］2018-12-27 15:10:27 -Shutting down ExecutorService 'applicationTaskExecutor'

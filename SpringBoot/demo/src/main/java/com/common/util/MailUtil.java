@@ -1,4 +1,4 @@
-package com.n22.sfss.common.util;
+package com.common.util;
 
 import java.util.Properties;
 
@@ -13,8 +13,11 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 
-import com.common.util.MyAuthenticator;
+import com.n22.ehero.base.tool.LogTool;
+import com.n22.ehero.base.tool.PropertiesTool;
+import com.n22.ehero.base.xml.dom4j.XmlTool;
 import org.apache.commons.mail.HtmlEmail;
+import org.dom4j.Document;
 
 public class MailUtil {
 
@@ -317,5 +320,32 @@ public class MailUtil {
         String status = email.send();
         return status;
     }
+
+    /**
+     * 发送邮件
+     */
+    public void sendMail(String proposalId,String path,String receivers,String agentName,String customerName, String attachmentNames) throws Exception {
+
+//        String templatePath = SpringTool.getServletContext().getRealPath("/WEB-INF/classes/") + "/template/mail/mail-proposal.xml";
+
+
+        Document doc  = XmlTool.bulidXmlDocByFile("/template/mail/mail-proposal.xml");
+        String title = doc.selectSingleNode("/mail/title").getText();
+        String content = doc.selectSingleNode("/mail/content").getText();
+
+        content = content.replaceAll("#br#", "<br/>");
+        content = content.replaceAll("#nbsp#", "&nbsp;");
+        content = content.replace("#customerName#", customerName);
+        content = content.replace("#agentName#", agentName);
+
+        String host = new PropertiesTool("config.properties").getProperty("common.mail.host");
+        String userName = new PropertiesTool("config.properties").getProperty("common.mail.username");
+        String password = new PropertiesTool("config.properties").getProperty("common.mail.password");
+        String from = new PropertiesTool("config.properties").getProperty("common.mail.from");
+
+        String status = MailUtil.sendHtmlMail(host, userName, password, from, receivers, null, null, title, content, path, attachmentNames);
+        LogTool.inf(this.getClass(), "sendHtmlMail-status:" + status);
+    }
+
 
 }
