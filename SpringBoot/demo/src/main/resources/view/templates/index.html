@@ -9,5 +9,23 @@
 <h1 th:text="${hello}">这里是填充数据</h1>
 <h1>theamleafee index.html view</h1>
 <br>
+<!--三元运算-->
+<span th:text="${even eq 'even'? 'even' : 'odd'}">...</span>
+<!--设置多个属性-->
+<img src="${even}" th:attr="title=${even},alt=${even}">
+
+<table border="1px" cellspacing="0px" cellspadding="0px" width="100%">
+    <tr>
+        <td>编号</td><td>书名</td><td>书价格</td><td>图片地址</td>
+    </tr>
+    <tr th:each="book:${books}">
+        <td>编号</td>
+        <td th:text="${book.bookName}">书名</td>
+        <td th:text="${book.bookPrice}">书价格</td>
+        <td th:text="${book.bookUrl}">图片地址</td>
+    </tr>
+</table>
+<span th:text="${#dates.format(createTime,'yyyy-MM-dd HH:mm:ss')}">2017年11月8日</span>
+
 </body>
 </html>
