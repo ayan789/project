@@ -33,6 +33,56 @@ val myVal : String = "Foo"
 多个变量声明
 var xmax, ymax = 100  // xmax, ymax都声明为100
 
+私有(Private)成员
+private修饰的成员只在类或对象内部可见
+object HelloWorld {
+   class Outer{
+    class Inner{
+    private def f(){println("f")}
+    class InnerMost{
+        f() // 正确
+        }
+    }
+    (new Inner).f() //错误
+  }
+}
+
+保护(Protected)成员
+Protected允许成员在类的子类中被访问（java中同一个包里的其他类也可以进行访问）
+object HelloWorld {
+   class Super{
+    protected def f() {println("f")}
+    }
+    class Sub extends Super{
+        f()
+    }
+    class Other{
+       (new Super).f() //错误
+    }
+}
+
+公共(Public)成员
+Public任何地方都可以被访问
+object HelloWorld {
+   class Outer {
+   class Inner {
+      def f() { println("f") }
+      class InnerMost {
+         f() // 正确
+      }
+   }
+   (new Inner).f() // 正确因为 f() 是 public
+}
+}
+
+作用域保护 ？？？
+
+
+
+
+
+
+
 
 
 
