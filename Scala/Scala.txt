@@ -11,4 +11,8 @@
 8 :q  （退出scala解释器）
 安装Scala-》end
 
+脚本形式运行
+scalac HelloWorld.scala 编译
+scala HelloWorld 执行
+
 
