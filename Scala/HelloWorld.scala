@@ -1,14 +1,14 @@
 object HelloWorld {
    def main(args: Array[String]) {
-      var x = 30
-      if( x == 10 ){
-         println("X 的值为 10")
-      }else if( x == 20 ){
-         println("X 的值为 20")
-      }else if( x == 30 ){
-         println("X 的值为 30")
-      }else{
-         println("无法判断 X 的值")
+      var a = 0;
+      val numList = List(1,2,3,4,5,6,7,8,9,10);
+      // for 循环
+      var retVal = for{ a <- numList 
+                        if a != 3; if a < 8
+                      }yield a
+      // 输出返回值
+      for( a <- retVal){
+         println( "Value of a: " + a );
       }
    }
 }
