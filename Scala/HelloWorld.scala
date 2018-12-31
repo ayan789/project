@@ -1,15 +1,8 @@
 object HelloWorld {
-   def main(args: Array[String]) {
-      var a = 0;
-      val numList = List(1,2,3,4,5,6,7,8,9,10);
-      // for 循环
-      var retVal = for{ a <- numList 
-                        if a != 3; if a < 8
-                      }yield a
-      // 输出返回值
-      for( a <- retVal){
-         println( "Value of a: " + a );
-      }
+    def main(args: Array[String]) {
+      println( "multiplier(1) value = " +  multiplier(1) )
+      println( "multiplier(2) value = " +  multiplier(2) )
    }
+   var factor = 3
+   val multiplier = (i:Int) => i * factor
 }
-

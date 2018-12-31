@@ -340,6 +340,108 @@ object HelloWorld {
    }
 }
 
+方法
+有返回值
+object HelloWorld {
+  def main(args: Array[String]) {
+        println( "Returned Value : " + addInt(3,4) );
+   }
+   def addInt( a:Int, b:Int ) : Int = {
+      var sum:Int = 0
+      sum = a + b
+      return sum
+   }
+}
+
+无返回值
+object HelloWorld {
+  def main(args: Array[String]) {
+        println( "Returned Value : " + printMe );
+   }
+    def printMe() : Unit = {
+      println("Hello, Scala!")
+   }
+}
+
+函数 - 可变参数
+object HelloWorld {
+  def main(args: Array[String]) {
+        printStrings("Runoob", "Scala", "Python");
+   }
+   def printStrings( args:String* ) = {
+      var i : Int = 0;
+      for( arg <- args ){
+         println("Arg value[" + i + "] = " + arg );
+         i = i + 1;
+      }
+   }
+}
+
+指定函数参数名
+object HelloWorld {
+  def main(args: Array[String]) {
+        printInt(b=5, a=7);
+   }
+   def printInt( a:Int, b:Int ) = {
+      println("Value of a : " + a );
+      println("Value of b : " + b );
+   }
+}
+
+递归函数
+object HelloWorld {
+  def main(args: Array[String]) {
+      for (i <- 1 to 10)
+         println(i + " 的阶乘为: = " + factorial(i) )
+   }   
+   def factorial(n: BigInt): BigInt = {  
+      if (n <= 1)
+         1  
+      else    
+      n * factorial(n - 1)
+   }
+}
+
+默认参数值
+object HelloWorld {
+   def main(args: Array[String]) {
+        println( "返回值 : " + addInt(a=1) );
+   }
+   def addInt( a:Int=5, b:Int=7 ) : Int = {
+      var sum:Int = 0
+      sum = a + b
+      return sum
+   }
+}
+
+函数嵌套
+object HelloWorld {
+    def main(args: Array[String]) {
+      println( factorial(0) )
+      println( factorial(1) )
+      println( factorial(2) )
+      println( factorial(3) )
+   }
+   def factorial(i: Int): Int = {
+      def fact(i: Int, accumulator: Int): Int = {
+         if (i <= 1)
+            accumulator
+         else
+            fact(i - 1, i * accumulator)
+      }
+      fact(i, 1)
+   }
+}
+
+匿名函数
+object HelloWorld {
+    def main(args: Array[String]) {
+      println( "multiplier(1) value = " +  multiplier(1) )
+      println( "multiplier(2) value = " +  multiplier(2) )
+   }
+   var factor = 3
+   val multiplier = (i:Int) => i * factor
+}
 
 
 
