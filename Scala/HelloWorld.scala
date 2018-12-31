@@ -1,12 +1,48 @@
 object HelloWorld {
-   class Outer {
-   class Inner {
-      def f() { println("f") }
-      class InnerMost {
-         f() // 正确
-      }
+   def main(args: Array[String]) {
+      var a = 10;    
+      var b = 20;
+      var c = 0;
+
+      c = a + b;
+      println("c = a + b  = " + c );
+
+      c += a ;
+      println("c += a  = " + c );
+
+      c -= a ;
+      println("c -= a = " + c );
+
+      c *= a ;
+      println("c *= a = " + c );
+
+      a = 10;
+      c = 15;
+      c /= a ;
+      println("c /= a  = " + c );
+
+      a = 10;
+      c = 15;
+      c %= a ;
+      println("c %= a  = " + c );
+
+      c <<= 2 ;
+      println("c <<= 2  = " + c );
+
+      c >>= 2 ;
+      println("c >>= 2  = " + c );
+
+      c >>= 2 ;
+      println("c >>= a  = " + c );
+
+      c &= a ;
+      println("c &= 2  = " + c );
+     
+      c ^= a ;
+      println("c ^= a  = " + c );
+
+      c |= a ;
+      println("c |= a  = " + c );
    }
-   (new Inner).f() // 正确因为 f() 是 public
-}
 }
 
