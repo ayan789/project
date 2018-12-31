@@ -6,3 +6,21 @@ object HelloWorld {
       println("Hello, world!") // 输出 Hello World
    }
 }
+
+定义多行字符串
+val foo = """1
+     | 2
+     | 3
+     | 4
+     | 6"""
+
+变量声明
+var myVar : String = "Foo"
+
+常量声明
+val myVal : String = "Foo"
+
+多个变量声明
+var xmax, ymax = 100  // xmax, ymax都声明为100
+
+
