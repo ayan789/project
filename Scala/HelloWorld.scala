@@ -1,8 +1,21 @@
-import scala.util.matching.Regex
+import java.io.FileReader
+import java.io.FileNotFoundException
+import java.io.IOException
+
 object HelloWorld {
     def main(args: Array[String]) {
-      val pattern = new Regex("(S|s)cala")  // 首字母可以是大写 S 或小写 s
-      val str = "Scala is scalable and cool"
-      println((pattern findAllIn str).mkString(","))   // 使用逗号 , 连接返回结果
-   }
+       try {
+         val f = new FileReader("input.txt")
+       } catch {
+         case ex: FileNotFoundException =>{
+            println("Missing file exception")
+         }
+         case ex: IOException => {
+            println("IO Exception")
+         }
+      }
+      finally {
+          println("Exiting finally...")
+        }
+    }
 }
