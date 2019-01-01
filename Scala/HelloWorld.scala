@@ -1,21 +1,10 @@
-import java.io.FileReader
-import java.io.FileNotFoundException
-import java.io.IOException
+import scala.io.Source
 
 object HelloWorld {
     def main(args: Array[String]) {
-       try {
-         val f = new FileReader("input.txt")
-       } catch {
-         case ex: FileNotFoundException =>{
-            println("Missing file exception")
-         }
-         case ex: IOException => {
-            println("IO Exception")
-         }
+      println("文件内容为:" )
+      Source.fromFile("test.txt" ).foreach{ 
+         print 
       }
-      finally {
-          println("Exiting finally...")
-        }
     }
 }
