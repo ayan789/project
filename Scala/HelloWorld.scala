@@ -1,8 +1,16 @@
+import Array._
 object HelloWorld {
     def main(args: Array[String]) {
-      println( "multiplier(1) value = " +  multiplier(1) )
-      println( "multiplier(2) value = " +  multiplier(2) )
+       var myList1 = range(10, 20, 2)
+      var myList2 = range(10,20)
+
+      // 输出所有数组元素
+      for ( x <- myList1 ) {
+         print( " " + x )
+      }
+      println()
+      for ( x <- myList2 ) {
+         print( " " + x )
+      }
    }
-   var factor = 3
-   val multiplier = (i:Int) => i * factor
 }
