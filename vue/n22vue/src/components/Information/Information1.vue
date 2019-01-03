@@ -90,7 +90,7 @@
     </div>
     <!-- 功能按钮组 结束 -->
     <!-- <el-main v-loading="state.ui.loading.isShow"> -->
-      <el-main  v-loading="state.ui.loading.isShow" class="mainTable">
+      <el-main  v-loading="state.ui.loading.isShow" :element-loading-text="state.ui.loading.loadingMsg" class="mainTable">
       <!-- 搜索结果table 开始 -->
       <el-table
         class="base-result-table"
@@ -195,16 +195,16 @@
           <template slot-scope="props">
             <el-form label-position="right" inline class="demo-table-expand">
               <el-form-item label="创建人">
-                <span>{{ props.row.createBy }}</span>
+                <span>{{ props.row.createBy==undefined?'暂无': props.row.createBy}}</span>
               </el-form-item>
               <el-form-item label="创建时间">
-                <span>{{ props.row.updateTime }}</span>
+                <span>{{ props.row.updateTime==undefined?'暂无': props.row.updateTime }}</span>
               </el-form-item>
               <el-form-item label="修改人">
-                <span>{{ props.row.updateBy }}</span>
+                <span>{{ props.row.updateBy==undefined?'暂无': props.row.updateBy }}</span>
               </el-form-item>
               <el-form-item label="修改时间">
-                <span>{{ props.row.updateTime }}</span>
+                <span>{{ props.row.updateTime==undefined?'暂无': props.row.updateTime }}</span>
               </el-form-item>
             </el-form>
           </template>

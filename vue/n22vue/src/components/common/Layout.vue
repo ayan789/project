@@ -20,18 +20,18 @@
       <!-- 侧边栏 开始 -->
       <el-aside width="200px">
         <el-menu
-          :router="true"
+          :router="false"
           text-color="#666"
           active-text-color="#20a0ff"
           unique-opened
         >
           <template v-for="(menu) of data.children">
             <!-- 无子节点 -->
+             <!-- :route="{name: menu.url}" -->
             <el-menu-item
               v-if="menu.children == undefined || menu.children.length == 0"
               :key="menu.id"
               :index="menu.id"
-              :route="{name: menu.url}"
             >
               <template slot="title">
                 <i class="el-icon-star-on"></i>
@@ -46,9 +46,10 @@
               </template>
               <!-- 模块子页面组 -->
               <el-menu-item-group v-for="(module, moduleIndex) in menu.children" :key="moduleIndex">
-                <el-menu-item :index="`${menu.id}-${moduleIndex}`" :route="{name: module.url}">
+                <!-- :route="{name: module.url} -->
+                <el-menu-item :index="`${menu.id}-${moduleIndex}`" >
                   <i class="el-icon-star-on"></i>
-                  {{module.label}}
+                  <span @click="moduleClick(module.url)">{{module.label}}</span>
                 </el-menu-item>
               </el-menu-item-group>
             </el-submenu>
@@ -58,8 +59,8 @@
       <!-- 侧边栏 结束 -->
       <!-- 右侧主内容 开始 -->
       <el-main style=" padding:10px; background-color: #f0f0f0; ">
-        
-        <v-tags ></v-tags>
+        <!--v-on:aassdd @aassdd子传父 v-bind:tagsList :tagsList父传子 -->
+        <v-tags :tagsList="tagsList" @aassdd="listenToMyBoy" ></v-tags>
         <hr class="hrClass">
         <!-- 页面注入区 -->
         <router-view/>
@@ -81,6 +82,11 @@ export default {
   data() {
     return { 
       userName: "红孩儿",
+      tagsList:[
+          { title: "aa", path: "/layout/formDemo", name: "dashboard" },
+          { title: "bb", path: "/table", name: "basetable" },
+          { title: "cc", path: "/tabs", name: "tabs" }
+        ],
       data: {
         id: "464a9e03029e11e98e6f487b6bd31e7d",
         pid: "0",
@@ -282,10 +288,61 @@ export default {
     };
   },
   methods: {
+    listenToMyBoy: function (somedata){
+    console.log('子传父')
+    console.log(somedata)
+    this.tagsList=somedata
+   },
     //退出登录
     loginOut() {
       console.log("退出登录");
     },
+    moduleClick(url){
+      console.log("moduleClick");
+      console.log(url);
+      if(url=="informationPage1" || url=="/layout/information/informationPage1"){
+        this.tagsList = [
+          {
+            title: "informationPage1",
+            path: "/layout/information/informationPage1",
+            name: "informationPage1"
+          },
+          {
+            title: "informationPage2",
+            path: "/layout/information/informationPage2",
+            name: "informationPage2"
+          },
+          {
+            title: "informationPage3",
+            path: "/layout/information/informationPage3",
+            name: "informationPage3"
+          }
+        ];
+        this.$router.push('/layout/information/informationPage1')
+      }
+      if(url=="eduManagement" || url=="/layout/education/eduManagement"){
+        this.tagsList = [
+          {
+            title: "q",
+            path: "/layout/information/informationPage1",
+            name: "/informationPage1"
+          },
+          {
+            title: "e",
+            path: "/layout/information/informationPage2",
+            name: "informationPage2"
+          },
+          {
+            title: "t",
+            path: "/layout/information/informationPage3",
+            name: "informationPage3"
+          }
+        ];
+        this.$router.push('/layout/education/eduManagement')
+      }
+     
+      
+    }
   },
   components: {
     vTags
@@ -357,6 +414,10 @@ export default {
 }
 .hrClass {
   border: 0.5px rgb(233, 220, 220) solid;
+}
+
+.el-card__body {
+    padding: 0px !important;
 }
 
 </style>

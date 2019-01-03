@@ -27,18 +27,18 @@ const router = new VueRouter({
 })
 
 // 路由拦截
-router.beforeEach((to, from, next) => {
-  console.log('路由拦截')
-  if(to.meta.login){ //登录页面-未登录拦截
-    Message.error({
-      message: "登陆状态异常，请重新登陆"
-    });
-    next('/') 
-  }else{  //无需登录页面或需要登录页面已登录
-    //设置标题
-    document.title = to.meta.title || "未设置"
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   console.log('路由拦截')
+//   if(to.meta.login){ //登录页面-未登录拦截
+//     Message.error({
+//       message: "登陆状态异常，请重新登陆"
+//     });
+//     next('/') 
+//   }else{  //无需登录页面或需要登录页面已登录
+//     //设置标题
+//     document.title = to.meta.title || "未设置"
+//     next()
+//   }
+// })
 
 export default router

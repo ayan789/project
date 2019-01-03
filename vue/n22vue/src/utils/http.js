@@ -15,7 +15,7 @@ instance.interceptors.request.use(config => {
   //开启loading框
   store.commit('LOADING', {
     isShow: true,
-    msg: '正在加载...'
+    loadingMsg: '拼命加载中...'
   })
   return config
 }, error => {

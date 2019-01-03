@@ -32,21 +32,56 @@
 
 <script>
 import bus from "./bus";
+
 export default {
+  props: ["tagsList"],
   data() {
     return {
       // showTags: true,
-      tagsList: [
-        { title: "系统首页", path: "/layout/formDemo", name: "dashboard" },
-        { title: "基础表格", path: "/table", name: "basetable" },
-        { title: "tab选项卡", path: "/tabs", name: "tabs" }
-      ]
+      // tagsList: [
+      //   { title: "系统首页", path: "/layout/formDemo", name: "dashboard" },
+      //   // { title: "基础表格", path: "/table", name: "basetable" },
+      //   // { title: "tab选项卡", path: "/tabs", name: "tabs" }
+      // ]
     };
   },
   methods: {
     // 关闭单个标签
     closeTags(index) {
-      const delItem = this.tagsList.splice(index, 1)[0];
+      if(index+1==this.tagsList.length){
+          if(this.$route.fullPath==this.tagsList[index].path){
+             this.$router.push(this.tagsList[index-1].path);
+            this.tagsList.splice(index, 1)[0];
+          }
+          else{
+            this.tagsList.splice(index, 1)[0];
+          }
+      }
+      else{
+          if(this.$route.fullPath==this.tagsList[index].path){
+            this.tagsList.splice(index, 1)[0];
+            this.$router.push(this.tagsList[index].path);
+          }
+          else{
+            this.tagsList.splice(index, 1)[0];
+          }
+      }
+      
+
+      // console.log(this.$route.fullPath)
+      // console.log(index)
+      // console.log(this.tagsList.length)
+      // const delItem = this.tagsList.splice(index, 1)[0];
+      // const delItem = this.tagsList.splice(index, 1)[0];
+      // const item = this.tagsList[index]
+      // ? this.tagsList[index]
+      // : this.tagsList[index + 1];
+      // if (item) {
+      // delItem.path === this.$route.fullPath && this.$router.push(this.tagsList[index - 1].path);
+      // this.$router.push(delItem.path);
+      // } else {
+      // this.$router.push("/layout/education/eduManagement");
+      // }
     },
     isActive(path) {
       console.log("em");
@@ -72,26 +107,26 @@ export default {
         ];
       }
       if (route.fullPath == "/layout/information/informationPage1") {
-        this.tagsList = [
-          {
-            title: "informationPage1",
-            path: "/layout/information/informationPage1",
-            name: "informationPage1"
-          },
-          {
-            title: "informationPage2",
-            path: "/layout/information/informationPage2",
-            name: "informationPage2"
-          },
-          {
-            title: "informationPage3",
-            path: "/layout/information/informationPage3",
-            name: "informationPage3"
-          }
-        ];
+        // this.tagsList = [
+        //   {
+        //     title: "informationPage1",
+        //     path: "/layout/information/informationPage1",
+        //     name: "informationPage1"
+        //   },
+        //   {
+        //     title: "informationPage2",
+        //     path: "/layout/information/informationPage2",
+        //     name: "informationPage2"
+        //   },
+        //   {
+        //     title: "informationPage3",
+        //     path: "/layout/information/informationPage3",
+        //     name: "informationPage3"
+        //   }
+        // ];
       }
       if (route.fullPath == "/layout/education/eduManagement") {
-        this.tagsList = [];
+        // this.tagsList = [];
       }
       bus.$emit("tags", this.tagsList);
       // const isExist = this.tagsList.some(item => {
@@ -155,6 +190,7 @@ export default {
           }
         ];
       }
+      this.$emit('aassdd', this.tagsList)
     },
   },
   computed: {
@@ -170,7 +206,12 @@ export default {
       this.setTags(newValue);
     }
   },
-  created() {}
+  created() {},
+  mounted(){
+    // console.log('子zujian')
+    // this.tagsList=this.messageList
+    // console.log(this.tagsList)
+  },
 };
 </script>
 
@@ -189,10 +230,10 @@ export default {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
+  display: flex;
 }
 
 .tags-li {
-  float: left;
   margin: 3px 5px 2px 3px;
   border-radius: 3px;
   font-size: 12px;
@@ -220,7 +261,7 @@ export default {
 
 .tags-li-title {
   float: left;
-  max-width: 80px;
+  /* max-width: 80px; */
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -239,7 +280,7 @@ export default {
   box-sizing: border-box;
   padding-top: 1px;
   text-align: center;
-  width: 110px;
+  width: 500px;
   height: 30px;
   background: #fff;
   z-index: 10;
@@ -249,5 +290,8 @@ export default {
 }
 a {
   text-decoration: none;
+}
+.el-card__body {
+    padding: 0px !important;
 }
 </style>
