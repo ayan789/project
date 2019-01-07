@@ -1,0 +1,17 @@
+IDEA安装皮肤
+background image plus
+视图－set background image
+
+IDEA安装MybatisX plugin
+MybatisX plugin
+
+http://139.199.89.239:1008/67ea78bb-3eb0-49b7-9ab6-5a76aa26bd08 
+
+IDEA安装热部署
+JRebel
+项目右键－JRebel 增加配置文件
+
+IDEA创建Scala项目
+http://plugins.jetbrains.com/plugin/1347-scala 下载对应版本插件
+设置－plugins－installPlugin idea添加插件
+文件－项目结构－libraries 添加scala安装包
