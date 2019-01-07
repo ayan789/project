@@ -947,6 +947,13 @@ object HelloWorld {
     }
 }
 
+IDEA创建Scala项目
+http://plugins.jetbrains.com/plugin/1347-scala 下载对应版本插件
+设置－plugins－installPlugin idea添加插件
+文件－项目结构－libraries 添加scala安装包
+
+
+
 
 
 
