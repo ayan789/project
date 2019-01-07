@@ -54,6 +54,12 @@ http://localhost:9870
 访问YARN服务
 http://localhost:8088
 
+ hadoop fs -ls -R hdfs://localhost:8020/ 列出指定目录下的文件及文件夹
+ hadoop fs -mkdir -p /spark/wc/input 创建目录
+ hadoop fs -cat hdfs://localhost:8020/spark/wc/output1/p*;  查看文件
+ hadoop fs -put words2.txt /spark/wc/input  从本地文件系统上传文件到HDFS
+ sc.textFile("hdfs://localhost:8020/wc/input/words.txt").flatMap(_.split(" ")).map((_,1)).reduceByKey(_+_).saveAsTextFile("hdfs://localhost:8020/wc/output/")
+
 ps:hadoop-3.0.0/etc/hadoop/log4j.properties末尾中追加
 log4j.logger.org.apache.hadoop.util.NativeCodeLoader=ERROR
 
@@ -65,5 +71,12 @@ export SPARK_HOME=/Users/youth.s/Documents/spark-2.4.0-bin-hadoop2.7
 执行 source ~/.bash_profile 
 执行 spark-shell
 
+sc.textFile("hdfs://localhost/wc/input/words.txt").flatMap(_.split(" ")).map((_,1)).reduceByKey(_+_).saveAsTextFile("hdfs://localhost/wc/output/")
 
+
+
+sc.textFile("hdfs://localhost:8020/spark/wc/input/words.txt").flatMap(_.split(" ")).map((_,1)).reduceByKey(_+_).saveAsTextFile("hdfs://localhost:8020/spark/wc/output")
+
+sc.textFile("hdfs://myha01/spark/wc/input/words.txt").flatMap(_.split(" 
+")).map((_,1)).reduceByKey(_+_).saveAsTextFile("hdfs://myha01/spark/wc/output")
 
