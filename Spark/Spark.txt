@@ -41,11 +41,11 @@ export HADOOP_OPTS="$HADOOP_OPTS -Djava.net.preferIPv4Stack=true -Djava.security
 </configuration>
 
 进入/usr/local/Cellar/hadoop/3.0.0/libexec/sbin
-执行 hdfs namenode -format （文件系统的初始化）
 执行 vi ~/.bash_profile (配置环境变量)
 export HADOOP_HOME=/usr/local/Cellar/hadoop/3.0.0/libexec
 export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
 source ~/.bash_profile (配置生效)
+执行 hdfs namenode -format （文件系统的初始化）
 启动
 ./start-all.sh   
 ./stop-all.sh
@@ -56,6 +56,7 @@ http://localhost:8088
 
  hadoop fs -ls -R hdfs://localhost:8020/ 列出指定目录下的文件及文件夹
  hadoop fs -mkdir -p /spark/wc/input 创建目录
+ hadoop fs -ls hdfs://localhost:8020/double_number.txt 查看目录
  hadoop fs -cat hdfs://localhost:8020/spark/wc/output1/p*;  查看文件
  hadoop fs -put words2.txt /spark/wc/input  从本地文件系统上传文件到HDFS
  sc.textFile("hdfs://localhost:8020/wc/input/words.txt").flatMap(_.split(" ")).map((_,1)).reduceByKey(_+_).saveAsTextFile("hdfs://localhost:8020/wc/output/")
@@ -79,4 +80,62 @@ sc.textFile("hdfs://localhost:8020/spark/wc/input/words.txt").flatMap(_.split("�
 
 sc.textFile("hdfs://myha01/spark/wc/input/words.txt").flatMap(_.split(" 
 ")).map((_,1)).reduceByKey(_+_).saveAsTextFile("hdfs://myha01/spark/wc/output")
+
+MAC安装hive
+ brew install hive
+ mysql> create database metastore;
+ mysql> create user 'hive'@'localhost' identified by '123456';
+ mysql> grant select,insert,update,delete,alter,create,index,references on metastore.* to 'hive'@'localhost';
+ mysql> flush privileges;
+
+$ cd /usr/local/Cellar/hive/2.1.1/libexec/conf
+$ cp hive-default.xml.template hive-site.xml
+<property>
+  <name>javax.jdo.option.ConnectionURL</name>
+  <value>jdbc:mysql://localhost/metastore</value>
+</property>
+<property>
+  <name>javax.jdo.option.ConnectionDriverName</name>
+  <value>com.mysql.jdbc.Driver</value>
+</property>
+<property>
+  <name>javax.jdo.option.ConnectionUserName</name>
+  <value>hive(填上述mysql中创建的用户名)</value>
+</property>
+<property>
+  <name>javax.jdo.option.ConnectionPassword</name>
+  <value>123456(填上述mysql中创建的用户密码)</value>
+</property>
+<property>
+  <name>hive.exec.local.scratchdir</name>
+  <value>/tmp/hive</value>
+</property>
+<property>
+  <name>hive.querylog.location</name>
+  <value>/tmp/hive</value>
+</property>
+<property>
+  <name>hive.downloaded.resources.dir</name>
+  <value>/tmp/hive</value>
+</property>
+<property>
+  <name>hive.server2.logging.operation.log.location</name>
+  <value>/tmp/hive</value>
+</property>
+
+cp mysql-connector-java-5.1.42/mysql-connector-java-5.1.42-bin.jar /usr/local/Cellar/hive/3.1.1/libexec/lib/
+schematool -initSchema -dbType mysql
+mysql> show tables;
+hive
+
+hive>create database hive_test;
+hive>show databases;
+hive>use hive_test;
+hive>create table student(id int, name string) row format delimited fields terminated by '\t';
+hive>show create table student;
+hive>show tables;
+hive>load data local inpath '/Users/student.txt' into table hive_test.student;
+hive>select * from hive_test.student;
+
+hive --service metastore &
 

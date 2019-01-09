@@ -16,13 +16,13 @@ import java.util.List;
 
 public class TransformationOperation {
     public static void main(String[] args) {
-        // map();
+         map();
         // filter();
         // flatMap();
         // groupByKey();
         // sortByKey();
         // join();
-        cogroup();
+        // cogroup();
     }
 
     private static void map(){
