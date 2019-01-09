@@ -177,5 +177,6 @@ object TestHive {
   }
 }
 
-
+Mac brew mysql安装参考
+https://www.cnblogs.com/walkerr/p/7289388.html
 
