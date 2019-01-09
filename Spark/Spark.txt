@@ -138,4 +138,44 @@ hive>load data local inpath '/Users/student.txt' into table hive_test.student;
 hive>select * from hive_test.student;
 
 hive --service metastore &
+在IDEA中运行hive
+在resource下增加hive-site.xml
+pom文件添加sparkSQL，Hive依赖配置
+ <dependency>
+    <groupId>org.apache.spark</groupId>
+    <artifactId>spark-sql_2.11</artifactId>
+    <version>${spark.version}</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.spark</groupId>
+    <artifactId>spark-hive_2.11</artifactId>
+    <version>2.4.0</version>
+</dependency>
+在hive-site.xml增加配置
+    <property>
+        <name>hive.metastore.warehouse.dir</name>
+        <value>/user/hive/warehouse</value>
+    </property>
+    <property>
+        <name>hive.metastore.local</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>hive.metastore.uris</name>
+        <value>thrift://localhost:9083</value>
+    </property>
+添加mysql驱动
+执行hive --service metastore &
+测试
+object TestHive {
+  def main(args: Array[String]): Unit = {
+    val conf = new SparkConf()
+      .setAppName("map")
+      .setMaster("local")
+    val spark = SparkSession.builder().enableHiveSupport().config(conf).getOrCreate()
+    spark.sql("show databases").collect().foreach(println)
+  }
+}
+
+
 

@@ -5,11 +5,11 @@ import org.apache.spark.{SparkConf, SparkContext}
 object TransformationOperation {
 
   def main(args: Array[String]): Unit = {
-    map()
+    //map()
     //filter()
     //flatMap()
     //groupByKey()
-    //reduceByKey()
+    reduceByKey()
     //sortByKey()
     //join()
     //cogroup()

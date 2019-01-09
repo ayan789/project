@@ -19,6 +19,7 @@ public class WordCountLocal {
         // 第一步：创建SparkConf对象,设置相关配置信息
         SparkConf conf = new SparkConf();
         conf.setAppName("WordCountLocal");
+        conf.setMaster("local");
 
 //        conf.setMaster("spark://192.168.1.106:51145");
         
@@ -29,7 +30,7 @@ public class WordCountLocal {
 
         // 第三步：创建一个初始的RDD
         // SparkContext中，用于根据文件类型的输入源创建RDD的方法，叫做textFile()方法
-        JavaRDD<String> lines = sc.textFile("hdfs://localhost:8020/spark/wc/input/words2.txt");
+        JavaRDD<String> lines = sc.textFile("hdfs://localhost:8020/words.txt");
         //从hdfs读取文件 hdfs://localhost:8020/spark/wc/input/words.txt
         //从本地读取文件 /Users/youth.s/projectOo/Spark/words.txt
 
