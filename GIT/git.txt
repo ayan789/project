@@ -44,3 +44,56 @@
 
 error: failed to push some refs to(远程库与本地库不一致)
 执行git pull --rebase origin yan（远程库同步到本地库）
+
+git勾子函数 自动更新
+cd /usr/src/app/
+git init --bare test.git 创建git远程仓库
+sudo adduser git 添加git用户
+sudo passwd git 添加用户密码
+sudo chown -R git:git test.git 文件所有权归属当前用户
+添加用户ssh免密登录权限 将项目组员的ssh公钥依次存储到 /home/git/.ssh/authorized_keys 文件中
+git clone git@server:/usr/src/app/test.git 本地clone远程仓库
+server 服务器公网ip
+自动化部署
+进入 /usr/src/app/test.git 目录下的 hooks 文件夹
+vim post-receive
+#!/bin/sh
+# 删除 GIT_DIR 环境变量，避免干扰
+unset GIT_DIR
+# 增加生产环境项目路径环境变量
+WORKPATH=/usr/share/nginx/test
+# 进入生产目录
+cd $WORKPATH
+cd /opt/un/test/
+echo "进入/opt/un/test/目录" > gitlog.txt
+git pull origin master
+#echo "拉取项目完成" > gitlog.txt
+#cp -rf Longm.war /n22/apache-tomcat-7.0.92/webapps/
+cd /n22/apache-tomcat-7.0.92/webapps/
+#echo "进入/n22/apache-tomcat-7.0.92/webapps/目录" > gitlog.txt
+#rm -rf Longm.zip
+#echo "删除Longm.zip包" > gitlog.txt
+rm -rf Longm
+#echo "删除Longm文件夹" > gitlog.txt
+cp -rf /opt/un/test/Longm ./
+#echo "拷贝新文件zip包" > gitlog.txt
+#unzip -o Longm.zip
+#echo "解压zip包" > gitlog.txt
+#rm -rf Longm.zip
+#echo "删除zip包" > gitlog.txt
+cd /n22/apache-tomcat-7.0.92/bin/
+#echo "进入/n22/apache-tomcat-7.0.92/bin目录" > gitlog.txt
+./shutdown.sh
+#echo "暂停tomcat" > gitlog.txt
+./startup.sh
+#echo "启动tomcat" > gitlog.txt
+echo 'done!!!'
+
+修改权限
+chown -R git:git post-receive
+chmod +x post-receive
+
+
+
+
+
