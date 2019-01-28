@@ -1,2 +1,10 @@
 uname -a（Linux查看版本当前操作系统内核信息）
 cat /etc/redhat-release  (查看CentOS版本)
+
+ping不通外网
+vi /etc/sysconfig/network-scripts/ifcfg-eth0
+BOOTPROTO=static
+DNS1=8.8.8.8
+DNS2=8.8.4.4
+service network restart
+cat /etc/resolv.conf
