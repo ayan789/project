@@ -1,0 +1,15 @@
+jdk8
+java -jar jenkins.war
+下载maven插件 
+系统管理－》全局工具配置
+1 配置JDK
+2 配置maven
+3 配置GIT
+下载SSH插件
+系统管理－》 系统设置
+配置Publish over SSH全局设置
+新建任务
+任务配置
+配置Source Code Management gitlab的http链接地址和用户名密码
+配置Build  Root POM：pom.xml 	Goals and options：install
+配置Post Steps SSH执行脚本
