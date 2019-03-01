@@ -1,5 +1,6 @@
 <template>
   <el-container>
+    <load :isShow="isShow"></load>
     <!-- header头部 开始 -->
     <el-header height="55px">
       <!-- <img  alt="logo"> -->
@@ -81,6 +82,7 @@ export default {
   name: "layout",
   data() {
     return { 
+      isShow:false,
       userName: "红孩儿",
       tagsList:[
           { title: "aa", path: "/layout/formDemo", name: "dashboard" },

@@ -27,6 +27,9 @@ window.codeData = codeData
 import uploader from 'vue-simple-uploader';
 Vue.use(uploader);
 
+// 封装称组件
+import load from '@/components/common/load'
+Vue.component('load',load)
 
 //全局filter引入
 import '@/filters/globalFilter.js'
