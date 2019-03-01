@@ -1,24 +1,15 @@
 <template>
   <div class="con scrolldiv">
-    <!-- 路径面包屑 开始 -->
-    <el-breadcrumb class="base-breadcrumb" separator="/">
-      <el-breadcrumb-item>运营平台</el-breadcrumb-item>
-      <el-breadcrumb-item>demo</el-breadcrumb-item>
-      <el-breadcrumb-item>form</el-breadcrumb-item>
-    </el-breadcrumb>
-     <!-- 路径面包屑 结束 -->
-     <!-- 搜索form 开始 -->
-    <el-form class="base-search-form"  label-width="80px">
-      <el-row>
-        <el-form-item label="活动名称" class="bit">
-          <el-input class="base-input-text " ></el-input>
-        </el-form-item>
-        <el-form-item label="活动类型" class="bit">
-          <el-input class="base-input-text " ></el-input>
-        </el-form-item>
-      </el-row>
-    </el-form>
-    <!-- 搜索form 结束 -->
+    <uploader :options="options" class="uploader-example" >
+    <uploader-unsupport></uploader-unsupport>
+    <uploader-drop>
+    <uploader-btn>上传文件</uploader-btn>
+    <!-- <uploader-btn :attrs="attrs">select images</uploader-btn>
+    <uploader-btn :directory="true">select folder</uploader-btn>-->
+    </uploader-drop>
+    <uploader-list></uploader-list>
+    </uploader>
+
   </div>
 </template>
 
@@ -27,7 +18,18 @@ export default {
   name: 'formDemo',
   data () {
     return {
-      msg: 'Hello formDemo'
+      msg: 'Hello formDemo',
+      options: {
+      // https://github.com/simple-uploader/Uploader/tree/develop/samples/Node.js
+      target: "http://localhost:8080/Excel/reada3",
+      // target:"//192.168.1.108:8080/reada",
+      testChunks: false, //是否开启服务器分片校验
+      chunkSize: '10485760', //分块大小1gb = 1073741824 10mb = 10485760
+      },
+      attrs: {
+      accept: "image/*"
+      }
+
     }
   }
 }

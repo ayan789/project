@@ -23,6 +23,11 @@ window.tableData = tableData
 import codeData from '@/assets/data/codeData'
 window.codeData = codeData
 
+// 分片上传控件
+import uploader from 'vue-simple-uploader';
+Vue.use(uploader);
+
+
 //全局filter引入
 import '@/filters/globalFilter.js'
 

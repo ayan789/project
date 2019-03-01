@@ -1,6 +1,6 @@
 /* ------------------------------------------全局配置------------------------------------------ */
 const globalConfig = {
-  serverUrl: 'https://wxdat.yezisoft.com/com.ifp.omsbusiness', //server根地址
+  serverUrl: 'https://rhssm.rhassurance.com/com.ifp.omsbusiness/', //server根地址
   timeout: 60000, //请求超时时间
   env: 'dat', //当前开发环境，dat uat pro
 }
