@@ -82,7 +82,7 @@ export default {
   name: "layout",
   data() {
     return { 
-      isShow:false,
+      isShow:true,
       userName: "红孩儿",
       tagsList:[
           { title: "aa", path: "/layout/formDemo", name: "dashboard" },
@@ -344,6 +344,9 @@ export default {
       }
      
       
+    },
+    end(){
+      this.isShow=false
     }
   },
   components: {
@@ -372,6 +375,9 @@ export default {
     if (document.body.clientWidth < 1500) {
       this.collapseChage()
     }
+    setTimeout(() => {
+       this.end();
+      }, 3000);
   }
 };
 </script>
