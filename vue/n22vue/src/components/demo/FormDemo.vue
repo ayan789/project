@@ -13,7 +13,8 @@
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
+import $ from "jquery";
 export default {
   name: 'formDemo',
   data () {
@@ -29,10 +30,15 @@ export default {
       attrs: {
       accept: "image/*"
       }
-
     }
+  },
+  created() {
+       console.log($);
   }
 }
+$(function() {
+  console.log('jquery...');
+});
 </script>
 
 <style lang="scss" scoped>
