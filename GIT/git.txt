@@ -26,6 +26,7 @@
  add过，commit过
  执行 git log （查看commit日志）
  执行 git reset --hard 8579ea56f7b1dd9a2bb845b3fd27f9e77340598b （回滚到指定版本）
+ 执行 git push -f （强制提交到服务器分支）
 
  合并提交 （本地提交多次，未向服务器提交）
  执行 git log （查看提交历史）
