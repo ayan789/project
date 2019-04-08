@@ -170,3 +170,4 @@ Caused by: java.lang.ClassNotFoundException: Cannot find class: cn.abel.bean.New
 2019-04-08 16:58:56.969  INFO 11861 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2019-04-08 16:58:56.971  INFO 11861 --- [Thread-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2019-04-08 16:58:56.979  INFO 11861 --- [Thread-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-04-08 18:40:51.644  INFO 11854 --- [Thread-3] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
