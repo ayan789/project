@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$USER_HOME$/Downloads/demo" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yan-admin" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yan-config" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yan-dependencies" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yan-eureka" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yan-zipkin" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yan-zuul" charset="UTF-8" />
+  </component>
+</project>

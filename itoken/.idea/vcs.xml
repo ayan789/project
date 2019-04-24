@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/yan-admin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/yan-config" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/yan-dependencies" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/yan-eureka" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/yan-zipkin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/yan-zuul" vcs="Git" />
+  </component>
+</project>
