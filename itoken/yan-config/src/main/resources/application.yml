@@ -1,6 +1,15 @@
 spring:
   application:
     name: yan-config
+  cloud:
+      config:
+        label: yan
+        server:
+          git:
+            uri: https://github.com/ayan789/project.git
+            search-paths: config-repo
+            username: 704627050@qq.com
+            password: 7Ajbsfhlm9*ksf
 server:
   port: 8083
 eureka:

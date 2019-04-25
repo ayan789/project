@@ -11,10 +11,4 @@ public class IndexController {
     public String index(){
         return "up config";
     }
-
-    @GetMapping("/desc")
-    public void desc(){
-        DemoUtils desc = new DemoUtils();
-        desc.common();
-    }
 }

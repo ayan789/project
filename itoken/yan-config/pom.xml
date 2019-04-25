@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>config</artifactId>
+	<artifactId>yan-config</artifactId>
 	<version>0.0.2-SNAPSHOT</version>
-	<name>config</name>
+	<name>yan-config</name>
 	<description>Demo project for Spring Boot</description>
 	<distributionManagement>
 		<repository>
@@ -56,10 +56,10 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.example</groupId>
-			<artifactId>eureka</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-server</artifactId>
 		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
