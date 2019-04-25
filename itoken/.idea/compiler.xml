@@ -12,6 +12,9 @@
         <module name="demo" />
         <module name="dependencies" />
         <module name="eureka" />
+        <module name="spring-cloud-config-client" />
+        <module name="spring-cloud-config-server" />
+        <module name="spring-cloud-eureka" />
         <module name="zipkin" />
         <module name="zuul" />
       </profile>
@@ -22,6 +25,9 @@
       <module name="demo" target="1.8" />
       <module name="dependencies" target="1.8" />
       <module name="eureka" target="1.8" />
+      <module name="spring-cloud-config-client" target="1.8" />
+      <module name="spring-cloud-config-server" target="1.8" />
+      <module name="spring-cloud-eureka" target="1.8" />
       <module name="zipkin" target="1.8" />
       <module name="zuul" target="1.8" />
     </bytecodeTargetLevel>

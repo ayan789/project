@@ -7,6 +7,9 @@
       <module fileurl="file://$USER_HOME$/Downloads/demo/demo.iml" filepath="$USER_HOME$/Downloads/demo/demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/yan-dependencies/dependencies.iml" filepath="$PROJECT_DIR$/yan-dependencies/dependencies.iml" />
       <module fileurl="file://$PROJECT_DIR$/yan-eureka/eureka.iml" filepath="$PROJECT_DIR$/yan-eureka/eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-config-client/spring-cloud-config-client.iml" filepath="$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-config-client/spring-cloud-config-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-config-server/spring-cloud-config-server.iml" filepath="$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-config-server/spring-cloud-config-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-eureka/spring-cloud-eureka.iml" filepath="$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-eureka/spring-cloud-eureka.iml" />
       <module fileurl="file://$PROJECT_DIR$/yan-zipkin/zipkin.iml" filepath="$PROJECT_DIR$/yan-zipkin/zipkin.iml" />
       <module fileurl="file://$PROJECT_DIR$/yan-zuul/zuul.iml" filepath="$PROJECT_DIR$/yan-zuul/zuul.iml" />
     </modules>

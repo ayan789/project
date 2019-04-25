@@ -13,6 +13,9 @@
         <option value="$PROJECT_DIR$/yan-admin/pom.xml" />
         <option value="$PROJECT_DIR$/yan-zuul/pom.xml" />
         <option value="$PROJECT_DIR$/yan-zipkin/pom.xml" />
+        <option value="$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-config-client/pom.xml" />
+        <option value="$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-config-server/pom.xml" />
       </list>
     </option>
   </component>
