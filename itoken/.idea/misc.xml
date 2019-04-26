@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="ES6" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$USER_HOME$/Downloads/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/yan-dependencies/pom.xml" />
+        <option value="$PROJECT_DIR$/yan-eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/yan-config/pom.xml" />
+        <option value="$PROJECT_DIR$/yan-admin/pom.xml" />
+        <option value="$PROJECT_DIR$/yan-zuul/pom.xml" />
+        <option value="$PROJECT_DIR$/yan-zipkin/pom.xml" />
+        <option value="$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-config-client/pom.xml" />
+        <option value="$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-config-server/pom.xml" />
+      </list>
+    </option>
+  </component>
+</project>

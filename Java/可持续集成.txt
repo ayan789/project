@@ -1,0 +1,7 @@
+代码托管服务 GitLab
+项目构建 maven
+测试checkin Jmeter
+持续交付 Jenkins
+部署 Docker
+报表管理 Kubernetes
+
