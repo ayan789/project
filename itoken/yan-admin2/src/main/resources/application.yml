@@ -1,0 +1,8 @@
+spring:
+    application:
+        name: yan-admin
+server:
+    port: 8085
+management:
+  security:
+    enabled: false

@@ -21,7 +21,7 @@ eureka:
 management:
   context-path: /foo
   server:
-      port: 8083
+    port: 8083
   endpoints:
     web:
       exposure:

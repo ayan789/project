@@ -9,10 +9,6 @@ spring:
           search-paths: config-repo                 # git仓库地址下的相对地址，可以配置多个，用,分割。
           username: 704627050@qq.com                # git仓库的账号
           password: 7Ajbsfhlm9*ksf                  # git仓库的密码
-       discovery:
-        enabled: true
-        serviceId:
-
 server:
   port: 8083
 eureka:
@@ -25,7 +21,7 @@ eureka:
 management:
   context-path: /foo
   server:
-      port: 8083
+    port: 8083
   endpoints:
     web:
       exposure:
@@ -35,5 +31,3 @@ management:
 endpoints:
   restart:
         enabled: true
-spring.cloud.config.discovery.enabled=true
-spring.cloud.config.discovery.serviceId=config-server
