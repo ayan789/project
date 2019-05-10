@@ -4,6 +4,13 @@
     <list default="true" id="4fecc4b8-c4bd-4b94-ad3b-32425993f6fa" name="默认" comment="">
       <change afterPath="$PROJECT_DIR$/yan-admin/src/main/resources/bootstrap.properties" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/yan-eureka/src/main/java/com/example/demo/DemoUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/CurrencyLoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/Token.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/FilterConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/JwtCheckGatewayFilterFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/MyFilter1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/MyFilter2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/Token.java" afterDir="false" />
     </list>
     <ignored path="$USER_HOME$/Downloads/demo/target/" />
     <ignored path="$PROJECT_DIR$/yan-dependencies/target/" />
@@ -17,6 +24,7 @@
     <ignored path="$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-config-server/target/" />
     <ignored path="$PROJECT_DIR$/yan-admin2/target/" />
     <ignored path="$PROJECT_DIR$/yan-feign/target/" />
+    <ignored path="$PROJECT_DIR$/yan-sso/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,20 +37,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="application.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yan-feign/src/main/resources/application.yml">
+      <file leaf-file-name="CurrencyLoginController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/CurrencyLoginController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27">
-              <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EurekaApp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yan-eureka/src/main/java/com/example/demo/EurekaApp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+            <state relative-caret-position="270">
+              <caret line="10" column="26" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -50,88 +49,100 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="application.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yan-config/src/main/resources/application.yml">
+      <file leaf-file-name="JwtCheckGatewayFilterFactory.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/JwtCheckGatewayFilterFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="13" column="7" lean-forward="true" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
+            <state relative-caret-position="283">
+              <caret line="27" column="51" lean-forward="true" selection-start-line="23" selection-start-column="10" selection-end-line="27" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="application.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/resources/application.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="27">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="IndexController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yan-config/src/main/java/com/example/demo/IndexController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConfigApp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yan-config/src/main/java/com/example/demo/ConfigApp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Admin2App.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yan-admin2/src/main/java/com/example/demo/Admin2App.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="application.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yan-admin2/src/main/resources/application.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="4" column="14" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yan-admin2/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="YanFeignApplication.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/yan-feign/src/main/java/com/example/yanfeign/YanFeignApplication.java">
+        <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/IndexController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="189">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+              <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AdminApp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yan-admin/src/main/java/com/example/demo/AdminApp.java">
+      <file leaf-file-name="FilterConfig.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/FilterConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+            <state relative-caret-position="258">
+              <caret line="25" column="15" lean-forward="true" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#422#423#0" expanded="true" />
+                <element signature="e#306#307#0" expanded="true" />
+                <element signature="e#368#369#0" expanded="true" />
+                <element signature="e#417#418#0" expanded="true" />
                 <element signature="e#472#473#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MyFilter1.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/MyFilter1.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="25" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2058#2059#0" expanded="true" />
+                <element signature="e#2126#2127#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MyFilter2.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/MyFilter2.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="53" column="13" lean-forward="true" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2822#2823#0" expanded="true" />
+                <element signature="e#2890#2891#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Token.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/Token.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-139">
+              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ZuulApp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/ZuulApp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SsoApp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/SsoApp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
             </state>
           </provider>
         </entry>
@@ -146,22 +157,22 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>generateToken</find>
+      <find>creatToken</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/yan-admin" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/yan-zuul" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$USER_HOME$/Downloads/demo/src/main/java/com/example/demo/IndexController.java" />
-        <option value="$PROJECT_DIR$/yan-dependencies/src/main/java/com/example/demo/IndexController.java" />
-        <option value="$PROJECT_DIR$/yan-dependencies/src/main/java/com/example/demo/DependenciesApp.java" />
-        <option value="$PROJECT_DIR$/yan-dependencies/pom.xml" />
-        <option value="$PROJECT_DIR$/yan-eureka/src/main/java/com/example/demo/IndexController.java" />
         <option value="$PROJECT_DIR$/yan-dependencies/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/yan-config/src/main/resources/application.properties" />
         <option value="$USER_HOME$/Downloads/demo/pom.xml" />
         <option value="$PROJECT_DIR$/yan-eureka/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/yan-zuul/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/ZuulApp.java" />
         <option value="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/IndexController.java" />
         <option value="$PROJECT_DIR$/yan-zipkin/src/main/resources/application.properties" />
@@ -173,12 +184,9 @@
         <option value="$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-config-client/pom.xml" />
         <option value="$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-config-client/src/main/java/com/neo/web/HelloController.java" />
         <option value="$PROJECT_DIR$/yan-admin/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/yan-eureka/pom.xml" />
-        <option value="$PROJECT_DIR$/yan-config/pom.xml" />
         <option value="$PROJECT_DIR$/yan-eureka/src/main/resources/application.yml" />
         <option value="$PROJECT_DIR$/yan-admin/src/main/java/com/example/demo/AdminApp.java" />
         <option value="$PROJECT_DIR$/yan-config/src/main/resources/bootstrap.properties" />
-        <option value="$PROJECT_DIR$/yan-config/src/main/java/com/example/demo/ConfigApp.java" />
         <option value="$PROJECT_DIR$/yan-config/src/main/java/com/example/demo/IndexController.java" />
         <option value="$PROJECT_DIR$/yan-admin/src/main/resources/bootstrap.properties" />
         <option value="$PROJECT_DIR$/yan-admin/pom.xml" />
@@ -193,7 +201,25 @@
         <option value="$PROJECT_DIR$/yan-feign/src/main/java/com/example/yanfeign/ConsumerController.java" />
         <option value="$PROJECT_DIR$/yan-feign/src/main/java/com/example/yanfeign/HomeFeignClient.java" />
         <option value="$PROJECT_DIR$/yan-feign/src/main/java/com/example/yanfeign/YanFeignApplication.java" />
+        <option value="$PROJECT_DIR$/yan-zipkin/src/main/java/com/example/demo/ZipkinApp.java" />
+        <option value="$PROJECT_DIR$/yan-config/src/main/java/com/example/demo/ConfigApp.java" />
         <option value="$PROJECT_DIR$/yan-config/src/main/resources/application.yml" />
+        <option value="$PROJECT_DIR$/yan-zipkin/src/main/resources/application.yml" />
+        <option value="$PROJECT_DIR$/yan-zipkin/pom.xml" />
+        <option value="$PROJECT_DIR$/yan-config/pom.xml" />
+        <option value="$PROJECT_DIR$/yan-eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/yan-sso/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/IndexController.java" />
+        <option value="$PROJECT_DIR$/yan-sso/pom.xml" />
+        <option value="$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/Token.java" />
+        <option value="$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/CurrencyLoginController.java" />
+        <option value="$PROJECT_DIR$/yan-zuul/pom.xml" />
+        <option value="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/Token.java" />
+        <option value="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/JwtCheckGatewayFilterFactory.java" />
+        <option value="$PROJECT_DIR$/yan-zuul/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/FilterConfig.java" />
+        <option value="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/MyFilter1.java" />
+        <option value="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/MyFilter2.java" />
       </list>
     </option>
   </component>
@@ -212,50 +238,7 @@
   </component>
   <component name="MavenProjectNavigator">
     <treeState>
-      <expand>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="admin" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="admin" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Plugins" type="7aea1407:MavenProjectsStructure$PluginsNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="admin" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Plugins" type="7aea1407:MavenProjectsStructure$PluginsNode" />
-          <item name="clean" type="36feed69:MavenProjectsStructure$PluginNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="admin" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Plugins" type="7aea1407:MavenProjectsStructure$PluginsNode" />
-          <item name="install" type="36feed69:MavenProjectsStructure$PluginNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="yan-eureka" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="yan-eureka" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Plugins" type="7aea1407:MavenProjectsStructure$PluginsNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="yan-eureka" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Plugins" type="7aea1407:MavenProjectsStructure$PluginsNode" />
-          <item name="clean" type="36feed69:MavenProjectsStructure$PluginNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="yan-eureka" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Plugins" type="7aea1407:MavenProjectsStructure$PluginsNode" />
-          <item name="install" type="36feed69:MavenProjectsStructure$PluginNode" />
-        </path>
-      </expand>
+      <expand />
       <select />
     </treeState>
   </component>
@@ -263,52 +246,55 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="5" />
+    <option name="x" value="1" />
     <option name="y" value="23" />
     <option name="width" value="1680" />
-    <option name="height" value="982" />
+    <option name="height" value="976" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="itoken" type="b2602c69:ProjectViewProjectNode" />
-              <item name="yan-feign" type="462c0819:PsiDirectoryNode" />
+              <item name="yan-zuul" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="itoken" type="b2602c69:ProjectViewProjectNode" />
-              <item name="yan-feign" type="462c0819:PsiDirectoryNode" />
+              <item name="yan-zuul" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="itoken" type="b2602c69:ProjectViewProjectNode" />
-              <item name="yan-feign" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="itoken" type="b2602c69:ProjectViewProjectNode" />
-              <item name="yan-feign" type="462c0819:PsiDirectoryNode" />
+              <item name="yan-zuul" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="itoken" type="b2602c69:ProjectViewProjectNode" />
-              <item name="yan-feign" type="462c0819:PsiDirectoryNode" />
+              <item name="yan-zuul" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="yanfeign" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="itoken" type="b2602c69:ProjectViewProjectNode" />
-              <item name="yan-feign" type="462c0819:PsiDirectoryNode" />
+              <item name="yan-zuul" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="demo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="itoken" type="b2602c69:ProjectViewProjectNode" />
+              <item name="yan-zuul" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
@@ -317,9 +303,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -342,6 +325,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.demo" />
       <recent name="com.example.yanadmin2" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -362,7 +346,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.YanFeignApplication">
+  <component name="RunManager" selected="Spring Boot.ZuulApp">
     <configuration name="ConfigApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.demo.ConfigApp" />
       <module name="config" />
@@ -374,24 +358,24 @@
         </pattern>
       </extension>
     </configuration>
-    <configuration name="ConfigClientApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.neo.ConfigClientApplication" />
-      <module name="spring-cloud-config-client" />
+    <configuration name="SsoApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.demo.SsoApp" />
+      <module name="SSO" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.neo.*" />
+          <option name="PATTERN" value="com.example.demo.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
     </configuration>
-    <configuration name="ConfigServerApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.neo.ConfigServerApplication" />
-      <module name="spring-cloud-config-server" />
+    <configuration name="Token" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.demo.Token" />
+      <module name="SSO" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.neo.*" />
+          <option name="PATTERN" value="com.example.demo.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -433,9 +417,21 @@
       <module name="config" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.ConfigApp" />
     </configuration>
+    <configuration name="ConfigClientApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="spring-cloud-config-client" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.neo.ConfigClientApplication" />
+    </configuration>
+    <configuration name="ConfigServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="spring-cloud-config-server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.neo.ConfigServerApplication" />
+    </configuration>
     <configuration name="DemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="demo" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.DemoApplication" />
+    </configuration>
+    <configuration name="DependenciesApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="dependencies" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.DependenciesApp" />
     </configuration>
     <configuration name="EurekaApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="eureka" />
@@ -446,6 +442,14 @@
         </pattern>
       </extension>
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.EurekaApp" />
+    </configuration>
+    <configuration name="SpringCloudEurekaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="spring-cloud-eureka" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.neo.SpringCloudEurekaApplication" />
+    </configuration>
+    <configuration name="SsoApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="SSO" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.SsoApp" />
     </configuration>
     <configuration name="YanAdmin2Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="yan-admin2" />
@@ -460,6 +464,10 @@
         </pattern>
       </extension>
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.yanfeign.YanFeignApplication" />
+    </configuration>
+    <configuration name="ZipkinApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="zipkin" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.ZipkinApp" />
     </configuration>
     <configuration name="ZuulApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="zuul" />
@@ -493,19 +501,25 @@
       <item itemvalue="Spring Boot.AdminApp" />
       <item itemvalue="Spring Boot.ZuulApp" />
       <item itemvalue="Spring Boot.YanAdmin2Application" />
+      <item itemvalue="Spring Boot.ZipkinApp" />
+      <item itemvalue="Spring Boot.DependenciesApp" />
+      <item itemvalue="Spring Boot.SpringCloudEurekaApplication" />
+      <item itemvalue="Spring Boot.ConfigServerApplication" />
+      <item itemvalue="Spring Boot.ConfigClientApplication" />
+      <item itemvalue="Spring Boot.SsoApp" />
       <item itemvalue="Spring Boot.EurekaApp" />
       <item itemvalue="Application.ConfigApp" />
-      <item itemvalue="Application.ConfigServerApplication" />
-      <item itemvalue="Application.ConfigClientApplication" />
       <item itemvalue="Spring Boot.YanFeignApplication" />
+      <item itemvalue="Application.SsoApp" />
+      <item itemvalue="Application.Token" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SsoApp" />
         <item itemvalue="Spring Boot.YanFeignApplication" />
         <item itemvalue="Application.ConfigApp" />
         <item itemvalue="Spring Boot.EurekaApp" />
-        <item itemvalue="Application.ConfigClientApplication" />
-        <item itemvalue="Application.ConfigServerApplication" />
+        <item itemvalue="Application.Token" />
       </list>
     </recent_temporary>
   </component>
@@ -527,11 +541,17 @@
       <workItem from="1556175975444" duration="11963000" />
       <workItem from="1556244308152" duration="13829000" />
       <workItem from="1556264021484" duration="1641000" />
+      <workItem from="1556290926567" duration="897000" />
+      <workItem from="1556372715555" duration="7457000" />
+      <workItem from="1557281967645" duration="2273000" />
+      <workItem from="1557284575923" duration="5000" />
+      <workItem from="1557284741854" duration="6388000" />
+      <workItem from="1557460822830" duration="8579000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49521000" />
+    <option name="totallyTimeSpent" value="75120000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -543,13 +563,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="976" extended-state="6" />
+    <frame x="1" y="29" width="1680" height="976" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.35225886" side_tool="true" weight="0.5225434" />
-      <window_info anchor="bottom" id="JRebel Console" order="7" sideWeight="0.24114774" side_tool="true" visible="true" weight="0.40231213" />
+      <window_info anchor="bottom" id="JRebel Console" order="7" sideWeight="0.113553114" side_tool="true" visible="true" weight="0.39537573" />
       <window_info anchor="right" id="Maven Projects" order="3" weight="0.32967034" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="JRebel Executor" order="7" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="调色板" order="3" />
       <window_info id="Capture Tool" order="2" />
       <window_info anchor="right" id="Database" order="3" />
@@ -558,16 +579,16 @@
       <window_info id="UI Designer" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.8076923" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.498779" weight="0.32947975" />
-      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.498779" weight="0.32947975" />
+      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.497558" weight="0.32947975" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Java Enterprise" order="8" sideWeight="0.498779" weight="0.32947975" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.8864469" visible="true" weight="0.39537573" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4993895" weight="0.32947975" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.75885224" weight="0.40231213" />
       <window_info anchor="bottom" id="Spring" order="7" sideWeight="0.4993895" weight="0.32947975" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.4993895" weight="0.32947975" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49827588" visible="true" weight="0.25885227" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49827588" visible="true" weight="0.2771673" />
       <window_info anchor="right" id="Bean Validation" order="4" weight="0.32967034" />
       <window_info id="Web" order="3" side_tool="true" />
       <window_info id="JRebel" order="2" side_tool="true" />
@@ -601,139 +622,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/yan-dependencies/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/demo/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="24" column="21" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/demo/src/main/java/com/example/demo/IndexController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" selection-start-line="4" selection-end-line="5" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-dependencies/src/main/java/com/example/demo/DependenciesApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/demo/src/main/java/com/example/demo/DemoApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/demo/src/main/java/com/example/demo/IndexController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" selection-start-line="4" selection-end-line="5" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/demo/src/main/java/com/example/demo/DemoApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-dependencies/src/main/java/com/example/demo/IndexController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-dependencies/src/main/java/com/example/demo/DependenciesApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-eureka/src/main/java/com/example/demo/IndexController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" column="25" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-dependencies/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/demo/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="12" column="37" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/ZuulApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/IndexController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-zipkin/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-zipkin/src/main/java/com/example/demo/IndexController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-zipkin/src/main/java/com/example/demo/ZipkinApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-dependencies/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-334">
-          <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yan-eureka/src/main/java/com/example/demo/DemoUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
@@ -804,28 +692,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/yan-eureka/src/main/resources/application.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yan-config/src/main/resources/bootstrap.properties" />
-    <entry file="file://$PROJECT_DIR$/yan-config/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="59" column="50" lean-forward="true" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-eureka/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="27" column="29" selection-end-line="82" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yan-admin/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="172">
@@ -840,122 +707,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/yan-admin/src/main/resources/application.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="5" selection-start-line="5" selection-end-line="7" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-admin/src/main/resources/bootstrap.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" column="66" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-feign/src/main/java/com/example/yanfeign/HomeFeignClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-feign/src/main/java/com/example/yanfeign/ConsumerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-admin2/src/main/java/com/example/demo/IndexController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-admin/src/main/java/com/example/demo/IndexController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="22" column="24" lean-forward="true" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#560#561#0" expanded="true" />
-            <element signature="e#609#610#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yan-feign/src/main/resources/application.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="27">
           <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-eureka/src/main/java/com/example/demo/EurekaApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-config/src/main/java/com/example/demo/IndexController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-config/src/main/java/com/example/demo/ConfigApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-config/src/main/resources/application.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="13" column="7" lean-forward="true" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-admin/src/main/java/com/example/demo/AdminApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#422#423#0" expanded="true" />
-            <element signature="e#472#473#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-admin2/src/main/java/com/example/demo/Admin2App.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -968,15 +723,278 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/yan-admin2/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
+        <state relative-caret-position="405">
           <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zipkin/src/main/java/com/example/demo/IndexController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zipkin/src/main/java/com/example/demo/ZipkinApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zipkin/src/main/resources/application.yml" />
+    <entry file="file://$PROJECT_DIR$/yan-zipkin/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="7" column="40" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-config/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-eureka/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-eureka/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="918">
+          <caret line="34" column="8" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-admin/src/main/java/com/example/demo/IndexController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="17" column="27" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-config/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="7" column="50" selection-start-line="7" selection-start-column="15" selection-end-line="7" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-admin/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-admin/src/main/resources/bootstrap.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="6" column="66" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/IndexController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-sso/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/Token.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2619">
+          <caret line="106" column="9" selection-start-line="88" selection-start-column="8" selection-end-line="106" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-feign/src/main/java/com/example/yanfeign/ConsumerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="12" column="31" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-sso/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1107">
+          <caret line="41" column="21" selection-start-line="37" selection-start-column="8" selection-end-line="41" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zuul/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1107">
+          <caret line="41" column="19" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-eureka/src/main/java/com/example/demo/EurekaApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-config/src/main/java/com/example/demo/ConfigApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-admin/src/main/java/com/example/demo/AdminApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#422#423#0" expanded="true" />
+            <element signature="e#472#473#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-config/src/main/java/com/example/demo/IndexController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="11" selection-start-column="11" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-admin2/src/main/java/com/example/demo/IndexController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-admin2/src/main/java/com/example/demo/Admin2App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-feign/src/main/java/com/example/yanfeign/HomeFeignClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/yan-feign/src/main/java/com/example/yanfeign/YanFeignApplication.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/SsoApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/CurrencyLoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="10" column="26" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/Token.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-139">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/JwtCheckGatewayFilterFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="27" column="51" lean-forward="true" selection-start-line="23" selection-start-column="10" selection-end-line="27" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/ZuulApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/MyFilter1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2058#2059#0" expanded="true" />
+            <element signature="e#2126#2127#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/IndexController.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/FilterConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="25" column="15" lean-forward="true" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#306#307#0" expanded="true" />
+            <element signature="e#368#369#0" expanded="true" />
+            <element signature="e#417#418#0" expanded="true" />
+            <element signature="e#472#473#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/MyFilter2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="53" column="13" lean-forward="true" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2822#2823#0" expanded="true" />
+            <element signature="e#2890#2891#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1032,7 +1050,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>yan-feign</last-edited>
+          <last-edited>SSO</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

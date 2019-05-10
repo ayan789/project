@@ -5,6 +5,7 @@
     <mapping directory="$PROJECT_DIR$/yan-config" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/yan-dependencies" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/yan-eureka" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/yan-sso" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/yan-zipkin" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/yan-zuul" vcs="Git" />
   </component>

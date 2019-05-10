@@ -15,6 +15,7 @@
         <module name="spring-cloud-config-client" />
         <module name="spring-cloud-config-server" />
         <module name="spring-cloud-eureka" />
+        <module name="SSO" />
         <module name="yan-admin2" />
         <module name="yan-feign" />
         <module name="zipkin" />
@@ -30,6 +31,7 @@
       <module name="spring-cloud-config-client" target="1.8" />
       <module name="spring-cloud-config-server" target="1.8" />
       <module name="spring-cloud-eureka" target="1.8" />
+      <module name="SSO" target="1.8" />
       <module name="yan-admin2" target="1.8" />
       <module name="yan-feign" target="1.8" />
       <module name="zipkin" target="1.8" />
