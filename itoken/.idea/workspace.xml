@@ -6,6 +6,12 @@
       <change afterPath="$PROJECT_DIR$/yan-eureka/src/main/java/com/example/demo/DemoUtils.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/CurrencyLoginController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/Token.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/UserDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yan-sso/src/main/resources/mapper/UserDaoMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yan-sso/src/test/java/com/example/demo/BaseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yan-sso/src/test/java/com/example/demo/ServiceTest.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/FilterConfig.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/JwtCheckGatewayFilterFactory.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/MyFilter1.java" afterDir="false" />
@@ -37,11 +43,59 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CurrencyLoginController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/CurrencyLoginController.java">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yan-sso/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="10" column="26" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="26" />
+            <state relative-caret-position="92">
+              <caret line="48" column="21" lean-forward="true" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/User.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="24" lean-forward="true" selection-start-column="8" selection-end-column="24" />
+              <folding>
+                <element signature="e#285#286#0" expanded="true" />
+                <element signature="e#310#311#0" expanded="true" />
+                <element signature="e#347#348#0" expanded="true" />
+                <element signature="e#375#376#0" expanded="true" />
+                <element signature="e#406#407#0" expanded="true" />
+                <element signature="e#433#434#0" expanded="true" />
+                <element signature="e#473#474#0" expanded="true" />
+                <element signature="e#505#506#0" expanded="true" />
+                <element signature="e#539#540#0" expanded="true" />
+                <element signature="e#569#570#0" expanded="true" />
+                <element signature="e#615#616#0" expanded="true" />
+                <element signature="e#653#654#0" expanded="true" />
+                <element signature="e#686#687#0" expanded="true" />
+                <element signature="e#715#716#0" expanded="true" />
+                <element signature="e#759#760#0" expanded="true" />
+                <element signature="e#795#796#0" expanded="true" />
+                <element signature="e#827#828#0" expanded="true" />
+                <element signature="e#855#856#0" expanded="true" />
+                <element signature="e#897#898#0" expanded="true" />
+                <element signature="e#931#932#0" expanded="true" />
+                <element signature="e#966#967#0" expanded="true" />
+                <element signature="e#999#1000#0" expanded="true" />
+                <element signature="e#1049#1050#0" expanded="true" />
+                <element signature="e#1093#1094#0" expanded="true" />
+                <element signature="e#1125#1126#0" expanded="true" />
+                <element signature="e#1152#1153#0" expanded="true" />
+                <element signature="e#1193#1194#0" expanded="true" />
+                <element signature="e#1225#1226#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserDao.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/UserDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="296">
+              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -49,91 +103,62 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JwtCheckGatewayFilterFactory.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/JwtCheckGatewayFilterFactory.java">
+      <file leaf-file-name="UserDaoMapper.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yan-sso/src/main/resources/mapper/UserDaoMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
-              <caret line="27" column="51" lean-forward="true" selection-start-line="23" selection-start-column="10" selection-end-line="27" selection-end-column="51" />
+            <state relative-caret-position="162">
+              <caret line="6" column="53" lean-forward="true" selection-start-line="6" selection-start-column="53" selection-end-line="6" selection-end-column="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BaseTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yan-sso/src/test/java/com/example/demo/BaseTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServiceTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yan-sso/src/test/java/com/example/demo/ServiceTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="125">
+              <caret line="11" column="36" lean-forward="true" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/UserService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="189">
+              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#320#321#0" expanded="true" />
+                <element signature="e#364#365#0" expanded="true" />
+                <element signature="e#402#403#0" expanded="true" />
+                <element signature="e#444#445#0" expanded="true" />
+                <element signature="e#666#667#0" expanded="true" />
+                <element signature="e#707#708#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="application.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/resources/application.properties">
+        <entry file="file://$PROJECT_DIR$/yan-sso/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27">
-              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IndexController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/IndexController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FilterConfig.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/FilterConfig.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="25" column="15" lean-forward="true" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#306#307#0" expanded="true" />
-                <element signature="e#368#369#0" expanded="true" />
-                <element signature="e#417#418#0" expanded="true" />
-                <element signature="e#472#473#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MyFilter1.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/MyFilter1.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="25" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2058#2059#0" expanded="true" />
-                <element signature="e#2126#2127#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MyFilter2.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/MyFilter2.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="53" column="13" lean-forward="true" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2822#2823#0" expanded="true" />
-                <element signature="e#2890#2891#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Token.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/Token.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-139">
-              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ZuulApp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/ZuulApp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+            <state relative-caret-position="324">
+              <caret line="12" column="37" lean-forward="true" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -141,8 +166,17 @@
       <file leaf-file-name="SsoApp.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/SsoApp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+            <state relative-caret-position="135">
+              <caret line="6" column="19" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="YanFeignApplication.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yan-feign/src/main/java/com/example/yanfeign/YanFeignApplication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="15" selection-start-line="15" selection-end-line="15" />
             </state>
           </provider>
         </entry>
@@ -153,6 +187,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="spring-beans.schema" />
         <option value="Class" />
       </list>
     </option>
@@ -161,20 +196,20 @@
     <findStrings>
       <find>generateToken</find>
       <find>creatToken</find>
+      <find>com.example.demo.User</find>
+      <find>com.yan.spb.spb.User</find>
     </findStrings>
+    <replaceStrings>
+      <replace>com.yan.spb.spb.User</replace>
+      <replace>com.example.demo.User</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/yan-zuul" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/yan-sso" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/yan-dependencies/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/yan-config/src/main/resources/application.properties" />
-        <option value="$USER_HOME$/Downloads/demo/pom.xml" />
-        <option value="$PROJECT_DIR$/yan-eureka/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/ZuulApp.java" />
-        <option value="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/IndexController.java" />
         <option value="$PROJECT_DIR$/yan-zipkin/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/yan-zipkin/src/main/java/com/example/demo/IndexController.java" />
         <option value="$PROJECT_DIR$/yan-eureka/src/main/java/com/example/demo/EurekaApp.java" />
@@ -208,9 +243,7 @@
         <option value="$PROJECT_DIR$/yan-zipkin/pom.xml" />
         <option value="$PROJECT_DIR$/yan-config/pom.xml" />
         <option value="$PROJECT_DIR$/yan-eureka/pom.xml" />
-        <option value="$PROJECT_DIR$/yan-sso/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/IndexController.java" />
-        <option value="$PROJECT_DIR$/yan-sso/pom.xml" />
         <option value="$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/Token.java" />
         <option value="$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/CurrencyLoginController.java" />
         <option value="$PROJECT_DIR$/yan-zuul/pom.xml" />
@@ -220,6 +253,14 @@
         <option value="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/FilterConfig.java" />
         <option value="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/MyFilter1.java" />
         <option value="$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/MyFilter2.java" />
+        <option value="$PROJECT_DIR$/yan-sso/pom.xml" />
+        <option value="$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/User.java" />
+        <option value="$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/UserDao.java" />
+        <option value="$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/UserService.java" />
+        <option value="$PROJECT_DIR$/yan-sso/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/yan-sso/src/main/resources/mapper/UserDaoMapper.xml" />
+        <option value="$PROJECT_DIR$/yan-sso/src/test/java/com/example/demo/BaseTest.java" />
+        <option value="$PROJECT_DIR$/yan-sso/src/test/java/com/example/demo/ServiceTest.java" />
       </list>
     </option>
   </component>
@@ -245,8 +286,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1" />
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1680" />
     <option name="height" value="976" />
@@ -256,37 +296,37 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="itoken" type="b2602c69:ProjectViewProjectNode" />
-              <item name="yan-zuul" type="462c0819:PsiDirectoryNode" />
+              <item name="yan-sso" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="itoken" type="b2602c69:ProjectViewProjectNode" />
-              <item name="yan-zuul" type="462c0819:PsiDirectoryNode" />
+              <item name="yan-sso" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="itoken" type="b2602c69:ProjectViewProjectNode" />
-              <item name="yan-zuul" type="462c0819:PsiDirectoryNode" />
+              <item name="yan-sso" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="itoken" type="b2602c69:ProjectViewProjectNode" />
-              <item name="yan-zuul" type="462c0819:PsiDirectoryNode" />
+              <item name="yan-sso" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="itoken" type="b2602c69:ProjectViewProjectNode" />
-              <item name="yan-zuul" type="462c0819:PsiDirectoryNode" />
+              <item name="yan-sso" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -294,10 +334,31 @@
             </path>
             <path>
               <item name="itoken" type="b2602c69:ProjectViewProjectNode" />
-              <item name="yan-zuul" type="462c0819:PsiDirectoryNode" />
+              <item name="yan-sso" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="itoken" type="b2602c69:ProjectViewProjectNode" />
+              <item name="yan-sso" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="itoken" type="b2602c69:ProjectViewProjectNode" />
+              <item name="yan-sso" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="itoken" type="b2602c69:ProjectViewProjectNode" />
+              <item name="yan-sso" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="demo" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -346,7 +407,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ZuulApp">
+  <component name="RunManager" selected="JUnit.ServiceTest.dynamicDataSourceTest">
     <configuration name="ConfigApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.demo.ConfigApp" />
       <module name="config" />
@@ -369,19 +430,31 @@
         </pattern>
       </extension>
     </configuration>
-    <configuration name="Token" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.demo.Token" />
-      <module name="SSO" />
+    <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    </configuration>
+    <configuration name="ServiceTest.dynamicDataSourceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SSO" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.example.demo.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.example.demo" />
+      <option name="MAIN_CLASS_NAME" value="com.example.demo.ServiceTest" />
+      <option name="METHOD_NAME" value="dynamicDataSourceTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -511,15 +584,15 @@
       <item itemvalue="Application.ConfigApp" />
       <item itemvalue="Spring Boot.YanFeignApplication" />
       <item itemvalue="Application.SsoApp" />
-      <item itemvalue="Application.Token" />
+      <item itemvalue="JUnit.ServiceTest.dynamicDataSourceTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.SsoApp" />
+        <item itemvalue="JUnit.ServiceTest.dynamicDataSourceTest" />
         <item itemvalue="Spring Boot.YanFeignApplication" />
         <item itemvalue="Application.ConfigApp" />
         <item itemvalue="Spring Boot.EurekaApp" />
-        <item itemvalue="Application.Token" />
+        <item itemvalue="Application.SsoApp" />
       </list>
     </recent_temporary>
   </component>
@@ -547,11 +620,12 @@
       <workItem from="1557284575923" duration="5000" />
       <workItem from="1557284741854" duration="6388000" />
       <workItem from="1557460822830" duration="8579000" />
+      <workItem from="1557726262412" duration="2267000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75120000" />
+    <option name="totallyTimeSpent" value="77387000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -563,11 +637,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="29" width="1680" height="976" extended-state="6" />
+    <frame x="0" y="23" width="1680" height="976" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.35225886" side_tool="true" weight="0.5225434" />
-      <window_info anchor="bottom" id="JRebel Console" order="7" sideWeight="0.113553114" side_tool="true" visible="true" weight="0.39537573" />
+      <window_info anchor="bottom" id="JRebel Console" order="7" sideWeight="0.11172161" side_tool="true" visible="true" weight="0.39537573" />
       <window_info anchor="right" id="Maven Projects" order="3" weight="0.32967034" />
       <window_info anchor="bottom" id="JRebel Executor" order="7" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
@@ -584,11 +658,11 @@
       <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Java Enterprise" order="8" sideWeight="0.498779" weight="0.32947975" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.8864469" visible="true" weight="0.39537573" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.88827837" visible="true" weight="0.39537573" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4993895" weight="0.32947975" />
       <window_info anchor="bottom" id="Spring" order="7" sideWeight="0.4993895" weight="0.32947975" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.4993895" weight="0.32947975" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49827588" visible="true" weight="0.2771673" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49827588" visible="true" weight="0.2802198" />
       <window_info anchor="right" id="Bean Validation" order="4" weight="0.32967034" />
       <window_info id="Web" order="3" side_tool="true" />
       <window_info id="JRebel" order="2" side_tool="true" />
@@ -611,59 +685,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/yan-admin/src/main/java/com/example/demo/AdminApp.java</url>
-          <line>13</line>
-          <properties />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="1" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/yan-eureka/src/main/java/com/example/demo/DemoUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="22" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-eureka/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-eureka/src/main/java/com/neo/SpringCloudEurekaApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-config-server/src/main/java/com/neo/ConfigServerApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-config-server/src/main/resources/application.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" selection-start-line="2" selection-end-line="12" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-config-client/src/main/java/com/neo/ConfigClientApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../SpringBoot/spring-cloud-config-eureka/spring-cloud-config-client/src/main/java/com/neo/web/HelloController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
@@ -806,13 +831,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/yan-sso/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/Token.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2619">
@@ -830,17 +848,106 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/yan-sso/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1107">
-          <caret line="41" column="21" selection-start-line="37" selection-start-column="8" selection-end-line="41" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yan-zuul/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1107">
           <caret line="41" column="19" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-config/src/main/java/com/example/demo/IndexController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="11" selection-start-column="11" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-admin2/src/main/java/com/example/demo/IndexController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-feign/src/main/java/com/example/yanfeign/HomeFeignClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/CurrencyLoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="10" column="26" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/Token.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/JwtCheckGatewayFilterFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="729">
+          <caret line="27" column="51" selection-start-line="23" selection-start-column="10" selection-end-line="27" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/ZuulApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/MyFilter1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/IndexController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/FilterConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="25" column="15" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/MyFilter2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="53" column="13" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -860,27 +967,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/yan-admin/src/main/java/com/example/demo/AdminApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+        <state relative-caret-position="324">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#422#423#0" expanded="true" />
             <element signature="e#472#473#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-config/src/main/java/com/example/demo/IndexController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="11" selection-start-column="11" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-admin2/src/main/java/com/example/demo/IndexController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
         </state>
       </provider>
     </entry>
@@ -894,13 +987,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/yan-feign/src/main/java/com/example/yanfeign/HomeFeignClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yan-feign/src/main/java/com/example/yanfeign/YanFeignApplication.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -908,92 +994,113 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/SsoApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/CurrencyLoginController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="10" column="26" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/Token.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-139">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/JwtCheckGatewayFilterFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="27" column="51" lean-forward="true" selection-start-line="23" selection-start-column="10" selection-end-line="27" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/ZuulApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/MyFilter1.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2058#2059#0" expanded="true" />
-            <element signature="e#2126#2127#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/IndexController.java">
+    <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/UserService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
-          <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/FilterConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="25" column="15" lean-forward="true" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="21" />
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#306#307#0" expanded="true" />
-            <element signature="e#368#369#0" expanded="true" />
-            <element signature="e#417#418#0" expanded="true" />
-            <element signature="e#472#473#0" expanded="true" />
+            <element signature="e#320#321#0" expanded="true" />
+            <element signature="e#364#365#0" expanded="true" />
+            <element signature="e#402#403#0" expanded="true" />
+            <element signature="e#444#445#0" expanded="true" />
+            <element signature="e#666#667#0" expanded="true" />
+            <element signature="e#707#708#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/yan-zuul/src/main/java/com/example/demo/MyFilter2.java">
+    <entry file="file://$PROJECT_DIR$/yan-sso/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="53" column="13" lean-forward="true" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
+        <state relative-caret-position="324">
+          <caret line="12" column="37" lean-forward="true" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-sso/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="48" column="21" lean-forward="true" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-sso/src/main/resources/mapper/UserDaoMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="6" column="53" lean-forward="true" selection-start-line="6" selection-start-column="53" selection-end-line="6" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/SsoApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="6" column="19" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="24" lean-forward="true" selection-start-column="8" selection-end-column="24" />
+          <folding>
+            <element signature="e#285#286#0" expanded="true" />
+            <element signature="e#310#311#0" expanded="true" />
+            <element signature="e#347#348#0" expanded="true" />
+            <element signature="e#375#376#0" expanded="true" />
+            <element signature="e#406#407#0" expanded="true" />
+            <element signature="e#433#434#0" expanded="true" />
+            <element signature="e#473#474#0" expanded="true" />
+            <element signature="e#505#506#0" expanded="true" />
+            <element signature="e#539#540#0" expanded="true" />
+            <element signature="e#569#570#0" expanded="true" />
+            <element signature="e#615#616#0" expanded="true" />
+            <element signature="e#653#654#0" expanded="true" />
+            <element signature="e#686#687#0" expanded="true" />
+            <element signature="e#715#716#0" expanded="true" />
+            <element signature="e#759#760#0" expanded="true" />
+            <element signature="e#795#796#0" expanded="true" />
+            <element signature="e#827#828#0" expanded="true" />
+            <element signature="e#855#856#0" expanded="true" />
+            <element signature="e#897#898#0" expanded="true" />
+            <element signature="e#931#932#0" expanded="true" />
+            <element signature="e#966#967#0" expanded="true" />
+            <element signature="e#999#1000#0" expanded="true" />
+            <element signature="e#1049#1050#0" expanded="true" />
+            <element signature="e#1093#1094#0" expanded="true" />
+            <element signature="e#1125#1126#0" expanded="true" />
+            <element signature="e#1152#1153#0" expanded="true" />
+            <element signature="e#1193#1194#0" expanded="true" />
+            <element signature="e#1225#1226#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-sso/src/test/java/com/example/demo/BaseTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2822#2823#0" expanded="true" />
-            <element signature="e#2890#2891#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-sso/src/test/java/com/example/demo/ServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="11" column="36" lean-forward="true" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yan-sso/src/main/java/com/example/demo/UserDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
