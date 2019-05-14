@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.SysRoleDao">
+    <select id="getByMap" parameterType="map" resultType="map">
+        SELECT * FROM sys_role
+    </select>
+
+    <select id="getByRoleList" parameterType="map" resultType="com.example.demo.SysRole">
+        SELECT
+        sr.*
+        FROM
+        sys_role sr
+        LEFT JOIN user_info ui ON sr.id = ui.uid
+        WHERE
+        ui.uid = #{uid}
+    </select>
+</mapper>
