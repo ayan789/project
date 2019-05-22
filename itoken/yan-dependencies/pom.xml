@@ -14,6 +14,19 @@
 	<name>dependencies</name>
 	<description>Demo project for Spring Boot</description>
 
+	<distributionManagement>
+		<repository>
+			<id>nexus</id>
+			<name>Nexus Release Repository</name>
+			<url>http://127.0.0.1:8081/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus</id>
+			<name>Nexus Snapshot Repository</name>
+			<url>http://127.0.0.1:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
@@ -42,6 +55,13 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
