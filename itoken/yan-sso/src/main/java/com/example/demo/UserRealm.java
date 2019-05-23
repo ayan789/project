@@ -81,6 +81,7 @@ public class UserRealm extends AuthorizingRealm {
         //4)credentialsSalt盐值
         ByteSource credentialsSalt = ByteSource.Util.bytes(ShiroUtil.createSalt());//使用账号作为盐值
         String saltPassword = ShiroUtil.salt(token.getPassword(), credentialsSalt.toString());
+        System.out.println(saltPassword);
         //判断密码
        if (null == user.getPassword()) {
             throw new AccountException();

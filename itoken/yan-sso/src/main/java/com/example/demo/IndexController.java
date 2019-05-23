@@ -6,9 +6,11 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping(value = "/userInfo")
 public class IndexController {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -58,12 +60,12 @@ public class IndexController {
         return "登录成功";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/userAdd")
     public String add() {
         return "新增页面";
     }
 
-    @GetMapping("/update")
+    @GetMapping("/userUpdate")
     public String update() {
         return "修改页面";
     }

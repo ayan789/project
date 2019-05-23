@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class IndexController {
     @GetMapping("/home")
     public String index(){
-        Test test = new Test();
-        System.out.println(test.abc());
         return "up eureka";
     }
 }

@@ -1,7 +1,7 @@
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8082/eureka/
+      defaultZone: http://localhost:8072/eureka/
 spring:
   application:
     name: feign-consumer

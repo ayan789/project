@@ -8,13 +8,13 @@ spring:
           uri: https://github.com/ayan789/project/  # 配置git仓库的地址
           search-paths: config-repo                 # git仓库地址下的相对地址，可以配置多个，用,分割。
           username: 704627050@qq.com                # git仓库的账号
-          password: 7Ajbsfhlm9*ksf                  # git仓库的密码
+          password: skdojmkn!0kGYGB                  # git仓库的密码
 server:
   port: 8083
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://127.0.0.1:8082/eureka/
+      defaultZone: http://127.0.0.1:8072/eureka/
   server:
       # 测试时关闭自我保护机制，保证不可用服务及时踢出
       enable-self-preservation: false
