@@ -59,7 +59,7 @@ public class ShiroConfig {
 //        filterMap.put("/add", "perms[user:add]");
 //        filterMap.put("/update", "perms[user:update]");
 
-        filterMap.put("/*", "authc");
+        filterMap.put("/**", "authc");
         System.out.println( filterMap);
         //修改调整的登录页面
         shiroFilterFactoryBean.setLoginUrl("/userInfo/toLogin");

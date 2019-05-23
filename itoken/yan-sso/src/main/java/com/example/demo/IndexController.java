@@ -15,7 +15,13 @@ public class IndexController {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @GetMapping("/home")
-    public String index() {
+    public String index(String name, String password)  {
+        System.out.println("home");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return "up SSO";
     }
 
@@ -72,6 +78,9 @@ public class IndexController {
 
     @GetMapping("/toLogin")
     public String toLogin() {
+        //1.获取Subject
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
         return "请登录";
     }
 
