@@ -42,7 +42,7 @@ public class UserRealm extends AuthorizingRealm {
         UserInfo user = (UserInfo) subject.getPrincipal();
         Map<String, Object> map = new HashMap<>();
         map.put("uid", user.getUid());
-        List<SysRole> roleList = sysRoleDao.getByRoleList(map);
+        List<SysRole> roleList = sysRoleDao.getByRoleList("1",map);
         UserInfo userInfo = userInfoDao.getByUid(map);
         userInfo.setRoleList(roleList);
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();

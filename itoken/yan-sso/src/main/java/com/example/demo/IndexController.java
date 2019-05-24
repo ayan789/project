@@ -5,14 +5,22 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/userInfo")
 public class IndexController {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    private SysRoleDao sysRoleDao;
 
     @GetMapping("/home")
     public String index(String name, String password)  {
@@ -87,6 +95,15 @@ public class IndexController {
     @GetMapping("/noAuth")
     public String noAuth() {
         return "权限不足";
+    }
+
+
+    @GetMapping("/redis")
+    public String redis(String id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("uid", "1");
+        sysRoleDao.getByRoleList(id,map);
+        return "已缓存";
     }
 
 }

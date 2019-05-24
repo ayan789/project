@@ -25,7 +25,7 @@ public class UserInfoService {
     }
 
     public UserInfo getByUid(Map<String, Object> map) {
-        List<SysRole> roleList = sysRoleDao.getByRoleList(map);
+        List<SysRole> roleList = sysRoleDao.getByRoleList("1",map);
         UserInfo userInfo = userInfoDao.getByUid(map);
         userInfo.setRoleList(roleList);
         for(int i=0;i<userInfo.getRoleList().size();i++){

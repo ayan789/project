@@ -96,7 +96,12 @@
 			 <artifactId>spring-boot-starter-aop</artifactId>
 		 </dependency>
 		 <!--引用AOP注解功能结束-->
-
+		<!--- redis依赖 -->
+		<!-- 自动配置Redis -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
 	</dependencies>
 
 
