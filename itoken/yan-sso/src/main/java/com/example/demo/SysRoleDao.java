@@ -2,6 +2,8 @@ package com.example.demo;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +18,6 @@ public interface SysRoleDao {
 
     @Cacheable(cacheNames="sysRoles",key="'RoleList:' + #p0")
     List<SysRole>  getByRoleList(String id,@Param("map") Map<String, Object> map);
+
+    void updateRole(String id,@Param("map") Map<String, Object> map);
 }

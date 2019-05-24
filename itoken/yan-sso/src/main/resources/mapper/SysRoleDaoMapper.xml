@@ -14,4 +14,14 @@
         WHERE
         ui.uid = #{map.uid}
     </select>
+
+    <update id="updateRole">
+        UPDATE sys_role
+            SET
+            `available` = 1,
+            `description` = '管理员12399081111111',
+            `role` = 'admin'
+            WHERE
+            `id` = #{map.id}
+    </update>
 </mapper>

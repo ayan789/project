@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,13 @@ public class IndexController {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private SysRoleDao sysRoleDao;
+    SysRoleDao sysRoleDao;
+
+    @Autowired
+    SysRoleService sysRoleService;
+
+    @Autowired
+    private RedisService redisService;
 
     @GetMapping("/home")
     public String index(String name, String password)  {
@@ -99,11 +106,25 @@ public class IndexController {
 
 
     @GetMapping("/redis")
-    public String redis(String id) {
+    public String redisRole(String id) {
         Map<String, Object> map = new HashMap<>();
         map.put("uid", "1");
         sysRoleDao.getByRoleList(id,map);
         return "已缓存";
+    }
+
+    @GetMapping("/redisUpdate")
+    public String redisUpdateRole(String id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", "1");
+        sysRoleService.updateRole(id,map);
+        return "已清空缓存";
+    }
+
+    @GetMapping("/redisAdd")
+    public String redisAdd() {
+        redisService.set("shuai","hello redis",10L);
+        return "自定义添加缓存";
     }
 
 }
