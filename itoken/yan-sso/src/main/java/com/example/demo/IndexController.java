@@ -5,6 +5,8 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -14,11 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/userInfo")
 public class IndexController {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    RabbitTemplate rabbitTemplate;
 
     @Autowired
     SysRoleDao sysRoleDao;
@@ -123,8 +129,19 @@ public class IndexController {
 
     @GetMapping("/redisAdd")
     public String redisAdd() {
-        redisService.set("shuai","hello redis",10L);
+        redisService.set("shuai","hello redis",5L);
         return "自定义添加缓存";
     }
+
+    @GetMapping("/rabbitMq")
+    public String rabbitMq(String id) {
+        CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
+        //把消息放入ROUTINGKEY_A对应的队列当中去，对应的是队列A
+        rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE_A, RabbitConfig.ROUTINGKEY_A, "content:"+id, correlationId);
+        return "content:"+id;
+    }
+
+
+
 
 }
