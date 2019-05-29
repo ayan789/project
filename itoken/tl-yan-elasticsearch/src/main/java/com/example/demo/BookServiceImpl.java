@@ -37,8 +37,9 @@ public class BookServiceImpl implements BookService {
 
         //查询条件
         BoolQueryBuilder bqb = QueryBuilders.boolQuery();
-        bqb.should(QueryBuilders.matchQuery("title",name).analyzer("ik_max_word"));
-        bqb.should(QueryBuilders.matchQuery("author",name).analyzer("ik_max_word"));
+        //boost值默认为1 大于1的boost会增加该查询子句的相对权重
+        bqb.should(QueryBuilders.matchQuery("title",name).analyzer("ik_max_word").boost(2));
+        bqb.should(QueryBuilders.matchQuery("author",name).analyzer("ik_max_word").boost('3'));
         SearchQuery searchQuery = new NativeSearchQueryBuilder()
                 .withQuery(bqb)
                 //  .withSort(SortBuilders.scoreSort().order(SortOrder.DESC))
