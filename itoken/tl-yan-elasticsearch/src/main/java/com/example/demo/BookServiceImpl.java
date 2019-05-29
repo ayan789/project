@@ -2,6 +2,7 @@ package com.example.demo;
 
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -12,7 +13,6 @@ import java.util.Optional;
 
 @Service("blogService")
 public class BookServiceImpl implements BookService {
-
 
 
     @Autowired
@@ -33,6 +33,14 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
+    public void delete() {
+        BookBean bookBean = new BookBean();
+        bookBean.setId("1");
+        bookRepository.delete(bookBean);
+    }
+
+
+    @Override
     public Page<BookBean> getBooksByName(String name) {
 
         //查询条件
@@ -42,12 +50,17 @@ public class BookServiceImpl implements BookService {
         bqb.should(QueryBuilders.matchQuery("author",name).analyzer("ik_max_word").boost('3'));
         SearchQuery searchQuery = new NativeSearchQueryBuilder()
                 .withQuery(bqb)
+                .withFields("title","author")
+                .withHighlightFields(new HighlightBuilder.Field("title"),new HighlightBuilder.Field("author"))
                 //  .withSort(SortBuilders.scoreSort().order(SortOrder.DESC))
                 //  .withSort(new FieldSortBuilder(orderField).order(SortOrder.DESC))
                 .build();
+
         Page<BookBean> bookBeans = bookRepository.search(searchQuery);
+
         return bookBeans;
     }
+
 
 
 }

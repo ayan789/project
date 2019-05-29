@@ -2,6 +2,7 @@ package com.example.demo;
 
 
 import org.springframework.data.domain.Page;
+
 import java.util.Optional;
 
 public interface BookService {
@@ -10,6 +11,7 @@ public interface BookService {
 
     BookBean save(BookBean blog);
 
+    void delete();
 
     Page<BookBean> getBooksByName(String name);
 }
