@@ -4,15 +4,13 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@FeignClient("yan-admin")
+@FeignClient("yan-noif")
 @Component
-public interface HomeFeignClient {
+public interface NoifFeignClient {
 
-    @GetMapping("/hello")
-    String helloConsumer();
+    @GetMapping("/module_2")
+    long module2();
 
-    @GetMapping("/module_1")
-    long module1();
 
 
 }

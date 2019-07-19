@@ -24,4 +24,11 @@ public class IndexController {
     public String index(){
         return "up admin";
     }
+
+    @GetMapping("/module_1")
+    public long module_1(){
+        System.out.println("admin2 service module_1");
+        return 1;
+    }
+
 }

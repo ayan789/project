@@ -1,6 +1,5 @@
 package com.example.tlyannoif;
 
-import afu.org.checkerframework.checker.nullness.qual.Nullable;
 import com.google.common.util.concurrent.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -8,11 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Nullable;
 import java.util.concurrent.Callable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+
 
 @RestController
 public class IndexController {
@@ -32,6 +34,12 @@ public class IndexController {
     @GetMapping("/home")
     public String index () {
         return "up tl-yan-noif";
+    }
+
+    @GetMapping("/module_2")
+    public long module_2 () {
+        System.out.println("noif service module_2");
+        return 123;
     }
 
     @GetMapping("/noif/{id}")
