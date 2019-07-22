@@ -2,15 +2,15 @@ package com.example.tlyancommon;
 
 import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.metadata.Sheet;
-import com.alibaba.excel.util.DataUtil;
-import com.alibaba.excel.util.FileUtil;
+import com.alibaba.excel.support.ExcelTypeEnum;
+import com.alibaba.excel.util.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.Properties;
-import com.alibaba.excel.util.WriteModel;
+
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.metadata.Table;
 import java.io.*;
@@ -43,12 +43,39 @@ public class IndexController {
         return "发送邮件成功";
     }
 
-    @GetMapping("/readxls")
+    @GetMapping("/readxls2string2007")
     public String simpleReadListStringV2007() throws Exception {
         InputStream inputStream = FileUtil.getResourcesFileInputStream("2007.xlsx");
         List<Object> data = EasyExcelFactory.read(inputStream, new Sheet(1, 0));
         inputStream.close();
         System.out.println(data);
+        return "OK";
+    }
+
+    @GetMapping("/readxls2string2003")
+    public String simpleReadListStringV2003() throws Exception {
+        InputStream inputStream = FileUtil.getResourcesFileInputStream("2003.xls");
+        List<Object> data = EasyExcelFactory.read(inputStream, new Sheet(1, 0));
+        inputStream.close();
+        System.out.println(data);
+        return "OK";
+    }
+
+    @GetMapping("/readxls2model")
+    public String simpleReadJavaModelV2007() throws Exception {
+        InputStream inputStream = FileUtil.getResourcesFileInputStream("2007.xlsx");
+        List<Object> data = EasyExcelFactory.read(inputStream, new Sheet(2, 1, ReadModel.class));
+        inputStream.close();
+        System.out.println(data);
+        return "OK";
+    }
+
+    @GetMapping("/readxls1000")
+    public String readxls1000() throws Exception {
+        InputStream inputStream = FileUtil.getResourcesFileInputStream("2007.xlsx");
+        ExcelListener excelListener = new ExcelListener();
+        EasyExcelFactory.readBySax(inputStream, new Sheet(2, 1, ReadModel.class), excelListener);
+        inputStream.close();
         return "OK";
     }
 
@@ -92,6 +119,33 @@ public class IndexController {
 
         writer.finish();
         out.close();
+        return "OK";
+    }
+
+    @GetMapping("/writexls2temp")
+    public String writexls2temp() throws Exception {
+        InputStream inputStream = FileUtil.getResourcesFileInputStream("temp.xlsx");
+        OutputStream out = new FileOutputStream("/Users/yanshuai/Downloads/easyexcel-master2/src/test/resources/mmm.xlsx");
+
+        ExcelWriter writer = EasyExcelFactory.getWriterWithTemp(inputStream,out,ExcelTypeEnum.XLSX,true);
+        //写第一个sheet, sheet1  数据全是List<String> 无模型映射关系
+        Sheet sheet1 = new Sheet(1, 3);
+        sheet1.setSheetName("第一个sheet");
+        sheet1.setStartRow(1);
+
+        //设置列宽 设置每列的宽度
+        Map columnWidth = new HashMap();
+        columnWidth.put(0,10000);columnWidth.put(1,40000);columnWidth.put(2,10000);columnWidth.put(3,10000);
+        sheet1.setColumnWidthMap(columnWidth);
+        sheet1.setHead(DataUtil.createTestListStringHead());
+        //or 设置自适应宽度
+        //sheet1.setAutoWidth(Boolean.TRUE);
+        writer.write1(DataUtil.createTestListObject(), sheet1);
+
+
+        writer.finish();
+        out.close();
+
         return "OK";
     }
 }
