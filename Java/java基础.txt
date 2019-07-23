@@ -19,3 +19,26 @@ valueOf  parseDouble
 封装：只隐藏对象的属性和实现细节，仅对外提供公共访问方式
 继承：提高代码复用性，继承是多态的前提
 多态：实现或继承父类，重写父类方法
+
+jdk和jre
+JDK是面向开发人员使用的SDK
+Java程序必须要JRE才能运行
+
+equals和==的区别
+== 判断两个对象的地址是否相同
+equals 比较的是两个对象的内容是否相等
+String 重写了equals方法 其他引用做比较需要手动重写equals方法
+hashCode相等,equals也不一定相等
+equals相同,hashCode一定相同
+
+操作字符串
+.length(长度) 
+.indexOf(查找位置) 
+.toUpperCase(大写) 
+.toLowerCase(小写) 
+.substring(截取字符串) 
+.replaceAll(替换) 
+.trim(去掉首尾空格)  
+charAt(指定位置字符) 
+.toCharArray(字符串转为字符数组) 
+.split(分隔符拆分)
