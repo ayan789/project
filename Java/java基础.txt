@@ -1,0 +1,8 @@
+八大基本类型 整形（byte short int 默认0 long）浮点型（float double） 字符型（char）布尔型（boolean 默认false）
+装箱  Integer i = 100;
+拆箱  int i = new Integer(100);
+隐式类型转换（如int型转为long型）
+显式类型转换（如long型型转为int型）long a = 10;int b = (int)a; 
+高精度计算 BigDecimal(String)构造器创建对象才有意义,其他也可能精度丢失
+float double 直接转换可能进度丢失，用String作为中转
+valueOf  parseDouble 
