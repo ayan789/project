@@ -42,3 +42,18 @@ equals相同,hashCode一定相同
 charAt(指定位置字符) 
 .toCharArray(字符串转为字符数组) 
 .split(分隔符拆分)
+
+java IO
+BIO（同步并阻塞 小网站 一个连接一个线程） NIO（同步非阻塞 一个请求一个线程 适用于短链接） AIO（异步非阻塞 一个请求一个线程 适用于长链接）
+
+操作文件
+createNewFile(创建文件)
+mkdir(创建一级文件夹) 
+mkdirs(创建多级文件夹)
+delete(删除文件或文件夹)
+exists(文件或文件夹是否存在)
+isFile(是否是一个文件)
+isDirectory(是否是一个目录)
+
+
+
