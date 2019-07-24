@@ -63,4 +63,15 @@ ArrayList（线程不安全）Vector(线程安全)
 HashMap(线程不安全) HashTable(不允许建null 线程安全 大小增加到一定的时候性能会下降 全锁) ConcurrentHashMap(不允许建null 线程安全 大小增加到一定的时候性能不会下降 分割锁定)
 局部变量属于当前线程级别变量其他线程访问不了不存在线程安全不安全的问题
 单例对象成员变量对同个HashMap操作存在线程安全的问题
+确保集合不被修改Collections提供对应的方法
 
+线程
+守护线程（thread.start()之前.setDaemon(true)）不执行业务逻辑，守护线程跟随普通线程，当没有普通线程工作守护线程会立即结束
+创建线程（extends Thread implements Runnable）
+runnable（无返回值 不可以声明抛出异常） callable（有返回值 可以声明抛出异常）
+线程状态
+创建未启动（NEW）－运行中（RUNNABLE）－临界区外阻塞（BLOCKED）－临界区里面等待（wait）／ 超时等待－终止
+死锁（两个或以上线程互相等待对方资源被释放 互斥 循环等待）防止：添加到队列中所有线程都按顺序获取资源，不同功能使用不同的锁，设置超时时间
+threadLocal 线程本地变量 一个线程维护一个独立的变量副本 （单例对象成员变量线程间不共享这个属性）
+volatile 内存可见但不是线程安全 所有线程都能看到共享内存的最新状态  读操作远远大于写操作 volatile变量还可以提供优于锁的性能优势
+synchronized 可见性 原子性
