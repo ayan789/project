@@ -1,0 +1,10 @@
+redis
+字符串（string） 列表（list） 集合（set）有序集合（zset）哈希（hash）
+redis与数据库数据一致性 更新数据库之前更新缓存 设置缓存过期时间 定期同步
+redis 数据持久化方式 
+RDB （默认）定时将内存中的数据写入到.rdb文件磁盘中 数据的一致性低，数据恢复快
+AOF 它采用日志的形式来记录每个写操作 数据的一致性高，数据恢复慢
+redis分布式锁
+数据库锁
+redis锁 redis加锁setnx 解锁执行Lua代码
+zookeeper 
