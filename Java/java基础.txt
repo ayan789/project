@@ -55,5 +55,12 @@ exists(文件或文件夹是否存在)
 isFile(是否是一个文件)
 isDirectory(是否是一个目录)
 
-
+集合
+List(有序可重复) Set（无序不可重复） Map(键值对键唯一值不唯一)
+ArrayList（数组 查询快）
+LinkedList(双向链表 增删快)
+ArrayList（线程不安全）Vector(线程安全)
+HashMap(线程不安全) HashTable(不允许建null 线程安全 大小增加到一定的时候性能会下降 全锁) ConcurrentHashMap(不允许建null 线程安全 大小增加到一定的时候性能不会下降 分割锁定)
+局部变量属于当前线程级别变量其他线程访问不了不存在线程安全不安全的问题
+单例对象成员变量对同个HashMap操作存在线程安全的问题
 
