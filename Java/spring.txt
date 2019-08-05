@@ -1,0 +1,27 @@
+spring
+AOP 面向切面 类的创建交给spring容器 需要时从容器取
+IOC 控制反转 权限，事务，日志等逻辑抽取出来
+spring注入
+构造方法注入 setter注入 注解注入
+Spring容器中的Bean本身不具备线程安全的
+原型Bean 线程安全 单例Bean 线程不安全
+在资源不共享的情况下 使用ThreadLocal为每个线程保存线程私有的数据
+自动装配 @Autowired @Resource @Qualifier
+事务隔离 事务间的隔离
+数据库事务隔离级别（默认）
+一个事务另一个事务可读取
+事务顺序执行
+脏读:一个事务访问数据进行了修改之前另一个事务读到了修改前的数据
+幻读:一个事务读取2次，得到的记录条数不一致
+不可重复读:一个事务读取同一条记录2次，得到的结果不一致
+bean作用域:单例模式 原型模式 HTTPbean sessionBean 全局bean
+springMVC流程: 
+1 发起请求到前端控制器(DispatcherServlet)
+2 前端控制器请求HandlerMapping查找Handler（可以根据xml配置、注解进行查找）
+3 找到Handler给前端控制器执行Handler
+4 执行HandlerAdapter处理器适配器返回ModelAndView给前端控制器
+5 ModelAndView请求视图解析器ViewReslover成真正的视图view
+6 返回view给前端控制器并且把模型数据填充到视图中
+7 前端控制器将结果响应给客户
+
+
