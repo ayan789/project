@@ -92,3 +92,14 @@ jvm
 优先级的层次关系,避免类的重复加载,父类加载了该类时，子类不需要加载
 类加载流程 加载（知道）、验证（验证）、准备（准备）、解析（分析）、初始化（试盘）、使用（all in）和卸载（跑）
 
+cookie和session
+cookie 客户端会话状态储存
+session 服务端信息管理
+这些信息以文件形式存放在服务器的硬盘空间上
+客户端cookie里面有没有session_id去检索 有则使用没则创建
+session_id cookie url 表单
+使session失效的方法
+重启服务 session过期 
+浏览器的session_id是基于Cookie的，Cookie未设置有效时间是浏览器会话级别的，当浏览器被关闭Cookie也随之销毁。
+
+
