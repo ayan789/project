@@ -1,0 +1,26 @@
+rabbitmq
+Broker传输服务
+Exchange消息交换机
+Queue队列
+Binding按照规则绑定exchange和queue
+Routing Key exchange根据这个key进行消息投递
+vhost 虚拟主机 一个broker里可以有多个vhost
+Producer 消息生产者
+Consumer 消息消费者
+Channel 消息通道
+
+rabbitmq消息不丢失
+1发送mq消息后在数据库中插入发送的数据
+2当RabbitMQ进行发送成功确认调用confirm()异步方法，返回为true时更新状态mq消息发送成功，反之失败。
+3启动定时任务几秒扫描发送失败的数据重新发送
+
+交换器持久化 设置持久化参数
+队列持久化 在服务端produce声明队列的时候添加一个参数
+消息持久化 在消息生成时添加参数（消费者接收到消息但是还没来得及处理消息就出现异常会造成消息丢失）
+
+rabbitmq广播模式
+1消费者创建一个queue，生产者往队列中生产数据
+2队列绑定key 生产者将带key的消息发送到交换器 交换器根据key发送到队列
+3消费者可以消费指定的多个消息
+
+
