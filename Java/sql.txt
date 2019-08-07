@@ -1,0 +1,97 @@
+-- 查询某个用户的角色和菜单
+SELECT
+	t1.user_name user_name,
+  GROUP_CONCAT(distinct t4.role_name Separator '&') role_name,
+  GROUP_CONCAT(distinct t5.menu_name Separator '&') menu_name,
+	t1.create_time,
+	t1.update_time
+FROM
+	t_user t1
+	LEFT JOIN t_user_role t2 ON t1.user_id = t2.user_id
+	LEFT JOIN t_role_menu t3 ON t2.role_id = t3.role_id
+	LEFT JOIN t_role t4 ON t2.role_id = t4.role_id
+	LEFT JOIN t_menu t5 ON t3.menu_id = t5.menu_id 
+GROUP BY t1.user_id
+
+-- 根据A表的条件修改B表
+UPDATE t_user s1
+LEFT JOIN t_user_role s2 ON s1.user_id = s2.user_id
+LEFT JOIN t_role_menu s3 ON s2.role_id = s3.role_id
+SET s1.user_name = 'step_fna' 
+WHERE s2.id='1'and s3.id='4'
+
+-- 按照修改时间和创建时间排序
+SELECT
+	t1.user_name user_name,
+ 	GROUP_CONCAT(distinct t4.role_name Separator '&') role_name,
+  GROUP_CONCAT(distinct t5.menu_name Separator '&') menu_name,
+	t1.create_time,
+	t1.update_time
+FROM
+	t_user t1
+	LEFT JOIN t_user_role t2 ON t1.user_id = t2.user_id
+	LEFT JOIN t_role_menu t3 ON t2.role_id = t3.role_id
+	LEFT JOIN t_role t4 ON t2.role_id = t4.role_id
+	LEFT JOIN t_menu t5 ON t3.menu_id = t5.menu_id 
+GROUP BY t1.user_id
+ORDER BY
+CASE
+WHEN IFNULL(t1.update_time,'')=''
+THEN
+t1.create_time
+ELSE t1.update_time
+END
+DESC, t1.create_time DESC
+
+
+
+-- 生效时间 失效时间 状态
+SELECT
+	t1.user_name user_name,
+  t1.effective_time,
+  t1.invalid_time,
+	CASE  
+	WHEN t1.sts is null THEN '未启用'
+	WHEN t1.sts = '4' THEN '已关闭'
+	WHEN DATE_FORMAT(now(), '%Y-%m-%d %H:%i' ) > DATE_FORMAT( t1.invalid_time, '%Y-%m-%d %H:%i' )   THEN '已失效'
+	WHEN DATE_FORMAT(now(), '%Y-%m-%d %H:%i' ) < DATE_FORMAT( t1.effective_time, '%Y-%m-%d %H:%i' )   THEN '未生效' 
+	WHEN DATE_FORMAT(now(), '%Y-%m-%d %H:%i' ) >= DATE_FORMAT( t1.effective_time, '%Y-%m-%d %H:%i' )  and DATE_FORMAT(now(), '%Y-%m-%d %H:%i' ) <= DATE_FORMAT(t1.invalid_time, '%Y-%m-%d %H:%i' )  THEN '生效中' 
+  WHEN t1.effective_time is NULL and t1.invalid_time is NULL THEN '永久' 
+  WHEN t1.effective_time is NULL and DATE_FORMAT( t1.invalid_time, '%Y-%m-%d %H:%i' )>=DATE_FORMAT( now(), '%Y-%m-%d %H:%i' ) THEN 	'生效中' 
+  WHEN t1.invalid_time is NULL and DATE_FORMAT( t1.effective_time, '%Y-%m-%d %H:%i' )<=DATE_FORMAT( now(), '%Y-%m-%d %H:%i' ) THEN 	'生效中' 
+	END statusType,
+ 	GROUP_CONCAT(distinct t4.role_name) role_name,
+  GROUP_CONCAT(distinct t5.menu_name) menu_name,
+	t1.create_time,
+	t1.update_time
+FROM
+	t_user t1
+	LEFT JOIN t_user_role t2 ON t1.user_id = t2.user_id
+	LEFT JOIN t_role_menu t3 ON t2.role_id = t3.role_id
+	LEFT JOIN t_role t4 ON t2.role_id = t4.role_id
+	LEFT JOIN t_menu t5 ON t3.menu_id = t5.menu_id 
+GROUP BY t1.user_id
+ORDER BY
+CASE
+WHEN IFNULL(t1.update_time,'')=''
+THEN
+t1.create_time
+ELSE t1.update_time
+END
+DESC, t1.create_time DESC
+
+-- 多group分组
+SELECT
+	GROUP_CONCAT(distinct t1.`name`),
+	t1.group1_id,
+	t1.group2_id
+FROM
+	t_group_test t1
+	LEFT JOIN t_group1 t2 ON t1.group1_id = t2.name
+	LEFT JOIN t_group2 t3 ON t1.group2_id = t3.name
+	group by t1.group1_id,t1.group2_id
+
+
+
+
+ 
