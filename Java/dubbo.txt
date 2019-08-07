@@ -1,1 +1,48 @@
 dubbo
+RPC分布式服务框架 Netty
+dubbo协议
+dubbo://（推荐）
+webservice://
+redis://
+rest://
+Dubbo角色
+provider 服务提供者
+consumer 服务消费者
+registry 服务注册中心
+Monitor 服务监控中心
+服务运行容器
+
+生产者配置provider.xml
+<!-- 生产者应用配置 -->
+<dubbo:application name="hello-world-app"  />
+<!-- 注册中心配置 -->
+<dubbo:registry address="multicast://224.5.6.7:1234" />
+<!-- 服务配置 -->
+<dubbo:service interface="com.alibaba.dubbo.demo.DemoService" ref="demoService" />
+<!-- springBean -->
+<bean id="demoService" class="com.alibaba.dubbo.demo.provider.DemoServiceImpl" />
+
+消费者配置consumer.xml
+<!-- 消费者应用配置 不要与提供方一样 -->
+<dubbo:application name="consumer-of-helloworld-app"  />
+<!-- 注册中心配置 -->
+<dubbo:registry address="multicast://224.5.6.7:1234" />
+<!-- 引用配置 -->
+<dubbo:reference id="demoService" interface="com.alibaba.dubbo.demo.DemoService" />
+ 
+ 其他设置项
+ 调用超时
+ 重试次数
+ 负载均衡 （随机 轮询 调用活跃度 一致性hash：相同请求在同一服务）
+ 并发限制
+
+javaBean需要序列化
+
+容错
+自动切换
+定时重发
+调用多个一个成功
+
+请求指定服务 点对点直连绕过注册中心
+一个接口多种实现可以分组 group
+服务调用默认同步支持异步 
