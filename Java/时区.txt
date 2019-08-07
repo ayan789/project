@@ -1,0 +1,24 @@
+UTC 世界标准时间 0时区
+CST（UTC＋8）北京时间
+GMT（UTC）
+
+Asia/Shanghai
+中国－东八区
+什么时区的时间是多少
+时间戳无时区概念
+new Date无时区概念
+
+SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+String snow = sdf.format(now);
+格式化为字符串是有时区概念的
+
+你可以通过如下代码修改本地时区信息
+TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
+
+TimeZone timeZone = TimeZone.getTimeZone("GMT+7:00");
+simpleDateFormat.setTimeZone(timeZone);
+
+jre是从/etc/sysconfig/clock中获取时区信息的
+ZONE="Asia/Shanghai"
+UTC=false
+ARC=false
