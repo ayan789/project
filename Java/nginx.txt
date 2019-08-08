@@ -1,0 +1,16 @@
+nginx
+http服务器/反向代理服务器
+负载均衡
+轮询
+一致性hash (ip url)
+
+组成
+main 全局信息配置 子进程数量
+events 工作模式配置 最大连接数量
+http http协议配置 客户端响应超时时间   gzip on 减少发送数据量
+server 访问信息配置 指定ip或者域名 记录日志路径
+location 访问路由配置 反向代理proxy_set
+upstream 负载均衡配置  ip_hash 服务器列表 down 暂停该服务 max_fails 失败最大次数 fail_timeout 失败暂停时间
+
+include /etc/nginx/conf.d/*.conf;
+
