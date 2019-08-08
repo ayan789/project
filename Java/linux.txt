@@ -1,0 +1,31 @@
+linux 
+cd 切换目录
+ls 查看文件与目录
+grep 分析一行信息
+cp 复制
+mv 移动
+rm 删除
+ps 进程
+kill 强制杀掉进程
+tar 打包
+chown 授权
+vi 编辑 
+命令行模式 i 回到插入模式 G日志最后 0日志开头 $行尾 ^行首 ctrl+b下一页 ctrl+f上一页
+插入模式 ESC回到命令行模式
+底行模式 :底行模式 :wq :q! 
+tail 刷新日志
+less 浏览日志 (G最后一行 ?查找 n N)  j前一行 k后一行 ctrl+b下一页 ctrl+f上一页 G最后一行 g第一行 n匹配下一个 N匹配上一个
+
+-r 递归
+-f 强制
+-a 列出全部文件 同隐藏文件
+
+rpm安装
+yum安装
+源码包安装
+
+ping ip
+telnet ip 端口
+
+service iptalbes start 开启防火墙
+iptables 添加需要开放的端口
