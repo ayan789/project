@@ -1,0 +1,1174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <page id="PAY_INFO_UOB" preCheck="false" locale="en">
+       <!-- <field uniqueID="PaymentInfo" value="" type="title" visible="" label="Payment Information"
+               attr="show:true">
+        </field>-->
+        <field uniqueID="annualPremium" value="annualPremium" type="paymentTitle" visible="" label="1st Total Payment Premium"
+               attr="show:true">
+        </field>
+        <field uniqueID="paymentMethod" value="paymentMethod" type="select" visible=" channel == 'UOB'" label="Payment Method"
+               attr="type:select;placeholder:Please select">
+            <rules>
+                <rule required="true" message="Please select payment method"/>
+            </rules>
+            <options dictKey="" >
+
+                <!--   ol   -->
+                <option key="Cash" value="1" visible="payFreqCode != 'month' and  insureType != 'ul' "/>
+                <option key="Cheque" value="2" visible="payFreqCode != 'month' and  insureType != 'ul' "/>
+                <option key="Credit Card" value="3"  visible="engineProductId != 'SU3' and insureType != 'ul'" />
+                <option key="Cash Plus" value="4" visible="payFreqCode == 'year' and firstPremium gt 10000 and insureType != 'ul'"/>
+                <option key="Direct Debit Bank Account" value="5" visible="insureType != 'ul'"/>
+
+
+                <!--   ul   -->
+                <option key="Credit Card" value="3"  visible="engineProductId != 'SU3' and insureType == 'ul'" />
+                <option key="Direct Debit Bank Account" value="5" visible="insureType == 'ul'"/>
+                <option key="Cash" value="1" visible="payFreqCode != 'month' and insureType == 'ul' "/>
+                <option key="Cheque" value="2" visible="payFreqCode != 'month' and insureType == 'ul' "/>
+            </options>
+        </field>
+        <field uniqueID="paymentMethod" value="paymentMethod" type="select" visible=" channel == 'SCB'" label="Payment Method"
+               attr="type:select;placeholder:Please select">
+            <rules>
+                <rule required="true" message="Please select payment method"/>
+            </rules>
+            <options dictKey="" >
+
+                <option key="Credit Card" value="3"  visible="" />
+                <option key="Direct Debit Bank Account" value="5" visible=""/>
+                <option key="QR Code(Mobile Banking)" value="6" visible="payFreqCode != 'month'"/>
+                <option key="Bill Payment" value="7" visible="payFreqCode != 'month'"/>
+            </options>
+        </field>
+        <field uniqueID="creditBankName" value="creditBankName" type="cascader" visible="insureType != 'ul'" label="Bank Name"
+               attr="type:creditBank;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select bank name"/>
+            </rules>
+            <options dictKey="">
+            </options>
+        </field>
+        <field uniqueID="creditBankName" value="creditBankName" type="cascader" visible="insureType == 'ul' and channel == 'UOB'" label="Bank Name"
+               attr="type:uobOnly;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select bank name"/>
+            </rules>
+            <options dictKey="">
+            </options>
+        </field>
+        <field uniqueID="creditBankName" value="creditBankName" type="cascader" visible="insureType == 'ul' and channel == 'SCB'" label="Bank Name"
+               attr="type:creditBank;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select bank name"/>
+            </rules>
+            <options dictKey="">
+            </options>
+        </field>
+        <field uniqueID="creditCardRelationship" value="creditCardRelationship" type="select" visible="" label="Relationship"
+               attr="placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select relationship"/>
+            </rules>
+            <options dictKey="'relationshipConsentAC&amp;CC'">
+            </options>
+        </field>
+        <field uniqueID="creditCardTypes" value="creditCardTypes" type="select" visible="" label="Credit Card Types"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select credit card types"/>
+            </rules>
+            <options dictKey="">
+                <option key="Visa" value="1"/>
+                <option key="Master" value="2"/>
+            </options>
+        </field>
+        <field uniqueID="creditOwnerName" value="creditOwnerName" type="input" visible="" label="Card Owner Name"
+               attr="type:input;placeholder:Please enter card owner name;show:false;maxLength:50">
+            <rules>
+                <rule required="true" message="Please enter card owner name"/>
+                <rule patternKey="enAndThName" message="This field must be alphabets"/>
+            </rules>
+        </field>
+        <field uniqueID="creditCardNumber" value="creditCardNumber" type="creditCard" visible="" label="Credit Card Number"
+               attr="type:input;placeholder:Please enter credit card number;show:false;maxLength:19">
+            <rules>
+                <rule required="true" message="Please enter credit card number"/>
+                <rule patternKey="creditNumber" message="This field must be digits"/>
+            </rules>
+        </field>
+        <field uniqueID="expiryDate" value="expiryDate" type="creditCardExpiryDate" visible="" label="Expiry Date"
+               attr="placeholder:Please select;onChange:true;show:false;disabledDate:largerThanToday">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+        </field>
+
+        <field uniqueID="firstPaymentDate" value="firstPaymentDate" type="datePicker" visible="" label="First Payment Date"
+               attr="placeholder:Please select;onChange:true;show:false;disabledDate:equalOrLargerThanToday">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+        </field>
+
+        <field uniqueID="creditCardOnlinePayment" value="creditCardOnlinePayment" type="radioButton" label="Online payment now？"  visible="" attr="type:radioButton;show:false">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+            <options dictKey="">
+                <option key="Yes" value="Y"/>
+                <option key="No" value="N"/>
+            </options>
+        </field>
+        <field uniqueID="cashPlusRelationship" value="cashPlusRelationship" type="select" visible="" label="Relationship"
+               attr="placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select relationship"/>
+            </rules>
+            <options dictKey="insurantAge lt 20 ? 'relationshipCashPlusAdult' : 'relationshipCashPlusJuvenile'"   >
+            </options>
+        </field>
+        <field uniqueID="cashPlusOwnerName" value="cashPlusOwnerName" type="input" visible="" label="Card Owner Name"
+               attr="type:input;placeholder:Please enter card owner name;show:false;maxLength:50">
+            <rules>
+                <rule required="true" message="Please enter card owner name"/>
+                <rule patternKey="enAndThName" message="This field must be alphabets"/>
+            </rules>
+        </field>
+        <field uniqueID="cashPlusCardNumber" value="cashPlusCardNumber" type="creditCard" visible="" label="Card Number"
+               attr="type:input;placeholder:Please enter card number;show:false;maxLength:19">
+            <rules>
+                <rule required="true" message="Please enter card number"/>
+                <rule patternKey="creditNumber" message="This field must be digits"/>
+            </rules>
+        </field>
+    <!--    <field uniqueID="cashPlusRelationship" value="cashPlusRelationship" type="select" visible="channel == 'UOB'" label="Relationship"
+               attr="placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select relationship"/>
+            </rules>
+            <options dictKey="'relationshipCashPlusAC&amp;CC'">
+            </options>
+        </field>-->
+        <field uniqueID="cashPlusExpiryDate" value="cashPlusExpiryDate" type="monthPicker" visible="" label="Expiry Date"
+               attr="placeholder:Please select;onChange:true;show:false;disabledDate:largerThanToday">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+        </field>
+
+        <!--<field uniqueID="cashPlusOnlinePayment" value="cashPlusOnlinePayment" type="radioButton"  label="Online payment now？"  visible="" attr="type:radioButton;show:false">-->
+            <!--<rules>-->
+                <!--<rule required="true" message="Please select"/>-->
+            <!--</rules>-->
+            <!--<options dictKey="">-->
+                <!--<option key="Yes" value="Y"/>-->
+                <!--<option key="No" value="N"/>-->
+            <!--</options>-->
+        <!--</field>-->
+
+        <field uniqueID="directBank" value="directBank" type="cascader" visible="" label="Bank Name"
+               attr="type:debitBank;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select bank name"/>
+            </rules>
+            <options dictKey="">
+            </options>
+        </field>
+        <field uniqueID="directRelationship" value="directRelationship" type="select" visible="" label="Relationship"
+               attr="placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select relationship"/>
+            </rules>
+            <options dictKey="'relationshipConsentAC&amp;CC'">
+            </options>
+        </field>
+        <field uniqueID="directAccountName" value="directAccountName" type="input" visible="" label="Account Name"
+               attr="type:input;placeholder:Please enter account name;show:false">
+            <rules>
+                <rule required="true" message="Please enter account name"/>
+                <rule patternKey="enAndThName" message="This field must be alphabets"/>
+            </rules>
+        </field>
+        <field uniqueID="directAccountNumber" value="directAccountNumber" type="dashInput" visible="" label="Account Number"
+               attr="type:input;dashInputType:DDBAInput;placeholder:Please enter account number;show:false;maxLength:15;min:1">
+            <rules>
+                <rule required="true" message="Please enter account number"/>
+                <rule patternKey="accountNumber" message="This field must be digits"/>
+            </rules>
+        </field>
+        <field uniqueID="directDebitTypes" value="directDebitTypes" type="select" visible="" label="Direct Debit Types"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select direct debit types"/>
+            </rules>
+            <options dictKey="">
+                <option key="Savings" value="1"/>
+                <option key="Current" value="2"/>
+            </options>
+        </field>
+        <field uniqueID="fullOrInstallment" value="fullOrInstallment" type="select" visible="" label="Full/Installment"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select "/>
+            </rules>
+            <options dictKey="">
+                <option key="Full" value="1" />
+                <option key="Installment" value="2"  visible="payFreqCode == 'year' and engineProductId != 'SU3' and engineProductId != 'RU2'" />
+            </options>
+        </field>
+        <field uniqueID="installmentTitle" value="" type="installmentTitle" visible="" label="Choose Installment Plan"
+               attr="show:false">
+        </field>
+    <!--    <field uniqueID="installmentNewOption" value="installmentNewOption" type="select" visible="firstPremium lt 50000"  label="New"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select new"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 3 months (with UOB reward plus)(182019)" value="1" visible=""/>
+                <option key=" 0.29%, 10 months (with UOB reward plus)(182037)" value="2" visible=""/>
+            </options>
+        </field>
+        <field uniqueID="installmentRenewOption" value="installmentRenewOption" type="select" visible="firstPremium lt 50000"  label="Renew"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select renew"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 3 months (with UOB reward plus)(182055)" value="1" visible=""/>
+                <option key="0.29%, 10 months (with UOB reward plus)(182064)" value="2" visible=""/>
+            </options>
+        </field>
+        <field uniqueID="sixMonthPlanRadioOption" value="sixMonthPlanRadioOption" type="radioButton"  visible="(compareDate =='Y' and engineProductId == 'NA4043' and firstPremium le 150000 and firstPremium ge 50000)  or (engineProductId != 'NA4043' and compareDate =='Y' and firstPremium lt 500000 and firstPremium ge 50000) "  label="Will you apply 0%, 6 months (no reward points) for both NB and Renewal(490466)? " attr="type:radioButton;show:false">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+            <options dictKey="">
+                <option key="Yes" value="Y"/>
+                <option key="No" value="N"/>
+            </options>
+        </field>
+        <field uniqueID="sixMonthPlanRadioOption" value="sixMonthPlanRadioOption" type="radioButton"  visible="(compareDate =='N' and engineProductId == 'NA4043' and firstPremium le 150000 and firstPremium ge 50000) or (engineProductId != 'NA4043' and compareDate =='N' and firstPremium le 200000 and firstPremium ge 50000) "  label="Will you apply 0%, 6 months (no reward points) for both NB and Renewal(490466)?"
+               attr="type:radioButton;show:false">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+            <options dictKey="">
+                <option key="Yes" value="Y"/>
+                <option key="No" value="N"/>
+            </options>
+        </field>
+
+        <field uniqueID="sixMonthPlanNewOption" value="sixMonthPlanNewOption" type="select" visible=" ( compareDate =='Y' and engineProductId == 'NA4043' and firstPremium le 150000 and firstPremium ge 50000) or (engineProductId != 'NA4043' and compareDate =='Y' and firstPremium lt 500000 and firstPremium ge 50000)"  label="New"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select new"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 10 months (with UOB reward plus)(182028)" value="3" visible=""/>
+            </options>
+        </field>
+        <field uniqueID="sixMonthPlanNewOption" value="sixMonthPlanNewOption" type="select" visible=" (compareDate =='N' and engineProductId == 'NA4043' and firstPremium le 150000 and firstPremium ge 50000) or (engineProductId != 'NA4043' and compareDate =='N' and firstPremium le 200000 and firstPremium ge 50000) "  label="New"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select new"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 10 months (with UOB reward plus)(182028)" value="3" visible=""/>
+            </options>
+        </field>
+        <field uniqueID="sixMonthPlanRenewOption" value="sixMonthPlanRenewOption" type="select" visible=" (compareDate =='Y' and engineProductId == 'NA4043' and firstPremium le 150000 and firstPremium ge 50000) or (engineProductId != 'NA4043' and compareDate =='Y' and firstPremium lt 500000 and firstPremium ge 50000) "  label="Renew"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select renew"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 3 months (with UOB reward plus)(182055)" value="1" visible=""/>
+                <option key="0.29%, 10 months (with UOB reward plus)(182064)" value="2" visible=""/>
+            </options>
+        </field>
+        <field uniqueID="sixMonthPlanRenewOption" value="sixMonthPlanRenewOption" type="select" visible=" (compareDate =='N' and engineProductId == 'NA4043' and firstPremium le 150000 and firstPremium ge 50000) or (engineProductId != 'NA4043' and compareDate =='N' and firstPremium le 200000 and firstPremium ge 50000)"  label="Renew"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select renew"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 3 months (with UOB reward plus)(182055)" value="1" visible=""/>
+                <option key="0.29%, 10 months (with UOB reward plus)(182064)" value="2" visible=""/>
+            </options>
+        </field>
+        <field uniqueID="tenMonthPlanRadioOption" value="tenMonthPlanRadioOption" type="radioButton"  visible="(engineProductId != 'NA4043' and compareDate =='Y' and firstPremium ge 500000) "  label="Will you apply 0%, 10 months (no reward points) for both NB and Renewal(570150)? " attr="type:radioButton;show:false">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+            <options dictKey="">
+                <option key="Yes" value="Y"/>
+                <option key="No" value="N"/>
+            </options>
+        </field>
+
+        <field uniqueID="tenMonthPlanRadioOption" value="tenMonthPlanRadioOption" type="radioButton"  visible="(engineProductId != 'NA4043' and compareDate =='N' and firstPremium gt 200000) "  label="Will you apply 0%, 10 months (no reward points) for both NB and Renewal(986893)? " attr="type:radioButton;show:false">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+            <options dictKey="">
+                <option key="Yes" value="Y"/>
+                <option key="No" value="N"/>
+            </options>
+        </field>
+
+        <field uniqueID="tenMonthPlanRadioOption" value="tenMonthPlanRadioOption" type="radioButton"  visible="(compareDate =='Y' and engineProductId == 'NA4043' and  firstPremium gt 150000) "  label="Will you apply 0%, 10 months (no reward points) for both NB and Renewal(565080)? " attr="type:radioButton;show:false">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+            <options dictKey="">
+                <option key="Yes" value="Y"/>
+                <option key="No" value="N"/>
+            </options>
+        </field>
+        <field uniqueID="tenMonthPlanRadioOption" value="tenMonthPlanRadioOption" type="radioButton"  visible="(compareDate =='N' and engineProductId == 'NA4043' and  firstPremium gt 150000)"  label="Will you apply 0%, 10 months (no reward points) for both NB and Renewal(565080)? " attr="type:radioButton;show:false">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+            <options dictKey="">
+                <option key="Yes" value="Y"/>
+                <option key="No" value="N"/>
+            </options>
+        </field>
+        <field uniqueID="tenMonthPlanNewOption" value="tenMonthPlanNewOption" type="select" visible="(compareDate =='Y' and engineProductId == 'NA4043' and  firstPremium gt 150000) or (engineProductId != 'NA4043' and compareDate =='Y' and firstPremium ge 500000) "  label="New"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select new"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 10 months (with UOB reward plus)(182028)" value="3" visible=""/>
+            </options>
+        </field>
+
+        <field uniqueID="tenMonthPlanNewOption" value="tenMonthPlanNewOption" type="select" visible="(compareDate =='N' and engineProductId == 'NA4043' and  firstPremium gt 150000) or (engineProductId != 'NA4043' and compareDate =='N' and firstPremium gt 200000) "  label="New"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select new"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 10 months (with UOB reward plus)(182028)" value="3" visible=""/>
+            </options>
+        </field>
+
+        <field uniqueID="tenMonthPlanRenewOption" value="tenMonthPlanRenewOption" type="select" visible="(compareDate =='Y' and engineProductId == 'NA4043' and  firstPremium gt 150000) or (engineProductId != 'NA4043' and compareDate =='Y' and firstPremium ge 500000)"  label="Renew"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select renew"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 3 months (with UOB reward plus)(182055)" value="1" visible=""/>
+                <option key="0.29%, 10 months (with UOB reward plus)(182064)" value="2" visible=""/>
+            </options>
+        </field>
+
+        <field uniqueID="tenMonthPlanRenewOption" value="tenMonthPlanRenewOption" type="select" visible="(compareDate =='N' and engineProductId == 'NA4043' and  firstPremium gt 150000) or (engineProductId != 'NA4043' and compareDate =='N' and firstPremium gt 200000) "  label="Renew"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select renew"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 3 months (with UOB reward plus)(182055)" value="1" visible=""/>
+                <option key="0.29%, 10 months (with UOB reward plus)(182064)" value="2" visible=""/>
+            </options>
+        </field>-->
+        <field uniqueID="installmentNewOption" value="installmentNewOption" type="select" visible="compareDate =='Y' and  firstPremium lt 50000"  label="New"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select new"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 3 months (with UOB reward plus)(182019)" value="1" visible=""/>
+                <option key=" 0.29%, 10 months (with UOB reward plus)(182037)" value="2" visible=""/>
+            </options>
+        </field>
+        <field uniqueID="installmentRenewOption" value="installmentRenewOption" type="select" visible="compareDate =='Y' and firstPremium lt 50000"  label="Renew"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select renew"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 3 months (with UOB reward plus)(182055)" value="1" visible=""/>
+                <option key="0.29%, 10 months (with UOB reward plus)(182064)" value="2" visible=""/>
+            </options>
+        </field>
+        <field uniqueID="sixMonthPlanRadioOption" value="sixMonthPlanRadioOption" type="radioButton"  visible="compareDate =='Y' and firstPremium lt 500000 and firstPremium ge 50000 "  label="Will you apply 0%, 6 months (no reward points) for both NB and Renewal(490466)? " attr="type:radioButton;show:false">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+            <options dictKey="">
+                <option key="Yes" value="Y"/>
+                <option key="No" value="N"/>
+            </options>
+        </field>
+
+        <field uniqueID="sixMonthPlanNewOption" value="sixMonthPlanNewOption" type="select" visible="compareDate =='Y' and firstPremium lt 500000 and firstPremium ge 50000 "  label="New"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select new"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 10 months (with UOB reward plus)(182028)" value="3" visible=""/>
+            </options>
+        </field>
+        <field uniqueID="sixMonthPlanRenewOption" value="sixMonthPlanRenewOption" type="select" visible="compareDate =='Y' and firstPremium lt 500000 and firstPremium ge 50000 "  label="Renew"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select renew"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 3 months (with UOB reward plus)(182055)" value="1" visible=""/>
+                <option key="0.29%, 10 months (with UOB reward plus)(182064)" value="2" visible=""/>
+            </options>
+        </field>
+        <field uniqueID="tenMonthPlanRadioOption" value="tenMonthPlanRadioOption" type="radioButton"  visible="compareDate =='Y' and firstPremium ge 500000"  label="Will you apply 0%, 10 months (no reward points) for both NB and Renewal(570150)? " attr="type:radioButton;show:false">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+            <options dictKey="">
+                <option key="Yes" value="Y"/>
+                <option key="No" value="N"/>
+            </options>
+        </field>
+        <field uniqueID="tenMonthPlanNewOption" value="tenMonthPlanNewOption" type="select" visible="compareDate =='Y' and firstPremium ge 500000"  label="New"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select new"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 10 months (with UOB reward plus)(182028)" value="3" visible=""/>
+            </options>
+        </field>
+        <field uniqueID="tenMonthPlanRenewOption" value="tenMonthPlanRenewOption" type="select" visible="compareDate =='Y' and firstPremium ge 500000"  label="Renew"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select renew"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 3 months (with UOB reward plus)(182055)" value="1" visible=""/>
+                <option key="0.29%, 10 months (with UOB reward plus)(182064)" value="2" visible=""/>
+            </options>
+        </field>
+        <field uniqueID="cashPlusCampaign" value="cashPlusCampaign" type="installmentTitle"  visible=" firstPremium gt 10000"  label="0%, 10 months (no reward points) for both NB and Renewal." attr="show:false">
+        </field>
+        <!--  <field uniqueID="cashPlusPlanRadioOption" value="cashPlusPlanRadioOption" type="radioButton"  visible="compareDate =='Y' and firstPremium gt 10000"  label="Will you apply 0%, 10 months (no reward points) for both NB and Renewal?" attr="type:radioButton;show:false">
+             <rules>
+                 <rule required="true" message="Please select"/>
+             </rules>
+             <options dictKey="">
+                 <option key="Yes" value="Y"/>
+                 <option key="No" value="N"/>
+             </options>
+         </field>   -->
+       <!-- <field uniqueID="isSameNewPaymentMethod" value="isSameNewPaymentMethod" type="select" visible=""
+               label="Renewal Payment Method"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select renewal payment method"/>
+            </rules>
+            <options dictKey="">
+                <option key="Same AS New Business" value="1"/>
+                <option key="Not The Same AS New Business" value="2"/>
+            </options>
+        </field>-->
+        <field uniqueID="renewalPaymentInformation" value="renewalPaymentInformation" type="title" visible=""
+               label="Renewal Payment Information"
+               attr="show:true">
+        </field>
+        <field uniqueID="renewPaymentMethod" value="renewPaymentMethod" type="select" visible="" label="Payment Method"
+               attr="type:select;placeholder:Please select">
+            <rules>
+                <rule required="true" message="Please select payment method"/>
+            </rules>
+            <options dictKey="">
+                <option key="Credit Card" value="3" visible=""/>
+                <option key="Direct Debit Bank Account" value="5" visible=""/>
+                <option key="Bill Payment" value="7" visible="payFreqCode != 'month' and  insureType != 'ul' "/>
+            </options>
+        </field>
+      <!--  <field uniqueID="renewCreditBankName" value="renewCreditBankName" type="cascader" visible="insureType != 'ul'"
+               label="Bank Name"
+               attr="type:creditBank;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select bank name"/>
+            </rules>
+            <options dictKey="">
+            </options>
+        </field>-->
+        <field uniqueID="renewCreditBankName" value="renewCreditBankName" type="cascader" visible="insureType == 'ul'"
+               label="Bank Name"
+               attr="type:uobOnly;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select bank name"/>
+            </rules>
+            <options dictKey="">
+            </options>
+        </field>
+        <field uniqueID="renewCreditCardRelationship" value="renewCreditCardRelationship" type="select" visible="insureType == 'ul'"
+               label="Relationship"
+               attr="placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select relationship"/>
+            </rules>
+            <options dictKey="'relationshipConsentAC&amp;CC'">
+            </options>
+        </field>
+        <field uniqueID="renewCreditCardTypes" value="renewCreditCardTypes" type="select" visible="insureType == 'ul'"
+               label="Credit Card Types"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select credit card types"/>
+            </rules>
+            <options dictKey="">
+                <option key="Visa" value="1"/>
+                <option key="Master" value="2"/>
+            </options>
+        </field>
+        <field uniqueID="renewCreditOwnerName" value="renewCreditOwnerName" type="input" visible="insureType == 'ul'"
+               label="Card Owner Name"
+               attr="type:input;placeholder:Please enter card owner name;show:false;maxLength:50">
+            <rules>
+                <rule required="true" message="Please enter card owner name"/>
+                <rule patternKey="enAndThName" message="This field must be alphabets"/>
+            </rules>
+        </field>
+        <field uniqueID="renewCreditCardNumber" value="renewCreditCardNumber" type="creditCard" visible="insureType == 'ul'"
+               label="Credit Card Number"
+               attr="type:input;placeholder:Please enter credit card number;show:false;maxLength:19">
+            <rules>
+                <rule required="true" message="Please enter credit card number"/>
+                <rule patternKey="creditNumber" message="This field must be digits"/>
+            </rules>
+        </field>
+        <field uniqueID="renewExpiryDate" value="renewExpiryDate" type="creditCardExpiryDate" visible="insureType == 'ul'"
+               label="Expiry Date"
+               attr="placeholder:Please select;onChange:true;show:false;disabledDate:largerThanToday">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+        </field>
+
+        <field uniqueID="renewFirstPaymentDate" value="renewFirstPaymentDate" type="datePicker" visible="insureType == 'ul'"
+               label="First Payment Date"
+               attr="placeholder:Please select;onChange:true;show:false;disabledDate:equalOrLargerThanToday">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+        </field>
+      <!--  <field uniqueID="renewCashPlusRelationship" value="renewCashPlusRelationship" type="select" visible="insureType == 'ul'"
+               label="Relationship"
+               attr="placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select relationship"/>
+            </rules>
+            <options dictKey="insurantAge lt 20 ? 'relationshipCashPlusAdult' : 'relationshipCashPlusJuvenile'">
+            </options>
+        </field>
+        <field uniqueID="renewCashPlusOwnerName" value="renewCashPlusOwnerName" type="input" visible="insureType == 'ul'"
+               label="Card Owner Name"
+               attr="type:input;placeholder:Please enter card owner name;show:false;maxLength:50">
+            <rules>
+                <rule required="true" message="Please enter card owner name"/>
+                <rule patternKey="enAndThName" message="This field must be alphabets"/>
+            </rules>
+        </field>
+        <field uniqueID="renewCashPlusCardNumber" value="renewCashPlusCardNumber" type="creditCard" visible="insureType == 'ul'"
+               label="Card Number"
+               attr="type:input;placeholder:Please enter card number;show:false;maxLength:19">
+            <rules>
+                <rule required="true" message="Please enter card number"/>
+                <rule patternKey="creditNumber" message="This field must be digits"/>
+            </rules>
+        </field>
+        <field uniqueID="renewCashPlusExpiryDate" value="renewCashPlusExpiryDate" type="monthPicker" visible="insureType == 'ul'"
+               label="Expiry Date"
+               attr="placeholder:Please select;onChange:true;show:false;disabledDate:largerThanToday">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+        </field>-->
+        <field uniqueID="renewDirectBank" value="renewDirectBank" type="cascader" visible="insureType == 'ul'" label="Bank Name"
+               attr="type:debitBank;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select bank name"/>
+            </rules>
+            <options dictKey="">
+            </options>
+        </field>
+        <field uniqueID="renewDirectRelationship" value="renewDirectRelationship" type="select" visible="insureType == 'ul'"
+               label="Relationship"
+               attr="placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select relationship"/>
+            </rules>
+            <options dictKey="'relationshipConsentAC&amp;CC'">
+            </options>
+        </field>
+        <field uniqueID="renewDirectAccountName" value="renewDirectAccountName" type="input" visible="insureType == 'ul'"
+               label="Account Name"
+               attr="type:input;placeholder:Please enter account name;show:false">
+            <rules>
+                <rule required="true" message="Please enter account name"/>
+                <rule patternKey="enAndThName" message="This field must be alphabets"/>
+            </rules>
+        </field>
+        <field uniqueID="renewDirectAccountNumber" value="renewDirectAccountNumber" type="dashInput" visible="insureType == 'ul'"
+               label="Account Number"
+               attr="type:input;dashInputType:DDBAInput;placeholder:Please enter account number;show:false;maxLength:15;min:1">
+            <rules>
+                <rule required="true" message="Please enter account number"/>
+                <rule patternKey="accountNumber" message="This field must be digits"/>
+            </rules>
+        </field>
+        <field uniqueID="renewDirectDebitTypes" value="renewDirectDebitTypes" type="select" visible="insureType == 'ul'"
+               label="Direct Debit Types"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select direct debit types"/>
+            </rules>
+            <options dictKey="">
+                <option key="Savings" value="1"/>
+                <option key="Current" value="2"/>
+            </options>
+        </field>
+       <!-- <field uniqueID="renewFullOrInstallment" value="renewFullOrInstallment" type="select" visible=""
+               label="Full/Installment"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select "/>
+            </rules>
+            <options dictKey="">
+                <option key="Full" value="1"/>
+                <option key="Installment" value="2"
+                        visible="payFreqCode == 'year' and engineProductId != 'SU3' and engineProductId != 'RU2'"/>
+            </options>
+        </field>
+        <field uniqueID="renewInstallmentTitle" value="" type="renewInstallmentTitle" visible=""
+               label="Choose Installment Plan"
+               attr="show:false">
+        </field>
+        <field uniqueID="renewInstallmentNewOption" value="renewInstallmentNewOption" type="select"
+               visible="firstPremium lt 50000" label="New"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select new"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 3 months (with UOB reward plus)(182019)" value="1" visible=""/>
+                <option key=" 0.29%, 10 months (with UOB reward plus)(182037)" value="2" visible=""/>
+            </options>
+        </field>
+        <field uniqueID="renewInstallmentRenewOption" value="renewInstallmentRenewOption" type="select"
+               visible="firstPremium lt 50000" label="Renew"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select renew"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 3 months (with UOB reward plus)(182055)" value="1" visible=""/>
+                <option key="0.29%, 10 months (with UOB reward plus)(182064)" value="2" visible=""/>
+            </options>
+        </field>
+        <field uniqueID="renewSixMonthPlanRadioOption" value="renewSixMonthPlanRadioOption" type="radioButton"
+               visible="(compareDate =='Y' and engineProductId == 'NA4043' and firstPremium le 150000 and firstPremium ge 50000)  or (engineProductId != 'NA4043' and compareDate =='Y' and firstPremium lt 500000 and firstPremium ge 50000) "
+               label="Will you apply 0%, 6 months (no reward points) for both NB and Renewal(490466)? "
+               attr="type:radioButton;show:false">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+            <options dictKey="">
+                <option key="Yes" value="Y"/>
+                <option key="No" value="N"/>
+            </options>
+        </field>
+        <field uniqueID="renewSixMonthPlanRadioOption" value="renewSixMonthPlanRadioOption" type="radioButton"
+               visible="(compareDate =='N' and engineProductId == 'NA4043' and firstPremium le 150000 and firstPremium ge 50000) or (engineProductId != 'NA4043' and compareDate =='N' and firstPremium le 200000 and firstPremium ge 50000) "
+               label="Will you apply 0%, 6 months (no reward points) for both NB and Renewal(490466)?"
+               attr="type:radioButton;show:false">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+            <options dictKey="">
+                <option key="Yes" value="Y"/>
+                <option key="No" value="N"/>
+            </options>
+        </field>
+
+        <field uniqueID="renewSixMonthPlanNewOption" value="renewSixMonthPlanNewOption" type="select"
+               visible=" ( compareDate =='Y' and engineProductId == 'NA4043' and firstPremium le 150000 and firstPremium ge 50000) or (engineProductId != 'NA4043' and compareDate =='Y' and firstPremium lt 500000 and firstPremium ge 50000)"
+               label="New"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select new"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 10 months (with UOB reward plus)(182028)" value="3" visible=""/>
+            </options>
+        </field>
+        <field uniqueID="renewSixMonthPlanNewOption" value="renewSixMonthPlanNewOption" type="select"
+               visible=" (compareDate =='N' and engineProductId == 'NA4043' and firstPremium le 150000 and firstPremium ge 50000) or (engineProductId != 'NA4043' and compareDate =='N' and firstPremium le 200000 and firstPremium ge 50000) "
+               label="New"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select new"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 10 months (with UOB reward plus)(182028)" value="3" visible=""/>
+            </options>
+        </field>
+        <field uniqueID="renewSixMonthPlanRenewOption" value="renewSixMonthPlanRenewOption" type="select"
+               visible=" (compareDate =='Y' and engineProductId == 'NA4043' and firstPremium le 150000 and firstPremium ge 50000) or (engineProductId != 'NA4043' and compareDate =='Y' and firstPremium lt 500000 and firstPremium ge 50000) "
+               label="Renew"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select renew"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 3 months (with UOB reward plus)(182055)" value="1" visible=""/>
+                <option key="0.29%, 10 months (with UOB reward plus)(182064)" value="2" visible=""/>
+            </options>
+        </field>
+        <field uniqueID="renewSixMonthPlanRenewOption" value="renewSixMonthPlanRenewOption" type="select"
+               visible=" (compareDate =='N' and engineProductId == 'NA4043' and firstPremium le 150000 and firstPremium ge 50000) or (engineProductId != 'NA4043' and compareDate =='N' and firstPremium le 200000 and firstPremium ge 50000)"
+               label="Renew"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select renew"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 3 months (with UOB reward plus)(182055)" value="1" visible=""/>
+                <option key="0.29%, 10 months (with UOB reward plus)(182064)" value="2" visible=""/>
+            </options>
+        </field>
+        <field uniqueID="renewTenMonthPlanRadioOption" value="renewTenMonthPlanRadioOption" type="radioButton"
+               visible="(engineProductId != 'NA4043' and compareDate =='Y' and firstPremium ge 500000) "
+               label="Will you apply 0%, 10 months (no reward points) for both NB and Renewal(570150)? "
+               attr="type:radioButton;show:false">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+            <options dictKey="">
+                <option key="Yes" value="Y"/>
+                <option key="No" value="N"/>
+            </options>
+        </field>
+
+        <field uniqueID="renewTenMonthPlanRadioOption" value="renewTenMonthPlanRadioOption" type="radioButton"
+               visible="(engineProductId != 'NA4043' and compareDate =='N' and firstPremium gt 200000) "
+               label="Will you apply 0%, 10 months (no reward points) for both NB and Renewal(986893)? "
+               attr="type:radioButton;show:false">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+            <options dictKey="">
+                <option key="Yes" value="Y"/>
+                <option key="No" value="N"/>
+            </options>
+        </field>
+
+        <field uniqueID="renewTenMonthPlanRadioOption" value="renewTenMonthPlanRadioOption" type="radioButton"
+               visible="(compareDate =='Y' and engineProductId == 'NA4043' and  firstPremium gt 150000) "
+               label="Will you apply 0%, 10 months (no reward points) for both NB and Renewal(565080)? "
+               attr="type:radioButton;show:false">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+            <options dictKey="">
+                <option key="Yes" value="Y"/>
+                <option key="No" value="N"/>
+            </options>
+        </field>
+        <field uniqueID="renewTenMonthPlanRadioOption" value="renewTenMonthPlanRadioOption" type="radioButton"
+               visible="(compareDate =='N' and engineProductId == 'NA4043' and  firstPremium gt 150000)"
+               label="Will you apply 0%, 10 months (no reward points) for both NB and Renewal(565080)? "
+               attr="type:radioButton;show:false">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+            <options dictKey="">
+                <option key="Yes" value="Y"/>
+                <option key="No" value="N"/>
+            </options>
+        </field>
+        <field uniqueID="renewTenMonthPlanNewOption" value="renewTenMonthPlanNewOption" type="select"
+               visible="(compareDate =='Y' and engineProductId == 'NA4043' and  firstPremium gt 150000) or (engineProductId != 'NA4043' and compareDate =='Y' and firstPremium ge 500000) "
+               label="New"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select new"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 10 months (with UOB reward plus)(182028)" value="3" visible=""/>
+            </options>
+        </field>
+
+        <field uniqueID="renewTenMonthPlanNewOption" value="renewTenMonthPlanNewOption" type="select"
+               visible="(compareDate =='N' and engineProductId == 'NA4043' and  firstPremium gt 150000) or (engineProductId != 'NA4043' and compareDate =='N' and firstPremium gt 200000) "
+               label="New"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select new"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 10 months (with UOB reward plus)(182028)" value="3" visible=""/>
+            </options>
+        </field>
+
+        <field uniqueID="renewTenMonthPlanRenewOption" value="renewTenMonthPlanRenewOption" type="select"
+               visible="(compareDate =='Y' and engineProductId == 'NA4043' and  firstPremium gt 150000) or (engineProductId != 'NA4043' and compareDate =='Y' and firstPremium ge 500000)"
+               label="Renew"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select renew"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 3 months (with UOB reward plus)(182055)" value="1" visible=""/>
+                <option key="0.29%, 10 months (with UOB reward plus)(182064)" value="2" visible=""/>
+            </options>
+        </field>
+
+        <field uniqueID="renewTenMonthPlanRenewOption" value="renewTenMonthPlanRenewOption" type="select"
+               visible="(compareDate =='N' and engineProductId == 'NA4043' and  firstPremium gt 150000) or (engineProductId != 'NA4043' and compareDate =='N' and firstPremium gt 200000) "
+               label="Renew"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select renew"/>
+            </rules>
+            <options dictKey="">
+                <option key="0%, 3 months (with UOB reward plus)(182055)" value="1" visible=""/>
+                <option key="0.29%, 10 months (with UOB reward plus)(182064)" value="2" visible=""/>
+            </options>
+        </field>
+
+        <field uniqueID="renewCashPlusCampaign" value="renewCashPlusCampaign" type="installmentTitle"
+               visible=" firstPremium gt 10000" label="0%, 10 months (no reward points) for both NB and Renewal."
+               attr="show:false">
+        </field>-->
+        <!--  renew -->
+        <!--  ul   topup-->
+        <field uniqueID="topUpTitle" value="" type="title"  visible="topUpPremium !=null and topUpPremium!=''"  label="Top-up Premium Payment Information"
+               attr="show:true">
+        </field>
+        <field uniqueID="topUpPremium" value="topUpPremium" type="paymentTitle" visible="topUpPremium !=null and topUpPremium!=''"
+               label="Premium Top-up"
+               attr="show:true">
+        </field>
+        <field uniqueID="topUpPaymentMethod" value="topUpPaymentMethod" type="select" visible="topUpPremium !=null and topUpPremium!=''" label="Payment Method"
+               attr="type:select;placeholder:Please select">
+            <rules>
+                <rule required="true" message="Please select payment method"/>
+            </rules>
+            <options dictKey="">
+                <!--ol-->
+                <option key="Cash" value="1" visible="insureType != 'ul'  "/>
+                <option key="Cheque" value="2" visible=" insureType != 'ul' "/>
+                <option key="Direct Debit Bank Account" value="5" visible="insureType != 'ul' "/>
+                <!--ul-->
+                <option key="Direct Debit Bank Account" value="5" visible="insureType == 'ul' "/>
+                <option key="Cash" value="1" visible="insureType == 'ul' "/>
+                <option key="Cheque" value="2" visible="insureType == 'ul' "/>
+
+            </options>
+        </field>
+        <field uniqueID="topUpDirectBank" value="topUpDirectBank" type="cascader" visible="" label="Bank Name"
+               attr="type:debitBank;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select bank name"/>
+            </rules>
+            <options dictKey="">
+            </options>
+        </field>
+        <field uniqueID="topUpDirectRelationship" value="topUpDirectRelationship" type="select" visible="" label="Relationship"
+               attr="placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select relationship"/>
+            </rules>
+            <options dictKey="'relationshipConsentAC&amp;CC'">
+            </options>
+        </field>
+        <field uniqueID="topUpDirectAccountName" value="topUpDirectAccountName" type="input" visible="" label="Account Name"
+               attr="type:input;placeholder:Please enter account name;show:false">
+            <rules>
+                <rule required="true" message="Please enter account name"/>
+                <rule patternKey="enAndThName" message="This field must be alphabets"/>
+            </rules>
+        </field>
+        <field uniqueID="topUpDirectAccountNumber" value="topUpDirectAccountNumber" type="dashInput" visible="" label="Account Number"
+               attr="type:input;dashInputType:DDBAInput;placeholder:Please enter account number;show:false;maxLength:15;min:1">
+            <rules>
+                <rule required="true" message="Please enter account number"/>
+                <rule patternKey="accountNumber" message="This field must be digits"/>
+            </rules>
+        </field>
+        <field uniqueID="topUpDirectDebitTypes" value="topUpDirectDebitTypes" type="select" visible="" label="Direct Debit Types"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select direct debit types"/>
+            </rules>
+            <options dictKey="">
+                <option key="Savings" value="1"/>
+                <option key="Current" value="2"/>
+            </options>
+        </field>
+
+        <field uniqueID="topUpCreditBankName" value="topUpCreditBankName" type="cascader" visible="" label="Bank Name"
+               attr="type:creditBank;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select bank name"/>
+            </rules>
+            <options dictKey="">
+            </options>
+        </field>
+        <field uniqueID="topUpCreditCardRelationship" value="topUpCreditCardRelationship" type="select" visible="" label="Relationship"
+               attr="placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select relationship"/>
+            </rules>
+            <options dictKey="'relationshipConsentAC&amp;CC'">
+            </options>
+        </field>
+        <field uniqueID="topUpCreditCardTypes" value="topUpCreditCardTypes" type="select" visible="" label="Credit Card Types"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select credit card types"/>
+            </rules>
+            <options dictKey="">
+                <option key="Visa" value="1"/>
+                <option key="Master" value="2"/>
+            </options>
+        </field>
+        <field uniqueID="topUpCreditOwnerName" value="topUpCreditOwnerName" type="input" visible="" label="Card Owner Name"
+               attr="type:input;placeholder:Please enter card owner name;show:false">
+            <rules>
+                <rule required="true" message="Please enter card owner name"/>
+                <rule patternKey="enAndThName" message="This field must be alphabets"/>
+            </rules>
+        </field>
+        <field uniqueID="topUpCreditCardNumber" value="topUpCreditCardNumber" type="creditCard" visible="" label="Credit Card Number"
+               attr="type:input;placeholder:Please enter credit card number;show:false;maxLength:19">
+            <rules>
+                <rule required="true" message="Please enter credit card number"/>
+                <rule patternKey="creditNumber" message="This field must be digits"/>
+            </rules>
+        </field>
+        <field uniqueID="topUpExpiryDate" value="topUpExpiryDate" type="creditCardExpiryDate" visible="" label="Expiry Date"
+               attr="placeholder:Please select;onChange:true;show:false;disabledDate:largerThanToday">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+        </field>
+
+        <field uniqueID="topUpFirstPaymentDate" value="topUpFirstPaymentDate" type="datePicker" visible="" label="First Payment Date"
+               attr="placeholder:Please select;onChange:true;show:false;disabledDate:equalOrLargerThanToday">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+        </field>
+
+
+
+        <!--top up-->
+        <field uniqueID="dividendOptionTitle" value="" type="title"  visible=""  label="Dividend Option"
+               attr="show:true">
+        </field>
+        <field uniqueID="dividendOption" value="dividendOption" type="select" visible=""  label="Dividend Option"
+               attr="type:select;placeholder:Please select;show:true">
+            <rules>
+                <rule required="true" message="Please select dividend option"/>
+            </rules>
+            <options dictKey="">
+                <option key="Paid for Premium" value="2" visible="paidForPremium == true"/>
+                <option key="Reinvestment" value="3" visible="dividend == 'Y' or reinvestment == true"/>
+                <option key="Transfer to Account" value="4"/>
+               <!-- <option key="Paid for Premium" value="2" visible="engineProductId != 'W4014'"/>
+                <option key="Reinvestment" value="3" visible="dividend == 'Y'"/>
+                <option key="Transfer to Account" value="4"/>-->
+            </options>
+        </field>
+        <field uniqueID="accountBelongsTo" value="accountBelongsTo" type="select"  visible="" label="Account belongs to"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select account belongs to"/>
+            </rules>
+            <options dictKey="">
+                <option key="Payor" value="1" visible="insurantAge lt 20 "/>
+                <option key="Myself" value="3" visible="insurantAge ge 20 or insurantAge lt 20 "/>
+            </options>
+        </field>
+        <field uniqueID="dividendRelationship" value="dividendRelationship" type="select"  visible="" label="Relationship"
+               attr="type:select;placeholder:Please select;show:false">
+            <rules>
+                <rule required="true" message="Please select relation ship"/>
+            </rules>
+            <options dictKey="'relationshipDividend&amp;Cashback'">
+            </options>
+        </field>
+        <field uniqueID="dividendBank" value="dividendBank" type="cascader" visible=""  label="Bank"
+               attr="type:dividendBank;placeholder:Please select;show:false">
+            <rules>
+            </rules>
+            <options dictKey="">
+            </options>
+        </field>
+        <field uniqueID="dividendAccountName" value="dividendAccountName" type="input" visible=""  label="Account Name"
+               attr="type:input;placeholder:Please enter account name;show:false">
+            <rules>
+                <rule required="true" message="Please enter account name"/>
+                <rule patternKey="enAndThName" message="This field must be alphabets"/>
+            </rules>
+        </field>
+        <field uniqueID="dividendAccountNumber" value="dividendAccountNumber" type="dashInput" visible=""  label="Account Number"
+               attr="type:input;dashInputType:DDBAInput;placeholder:Please enter account number;show:false;maxLength:15">
+            <rules>
+                <rule patternKey="accountNumber" message="This field must be digits"/>
+            </rules>
+        </field>
+    </page>
+
+    <page id="PAY_IN_INFORMATION" preCheck="false" locale="en">
+    <field uniqueID="payInformation" value="" type="title" visible="" label="Pay-In Information"
+           attr="show:true">
+    </field>
+    <field uniqueID="application" value="applicationNumber" type="input" visible="" label="Application Number"
+           attr="type:input;disabled:true">
+    </field>
+        <field uniqueID="title" value="title" type="input" visible="" label="Title"
+               attr="type:input;disabled:true">
+        </field>
+        <field uniqueID="insuredGivenName" value="insuredGivenName" type="input" visible="" label="Insured's Given Name"
+               attr="type:input;disabled:true">
+        </field>
+        <field uniqueID="insuredFamilyName" value="insuredFamilyName" type="input" visible="" label="Insured's Family Name"
+               attr="type:input;disabled:true">
+        </field>
+        <field uniqueID="premiumAmount" value="premiumAmount" type="input" visible="" label="Premium Amount (THB)"
+               attr="type:input;disabled:true">
+        </field>
+        <field uniqueID="trNumber" value="trNumber" type="input" visible="" label="TR Number"
+               attr="type:input;disabled:true">
+        </field>
+        <field uniqueID="payInDate" value="payInDate " type="datePicker" visible="" label="Pay In date"
+               attr="type:datePicker;placeholder:Please select;onChange:true;show:true;">
+            <rules>
+                <rule required="true" message="Please select Pay In date"/>
+            </rules>
+        </field>
+        <field uniqueID="trIssueDate" value="trIssueDate " type="datePicker" visible="" label="TR issue Date"
+               attr="type:datePicker;placeholder:Please select;onChange:true;show:true;disabled:true">
+            <rules>
+                <rule required="true" message="Please select TR issue Date"/>
+            </rules>
+        </field>
+        <field uniqueID="payInAmount" value="payInAmount" type="inputNumber" visible="" label="Pay-In Amount (THB)"
+               attr="type:input;placeholder:Please enter Pay-In Amount (THB);show:true">
+            <rules>
+                <rule  required="true" message="Please enter Pay-In Amount (THB)"/>
+                <rule patternKey="isNumber" message="This field must be digits"/>
+            </rules>
+        </field>
+        <field uniqueID="payInBank" value="payInBank" type="cascader" visible="" label="Bank Name"
+               attr="type:transferToCompany;placeholder:Please select;show:true">
+            <rules>
+                <rule required="false" message="Please select bank name"/>
+            </rules>
+            <options dictKey="">
+            </options>
+        </field>
+        <field uniqueID="payInAccountNumber" value="payInAccountNumber" type="dashInput" visible="" label="Account Number"
+               attr="type:input;dashInputType:DDBAInput;placeholder:Please enter account number;show:true;maxLength:15">
+            <rules>
+                <rule  required="false" message="Please enter account number"/>
+                <rule patternKey="accountNumber" message="This field must be digits"/>
+            </rules>
+        </field>
+        <field uniqueID="payinslip" value="" type="upload" visible="paymentMethod == '1' or paymentMethod == '2' or paymentMethod == '5'" label="Pay-in Slip"
+               attr="type:upload;show:true">
+            <rules>
+                <rule required="true" message="Please upload Pay-in information"/>
+            </rules>
+        </field>
+        <field uniqueID="creditCardNumber" value="cardNumber" type="inut" visible="paymentMethod == '3'" label="Credit Card Number"
+               attr="type:input;disabled:true">
+        </field>
+        <field uniqueID="approvedCode" value="" type="input" visible="paymentMethod == '3'" label="Approved Code"
+               attr="type:input;show:true;maxLength:6;placeholder:Please enter approved code">
+            <rules>
+                <rule required="true" message="Please enter approved Code"/>
+                <rule patternKey="lengthEqualToSix" message="Please enter 6 digits"/>
+            </rules>
+        </field>
+        <field uniqueID="edcslip" value="" type="upload" visible="paymentMethod == '3'" label="EDC Slip"
+               attr="type:upload;show:true">
+            <rules>
+                <rule required="true" message="Please upload Pay-in information"/>
+            </rules>
+        </field>
+    </page>
+    <page id="REFERRER_INFORMATION" preCheck="false" locale="en">
+        <!-- <field uniqueID="otherInfoTitle" value="" type="title" visible="" label="UOB Information"
+                  attr="show:true">
+           </field>-->
+        <field uniqueID="uobBranch" value="uobBranch" type="select" visible="channel == 'UOB'" label="Branch Code/Name"
+               attr="type:select;allowClear:true;showSearch:true;optionFilterProp:children;placeholder:Please select Branch Code/Name;show:true">
+            <rules>
+                <rule required="true"  message=""/>
+            </rules>
+            <options dictKey="'uobBranch'">
+            </options>
+        </field>
+        <field uniqueID="uobBranch" value="uobBranch" type="select" visible="channel == 'SCB'" label="Branch Code/Name"
+               attr="type:select;allowClear:true;showSearch:true;optionFilterProp:children;placeholder:Please select Branch Code/Name;show:true">
+            <rules>
+                <rule required="false"  message=""/>
+            </rules>
+            <options dictKey="'scbBranch'">
+            </options>
+        </field>
+        <field uniqueID="firstRefId" value="firstRefId" type="inputSearch" visible="" label="Refer Staff Code 1"
+               attr="type:input;placeholder:Please enter Refer Staff Code 1;show:true;maxLength:11">
+            <rules>
+                <rule required="false" message="Please enter Refer Staff Code 1"/>
+                <rule patternKey="uobId" message=" Please enter 11-digit number only"/>
+            </rules>
+        </field>
+        <field uniqueID="firstRefName" value="firstRefName" type="input" visible="" label="Refer Staff Name 1"
+               attr="type:input;disabled:true;show:true">
+            <rules>
+                <rule required="false" message="Please enter Refer Staff Name 1"/>
+                <rule patternKey="familyName" message="This field must be alphabets"/>
+            </rules>
+        </field>
+        <field uniqueID="secondRefId" value="secondRefId" type="inputSearch" visible="" label="Refer Staff Code 2"
+               attr="type:input;placeholder:Please enter Refer Staff Code 2;show:true;maxLength:11">
+            <rules>
+                <rule  required="false" message="Please enter Refer Staff Code 2"/>
+                <rule patternKey="uobId" message=" Please enter 11-digit number only"/>
+            </rules>
+        </field>
+        <field uniqueID="secondRefName" value="secondRefName" type="input" visible="" label="Refer Staff Name 2"
+               attr="type:input;disabled:true;show:true">
+            <rules>
+                <rule required="false"  message="Please enter Refer Staff Name 2 "/>
+                <rule patternKey="familyName" message="This field must be alphabets"/>
+            </rules>
+        </field>
+        <field uniqueID="campaign" value="campaign" type="radioButton" initialValue = "campaign"  visible=""  label="Campaign"
+               attr="type:radioButton;show:true">
+            <rules>
+                <rule required="true" message="Please select"/>
+            </rules>
+            <options dictKey="">
+                <option key="No Campaign" value="No" />
+                <option key="Combo Campaign" value="Combo"/>
+            </options>
+        </field>
+    </page>
+</root>
+
+

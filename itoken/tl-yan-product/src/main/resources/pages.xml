@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="GBK"?>
+<root>
+    <!--  channel  role -->
+    <page id="proposal_insurant" preCheck="false" locale="en">
+        <field uniqueID="title" value="title" type="select" visible="" label="Title"
+               attr="type:select;placeholder:Please select">
+            <rules>
+                <rule required="true" message="Please select title"/>
+            </rules>
+            <options dictKey="">
+                <option key="MISS" value="1"/>
+                <option key="MS." value="2"/>
+                <option key="MRS." value="3"/>
+                <option key="MR." value="4"/>
+            </options>
+        </field>
+        <field uniqueID="givenName" value="givenName" type="input" visible="" label="Given Name"
+               attr="type:input;placeholder:Please enter given name;maxLength:50">
+            <rules>
+                <rule required="true" message="Please enter given name"/>
+                <rule patternKey="familyName" message="This field must be alphabets"/>
+            </rules>
+        </field>
+
+    </page>
+</root>

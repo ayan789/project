@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="GBK"?>
+<root>
+    <!-- 英文建议书流程 -->
+    <progress id="proposal" locale="en">
+        <step key="step_insurant" title="Personal Information" label="Personal Information"></step>
+        <step key="step_applicant" title="Payor Details" label="Payor Details"></step>
+        <step key="step_plan" title="Insurance Plan" label="Insurance Plan"></step>
+        <step key="step_benefit" title="Benefit Illustration" label="Benefit Illustration"></step>
+    </progress>
+
+    <!-- 英文投保流程 -->
+    <progress id="insure" locale="en">
+        <step key="step_fna" label="OIC Questionnaire">
+            <step key="step_fna" label="OIC Questionnaire" title="OIC Questionnaire"></step>
+        </step>
+
+        <step key="step_quotation" label="Quotation">
+            <step key="step_insurant" label="Personal Information" title="Personal Information"></step>
+            <step key="step_applicant" label="Payor Details" title="Payor Details"></step>
+            <step key="step_plan" label="Insurance Plan" title="Insurance Plan"></step>
+            <step key="step_benefit" label="Benefit Illustration" title="Benefit Illustration"></step>
+        </step>
+
+        <step key="step_application" label="Application">
+            <step key="step_insurant_additional" label="Personal Additional Info" title="Personal Additional Info"></step>
+            <step key="step_applicant_additional" label="Payor Additional Info" title="Payor Additional Info"></step>
+            <step key="step_beneficary" label="Beneficiary Info" title="Beneficiary Info"></step>
+            <step key="step_lifestyle_questions" label="Lifestyle Questions" title="Lifestyle Questions"></step>
+            <step key="step_health_questions" label="Health Questions" title="Health Questions" visible="APPLICATION_TYPE == 'SIO' or APPLICATION_TYPE == 'Full' or (INSURE_TYPE != null and INSURE_TYPE == 'ul')"></step>
+          <!--  <step key="step_sec_notification" label="SEC Notification" title="SEC Notification" visible="INSURE_TYPE != null and INSURE_TYPE == 'ul' and SEC_STATUS == true  "></step>-->
+            <step key="step_sec_notification" label="SEC Notification" title="SEC Notification" visible="INSURE_TYPE != null and INSURE_TYPE == 'ul'  "></step>
+            <step key="step_fatca" label="FATCA" title="FATCA"></step>
+            <step key="step_kyccdd_questions" label="KYC/CDD Question" title="KYC/CDD Question" visible="(KYC_CDDQ_FORM_PAYOR != null and KYC_CDDQ_FORM_PAYOR) or (KYC_CDDQ_FORM_INSURED != null and KYC_CDDQ_FORM_INSURED) or (INSURE_TYPE != null and INSURE_TYPE == 'ul')"></step>
+            <step key="step_rpq_questions" label="Risk Profile Questionnaire (RPQ)" title="Risk Profile Questionnaire (RPQ)" visible="INSURE_TYPE != null and INSURE_TYPE == 'ul'"></step>
+            <step key="step_rpq_analysis" label="Risk Profile Assessment" title="Risk Profile Assessment" visible="INSURE_TYPE != null and INSURE_TYPE == 'ul'"></step>
+            <step key="step_premium_fund_allocation" label="Premium Fund Allocation" title="Premium Fund Allocation" visible="INSURE_TYPE != null and INSURE_TYPE == 'ul'"></step>
+            <step key="step_topup_fund_allocation" label="Top-up Fund Allocation" title="Top-up Fund Allocation" visible="INSURE_TYPE != null and INSURE_TYPE == 'ul' and HAS_TOP_UP_FUND =='Y'"></step>
+            <step key="step_rpq_additional_questions" label="Knowledge Assessment" title="Knowledge Assessment" visible="COMPLEX_FUND != null and COMPLEX_FUND"></step>
+        </step>
+
+        <step key="step_submission" label="Submission">
+            <step key="step_uob_information" label="Sales Information" title="Sales Information"></step>
+            <step key="step_payment" label="Payment" title="Payment"></step>
+            <step key="step_documents" label="Documents" title="Documents"></step>
+        </step>
+    </progress>
+
+    <progress id="viewInsure" locale="en">
+        <step key="step_fna" label="OIC Questionnaire" title="OIC Questionnaire"></step>
+
+        <step key="step_insurant" label="Personal Information" title="Personal Information"></step>
+        <step key="step_applicant" label="Payor Details" title="Payor Details"></step>
+        <step key="step_plan" label="Insurance Plan" title="Insurance Plan"></step>
+        <step key="step_benefit" label="Benefit Illustration" title="Benefit Illustration"></step>
+
+        <step key="step_insurant_additional" label="Personal Additional Info" title="Personal Additional Info"></step>
+        <step key="step_applicant_additional" label="Payor Additional Info" title="Payor Additional Info"></step>
+        <step key="step_beneficary" label="Beneficiary Info" title="Beneficiary Info"></step>
+        <step key="step_lifestyle_questions" label="Lifestyle Questions" title="Lifestyle Questions"></step>
+        <step key="step_health_questions" label="Health Questions" title="Health Questions" visible="APPLICATION_TYPE == 'SIO' or APPLICATION_TYPE == 'Full' or (INSURE_TYPE != null and INSURE_TYPE == 'ul')"></step>
+        <step key="step_sec_notification" label="SEC Notification" title="SEC Notification" visible="INSURE_TYPE != null and INSURE_TYPE == 'ul'  "></step>
+        <step key="step_fatca" label="FATCA" title="FATCA"></step>
+        <step key="step_kyccdd_questions" label="KYC/CDD Question" title="KYC/CDD Question" visible="(KYC_CDDQ_FORM_PAYOR != null and KYC_CDDQ_FORM_PAYOR) or (KYC_CDDQ_FORM_INSURED != null and KYC_CDDQ_FORM_INSURED) or (RISK_LEVEL =='H' or RISK_LEVEL=='EH' ) or (INSURE_TYPE != null and INSURE_TYPE == 'ul')"></step>
+        <step key="step_rpq_questions" label="Risk Profile Questionnaire (RPQ)" title="Risk Profile Questionnaire (RPQ)" visible="INSURE_TYPE != null and INSURE_TYPE == 'ul'"></step>
+        <step key="step_rpq_analysis" label="Risk Profile Assessment" title="Risk Profile Assessment" visible="INSURE_TYPE != null and INSURE_TYPE == 'ul'"></step>
+        <step key="step_premium_fund_allocation" label="Premium Fund Allocation" title="Premium Fund Allocation" visible="INSURE_TYPE != null and INSURE_TYPE == 'ul'"></step>
+        <step key="step_topup_fund_allocation" label="Top-up Fund Allocation" title="Top-up Fund Allocation" visible="INSURE_TYPE != null and INSURE_TYPE == 'ul' and HAS_TOP_UP_FUND =='Y'"></step>
+        <step key="step_rpq_additional_questions" label="Knowledge Assessment" title="Knowledge Assessment" visible="COMPLEX_FUND != null and COMPLEX_FUND"></step>
+
+        <step key="step_uob_information" label="Sales Information" title="Sales Information"></step>
+        <step key="step_payment" label="Payment" title="Payment"></step>
+        <step key="step_documents" label="Documents" title="Documents"></step>
+    </progress>
+</root>
