@@ -3,8 +3,10 @@ import Vue from 'vue'
 import Router from 'vue-router';
 // import HelloWorld from '@/components/HelloWorld'
 // 1、引入组件,进行路由切换组件
-import Home from '@/view/Home.vue'
-import Index from '@/view/Index.vue'
+// import Home from '@/view/Home.vue'
+// import Index from '@/view/Index.vue'
+import common from './common'
+
 // 2.通过Vue的use方法注入Router
 Vue.use(Router)
 // 3.创建 router 实例，然后传 `routes` 配置
@@ -17,14 +19,16 @@ const router = new Router({
      * 4.@desc 路由配置配置具体的路径
      */
     routes: [
-        {
-            path: '/Index',
-            component: Index
-        },
-        {
-            path: '/Home',
-            component: Home
-        }
+        // {
+        //     path: '/Index',
+        //     component: Index
+        // },
+        // {
+        //     path: '/Home',
+        //     component: Home
+        // }
+        //分模块配置[等于一个XXX模块的路由分开配置在XXX.js文件中]
+        ...common,
     ]
 
   })
