@@ -1,8 +1,6 @@
 <template>
   <div class="formDemo">
     <el-col :span="20" class="colDiv">
-   
-         <h1>{{ msg }}</h1>
         <template>
          <el-date-picker
             v-model="value1"
@@ -32,14 +30,14 @@
         <el-checkbox v-model="checked2" disabled>备选项</el-checkbox>
         </template>
         <template>
-              <input v-model="input2">
-              </input>
+              <el-input style="width:200px;" v-model="input2">
+              </el-input>
         </template>
-         <template>
-        <input type="button" @click="get()" value="get test">
+        <template>
+        <el-button type="primary" @click="get()" style="width:100px;">get</el-button>
          </template>
         <template>
-        <input type="button" @click="post()" value="post test">
+        <el-button type="primary" @click="post()" style="width:100px;">post</el-button>
         </template>
         <el-form :model="ruleForm2" status-icon ref="ruleForm2" label-width="100px" class="demo-ruleForm"  :rules="rules">
           <el-form-item prop="name"  style="width:400px;">
@@ -56,8 +54,51 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm()">提交</el-button>
-            <el-button @click="resetForm('ruleForm2')">重置</el-button>
+            <el-button type="primary" @click="resetForm('ruleForm2')">重置</el-button>
+            <el-button type="primary" @click="add">新增</el-button>
+            <el-button type="primary" @click="removes">删除</el-button>
+            <el-button type="primary">搜索</el-button>
+            <el-button type="primary" @click="edits">编辑</el-button>
           </el-form-item>
+         <template>
+            <el-table
+              type="index"
+               @selection-change="handlerSelectionChange"
+              :data="tableData"
+              border
+              style="width: 100%">
+              <el-table-column type="selection" width="55" align="center"></el-table-column>
+              <el-table-column
+                type="index"
+                label="序号"
+                :show-overflow-tooltip="true"
+                align="center"
+                width="50"
+              ></el-table-column>
+              <el-table-column
+                prop="date"
+                label="日期"
+                width="180">
+              </el-table-column>
+              <el-table-column
+                prop="name"
+                label="姓名"
+                width="180">
+              </el-table-column>
+              <el-table-column
+                prop="address"
+                label="地址">
+              </el-table-column>
+              <el-table-column label="操作" align="center" width="470">
+                <template slot-scope="scope">
+                  <el-button type="primary" @click="detail(scope.row)" size="medium">详情</el-button>
+                  <el-button type="infor" @click="edit(scope.row)"  size="medium">编辑</el-button>
+                  <el-button type="danger" @click="remove(scope.row)" size="medium">删除</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </template>
+
         </el-form>
     </el-col>
   </div>
@@ -71,6 +112,7 @@ export default {
     return {
       msg: 'FormDemo',
       value1: '',
+      multipleSelection: [], //当前多选列表: [], //当前多选列表
       options: [{
           value: '选项1',
           label: '黄金糕'
@@ -96,6 +138,23 @@ export default {
           a:'123',
           b:'456'
         },
+        tableData: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1517 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        }],
         ruleForm2:{
           name:'',
           pass:'',
@@ -158,7 +217,49 @@ export default {
        console.log(formName);
        //重置
       this.$refs[formName].resetFields();
-    }
+    },
+    //增
+    add() {
+      console.log("跳转到新增页面");
+    },
+     //删(批量)
+    removes() {
+      console.log("携带数据并批量删除");
+      console.log(this.multipleSelection);
+      this.open6();
+    },
+    //table checkbox改变事件
+    handlerSelectionChange(val) {
+      console.log("tablecheckbox改变事件");
+      console.log(val);
+      this.multipleSelection = val;
+    },
+    edits() {
+      console.log("携带数据编辑");
+      console.log(this.multipleSelection);
+    },
+     //改
+    edit(row) {
+      console.log("携带数据并跳转到编辑页面");
+      console.log(row);
+    },
+     //详情
+    detail(row) {
+      console.log("携带数据并查看详情");
+      console.log(row);
+    },
+     //删
+    remove(row) {
+      console.log("携带数据并删除");
+      console.log(row);
+    },
+    open6() {
+        this.$message({
+          showClose: true,
+          message: '删除成功',
+          type: 'success'
+        });
+    },
   }
 }
 </script>
