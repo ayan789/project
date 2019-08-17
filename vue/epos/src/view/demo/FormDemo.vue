@@ -73,30 +73,25 @@ export default {
         value2: true,
         checked1: false,
         checked2: true,
-        input2: '123'
+        input2: '123',
+        searchForm: {
+          a:'123',
+          b:'456'
+        }
     }
   },
   methods: {
     get: function (){
-      axios.get('http://localhost:4444/getDemo?a=1&b=10', {})
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      utils.http.get("/getDemo", this.searchForm)
+      .then(res => {
+          console.log(res);
+      })
     },
     post: function (){
-      var params = new URLSearchParams();
-      params.append('a', 'value1');       //你要传给后台的参数值 key/value
-      params.append('b', 'value2');
-      this.$axios({
-          method: 'post',
-          url:'http://localhost:4444/postDemo',
-          data:params
-      }).then((res)=>{
+      utils.http.post("/postDemo", this.searchForm)
+      .then(res => {
           console.log(res);
-      });
+      })
     }
   }
 }

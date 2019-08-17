@@ -29,6 +29,7 @@ public class IndexController {
 
     @GetMapping("/getDemo")
     public String getDemo (String a,String b) {
+        System.out.println("get");
         System.out.println("a"+a);
         System.out.println("b"+b);
         return "OK";
@@ -36,6 +37,7 @@ public class IndexController {
 
     @PostMapping("/postDemo")
     public String postDemo (String a,String b) {
+        System.out.println("post");
         System.out.println("a"+a);
         System.out.println("b"+b);
         return "OK";
