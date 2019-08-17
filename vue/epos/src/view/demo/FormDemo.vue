@@ -41,6 +41,24 @@
         <template>
         <input type="button" @click="post()" value="post test">
         </template>
+        <el-form :model="ruleForm2" status-icon ref="ruleForm2" label-width="100px" class="demo-ruleForm"  :rules="rules">
+          <el-form-item prop="name"  style="width:400px;">
+            <span v-text="ruleForm2_name"></span>
+            <el-input type="text" v-model="ruleForm2.name" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item prop="pass"  style="width:400px;">
+            <span v-text="ruleForm2_pass"></span>
+            <el-input type="text" v-model="ruleForm2.pass" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item prop="age"  style="width:400px;">
+            <span v-text="ruleForm2_age"></span>
+            <el-input type="text" v-model="ruleForm2.age"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="submitForm()">提交</el-button>
+            <el-button @click="resetForm('ruleForm2')">重置</el-button>
+          </el-form-item>
+        </el-form>
     </el-col>
   </div>
 </template>
@@ -77,6 +95,41 @@ export default {
         searchForm: {
           a:'123',
           b:'456'
+        },
+        ruleForm2:{
+          name:'',
+          pass:'',
+          age:''
+        },
+        ruleForm2_name:'用户名',
+        ruleForm2_pass:'密码',
+        ruleForm2_age:'年龄',
+        //表单验证rules
+        rules: {
+          name: [
+             { required: true, message: "请输入姓名", trigger: "blur" },
+             {
+               min: 0,
+               message: "标题至少0个字符",
+               trigger: "change"
+             }
+           ],
+           pass: [
+             { required: true, message: "请输入密码", trigger: "blur" },
+             {
+               min: 0,
+               message: "标题至少0个字符",
+               trigger: "change"
+             }
+           ],
+           age: [
+             { required: true, message: "请输入年龄", trigger: "blur" },
+             {
+               min: 0,
+               message: "标题至少0个字符",
+               trigger: "change"
+             }
+           ]
         }
     }
   },
@@ -92,6 +145,19 @@ export default {
       .then(res => {
           console.log(res);
       })
+    },
+    submitForm: function (){
+       this.$refs["ruleForm2"].validate(valid => {
+        console.log(valid); //校验表格
+        if (valid) {
+          console.log('submitForm');
+        }
+       });
+    },
+     resetForm(formName){
+       console.log(formName);
+       //重置
+      this.$refs[formName].resetFields();
     }
   }
 }
@@ -104,7 +170,6 @@ export default {
     background-color:blue;
 }
 .colDiv{
-  background-color:red;
    height:2000px;
    margin: 0px; padding: 0px;
 }
