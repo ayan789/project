@@ -2,6 +2,7 @@ package com.example.tlyanepos;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class IndexController {
         return "OK";
     }
 
-    @GetMapping("/postDemo")
+    @PostMapping("/postDemo")
     public String postDemo (String a,String b) {
         System.out.println("a"+a);
         System.out.println("b"+b);
