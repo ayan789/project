@@ -22,6 +22,25 @@ export default {
       }],
     })
   },
+  put(service, params) { //put方法
+    return instance.put(service, params, {
+      headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      transformRequest: [function (data) { 
+        let ret = '' 
+        for (let it in data) { 
+        ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&' 
+        } 
+        return ret 
+      }],
+    })
+  },
+  delete(service, params) { //delete方法
+    return instance.delete(service, {
+      params: params
+    })
+  },
   get(service, params) { //get方法
     return instance.get(service, {
       params: params

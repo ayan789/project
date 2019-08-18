@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'Layout',
   data () {
@@ -75,16 +76,32 @@ export default {
     }
   },
   methods: {
-            handleSelect(key, keyPath) {
-                console.log(key, keyPath);
-            },
-            handleOpen(key, keyPath) {
-                console.log(key, keyPath);
-            },
-            handleClose(key, keyPath) {
-                console.log(key, keyPath);
-            }
+        handleSelect(key, keyPath) {
+            console.log(key, keyPath);
+        },
+        handleOpen(key, keyPath) {
+            console.log(key, keyPath);
+        },
+        handleClose(key, keyPath) {
+            console.log(key, keyPath);
+        },
+        loadProgress(){
+            utils.http.get("/insure/loadProgress", this.searchForm)
+            .then(res => {
+                console.log(res);
+            })
+        },
+        currentUser(){
+            utils.http.get("/user/currentUser", this.searchForm)
+            .then(res => {
+                console.log(res);
+            })
         }
+    },
+  beforeMount() {
+      this.currentUser();
+      this.loadProgress();
+  }
 }
 </script>
 

@@ -34,10 +34,16 @@
               </el-input>
         </template>
         <template>
-        <el-button type="primary" @click="get()" style="width:100px;">get</el-button>
+        <el-button type="primary" @click="get()" style="width:60px;">get</el-button>
          </template>
         <template>
-        <el-button type="primary" @click="post()" style="width:100px;">post</el-button>
+        <el-button type="primary" @click="post()" style="width:60px;">post</el-button>
+        </template>
+        <template>
+         <el-button type="primary" @click="put()" style="width:60px;">put</el-button>
+         </template>
+        <template>
+        <el-button type="primary" @click="rest_delete()" style="width:100px;">delete</el-button>
         </template>
         <template>
           <YsInput @func="getMsgFormSon" :fudata="input2"></YsInput>
@@ -222,6 +228,18 @@ export default {
           console.log(res);
       })
     },
+     put: function (){
+      utils.http.put("/putDemo", this.searchForm)
+      .then(res => {
+          console.log(res);
+      })
+    },
+    rest_delete: function (){
+      utils.http.delete("/deleteDemo", this.searchForm)
+      .then(res => {
+          console.log(res);
+      })
+    },
     submitForm: function (){
        this.$refs["ruleForm2"].validate(valid => {
         console.log(valid); //校验表格
@@ -297,6 +315,15 @@ export default {
         this.msgFormSon = data
         console.log(this.msgFormSon)
     },
+    loadInform(){
+        utils.http.get("/insure/inform/loadInform", this.searchForm)
+        .then(res => {
+            console.log(res);
+        })
+    }
+  },
+  mounted() {
+      this.loadInform();
   }
 }
 </script>

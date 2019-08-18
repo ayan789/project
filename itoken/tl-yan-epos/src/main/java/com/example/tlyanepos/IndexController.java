@@ -1,9 +1,7 @@
 package com.example.tlyanepos;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +36,22 @@ public class IndexController {
     @PostMapping("/postDemo")
     public String postDemo (String a,String b) {
         System.out.println("post");
+        System.out.println("a"+a);
+        System.out.println("b"+b);
+        return "OK";
+    }
+
+    @PutMapping("/putDemo")
+    public String putDemo (String a,String b) {
+        System.out.println("put");
+        System.out.println("a"+a);
+        System.out.println("b"+b);
+        return "OK";
+    }
+
+    @DeleteMapping("/deleteDemo")
+    public String deleteDemo (String a,String b) {
+        System.out.println("delete");
         System.out.println("a"+a);
         System.out.println("b"+b);
         return "OK";
