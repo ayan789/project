@@ -11,8 +11,16 @@ export default {
   name: 'Information1',
   data () {
     return {
-      msg: 'Information1'
+      msg: 'Information1',
     }
+  },
+  created(){  //生命周期里接收参数
+      console.log(this.$route.query.id)   //get接受参数关键代码
+      // html 取参  $route.query.id
+      // script 取参  this.$route.query.id
+      console.log(this.$route.params.id)  //post接受参数关键代码
+      // html 取参  $route.params.id
+      // script 取参  this.$route.params.id
   }
 }
 </script>

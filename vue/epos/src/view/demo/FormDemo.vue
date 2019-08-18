@@ -59,6 +59,8 @@
             <el-button type="primary" @click="removes">删除</el-button>
             <el-button type="primary">搜索</el-button>
             <el-button type="primary" @click="edits">编辑</el-button>
+            <el-button type="primary" @click="change">get方式传参跳转</el-button>
+            <el-button type="primary" @click="change2">post方式传参跳转</el-button>
           </el-form-item>
          <template>
             <el-table
@@ -129,6 +131,7 @@ export default {
           value: '选项5',
           label: '北京烤鸭'
         }],
+        id:'666',
         value: '',
         value2: true,
         checked1: false,
@@ -259,6 +262,22 @@ export default {
           message: '删除成功',
           type: 'success'
         });
+    },
+    change(){
+      this.$router.push({  //核心语句
+        path:'/layout/information/informationPage1',   // * post能用path or name 参数页面刷新还有
+        query:{           // get传参只能用query 
+          id:this.id ,  
+        }
+      })
+    },
+    change2(){
+      this.$router.push({  //核心语句
+        name:'informationPage1',   // * post只能用name 参数页面刷新就没了
+        params: {                  // post传参只能用params
+          id:this.id ,  
+          }
+      })
     },
   }
 }
