@@ -40,7 +40,8 @@
         <el-button type="primary" @click="post()" style="width:100px;">post</el-button>
         </template>
         <template>
-          <CellInput @func="getMsgFormSon"></CellInput>
+          <YsInput @func="getMsgFormSon" :fudata="fudata"></YsInput>
+          <Child :fudata="msgFormSon"></Child>
         </template>
         <el-form :model="ruleForm2" status-icon ref="ruleForm2" label-width="100px" class="demo-ruleForm"  :rules="rules">
           <el-form-item prop="name"  style="width:400px;">
@@ -111,7 +112,8 @@
 
 <script>
 import axios from 'axios'
-import CellInput from '@/view/common/YsInput.vue'
+import YsInput from '@/view/common/YsInput.vue'
+import Child from '@/view/common/Child.vue'
 export default {
   name: 'FormDemo',
   data () {
@@ -119,6 +121,7 @@ export default {
       msg: 'FormDemo',
       value1: '',
       inputvalue:'',
+      
       multipleSelection: [], //当前多选列表: [], //当前多选列表
       options: [{
           value: '选项1',
@@ -138,6 +141,7 @@ export default {
         }],
         id:'666',
         msgFormSon: "this is msg",
+        fudata:'fudata',
         value: '',
         value2: true,
         checked1: false,
@@ -202,7 +206,8 @@ export default {
     }
   },
   components: {
-        'CellInput':CellInput
+        'YsInput':YsInput,
+        'Child':Child
     },
   methods: {
     get: function (){
