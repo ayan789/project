@@ -30,7 +30,7 @@
         <el-checkbox v-model="checked2" disabled>备选项</el-checkbox>
         </template>
         <template>
-              <el-input style="width:200px;" v-model="input2">
+              <el-input style="width:100px;" v-model="input2">
               </el-input>
         </template>
         <template>
@@ -38,6 +38,9 @@
          </template>
         <template>
         <el-button type="primary" @click="post()" style="width:100px;">post</el-button>
+        </template>
+        <template>
+          <CellInput @func="getMsgFormSon"></CellInput>
         </template>
         <el-form :model="ruleForm2" status-icon ref="ruleForm2" label-width="100px" class="demo-ruleForm"  :rules="rules">
           <el-form-item prop="name"  style="width:400px;">
@@ -108,12 +111,14 @@
 
 <script>
 import axios from 'axios'
+import CellInput from '@/view/common/YsInput.vue'
 export default {
   name: 'FormDemo',
   data () {
     return {
       msg: 'FormDemo',
       value1: '',
+      inputvalue:'',
       multipleSelection: [], //当前多选列表: [], //当前多选列表
       options: [{
           value: '选项1',
@@ -132,6 +137,7 @@ export default {
           label: '北京烤鸭'
         }],
         id:'666',
+        msgFormSon: "this is msg",
         value: '',
         value2: true,
         checked1: false,
@@ -195,6 +201,9 @@ export default {
         }
     }
   },
+  components: {
+        'CellInput':CellInput
+    },
   methods: {
     get: function (){
       utils.http.get("/getDemo", this.searchForm)
@@ -278,6 +287,10 @@ export default {
           id:this.id ,  
           }
       })
+    },
+    getMsgFormSon(data){
+        this.msgFormSon = data
+        console.log(this.msgFormSon)
     },
   }
 }
