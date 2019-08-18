@@ -1,18 +1,17 @@
 <template> 
     <div class="ysInput">
-    <input @click="sendMsg" type="button" value="给父组件传递值">
-    </input>
+     <el-input @change="sendMsg()" style="width:200px;" v-model="msg"></el-input>
     {{fudata}}
     </div>
 </template>
 <script>
 export default {
     name: 'YsInput',
-    props: ['fudata'],
+    props: ['fudata'],//父容器像子容器传值
     data () {
         return {
             //将msg传递给父组件
-            msg: "我是子组件的msg",
+            msg: "子组件向父组件传值",
         }
     },
     methods:{

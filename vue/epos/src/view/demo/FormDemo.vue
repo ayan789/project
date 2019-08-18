@@ -30,7 +30,7 @@
         <el-checkbox v-model="checked2" disabled>备选项</el-checkbox>
         </template>
         <template>
-              <el-input style="width:100px;" v-model="input2">
+              <el-input style="width:200px;" v-model="input2">
               </el-input>
         </template>
         <template>
@@ -40,7 +40,7 @@
         <el-button type="primary" @click="post()" style="width:100px;">post</el-button>
         </template>
         <template>
-          <YsInput @func="getMsgFormSon" :fudata="fudata"></YsInput>
+          <YsInput @func="getMsgFormSon" :fudata="input2"></YsInput>
           <Child :fudata="msgFormSon"></Child>
         </template>
         <el-form :model="ruleForm2" status-icon ref="ruleForm2" label-width="100px" class="demo-ruleForm"  :rules="rules">
@@ -140,13 +140,13 @@ export default {
           label: '北京烤鸭'
         }],
         id:'666',
-        msgFormSon: "this is msg",
+        msgFormSon: "子组件向父组件传值",
         fudata:'fudata',
         value: '',
         value2: true,
         checked1: false,
         checked2: true,
-        input2: '123',
+        input2: '父组件向子组件传值',
         searchForm: {
           a:'123',
           b:'456'
