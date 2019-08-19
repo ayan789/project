@@ -4,7 +4,9 @@ import com.neo.DocumentDefine;
 import com.neo.LocaleMgr;
 import com.neo.XmlNode;
 import lerrain.tool.formula.Factors;
+import lerrain.tool.formula.Formula;
 import lerrain.tool.formula.FormulaUtil;
+import lerrain.tool.formula.Value;
 import lerrain.tool.script.InsureFactors;
 import org.springframework.core.io.ClassPathResource;
 
@@ -71,18 +73,23 @@ public class ProgressMgr {
         step.setTitle(xmlNode.getAttribute("title"));
         step.setVisible(FormulaUtil.formulaOf(xmlNode.getAttribute("visible")));
 
-        if (parent != null) {
-            parent.addChild(step);
-            step.setParentStepKey(parent.getStepKey());
+        InsureFactors insureFactors = new InsureFactors();
+        Formula visible = step.visible;
+        if (visible == null || Value.booleanOf(visible, insureFactors)) {
+            if (parent != null) {
+                parent.addChild(step);
+                step.setParentStepKey(parent.getStepKey());
+            }
+
+            if (parent == null) {
+                progress.addStep(step);
+            }
+
+            for (Iterator iterator = xmlNode.getChildren("step").iterator(); iterator.hasNext(); ) {
+                parseStep(progress, (XmlNode) iterator.next(), step);
+            }
         }
 
-        if (parent == null) {
-            progress.addStep(step);
-        }
-
-        for (Iterator iterator = xmlNode.getChildren("step").iterator(); iterator.hasNext(); ) {
-            parseStep(progress, (XmlNode) iterator.next(), step);
-        }
     }
 
     public void addProgress(ProgressDefine progress) {

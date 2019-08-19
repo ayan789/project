@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="GBK"?>
 <root>
-    <!-- 英文建议书流程 -->
+    <!-- 英文建议书流程 visible-->
     <progress id="proposal" locale="en">
-        <step key="step_insurant" title="Personal Information" label="Personal Information"></step>
+        <step key="step_insurant" title="Personal Information" label="Personal Information" visible="false"></step>
         <step key="step_applicant" title="Payor Details" label="Payor Details"></step>
         <step key="step_plan" title="Insurance Plan" label="Insurance Plan"></step>
         <step key="step_benefit" title="Benefit Illustration" label="Benefit Illustration"></step>
