@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- docType对应DocumentType  code不可修改 -->
+<root language="en">
+    
+
+    <document name="UNDERWRITING_DECISION" docType="UNDERWRITING_DECISION" code="UNDERWRITING_DECISION"
+              visible="UNDERWRITING_DECISION">
+    </document>
+     <document name="ABC" docType="ABC" code="ABC"
+              visible="payFreqCode != null and payFreqCode != 'ol'">
+    </document>
+    <document name="DEF" docType="DEF" code="DEF"
+              value="round(A1*A2+1000.00-1.00+0.111111,2)" visible="true">
+    </document>
+    <document name="MN" docType="MN" code="MN"
+              value="int(A1*A2+10000.00-1.00+0.111111)" visible="true">
+    </document>
+    <document name="TXT" docType="TXT" code="TXT" visible="true">
+        QQQQQQQQQQQQQQQQ
+    </document>
+
+    <loop  docType="fff" code="fff" visible="fff" from="0" to="A1" step="1" name="I">
+            I+1
+    </loop>
+
+</root>

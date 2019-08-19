@@ -1,5 +1,8 @@
 package com.example.tlyanepos;
 
+import com.neo.DocumentDefine;
+import com.neo.DocumentMgr;
+import lerrain.tool.script.InsureFactors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,5 +59,16 @@ public class IndexController {
         System.out.println("b"+b);
         return "OK";
     }
+
+    @GetMapping("/loadDocument")
+    public List<DocumentDefine> loadDocument () {
+        DocumentMgr mgr = new DocumentMgr();
+        InsureFactors insureFactors = new InsureFactors();
+        insureFactors.set("payFreqCode","ol");
+        List<DocumentDefine> lists = mgr.getDocumentList(insureFactors);
+        System.out.println(lists.toString());
+        return lists;
+    }
+
 
 }
