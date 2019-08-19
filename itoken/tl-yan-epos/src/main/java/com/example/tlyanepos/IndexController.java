@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -68,6 +69,14 @@ public class IndexController {
         List<DocumentDefine> lists = mgr.getDocumentList(insureFactors);
         System.out.println(lists.toString());
         return lists;
+    }
+
+    @GetMapping("/loadProgress")
+    public Map loadProgress () {
+        ProgressMgr mgr = new ProgressMgr();
+        Map map = mgr.getProgressList();
+        System.out.println(map);
+        return map;
     }
 
 

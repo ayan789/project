@@ -10,7 +10,7 @@
 
     <!-- 英文投保流程 -->
     <progress id="insure" locale="en">
-        <step key="step_fna" label="OIC Questionnaire">
+        <step key="step_fna" label="OIC Questionnaire">Personal Information
             <step key="step_fna" label="OIC Questionnaire" title="OIC Questionnaire"></step>
         </step>
 
