@@ -3,10 +3,7 @@ package com.example.tlyannoif;
 import com.google.common.util.concurrent.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.Callable;
@@ -30,6 +27,9 @@ public class IndexController {
 
     @Autowired
     ListeningExecutorService listeningExecutorService;
+
+    @Autowired
+    private MyFutureTask myFutureTask;
 
     @GetMapping("/home")
     public String index () {
@@ -196,5 +196,16 @@ public class IndexController {
                 System.out.printf("服务调用异常%s%n", t);
             }
         }, listeningExecutorService);
+    }
+
+
+    @GetMapping("/get/data")
+    public UserBehaviorDataDTO getUserData(Long userId) {
+        System.out.println("UserController的线程:" + Thread.currentThread());
+        long begin = System.currentTimeMillis();
+        UserBehaviorDataDTO userAggregatedResult = myFutureTask.getUserAggregatedResult(userId);
+        long end = System.currentTimeMillis();
+        System.out.println("===============总耗时:" + (end - begin) /1000.0000+ "秒");
+        return userAggregatedResult;
     }
 }
