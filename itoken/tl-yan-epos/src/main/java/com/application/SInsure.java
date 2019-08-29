@@ -1,10 +1,17 @@
 package com.application;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
 
+@Getter
+@Setter
+//使用@bulider时，必须添加无参，全参构造方法，否则转json报错
+@Builder//使用@bulider时，使用className.bulider().bulid()生成的对象中 属性类型默认的属性值无效，需要在属性上添加@Builder.Default
+@NoArgsConstructor
+@AllArgsConstructor
 public class SInsure {
     public String insureId;//投保单ID
     public String companyId;//公司ID

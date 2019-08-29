@@ -35,44 +35,44 @@ public class InformMgr {
 
     @PostConstruct
     public void init() {
-        add(new Define(INFORM_TYPE_LIFE, "/static/inform/life.json", Locale.US));
-        add(new Define(INFORM_TYPE_LIFE, "/static/inform/life_th.json", LocaleMessage.THAI));
-
-        add(new Define(INFORM_TYPE_HEALTH, "/static/inform/health.json", Locale.US));
-        add(new Define(INFORM_TYPE_HEALTH, "/static/inform/health_th.json", LocaleMessage.THAI));
-
-        add(new Define(INFORM_TYPE_KYC, "/static/inform/kyc.json", Locale.US));
-        add(new Define(INFORM_TYPE_KYC, "/static/inform/kyc_th.json", LocaleMessage.THAI));
-
-        add(new Define(INFORM_TYPE_FATCA, "/static/inform/fatca.json", Locale.US));
-        add(new Define(INFORM_TYPE_FATCA, "/static/inform/fatca_th.json", LocaleMessage.THAI));
-
-        add(new Define(INFORM_TYPE_FNA, "/static/inform/fna.json", Locale.US));
-        add(new Define(INFORM_TYPE_FNA, "/static/inform/fna_th.json", LocaleMessage.THAI));
-
-        add(new Define(INFORM_TYPE_UL_HEALTH, "/static/inform/ulhealth.json", Locale.US));
-        add(new Define(INFORM_TYPE_UL_HEALTH, "/static/inform/ulhealth_th.json", LocaleMessage.THAI));
-
-        add(new Define(INFORM_TYPE_UL_LIFE, "/static/inform/ullife.json", Locale.US));
-        add(new Define(INFORM_TYPE_UL_LIFE, "/static/inform/ullife_th.json", LocaleMessage.THAI));
-
-        add(new Define(INFORM_TYPE_UL_FATCA, "/static/inform/ulfatca.json", Locale.US));
-        add(new Define(INFORM_TYPE_UL_FATCA, "/static/inform/ulfatca_th.json", LocaleMessage.THAI));
-
-        add(new Define(INFORM_TYPE_UL_KYC, "/static/inform/ulkyc.json", Locale.US));
-        add(new Define(INFORM_TYPE_UL_KYC, "/static/inform/ulkyc_th.json", LocaleMessage.THAI));
-
-        add(new Define(INFORM_TYPE_UL_QUESTIONNAIRE, "/static/inform/rpqQuestionnaire.json", Locale.US));
-        add(new Define(INFORM_TYPE_UL_QUESTIONNAIRE, "/static/inform/rpqQuestionnaire_th.json", LocaleMessage.THAI));
-
-        add(new Define(INFORM_TYPE_UL_ANALYSIS, "/static/inform/rpqAnalysis.json", Locale.US));
-        add(new Define(INFORM_TYPE_UL_ANALYSIS, "/static/inform/rpqAnalysis_th.json", LocaleMessage.THAI));
-
-        add(new Define(INFORM_TYPE_UL_SEC, "/static/inform/secNotification.json", Locale.US));
-        add(new Define(INFORM_TYPE_UL_SEC, "/static/inform/secNotification_th.json", LocaleMessage.THAI));
-
-        add(new Define(INFORM_TYPE_UL_ASSESSMENT, "/static/inform/knowledgeAssessment.json", Locale.US));
-        add(new Define(INFORM_TYPE_UL_ASSESSMENT, "/static/inform/knowledgeAssessment_th.json", LocaleMessage.THAI));
+//        add(new Define(INFORM_TYPE_LIFE, "/static/inform/life.json", Locale.US));
+//        add(new Define(INFORM_TYPE_LIFE, "/static/inform/life_th.json", LocaleMessage.THAI));
+//
+//        add(new Define(INFORM_TYPE_HEALTH, "/static/inform/health.json", Locale.US));
+//        add(new Define(INFORM_TYPE_HEALTH, "/static/inform/health_th.json", LocaleMessage.THAI));
+//
+//        add(new Define(INFORM_TYPE_KYC, "/static/inform/kyc.json", Locale.US));
+//        add(new Define(INFORM_TYPE_KYC, "/static/inform/kyc_th.json", LocaleMessage.THAI));
+//
+//        add(new Define(INFORM_TYPE_FATCA, "/static/inform/fatca.json", Locale.US));
+//        add(new Define(INFORM_TYPE_FATCA, "/static/inform/fatca_th.json", LocaleMessage.THAI));
+//
+//        add(new Define(INFORM_TYPE_FNA, "/static/inform/fna.json", Locale.US));
+//        add(new Define(INFORM_TYPE_FNA, "/static/inform/fna_th.json", LocaleMessage.THAI));
+//
+//        add(new Define(INFORM_TYPE_UL_HEALTH, "/static/inform/ulhealth.json", Locale.US));
+//        add(new Define(INFORM_TYPE_UL_HEALTH, "/static/inform/ulhealth_th.json", LocaleMessage.THAI));
+//
+//        add(new Define(INFORM_TYPE_UL_LIFE, "/static/inform/ullife.json", Locale.US));
+//        add(new Define(INFORM_TYPE_UL_LIFE, "/static/inform/ullife_th.json", LocaleMessage.THAI));
+//
+//        add(new Define(INFORM_TYPE_UL_FATCA, "/static/inform/ulfatca.json", Locale.US));
+//        add(new Define(INFORM_TYPE_UL_FATCA, "/static/inform/ulfatca_th.json", LocaleMessage.THAI));
+//
+//        add(new Define(INFORM_TYPE_UL_KYC, "/static/inform/ulkyc.json", Locale.US));
+//        add(new Define(INFORM_TYPE_UL_KYC, "/static/inform/ulkyc_th.json", LocaleMessage.THAI));
+//
+//        add(new Define(INFORM_TYPE_UL_QUESTIONNAIRE, "/static/inform/rpqQuestionnaire.json", Locale.US));
+//        add(new Define(INFORM_TYPE_UL_QUESTIONNAIRE, "/static/inform/rpqQuestionnaire_th.json", LocaleMessage.THAI));
+//
+//        add(new Define(INFORM_TYPE_UL_ANALYSIS, "/static/inform/rpqAnalysis.json", Locale.US));
+//        add(new Define(INFORM_TYPE_UL_ANALYSIS, "/static/inform/rpqAnalysis_th.json", LocaleMessage.THAI));
+//
+//        add(new Define(INFORM_TYPE_UL_SEC, "/static/inform/secNotification.json", Locale.US));
+//        add(new Define(INFORM_TYPE_UL_SEC, "/static/inform/secNotification_th.json", LocaleMessage.THAI));
+//
+//        add(new Define(INFORM_TYPE_UL_ASSESSMENT, "/static/inform/knowledgeAssessment.json", Locale.US));
+//        add(new Define(INFORM_TYPE_UL_ASSESSMENT, "/static/inform/knowledgeAssessment_th.json", LocaleMessage.THAI));
     }
 
     void add(Define define) {

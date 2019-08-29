@@ -1,5 +1,6 @@
 package com.example.tlyanepos;
 
+import com.application.SInsure;
 import com.neo.DocumentDefine;
 import com.neo.DocumentMgr;
 import lerrain.tool.script.InsureFactors;
@@ -13,6 +14,9 @@ import java.util.Map;
 
 @RestController
 public class IndexController {
+
+    @Autowired
+    MyFutureTask myFutureTask;
 
     @Autowired
     UserDao userDao;
@@ -78,6 +82,18 @@ public class IndexController {
         System.out.println(map);
         return map;
     }
+
+    @GetMapping("/get/data")
+    public SInsure getUserData(Long userId) {
+        System.out.println("SInsureController的线程:" + Thread.currentThread());
+        long begin = System.currentTimeMillis();
+        SInsure sInsure = myFutureTask.getUserAggregatedResult(userId);
+        long end = System.currentTimeMillis();
+        System.out.println("===============总耗时:" + (end - begin) /1000.0000+ "秒");
+        return sInsure;
+    }
+
+
 
 
 }
