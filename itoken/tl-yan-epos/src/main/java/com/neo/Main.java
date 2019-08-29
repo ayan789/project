@@ -1,6 +1,7 @@
 package com.neo;
 
 
+import com.alibaba.fastjson.JSONObject;
 import lerrain.tool.formula.Factors;
 import lerrain.tool.formula.Formula;
 import lerrain.tool.formula.FormulaUtil;
@@ -198,7 +199,7 @@ public class Main {
 		List<DocumentDefine> lists = mgr.getDocumentList(insureFactors);
 
 
-		System.out.println(lists.toString());
+		System.out.println(JSONObject.toJSONString(lists));
 	}
 	
 	 public static void loadVMPage() {

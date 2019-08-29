@@ -1,6 +1,6 @@
 <template>
   <div class="formDemo">
-    <el-col :span="20" class="colDiv">
+    <el-col :span="21" class="colDiv">
         <template>
          <el-date-picker
             v-model="value1"
@@ -110,7 +110,9 @@
               </el-table-column>
             </el-table>
           </template>
-
+          <p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p>
+          <p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p>
+          <p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p>
         </el-form>
     </el-col>
   </div>
@@ -336,6 +338,7 @@ export default {
 }
 .colDiv{
    height:2000px;
+   overflow-y:auto;
    margin: 0px; padding: 0px;
 }
 </style>

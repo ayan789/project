@@ -20,8 +20,16 @@
         QQQQQQQQQQQQQQQQ
     </document>
 
-    <loop  docType="fff" code="fff" visible="fff" from="0" to="A1" step="1" name="I">
-            I+1
-    </loop>
+    <!--<document name="FFF" docType="FFF" code="FFF"-->
+              <!--value="" visible="true" loop="true" foreach="10" col1="int(A*1.00)"  col2="int(A*10.00)" col3="int(A*100.00)">-->
+
+    <document name="FFF" docType="FFF" code="FFF"
+    value="" visible="true" loop="true" foreach="3" >
+        <col>int(A*1.00)</col>
+        <col>int(A*10.00)</col>
+        <col>int(A*100.00)</col>
+        <col>int(A*1000.00)</col>
+        <col>int(A*3.00-1.00)</col>
+</document>
 
 </root>

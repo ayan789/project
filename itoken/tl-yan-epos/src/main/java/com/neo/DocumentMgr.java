@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONObject;
 import lerrain.tool.formula.FormulaUtil;
 import lerrain.tool.formula.Value;
 import javax.annotation.PostConstruct;
@@ -108,6 +109,8 @@ public class DocumentMgr {
 	        String value = xmlNode.getAttribute("value");
 		 	String text = xmlNode.getText();
 
+		 	String loop = xmlNode.getAttribute("loop");
+
 	        //hide for temprary
 	        String sequenceStr = xmlNode.getAttribute("sequence");
 	        int sequence;
@@ -132,7 +135,6 @@ public class DocumentMgr {
 		 String b = "5.0";
 		 String c = "1.0";
 
-		 System.out.println(value);
 		 Formula f = FormulaUtil.formulaOf("return " + value);
 		 Factors p = new Factors()
 		 {
@@ -148,10 +150,35 @@ public class DocumentMgr {
 				 return null;
 			 }
 		 };
+		 documentDef.setValue(f.run(p)+"");
 
-//		 System.out.println(f.run(p));
+		 if(loop != null && loop.equalsIgnoreCase("true")){
+			 List<XmlNode> colList = xmlNode.getChildren("col");
+			 int foreach = Integer.parseInt(xmlNode.getAttribute("foreach"));
+			 String aa= "";
+			 for (int j=1;j<=foreach;j++) {//XmlNode col : colList
+			 	for(int i=0;i<colList.size();i++){
+					double abc= j ;
+					Formula f1 = FormulaUtil.formulaOf("return " + colList.get(i).getText());
+					Factors p1 = new Factors()
+					{
+						public Object get(String name)
+						{
+							if ("A".equals(name))
+								return  new BigDecimal(abc);
+							return null;
+						}
+					};
+					aa=aa+(f1.run(p1)+"")+" ";
+				}
+				 aa=aa+"/n";
+			 }
+			 System.out.println("aa:"+ aa);
+			 documentDef.setValue(aa);
 
-		 	documentDef.setValue(f.run(p)+"");
+		 }
+
+
 
 		 if (StringTool.isNotNull(text)) {
 				 documentDef.setText(text);
