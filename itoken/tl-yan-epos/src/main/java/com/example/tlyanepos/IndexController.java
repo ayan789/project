@@ -21,6 +21,13 @@ public class IndexController {
     @Autowired
     UserDao userDao;
 
+    @Autowired
+    private ContentCategoryService contentCategoryService;
+
+    @Autowired
+    private TprogressService tprogressService;
+
+
     @GetMapping("/home")
     public String index () {
         return "up tl-yan-epos";
@@ -94,6 +101,29 @@ public class IndexController {
     }
 
 
+    @GetMapping("/list")
+    public List<EUTreeNode> getContentCatList(@RequestParam(value="id", defaultValue="0")Long parentId) {
+        List<EUTreeNode> list = contentCategoryService.getCategoryList(parentId);
+        return list;
+    }
+
+    @RequestMapping("/list2")
+    @ResponseBody
+    public Map<String,Object> getContentCatList() {
+        TreeNode root = contentCategoryService.getCategoryList2((long)0);
+        Map<String,Object> map=new HashMap<>();
+        map.put("data", root.getChildren());
+        return map;
+    }
+
+    @RequestMapping("/list3")
+    @ResponseBody
+    public Map<String,Object>  getList() {
+        TprogressTreeNode root = tprogressService.getTree("00");
+        Map<String,Object> map=new HashMap<>();
+        map.put("stepModels", root.getChildren());
+        return map;
+    }
 
 
 }

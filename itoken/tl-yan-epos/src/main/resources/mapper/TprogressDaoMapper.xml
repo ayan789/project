@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.tlyanepos.TprogressDao">
+
+    <resultMap id="progressMap" type="com.example.tlyanepos.Tprogress">
+        <id property="progressId" column="progress_id"/>
+        <result property="label" column="label"/>
+        <result property="stepKey" column="step_key"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="title" column="title"/>
+        <result property="group" column="group"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="getByProgressMap" resultMap="progressMap">
+        SELECT * from t_progress ORDER BY sort
+    </select>
+
+    <select id="getByProgressOne" resultMap="progressMap">
+       SELECT * from t_progress where progress_id='0'
+    </select>
+
+</mapper>
