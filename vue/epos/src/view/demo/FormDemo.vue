@@ -1,6 +1,6 @@
 <template>
   <div class="formDemo">
-    <el-col :span="21" class="colDiv">
+    <el-col :span="20" class="colDiv">
         <template>
          <el-date-picker
             v-model="value1"

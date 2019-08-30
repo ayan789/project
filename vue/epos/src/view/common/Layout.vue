@@ -20,41 +20,41 @@
         <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
     </el-menu>
     <div class="leftDiv">
-        <el-aside width="200px" >
-        <el-menu
-        default-active="2"
-        class="el-menu-vertical-demo"
-        @open="handleOpen"
-        @close="handleClose"
-        background-color="#545c64"
-        text-color="#fff"
-        active-text-color="#ffd04b">
-        <el-submenu index="1">
-            <template slot="title">
-            <i class="el-icon-location"></i>
-            <span>导航一</span>
-            </template>
-            <el-menu-item-group>
-            <template slot="title">分组一</template>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-            <el-menu-item index="1-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="1-4">
-            <template slot="title">选项4</template>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
+        <el-aside width="250px" >
+         <el-menu
+          :router="false"
+          text-color="#fff"
+          active-text-color="#20a0ff"
+          unique-opened
+          class="el-menu-vertical-demo"
+          background-color="#545c64"
+          width="250px"
+        >
+          <template v-for="(menu) of data.children">
+            <!-- 无子节点 -->
+            <el-menu-item
+              v-if="menu.children == undefined || menu.children.length == 0"
+              :key="menu.progressId"
+              :index="menu.progressId"
+            >
+              <template  slot="title">
+                 <span>{{menu.stepKey}}</span>
+              </template>
+            </el-menu-item>
+            <!-- 有子节点 -->
+            <el-submenu v-else :key="menu.progressId" :index="menu.progressId">
+              <template  slot="title">
+                  <span>{{menu.stepKey}}</span>
+              </template>
+              <!-- 模块子页面组 -->
+              <el-menu-item-group v-for="(module, moduleIndex) in menu.children" :key="moduleIndex">
+                <el-menu-item :index="`${menu.stepKey}-${moduleIndex}`" @click="moduleClick(module.url)">
+                  <i class="el-icon-star-on"></i>
+                  <span>{{module.stepKey}}</span>
+                </el-menu-item>
+              </el-menu-item-group>
             </el-submenu>
-        </el-submenu>
-        <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">导航二</span>
-        </el-menu-item>
-        <el-menu-item index="3">
-            <i class="el-icon-setting"></i>
-            <span slot="title">导航三</span>
-        </el-menu-item>
+          </template>
         </el-menu>
         </el-aside>
     </div>
@@ -71,8 +71,205 @@ export default {
   data () {
     return {
       msg: 'Layout',
-       activeIndex: '1',
-       activeIndex2: '1'
+      activeIndex: '1',
+      activeIndex2: '1',
+       progressId: "0",
+      data:{
+            parentId: "00",
+            stepKey: "stepModels",
+            "status": "1",
+            "url": "1",
+            children: [
+            {
+            "progressId": "10",
+            "parentId": "0",
+            "stepKey": "step_fna",
+            "status": "1",
+            "url": "1",
+            "children": [
+            {
+            "progressId": "20",
+            "parentId": "10",
+            "stepKey": "step_fna",
+            "status": "1",
+            "url": "informationPage1",
+            "children": []
+            }
+            ]
+            },
+            {
+            "progressId": "11",
+            "parentId": "0",
+            "stepKey": "step_quotation",
+            "status": "1",
+            "url": "1",
+            "children": [
+            {
+            "progressId": "21",
+            "parentId": "11",
+            "stepKey": "step_insurant",
+            "status": "1",
+            "url": "informationPage2",
+            "children": []
+            },
+            {
+            "progressId": "22",
+            "parentId": "11",
+            "stepKey": "step_applicant",
+            "status": "1",
+            "url": "1",
+            "children": []
+            },
+            {
+            "progressId": "23",
+            "parentId": "11",
+            "stepKey": "step_plan",
+            "status": "1",
+            "url": "1",
+            "children": []
+            },
+            {
+            "progressId": "24",
+            "parentId": "11",
+            "stepKey": "step_benefit",
+            "status": "1",
+            "url": "1",
+            "children": []
+            }
+            ]
+            },
+            {
+            "progressId": "12",
+            "parentId": "0",
+            "stepKey": "step_application",
+            "status": "1",
+            "url": "1",
+            "children": [
+            {
+            "progressId": "25",
+            "parentId": "12",
+            "stepKey": "step_insurant_additional",
+            "status": "1",
+            "url": "1",
+            "children": []
+            },
+            {
+            "progressId": "26",
+            "parentId": "12",
+            "stepKey": "step_applicant_additional",
+            "status": "1",
+            "url": "1",
+            "children": []
+            },
+            {
+            "progressId": "27",
+            "parentId": "12",
+            "stepKey": "step_beneficary",
+            "status": "1",
+            "url": "1",
+            "children": []
+            },
+            {
+            "progressId": "28",
+            "parentId": "12",
+            "stepKey": "step_kyccdd_questions",
+            "status": "1",
+            "url": "1",
+            "children": []
+            },
+            {
+            "progressId": "29",
+            "parentId": "12",
+            "stepKey": "step_health_questions",
+            "status": "1",
+            "url": "1",
+            "children": []
+            },
+            {
+            "progressId": "30",
+            "parentId": "12",
+            "stepKey": "step_sec_notification",
+            "status": "1",
+            "url": "1",
+            "children": []
+            },
+            {
+            "progressId": "31",
+            "parentId": "12",
+            "stepKey": "step_fatca",
+            "status": "1",
+            "url": "1",
+            "children": []
+            },
+            {
+            "progressId": "32",
+            "parentId": "12",
+            "stepKey": "step_lifestyle_questions",
+            "status": "1",
+            "url": "1",
+            "children": []
+            },
+            {
+            "progressId": "33",
+            "parentId": "12",
+            "stepKey": "step_rpq_questions",
+            "status": "1",
+            "url": "1",
+            "children": []
+            },
+            {
+            "progressId": "34",
+            "parentId": "12",
+            "stepKey": "step_rpq_analysis",
+            "status": "1",
+            "url": "1",
+            "children": []
+            },
+            {
+            "progressId": "35",
+            "parentId": "12",
+            "stepKey": "step_premium_fund_allocation",
+            "status": "1",
+            "url": "1",
+            "children": []
+            }
+            ]
+            },
+            {
+            "progressId": "13",
+            "parentId": "0",
+            "stepKey": "step_submission",
+            "status": "1",
+            "url": "1",
+            "children": [
+            {
+            "progressId": "36",
+            "parentId": "13",
+            "stepKey": "step_uob_information",
+            "status": "1",
+            "url": "1",
+            "children": []
+            },
+            {
+            "progressId": "37",
+            "parentId": "13",
+            "stepKey": "step_payment",
+            "status": "1",
+            "url": "1",
+            "children": []
+            },
+            {
+            "progressId": "38",
+            "parentId": "13",
+            "stepKey": "step_documents",
+            "status": "1",
+            "url": "1",
+            "children": []
+            }
+            ]
+            }
+            ]
+            }
     }
   },
   methods: {
@@ -96,7 +293,15 @@ export default {
             .then(res => {
                 console.log(res);
             })
-        }
+        },
+         moduleClick(url){
+             if(url=="informationPage1" || url=="/layout/information/informationPage1"){
+                this.$router.push('/layout/information/informationPage1')
+            }
+            if(url=="informationPage2" || url=="/layout/information/informationPage2"){
+                this.$router.push('/layout/formDemo')
+            }
+         }
     },
   beforeMount() {
       this.currentUser();
