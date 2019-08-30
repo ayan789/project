@@ -15,7 +15,7 @@ public class TprogressServiceImpl implements TprogressService {
     public TprogressTreeNode getTree(String parentId) {
         //执行查询
         List<Tprogress> list = tprogressDao.getByProgressOne();
-        TprogressTreeNode root = new TprogressTreeNode(list.get(0).getProgressId(),list.get(0).getParentId(),list.get(0).getStepKey(),list.get(0).getStatus());
+        TprogressTreeNode root = new TprogressTreeNode(list.get(0).getProgressId(),list.get(0).getParentId(),list.get(0).getStepKey(),list.get(0).getStatus(),list.get(0).getUrl());
         System.out.println("--------------------------------------------");
         System.out.println("id:"+root.getProgressId()+"pid:"+root.getParentId()+"State:"+root.getStatus()+"Text:"+root.getStepKey());
         System.out.println("--------------------------------------------");
@@ -25,7 +25,7 @@ public class TprogressServiceImpl implements TprogressService {
         System.out.println("--------------------------------------------");
         for(int i=1;i<listall.size();i++)
         {
-            TprogressTreeNode node=new TprogressTreeNode(listall.get(i).getProgressId(),listall.get(i).getParentId(),listall.get(i).getStepKey(),listall.get(i).getStatus());
+            TprogressTreeNode node=new TprogressTreeNode(listall.get(i).getProgressId(),listall.get(i).getParentId(),listall.get(i).getStepKey(),listall.get(i).getStatus(),listall.get(i).getUrl());
 
             root.add(node);
         }

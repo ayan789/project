@@ -14,4 +14,5 @@ public class Tprogress {
     private String group;
     private int sort;
     private String status;
+    private String url;
 }

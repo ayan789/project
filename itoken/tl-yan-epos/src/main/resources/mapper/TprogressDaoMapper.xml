@@ -10,6 +10,7 @@
         <result property="title" column="title"/>
         <result property="group" column="group"/>
         <result property="status" column="status"/>
+        <result property="url" column="url"/>
     </resultMap>
 
     <select id="getByProgressMap" resultMap="progressMap">

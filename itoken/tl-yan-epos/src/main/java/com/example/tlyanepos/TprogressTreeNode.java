@@ -12,15 +12,17 @@ public class TprogressTreeNode {
     private String parentId;
     private String stepKey;
     private String status;
+    private String url;
 
     private ArrayList<TprogressTreeNode> children=new ArrayList<TprogressTreeNode>();
 
-    public TprogressTreeNode(String progressId, String parentId, String stepKey, String status) {
+    public TprogressTreeNode(String progressId, String parentId, String stepKey, String status,String url) {
         super();
         this.progressId = progressId;
         this.parentId = parentId;
         this.stepKey = stepKey;
         this.status = status;
+        this.url = url;
     }
 
     public void add(TprogressTreeNode node)
