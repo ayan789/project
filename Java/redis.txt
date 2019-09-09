@@ -8,3 +8,5 @@ redis分布式锁
 数据库锁
 redis锁 redis加锁setnx 解锁执行Lua代码
 zookeeper 
+高性能存储db 任务集群
+实时性高 吞吐量大 
