@@ -208,4 +208,12 @@ public class IndexController {
         System.out.println("===============总耗时:" + (end - begin) /1000.0000+ "秒");
         return userAggregatedResult;
     }
+
+    @GetMapping("/refund")
+    @EnableQazSecurity
+    public String refund(String id) {
+        System.out.println("id:"+id);
+        return "退款成功";
+    }
+
 }
