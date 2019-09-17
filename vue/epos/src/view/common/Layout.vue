@@ -1,23 +1,21 @@
 <template>
   <div class="layout">
   
-   <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="1">处理中心</el-menu-item>
+   <el-menu :default-active="activeIndex"  active-text-color="rgb(255, 152, 0)"  class="el-menu-demo" mode="horizontal" @select="handleSelect"  background-color="rgb(33, 150, 243)" text-color="#fff">
+        <el-menu-item style="margin-left:1300px;">首页</el-menu-item>
             <el-submenu index="2">
-                <template slot="title">我的工作台</template>
+                <template slot="title">发现</template>
                 <el-menu-item index="2-1">选项1</el-menu-item>
                 <el-menu-item index="2-2">选项2</el-menu-item>
                 <el-menu-item index="2-3">选项3</el-menu-item>
                 <el-submenu index="2-4">
-
                 <template slot="title">选项4</template>
                 <el-menu-item index="2-4-1">选项1</el-menu-item>
                 <el-menu-item index="2-4-2">选项2</el-menu-item>
                 <el-menu-item index="2-4-3">选项3</el-menu-item>
         </el-submenu>
         </el-submenu>
-        <el-menu-item index="3" disabled>消息中心</el-menu-item>
-        <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
+        <el-menu-item index="3" disabled>动态</el-menu-item>
     </el-menu>
     <div class="leftDiv">
         <el-aside width="250px" >
@@ -27,7 +25,7 @@
           active-text-color="#20a0ff"
           unique-opened
           class="el-menu-vertical-demo"
-          background-color="#545c64"
+          background-color="rgb(44,44,66)"
           width="250px"
         >
           <template v-for="(menu) of data.children">
@@ -314,11 +312,17 @@ export default {
 <style scoped>
     .leftDiv{
         height:1000px;
-        background-color:#545c64;
+        background-color:rgb(44,44,66);
         
         float:left;
     }
     .el-menu {
     border-right: solid 1px #545c64;
     }
+</style>
+<style>
+.el-menu-item.is-active {
+   background-color: #fff !important;
+   color: black !important;
+}
 </style>

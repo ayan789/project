@@ -1,6 +1,6 @@
 <template>
   <div class="formDemo">
-    <el-col :span="20" class="colDiv">
+    <div id="colDiv">
         <template>
          <el-date-picker
             v-model="value1"
@@ -75,6 +75,8 @@
          <template>
             <el-table
               type="index"
+              :cell-style='cellStyle'
+              :header-cell-style="tableHeaderColor"
                @selection-change="handlerSelectionChange"
               :data="tableData"
               border
@@ -114,7 +116,7 @@
           <p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p>
           <p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p>
         </el-form>
-    </el-col>
+    </div>
   </div>
 </template>
 
@@ -317,14 +319,39 @@ export default {
         this.msgFormSon = data
         console.log(this.msgFormSon)
     },
+    getHeight(){
+        var h=document.documentElement.clientHeight;
+        var ss=document.getElementById('colDiv');
+        var aa=h-61;
+        ss.style.height=aa+"px";
+    },
     loadInform(){
         utils.http.get("/insure/inform/loadInform", this.searchForm)
         .then(res => {
             console.log(res);
         })
+    },
+    // 修改table header的背景色
+    //表格行颜色
+    cellStyle({row,column,rowIndex,columnIndex}){
+    　　if((rowIndex%2)==1){
+    　　　　return "background:rgb(33, 150, 243);"
+    　　}
+       else if((rowIndex%2)==0){
+    　　　　return "background:rgb(39,40,56);"
+    　　}
+    },
+    // 修改table header的背景色
+    tableHeaderColor({ row, column, rowIndex, columnIndex }) {
+      if (rowIndex === 0) {
+        return 'background-color: rgb(121, 85, 72);color: #fff;font-weight: 500;'
+      }
     }
+
+
   },
   mounted() {
+    this.getHeight();
       this.loadInform();
   }
 }
@@ -332,13 +359,27 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.demoDiv{
-    height:2000px;
-    background-color:blue;
+.formDemo{
+    overflow:hidden;
 }
-.colDiv{
-   height:2000px;
-   overflow-y:auto;
-   margin: 0px; padding: 0px;
+#colDiv{
+   color:#bcc0cc;
+   overflow-y:scroll; 
+   background-color:rgb(39,40,56); 
+   font-size:12px;
+   height:3500px;
+   padding:10px;
+   
 }
+button,input,form{
+    font-family: -apple-system,"Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+    color:#bcc0cc;
+    background-color:rgb(39,40,56);
+    font-size:12px;
+}
+</style>
+<style>
+input.el-input__inner{background: rgba(0,0,0,.2);font-size:12px;}
+.el-date-picker{background: rgb(39,40,56);font-size:12px;}
+.el-scrollbar{background: rgb(39,40,56);font-size:12px;}
 </style>
