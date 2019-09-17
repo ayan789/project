@@ -71,6 +71,7 @@
             <el-button type="primary" @click="edits">编辑</el-button>
             <el-button type="primary" @click="change">get方式传参跳转</el-button>
             <el-button type="primary" @click="change2">post方式传参跳转</el-button>
+            <el-button type="primary" @click="localStorage">设置缓存</el-button>
           </el-form-item>
          <template>
             <el-table
@@ -346,9 +347,10 @@ export default {
       if (rowIndex === 0) {
         return 'background-color: rgb(121, 85, 72);color: #fff;font-weight: 500;'
       }
+    },
+    localStorage(){
+        localStorage.setItem('index','zzz');
     }
-
-
   },
   mounted() {
     this.getHeight();

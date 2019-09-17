@@ -2,6 +2,7 @@
   <div class="information1">
     <div class="information1Div">
          <h1>{{ msg }}</h1>
+         <el-button type="primary" @click="getlocalStorage">获取缓存</el-button>
     </div>
   </div>
 </template>
@@ -12,6 +13,13 @@ export default {
   data () {
     return {
       msg: 'Information1',
+      indexUrl: '',
+    }
+  },
+  methods: {
+    getlocalStorage(){
+      this.indexUrl = localStorage.getItem('index')
+      console.log(this.indexUrl)
     }
   },
   created(){  //生命周期里接收参数
