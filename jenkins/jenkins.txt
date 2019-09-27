@@ -13,3 +13,134 @@ java -jar jenkins.war
 配置Source Code Management gitlab的http链接地址和用户名密码
 配置Build  Root POM：pom.xml 	Goals and options：install
 配置Post Steps SSH执行脚本
+
+
+
+
+sudo cat /Users/Shared/Jenkins/Home/secrets/initialAdminPassword
+admin/00da554ad1304171a483b0bb18bed926
+java -version  #没有的话查看上文jdk1.8安装
+mvn -v   #没有的话查看上文maven安装
+git --version  # 没有的话查看上文git安装
+
+1.配置全局jdk maven git
+Manage Jenkins(系统管理) -> Global Tool Configuaration(全局工具配置) -> Maven 配置
+/Users/yanshuai/apache-maven-3.6.1/conf/settings.xml
+/Users/yanshuai/apache-maven-3.6.1/conf/settings.xml
+2.配置jdk地址 (可以用echo $JAVA_HOME获取)  可选
+3.git配置地址 可以用(which -a git查看)  可选
+4.maven配置地址 可选
+安装maven插件 Maven Integration
+新建Item -> 新建任务 -> 构建一个maven项目 -> tl-yan-jenkins
+Git -> Repository URL -> Credentials * (Note1)
+Repository URL git@github.com:ayan789/private.git 
+Credentials sshgithub
+Build -> Root POM -> Goals and options 
+Root POM tl-yan-jenkins/pom.xml
+Goals and options clean package
+构建后操作 -> Send build artifacts over SSH -> SSH Publishers -> Name -> Source files -> Remove prefix -> Remote directory ->Exec command
+Name 120.55.50.237
+Source files tl-yan-jenkins/target/tl-yan-jenkins-0.0.1-SNAPSHOT.jar
+Remove prefix tl-yan-jenkins/target/
+Remote directory /projects
+Exec command sh /projects/start.sh tl-yan-jenkins 7788
+
+
+ssh root@120.55.50.237
+cd /projects/
+start.sh
+#!/bin/sh
+cd /projects
+# Project_name=tl-yan-jenkins
+# Port_no=7777
+Project_name=$1
+Port_no=$2
+echo $Project_name
+echo $Port_no
+# 找到原进程,kill
+pid=$(ps -ef | grep "tl-yan-jenkins-0.0.1-SNAPSHOT.jar" | grep -v grep | awk '{print $2}')
+kill -9 $pid
+nohup /root/opt/jdk1.8.0_171/bin/java -jar $Project_name-0.0.1-SNAPSHOT.jar  --server.port=$Port_no -server -Xmx1000m -Xms1000m -Xmn700m -XX:+UseParallelGC /projects/nohup.out 2>&1 &
+echo "starting service..."
+sleep 20
+#根据重启后是否有当前应用判断启动是否成功
+pid=$(ps -ef | grep "tl-yan-jenkins-0.0.1-SNAPSHOT.jar" | grep -v grep | awk '{print $2}')
+echo $pid
+if [ -z $pid ];then
+  echo "启动失败"
+  exit 1
+else
+  echo $Project_name :  $pid  "SUCCESS"
+fi
+
+
+
+Note1:
+系统管理 -> Manage Jenkins -> Credentials -> add 
+范围 全局
+ID sshgithub
+描述 sshgithub
+Username root
+Private Key cat .ssh/id_rsa 私钥
+ssh-keygen -t rsa
+cat .ssh/id_rsa.pub 公钥 -> github -> SSH -> new SSH keys
+cat .ssh/id_rsa 私钥 -> jenkins -> sshgithub -> Enter directly选中 -> Private Key
+
+＊
+jenkins 需要配置全路径
+不是python脚本 要选中 Exec in pty
+
+卸载gitlab
+gitlab-ctl stop
+rpm -e gitlab-ce
+ps aux | grep gitlab
+kill -9 18777   ／gitlab/service log
+sudo find / -name gitlab | xargs sudo rm -rf  
+
+
+ruby_block[supervise_redis_sleep] action run，会一直卡无法往下进行
+sudo systemctl restart gitlab-runsvdir
+sudo gitlab-ctl reconfigure
+
+ps -ef|grep gitlab
+/opt/gitlab/service log
+kill -9 4473
+
+vi /etc/gitlab/gitlab.rb 
+external_url 'http://localhost:9297'
+unicorn['worker_processes'] = 2
+unicorn['worker_timeout'] = 60
+postgresql['shared_buffers'] = "80MB"
+postgresql['max_worker_processes'] = 3
+sidekiq['concurrency'] = 10
+
+sudo gitlab-ctl reconfigure
+sudo gitlab-ctl restart
+
+初始化密码
+cd /opt/gitlab/bin
+sudo gitlab-rails console production 
+在irb(main):001:0> 后面通过 u=User.where(id:1).first 来查找与切换账号（User.all 可以查看所有用户）
+通过u.password='12345678'设置密码为12345678(这里的密码看自己喜欢)
+通过u.password_confirmation='12345678' 再次确认密码
+通过 u.save!进行保存（切记切记 后面的 !）
+执行 exit 退出当前设置流程
+
+内存不足 启用swop分区
+cat /proc/swaps 查看swap分区是否启动
+dd if=/dev/zero of=/data/swap bs=512 count=8388616  注意：/data/swap目录若无则找/mnt/swap  创建swap分区   count等于想要的块的数量（bs*count=文件大小）
+mkswap /data/swap  通过mkswap命令将上面新建出的文件做成swap分区
+cat /proc/sys/vm/swappiness
+sysctl -w vm.swappiness=60 如果显示0 可以按照以下命令进行修改为60
+vi /etc/fstab 末行添加：
+/data/swap   swap  swap  defaults  0  0     启用分区
+或者 echo “/data/swap swap swap defaults 0 0” >> /etc/fstab   
+cat /proc/swaps  查看swap分区是否启动
+
+swapon: /data/swap：不安全的权限 0644，建议使用 0600。
+swapon: /data/swap：swapon 失败: 不允许的操作
+chmod 0600 /data/swap
+
+sudo gitlab-ctl tail
+sudo gitlab-ctl status
+
