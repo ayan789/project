@@ -7,6 +7,16 @@ export default [{
     component: (resovle) => {
       require.ensure([], () => resovle(require('@/view/Information/Information1.vue')), 'informationPage1')
     }
+  },
+  {
+    path: '/',
+    name: 'informationPage1',
+    meta: {
+      title: '公开信息披露管理1'
+    },
+    component: (resovle) => {
+      require.ensure([], () => resovle(require('@/view/Information/Information1.vue')), 'informationPage1')
+    }
   }
   ]
   
