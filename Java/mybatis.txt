@@ -1,4 +1,6 @@
 mybatis
+对象关系映射框架
+XML或注解来配置和映射原生信息
 RowBounds逻辑分页 （有限制 20亿条左右 不建议用） 在mapper.java中的方法中传入RowBounds对象
 PageHelper物理分页 在调用查询方法之前调用 只对后面第一个SQL语句起作用
 一级缓存: 基于sqlSession默认开启相同的sqlSession第二次缓存
@@ -12,3 +14,16 @@ PageHelper物理分页 在调用查询方法之前调用 只对后面第一个SQ
 <trim>
 <foreach>
 <choose>
+
+#{} 预编译处理 
+${} 字符串替换
+
+配置别名
+
+唯一定位
+
+列名与属性名做映射 Mybatis通过反射创建对象
+
+延迟加载 先查询主表
+
+接口注解xml绑定

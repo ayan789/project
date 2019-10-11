@@ -10,3 +10,14 @@ redis锁 redis加锁setnx 解锁执行Lua代码
 zookeeper 
 高性能存储db 任务集群
 实时性高 吞吐量大 
+
+string Set Mset
+
+缓存穿透 都不存在 两次无用的查询 布隆过滤器
+
+缓存预热 上线时手工操作 程序轮训
+
+热数据 冷数据
+
+分布式锁 setnx key 当前系统时间＋自定义  
+        del key 命令就能释放锁
