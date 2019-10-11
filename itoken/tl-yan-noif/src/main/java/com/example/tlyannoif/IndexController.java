@@ -1,11 +1,15 @@
 package com.example.tlyannoif;
 
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.google.common.util.concurrent.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Nullable;
+import javax.validation.Valid;
 import java.util.concurrent.Callable;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +34,9 @@ public class IndexController {
 
     @Autowired
     private MyFutureTask myFutureTask;
+
+    @Autowired
+    AccountService accountService;
 
     @GetMapping("/home")
     public String index () {
@@ -214,6 +221,15 @@ public class IndexController {
     public String refund(String id) {
         System.out.println("id:"+id);
         return "退款成功";
+    }
+
+    @PostMapping("/saveAccount")
+    public Object saveAccount(String reqJson){
+        System.out.println(reqJson);
+        Account aunt = new Account();
+        aunt = JSON.parseObject(reqJson,Account.class);
+        Object result = accountService.AccountSave(aunt);
+        return result;
     }
 
 }
