@@ -16,6 +16,14 @@ public class UserService {
         return userDao.getById(id);
     }
 
+    public int insertUserBatch(List<User > userList){
+        return userDao.insertUserBatch(userList);
+    }
+
+    public int updateUserBatch(List<User > userList){
+        return userDao.updateUserBatch(userList);
+    }
+
     public long userDone(String id){
         System.out.println("用户服务开始执行 id:" + id);
 //        User user = userDao.getById(Integer.parseInt(id));

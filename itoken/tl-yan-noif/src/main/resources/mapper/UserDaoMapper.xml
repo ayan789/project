@@ -40,5 +40,45 @@
     	SELECT * FROM user WHERE id =#{id}
     </select>
 
+    <!-- 批量插入生成 -->
+      <insert id ="insertUserBatch" parameterType="java.util.List" >
+            insert into user
+            (id, name, address)
+            values
+             <foreach collection ="list" item="reddemCode" index= "index" separator =",">
+                 (
+                 #{reddemCode.id},
+                 #{reddemCode.name},
+                 #{reddemCode.address}
+                 )
+             </foreach >
+      </insert >
+
+    <!-- 批量修改 -->
+    <update id="updateUserBatch" parameterType="java.util.List">
+        update user
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="address =case" suffix="end,">
+                <foreach collection="list" item="item">
+                    <if test="item.address!=null">
+                        when id=#{item.id} then #{item.address}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="name =case" suffix="end,">
+                <foreach collection="list" item="item">
+                    <if test="item.name!=null">
+                        when id=#{item.id} then #{item.name}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        <where>
+            <foreach collection="list" separator="or" item="item">
+                id = #{item.id}
+            </foreach>
+        </where>
+    </update>
+
 
 </mapper>

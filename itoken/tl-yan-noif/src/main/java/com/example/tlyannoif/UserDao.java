@@ -13,5 +13,9 @@ public interface UserDao {
 
     User getById(Integer id);
 
+    int insertUserBatch(List<User > userList);
+
+    int updateUserBatch(List<User > userList);
+
 }
 

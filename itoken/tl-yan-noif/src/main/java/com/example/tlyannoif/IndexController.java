@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Nullable;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.concurrent.Callable;
 import java.util.HashMap;
 import java.util.List;
@@ -60,6 +61,40 @@ public class IndexController {
     public User getUser(@PathVariable("id") int id){
         User user = userService.getById(id);
         return user ;
+    }
+
+    @GetMapping("/insertUserBatch")
+    public int insertUserBatch(){
+        List<User> userList = new ArrayList<>();
+        User user1 = new User();
+        user1.setId(1110);
+        user1.setName("AAAAAAA");
+        user1.setAddress("AAAAAAAA");
+        User user2 = new User();
+        user2.setId(222220);
+        user2.setName("BBBBBBBBBB");
+        user2.setAddress("BBBBBBBBBB");
+        userList.add(user1);
+        userList.add(user2);
+        int num = userService.insertUserBatch(userList);
+        return num ;
+    }
+
+    @GetMapping("/updateUserBatch")
+    public int updateUserBatch(){
+        List<User> userList = new ArrayList<>();
+        User user1 = new User();
+        user1.setId(1110);
+        user1.setName("ooooooooo");
+        user1.setAddress("ooooooooo");
+        User user2 = new User();
+        user2.setId(222220);
+        user2.setName("zzzzzzzzz");
+        user2.setAddress("zzzzzzzzzzz");
+        userList.add(user1);
+        userList.add(user2);
+        int num = userService.updateUserBatch(userList);
+        return num ;
     }
 
     /**
@@ -231,5 +266,7 @@ public class IndexController {
         Object result = accountService.AccountSave(aunt);
         return result;
     }
+
+
 
 }
