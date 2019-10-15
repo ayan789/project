@@ -52,7 +52,7 @@ public class jexlUtils {
 //        e = jexl.createExpression("i<1");
 //        System.out.println(e.evaluate(jc));
 
-        jexlUtils.a7();
+        jexlUtils.a8();
 
 
     }
@@ -155,14 +155,26 @@ public class jexlUtils {
         jc.set("book",book);
         jc.set("loop",10);
         jc.set("A1","打开手机大奖");
-        e.execute(jc);
         Object o = e.execute(jc);
         System.out.println("结果："+o);
-
-
-
     }
 
-
+    public static void a8(){
+        Book book = new Book();
+        JexlEngine JEXL = new JexlBuilder().create();
+        JexlScript e = JEXL.createScript("book.checkBook(loop,A1)");
+        JexlContext jc = new MapContext();
+        jc.set("book",book);
+        jc.set("loop",10);
+        jc.set("A1","打开手机大奖");
+        Object o = e.execute(jc);
+        Boolean a = (Boolean) o;
+        if(a==true){
+            System.out.println("OK");
+        }
+        else{
+            System.out.println("NO");
+        }
+    }
 
 }

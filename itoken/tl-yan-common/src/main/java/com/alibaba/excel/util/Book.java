@@ -10,4 +10,9 @@ public class Book {
 
         return "books list";
     }
+
+    public Boolean checkBook(int loop,String A1){
+        System.out.println(A1);
+        return true;
+    }
 }
