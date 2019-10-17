@@ -14,6 +14,7 @@ public class RsaEncryptAlgorithm implements EncryptAlgorithm {
 
     public String decrypt(String encryptStr, String decryptKey) throws Exception {
         System.out.println("加密:"+encryptStr+decryptKey);
+        System.out.println(Base64Utils.decode(encryptStr));
         return Base64Utils.decode(encryptStr);
     }
 

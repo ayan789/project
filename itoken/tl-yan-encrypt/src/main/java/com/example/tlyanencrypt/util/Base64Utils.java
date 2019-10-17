@@ -308,7 +308,9 @@ public class Base64Utils {
 
 
     public static void main(String[] args) {
-        String str = "5LiA5aSn57qi6Imy5Y+j57qi5Y2h5aW955yL";
+        String str = "eyJpZCI6IDEsIm5hbWUiOiAi5Yqg5a+G5a6e5L2T5a+56LGhIiwiY3JlYXRlVGltZSI6IjIwMTktMDEtMDEgMTI6MTAifQ==";
         System.out.println(decode(str));
+        System.out.println(encode("{\"id\": 1,\"name\": \"加密实体对象\",\"createTime\":\"2019-01-01 12:10\"}"));
+
     }
 }
