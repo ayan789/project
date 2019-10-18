@@ -2,7 +2,12 @@ package com.example.tlyanencrypt.util;
 
 
 
+import com.alibaba.fastjson.JSONObject;
+import com.example.tlyanencrypt.dto.BookDto;
+import com.example.tlyanencrypt.dto.Insure;
+
 import java.io.*;
+import java.util.Date;
 
 /**
  * Created by User on 2018/8/9.
@@ -308,9 +313,21 @@ public class Base64Utils {
 
 
     public static void main(String[] args) {
-        String str = "eyJpZCI6IDEsIm5hbWUiOiAi5Yqg5a+G5a6e5L2T5a+56LGhIiwiY3JlYXRlVGltZSI6IjIwMTktMDEtMDEgMTI6MTAifQ==";
+//        BookDto bookDto = new BookDto();
+//        bookDto.setId(1);
+//        bookDto.setName("ABC");
+//        bookDto.setPrice(199.99);
+//        bookDto.setCreateTime(new Date());
+//        Insure insure = new Insure();
+//        insure.setRider("附加险");
+//        bookDto.setInsure(insure);
+//        String abc = JSONObject.toJSONString(bookDto);
+//        System.out.println(abc);
+
+
+        String str = "eyJjcmVhdGVUaW1lIjoxNTcxMzY5OTUxNzY0LCJpZCI6MSwiaW5zdXJlIjp7InJpZGVyIjoi6ZmE5Yqg6ZmpIn0sIm5hbWUiOiJBQkMiLCJwcmljZSI6MTk5Ljk5fQ==";
         System.out.println(decode(str));
-        System.out.println(encode("{\"id\": 1,\"name\": \"加密实体对象\",\"createTime\":\"2019-01-01 12:10\"}"));
+//      System.out.println(encode("{\"createTime\":1571369951764,\"id\":1,\"insure\":{\"rider\":\"附加险\"},\"name\":\"ABC\",\"price\":199.99}"));
 
     }
 }

@@ -20,8 +20,8 @@ public class UserController{
 		return dto;
 	}
 
-	@Encrypt
-	@Decrypt
+//	@Encrypt
+//	@Decrypt
 	@PostMapping("/save")
 	public UserDto save(@RequestBody UserDto dto) {
 		System.out.println(dto.getId() + "\t" + dto.getName());
