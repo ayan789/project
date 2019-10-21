@@ -7,6 +7,8 @@
 float double 直接转换可能进度丢失，用String作为中转
 valueOf  parseDouble 
 
+整浮字布 装拆箱 显隐式 高精度
+
 数据结构
 队列 先进先出 
 栈 先进后出
@@ -75,6 +77,11 @@ runnable（无返回值 不可以声明抛出异常） callable（有返回值 �
 threadLocal 线程本地变量 一个线程维护一个独立的变量副本 （单例对象成员变量线程间不共享这个属性）
 volatile 内存可见但不是线程安全 所有线程都能看到共享内存的最新状态  读操作远远大于写操作 volatile变量还可以提供优于锁的性能优势
 synchronized 可见性 原子性
+synchronized多线程, wait线程等待, notify线程唤醒
+多线程是会缓存值的，volatile就是不去缓存，直接取值
+lock 解锁顺序 synchronized 先加后解
+手动加解锁 .lock() .unlock() finally块中的语句执行也能够得到保证
+ConcurrentHashMap 高效线程安全map
 
 JVM
 jvm
