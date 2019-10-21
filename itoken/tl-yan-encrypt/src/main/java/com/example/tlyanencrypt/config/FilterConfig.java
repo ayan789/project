@@ -17,7 +17,7 @@ public class FilterConfig {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public FilterRegistrationBean filterRegistration() {
     	EncryptionConfig config = new EncryptionConfig();
-    	config.setKey("ZAQ!xsw2");
+    	config.setKey("testtest");
     	FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new EncryptionFilter(config,new RsaEncryptAlgorithm()));
         registration.addUrlPatterns("/*");
