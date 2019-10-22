@@ -20,10 +20,12 @@ import ${package}.service.${className}Service;
 import com.bootdo.common.utils.PageUtils;
 import com.bootdo.common.utils.Query;
 import com.bootdo.common.utils.R;
+import org.apache.commons.logging.LogFactory;
 
 /**
+ * <P></P>
  * ${comments}
- * 
+ * @version 1.0
  * @author ${author}
  * @email ${email}
  * @date ${datetime}
@@ -33,6 +35,8 @@ import com.bootdo.common.utils.R;
 @RequestMapping("/${pathName}/${classname}")
 public class ${className}Controller {
 
+	private static Log logger = LogFactory.getLog(${className}Controller.class);
+
 	/*************************特别强调：
 	 * 1、status 转码，转成  1:可用   0：不可用
 	 * 2、属性对象不能为空
@@ -41,30 +45,56 @@ public class ${className}Controller {
 
 	@Autowired
 	private ${className}Service ${classname}Service;
-	
+
+	/**
+     * <P></P>
+     * @param
+     * @return
+     * @throws Exception
+     */
 	@GetMapping()
 	@RequiresPermissions("${pathName}:${classname}:${classname}")
 	String ${className}(){
 	    return "${pathName}/${classname}/${classname}";
 	}
 
+	/**
+     * <P></P>
+     * @param
+     * @return
+     * @throws Exception
+     */
 	@GetMapping("/list")
 	@RequiresPermissions("${pathName}:${classname}:${classname}")
 	public PageUtils list(@RequestParam Map<String, Object> params){
+		logger.info("入参:{}");
 		//查询列表数据
         Query query = new Query(params);
 		List<${className}> ${classname}List = ${classname}Service.list(query);
 		int total = ${classname}Service.count(query);
 		PageUtils pageUtils = new PageUtils(${classname}List, total);
+		logger.info("出参:{}");
 		return pageUtils;
 	}
-	
+
+	/**
+     * <P></P>
+     * @param
+     * @return
+     * @throws Exception
+     */
 	@GetMapping("/add")
 	@RequiresPermissions("${pathName}:${classname}:add")
 	String add(){
 	    return "${pathName}/${classname}/add";
 	}
 
+	/**
+     * <P></P>
+     * @param
+     * @return
+     * @throws Exception
+     */
 	@GetMapping("/edit/{${pk.attrname}}")
 	@RequiresPermissions("${pathName}:${classname}:edit")
 	String edit(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname},Model model){
@@ -72,10 +102,13 @@ public class ${className}Controller {
 		model.addAttribute("${classname}", ${classname});
 	    return "${pathName}/${classname}/edit";
 	}
-	
+
 	/**
-	 * 保存
-	 */
+     * <P>保存</P>
+     * @param
+     * @return
+     * @throws Exception
+     */
 	@PostMapping("/save")
 	@RequiresPermissions("${pathName}:${classname}:add")
 	public R save( ${className} ${classname}){
@@ -84,20 +117,26 @@ public class ${className}Controller {
 		}
 		return R.error();
 	}
+
 	/**
-	 * 修改
-	 */
-	@ResponseBody
+     * <P>修改</P>
+     * @param
+     * @return
+     * @throws Exception
+     */
 	@RequestMapping("/update")
 	@RequiresPermissions("${pathName}:${classname}:edit")
 	public R update( ${className} ${classname}){
 		${classname}Service.update(${classname});
 		return R.ok();
 	}
-	
+
 	/**
-	 * 删除
-	 */
+     * <P>删除</P>
+     * @param
+     * @return
+     * @throws Exception
+     */
 	@PostMapping( "/remove")
 	@RequiresPermissions("${pathName}:${classname}:remove")
 	public R remove( ${pk.attrType} ${pk.attrname}){
@@ -106,10 +145,13 @@ public class ${className}Controller {
 		}
 		return R.error();
 	}
-	
+
 	/**
-	 * 删除
-	 */
+     * <P>批量删除</P>
+     * @param
+     * @return
+     * @throws Exception
+     */
 	@PostMapping( "/batchRemove")
 	@RequiresPermissions("${pathName}:${classname}:batchRemove")
 	public R remove(@RequestParam("ids[]") ${pk.attrType}[] ${pk.attrname}s){
