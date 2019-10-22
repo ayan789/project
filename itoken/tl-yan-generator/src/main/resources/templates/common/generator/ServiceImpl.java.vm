@@ -1,0 +1,57 @@
+package ${package}.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Map;
+import ${package}.dao.${className}Dao;
+import ${package}.domain.${className};
+
+import ${package}.service.${className}Service;
+
+@Service
+public class ${className}ServiceImpl implements ${className}Service {
+
+	/*************************特别强调：
+	 * 1、status 转码，转成  1:可用   0：不可用
+	 * 2、属性对象不能为空
+	 * 3、实现增量同步
+	 **************************/
+
+	@Autowired
+	private ${className}Dao ${className}Dao;
+	
+	@Override
+	public ${className} get(${pk.attrType} ${pk.attrname}){
+		return ${className}Dao.get(${pk.attrname});
+	}
+	
+	@Override
+	public List<${className}> list(Map<String, Object> map){
+		return ${className}Dao.list(map);
+	}
+	
+	@Override
+	public int count(Map<String, Object> map){
+		return ${className}Dao.count(map);
+	}
+	
+	@Override
+	public int save(${className} ${classname}){ return ${className}Dao.save(${classname}); }
+	
+	@Override
+	public int update(${className} ${classname}){
+		return ${className}Dao.update(${className});
+	}
+	
+	@Override
+	public int remove(${pk.attrType} ${pk.attrname}){
+		return ${className}Dao.remove(${pk.attrname});
+	}
+	
+	@Override
+	public int batchRemove(${pk.attrType}[] ${pk.attrname}s){
+		return ${className}Dao.batchRemove(${pk.attrname}s);
+	}
+	
+}
