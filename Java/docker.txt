@@ -1,0 +1,61 @@
+设置远程访问
+vi /lib/systemd/system/docker.service
+ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2376 -H unix://var/run/docker.sock
+systemctl daemon-reload
+service docker restart
+
+远程访问不生效 关闭Portainer 重新配置 在打开Portainer
+
+Portainer docker图形化
+docker volume create portainer_data
+docker run -d -p 9000:9000 -p 8000:8000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+
+指令
+docker -v
+docker ps
+docker ps -a # 为查看所有的容器，包括已经停止的
+docker images
+docker logs -f cec5c397794b
+docker inspect cec5c397794b
+
+
+1.安装依赖包#
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2 
+2.设置阿里云镜像源
+sudo yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo 
+安装 Docker-CE
+sudo yum install docker-ce
+启动 Docker-CE
+sudo systemctl enable docker
+sudo systemctl start docker
+
+拉取镜像#
+docker pull
+删除容器
+docker rm <容器名 or ID>
+docker start <容器名 or ID> # 启动容器
+docker stop <容器名 or ID> # 启动容器
+docker kill <容器名 or ID> # 杀死容器
+后台运行
+docker run -d <Other Parameters>
+# 例如 docker run -d -p 127.0.0.1:33301:22 centos6-ssh
+docer -p hostPort:containerPort # 映射本机的指定端口到容器的指定端口
+docker -v /home/data:/opt/data # 这里/home/data 指的是宿主机的目录地址，后者则是容器的目录地址
+
+Dockerfile镜像文件
+FROM java:8
+ADD /target/yan-eureka-0.0.1-SNAPSHOT.jar eureka11.jar
+EXPOSE 8292
+ENTRYPOINT ["java","-jar","eureka11.jar"]
+
+idea插件
+Docker integration  
+配置一
+name test-docker
+TCP socket->Engine API URL  tcp://120.55.50.237:2376
+配置二
+name test-docker11
+Dockerfile Dockerfile镜像文件路径
+Image tag test-docker11
+Container name  test-docker11
+Bind port 8292:8292
