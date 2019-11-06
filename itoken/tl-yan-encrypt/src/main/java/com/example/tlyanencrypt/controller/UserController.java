@@ -11,22 +11,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController{
 
-	@Encrypt
-	@GetMapping("/encryptEntity")
-	public UserDto encryptEntity() {
-		UserDto dto = new UserDto();
-		dto.setId(1);
-		dto.setName("加密对象");
-		return dto;
-	}
-
 //	@Encrypt
-//	@Decrypt
-	@PostMapping("/save")
-	public UserDto save(@RequestBody UserDto dto) {
-		System.out.println(dto.getId() + "\t" + dto.getName());
-		System.out.println(dto.getCreateTime());
-		return dto;
-	}
+//	@GetMapping("/encryptEntity")
+//	public UserDto encryptEntity() {
+//		UserDto dto = new UserDto();
+//		dto.setId(1);
+//		dto.setName("加密对象");
+//		return dto;
+//	}
+//
+//	@Encrypt
+//	@PostMapping("/save")
+//	public UserDto save(@RequestBody UserDto dto) {
+//		System.out.println(dto.getId() + "\t" + dto.getName());
+//		System.out.println(dto.getCreateTime());
+//		return dto;
+//	}
 
 }

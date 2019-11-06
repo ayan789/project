@@ -1,7 +1,8 @@
 package com.cxytiandi.encrypt.core;
 
 import java.io.IOException;
-import java.util.List;
+import java.lang.reflect.Method;
+import java.util.*;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,11 +14,23 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.fastjson.JSONObject;
+import com.cxytiandi.encrypt.springboot.annotation.Encrypt;
+import com.cxytiandi.encrypt.springboot.annotation.NoEnPut;
+import com.cxytiandi.encrypt.springboot.init.ApiEncryptDataInit;
+import com.cxytiandi.encrypt.util.BaseException;
+import org.reflections.scanners.MethodAnnotationsScanner;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cxytiandi.encrypt.algorithm.AesEncryptAlgorithm;
 import com.cxytiandi.encrypt.algorithm.EncryptAlgorithm;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.reflections.Reflections;
 
 /**
  * 数据加解密过滤器
@@ -63,7 +76,7 @@ public class EncryptionFilter implements Filter {
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		
+
 	}
 	
 	@Override
@@ -80,13 +93,28 @@ public class EncryptionFilter implements Filter {
 			chain.doFilter(req, resp);
 			return;
 		}
+
+		Map<String,String> map1 = new HashMap<>();
+		map1.put("start","/book/");
+		map1.put("end","_put");
+		List<Map<String,String>> list = new ArrayList<>();
+		list.add(map1);
+		encryptionConfig.setResponseEncryptUriIgnoreMapList(list);
 		
-		
-		boolean decryptionStatus = this.contains(encryptionConfig.getRequestDecyptUriList(), uri, req.getMethod());
-		boolean encryptionStatus = this.contains(encryptionConfig.getResponseEncryptUriList(), uri, req.getMethod());
-		boolean decryptionIgnoreStatus = this.contains(encryptionConfig.getRequestDecyptUriIgnoreList(), uri, req.getMethod());
-		boolean encryptionIgnoreStatus = this.contains(encryptionConfig.getResponseEncryptUriIgnoreList(), uri, req.getMethod());
-		
+		boolean decryptionStatus = this.contains(ApiEncryptDataInit.requestDecyptUriList, uri, req.getMethod());
+		boolean encryptionStatus = this.contains(ApiEncryptDataInit.responseEncryptUriList, uri, req.getMethod());
+		boolean decryptionIgnoreStatus = this.contains(ApiEncryptDataInit.responseEncryptUriIgnoreList, uri, req.getMethod());
+		boolean encryptionIgnoreStatus = this.contains(ApiEncryptDataInit.responseEncryptUriIgnoreList, uri, req.getMethod());
+
+		System.out.println(decryptionStatus);
+		System.out.println(encryptionStatus);
+		System.out.println(decryptionIgnoreStatus);
+		System.out.println(encryptionIgnoreStatus);
+
+
+//		System.out.println("aaaafff:"+JSONObject.toJSONString(encryptionConfig.getResponseEncryptUriIgnoreMapList()));
+////		System.out.println(JSONObject.toJSONString(uri));
+////		System.out.println(JSONObject.toJSONString(req.getMethod()));
 		// 没有配置具体加解密的URI默认全部都开启加解密
 		if (encryptionConfig.getRequestDecyptUriList().size() == 0 
 				&& encryptionConfig.getResponseEncryptUriList().size() == 0) {
@@ -98,14 +126,17 @@ public class EncryptionFilter implements Filter {
 		if (encryptionIgnoreStatus) {
 			encryptionStatus = false;
 		}
-		
+//		encryptionStatus = false;
 		// 接口在忽略解密列表中
 		if (decryptionIgnoreStatus) {
 			decryptionStatus = false;
 		}
+
+
 		
 		// 没有加解密操作
 		if (decryptionStatus == false && encryptionStatus == false) {
+
 			chain.doFilter(req, resp);
 			return;
 		}
@@ -122,9 +153,15 @@ public class EncryptionFilter implements Filter {
 				String decyptRequestData = encryptAlgorithm.decrypt(requestData, encryptionConfig.getKey());
 				logger.debug("DecyptRequestData: {}", decyptRequestData);
 				reqestWrapper.setRequestData(decyptRequestData);
-			} catch (Exception e) {
+			} catch (BaseException e) {
 				logger.error("请求数据解密失败", e);
-				throw new RuntimeException(e);
+				try {
+					throw new BaseException("001","jdsjjkk");
+				} catch (BaseException e1) {
+					e1.printStackTrace();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		
@@ -134,6 +171,11 @@ public class EncryptionFilter implements Filter {
 		
 		// 同时需要加解密
 		if (encryptionStatus && decryptionStatus) {
+			System.out.println("ooopppp");
+			System.out.println(reqestWrapper.getRequestData());
+			System.out.println(responseWrapper.getResponseData());
+
+
 			chain.doFilter(reqestWrapper, responseWrapper);
 		} else if (encryptionStatus) { //只需要响应加密
 			chain.doFilter(req, responseWrapper);
@@ -173,9 +215,76 @@ public class EncryptionFilter implements Filter {
 		}
 		String prefixUri = methodType.toLowerCase() + ":" + uri;
 		logger.debug("contains uri: {}", prefixUri);
-		if (list.contains(prefixUri)) {
-			return true;
+//		if (list.contains(prefixUri)) {
+//			return true;
+//		}
+		for(int i=0;i<list.size();i++){
+			boolean a = methodType.equalsIgnoreCase(list.get(i).split(":")[0]);
+			boolean b = StringUtils.startsWithIgnoreCase(uri,list.get(i).split(":")[1]);
+			System.out.println("-----======");
+			System.out.println(list.get(i).split(":")[0]);
+			System.out.println(list.get(i).split(":")[1]);
+			if(a && b) return true;
 		}
+		return false;
+	}
+
+	private boolean contains2(List<Map<String,String>> list, String uri, String methodType) {
+		String url_method = uri + "_" + methodType;
+		System.out.println("url_method"+url_method);
+		for(int i=0;i<list.size();i++){
+			boolean a = StringUtils.startsWithIgnoreCase(url_method,list.get(i).get("start"));
+			boolean b = StringUtils.endsWithIgnoreCase(url_method,list.get(i).get("end"));
+			if(a && b) return true;
+		}
+		return false;
+	}
+
+	private boolean contains3(List<Map<String,String>> list, String uri, String methodType) {
+//		String url_method = uri + "_" + methodType;
+//		System.out.println("url_method"+url_method);
+//		for(int i=0;i<list.size();i++){
+//			boolean a = StringUtils.startsWithIgnoreCase(url_method,list.get(i).get("start"));
+//			boolean b = StringUtils.endsWithIgnoreCase(url_method,list.get(i).get("end"));
+//			if(a && b) return true;
+//		}
+
+		System.out.println("yyuuii");
+//		// 需要排除的路径
+		List<String> excludeUrls = new ArrayList<>();
+		// 设置扫描路径
+		Reflections reflections = new Reflections(
+				new ConfigurationBuilder().setUrls(ClasspathHelper.forPackage("com.example.tlyanencrypt.controller")).setScanners(new MethodAnnotationsScanner()));
+		// 扫描指定包内带有@ExcludeDangerousCharacterUrl注解的所有方法集合
+		Set<Method> methods = reflections.getMethodsAnnotatedWith(NoEnPut.class);
+		if (null != methods && !methods.isEmpty()) {
+			for (Method method : methods) {
+
+				System.out.println(JSONObject.toJSONString(method));
+				String excludeUrl = method.getAnnotation(PutMapping.class).value()[0];
+				System.out.println("excludeUrl:"+excludeUrl);
+				excludeUrls.add(excludeUrl);
+			}
+		}
+
+//		Class<?> clz = bean.getClass();
+//		Method[] methods = clz.getMethods();
+//		for (Method method : methods) {
+//			Encrypt encrypt = AnnotationUtils.findAnnotation(method, Encrypt.class);
+//			if (encrypt != null) {
+//				// 注解中的URI优先级高
+//				String uri = encrypt.value();
+//				if (!StringUtils.hasText(uri)) {
+//					uri = getApiUri(clz, method);
+//				}
+//				logger.debug("Encrypt URI: {}", uri);
+//
+//			}
+//		}
+
+		System.out.println("需要排除过滤的URL有：" + excludeUrls.toArray().toString());
+
+
 		return false;
 	}
 	

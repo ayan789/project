@@ -51,7 +51,9 @@ public class ApiEncryptDataInit implements ApplicationContextAware {
 	 * 不支持@PathVariable格式的URI
 	 */
 	public static List<String> responseEncryptUriIgnoreList = new ArrayList<String>();
-	
+	public static List<Map<String,String>> responseEncryptUriIgnoreMapList = new ArrayList<>();
+
+
 	/**
 	 * 忽略对请求内容进行解密的接口URI<br>
 	 * 比如：/user/list<br>
@@ -64,7 +66,7 @@ public class ApiEncryptDataInit implements ApplicationContextAware {
     @Override
     public void setApplicationContext(ApplicationContext ctx) throws BeansException {
     	this.contextPath = ctx.getEnvironment().getProperty("server.servlet.context-path");
-        Map<String, Object> beanMap = ctx.getBeansWithAnnotation(RestController.class);
+		Map<String, Object> beanMap = ctx.getBeansWithAnnotation(RestController.class);
         initData(beanMap);
         beanMap = ctx.getBeansWithAnnotation(Controller.class);
         initData(beanMap);

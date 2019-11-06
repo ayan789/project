@@ -1,24 +1,16 @@
 package com.cxytiandi.encrypt.springboot.annotation;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+
+import java.lang.annotation.*;
 
 /**
-   *    忽略加密注解
- * 
- * <p>加了此注解的接口将不进行数据加密操作<p>
- * <p>适用于全局开启加解密操作，但是想忽略某些接口场景<p>
- * 
- * @author yinjihuan
- *
- * @about http://cxytiandi.com/about
+ * @Description: 自定义注解 - 排除不需要进行过滤的URL
+ * @author: weixiaohuai
+ * @Date: 2019/10/16 16:54
  */
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
 @Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD})
 public @interface EncryptIgnore {
 
 	String value() default "";

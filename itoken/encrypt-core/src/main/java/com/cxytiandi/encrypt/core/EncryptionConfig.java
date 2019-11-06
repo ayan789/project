@@ -2,6 +2,7 @@ package com.cxytiandi.encrypt.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -52,6 +53,8 @@ public class EncryptionConfig {
 	 * 不支持@PathVariable格式的URI
 	 */
 	private List<String> requestDecyptUriIgnoreList = new ArrayList<String>();
+
+	private List<Map<String,String>> responseEncryptUriIgnoreMapList = new ArrayList<>();
 
 	/**
 	 * 响应数据编码
@@ -174,5 +177,12 @@ public class EncryptionConfig {
 	public void setRequestDecyptUriIgnoreList(List<String> requestDecyptUriIgnoreList) {
 		this.requestDecyptUriIgnoreList = requestDecyptUriIgnoreList;
 	}
-	
+
+	public List<Map<String, String>> getResponseEncryptUriIgnoreMapList() {
+		return responseEncryptUriIgnoreMapList;
+	}
+
+	public void setResponseEncryptUriIgnoreMapList(List<Map<String, String>> responseEncryptUriIgnoreMapList) {
+		this.responseEncryptUriIgnoreMapList = responseEncryptUriIgnoreMapList;
+	}
 }
