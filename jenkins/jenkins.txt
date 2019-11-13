@@ -144,3 +144,35 @@ chmod 0600 /data/swap
 sudo gitlab-ctl tail
 sudo gitlab-ctl status
 
+docker 阿里镜像
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://hnx03e7j.mirror.aliyuncs.com"]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+拉取gitlab镜像
+docker pull gitlab/gitlab-ce
+vim /home/gitlab/config/gitlab.rb
+# 配置http协议所使用的访问地址,不加端口号默认为80
+external_url 'http://120.55.50.237:9299'
+#
+# 配置ssh协议所使用的访问地址和端口
+gitlab_rails['gitlab_ssh_host'] = '120.55.50.237'
+gitlab_rails['gitlab_shell_ssh_port'] = 222 # 此端口是run时22端口映射的222端口
+
+docker run -d  -p 443:443 -p 9299:9299 -p 222:22 --name gitlab --restart always -v /home/gitlab/config:/etc/gitlab -v /home/gitlab/logs:/var/log/gitlab -v /home/gitlab/data:/var/opt/gitlab gitlab/gitlab-ce
+docker exec -it gitlab bash
+
+［start之后运行需要等一个小时左右］
+
+
+CentOS7 Swap扩容
+dd if=/dev/zero of=/var/swapfile bs=1G count=5
+mkswap /var/swapfile
+swapon /var/swapfile
+free -m
+

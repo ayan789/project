@@ -59,3 +59,24 @@ Dockerfile Dockerfile镜像文件路径
 Image tag test-docker11
 Container name  test-docker11
 Bind port 8292:8292
+
+
+安装jira
+先安装mysql
+docker pull mysql:5.7.19
+docker run --name mysql -p 3306:3306 -v /home/mysql/data:/var/lib/mysql -v /home/mysql/conf.d:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7.19
+docker ps
+docker exec -it 7a036187d7b9 /bin/sh
+mysql -uroot -p
+ALTER USER 'root'@'%' IDENTIFIED BY 'password' PASSWORD EXPIRE NEVER; #修改加密规则 ，'password'改成你的密码
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'password'; #更新一下用户的密码 ，'password'是你的密码
+FLUSH PRIVILEGES; #刷新权限
+
+docker pull cptactionhank/atlassian-jira-software
+docker run --detach --restart always --link mysql-jira:mysql --publish 8721:8080 cptactionhank/atlassian-jira-software
+sudo docker exec -it 7509371edd48 /bin/sh
+rm -rf /opt/atlassian/jira/atlassian-jira/WEB-INF/lib/atlassian-extras-3.1.2.jar
+exit
+sudo docker cp atlassian-extras-3.1.2.jar 7509371edd48:/opt/atlassian/jira/atlassian-jira/WEB-INF/lib/
+docker restart 7509371edd48
+
