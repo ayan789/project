@@ -1,6 +1,7 @@
 package com.example.tlyannoif;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.google.common.util.concurrent.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -267,6 +268,11 @@ public class IndexController {
         return result;
     }
 
+    public static void main(String[] args) {
+        UserBehaviorDataDTO ub = new UserBehaviorDataDTO();
+        ub.setCollectCount(1000).setMsgCount(100).setFollowCount(999);
+        System.out.println(JSONObject.toJSONString(ub));
+    }
 
 
 }

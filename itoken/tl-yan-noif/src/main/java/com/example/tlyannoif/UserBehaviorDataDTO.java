@@ -1,7 +1,9 @@
 package com.example.tlyannoif;
 
 import lombok.*;
+import lombok.experimental.Accessors;
 
+@Accessors(chain = true)
 @Getter
 @Setter
 //使用@bulider时，必须添加无参，全参构造方法，否则转json报错
