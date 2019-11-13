@@ -272,6 +272,9 @@ public class IndexController {
         UserBehaviorDataDTO ub = new UserBehaviorDataDTO();
         ub.setCollectCount(1000).setMsgCount(100).setFollowCount(999);
         System.out.println(JSONObject.toJSONString(ub));
+
+        UserBehaviorDataDTO ub2 =  UserBehaviorDataDTO.builder().collectCount(1).fansCount(2).couponCount(3).build();
+        System.out.println(JSONObject.toJSONString(ub2));
     }
 
 
