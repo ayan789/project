@@ -75,7 +75,10 @@ call abc_pro();
 
 
 
-
+MVCC
+无锁读和有锁读
+有锁读分共享和排他
+java问到mycat、redis，并发和PV，dubbo和springcloud
 
 
 
