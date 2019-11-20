@@ -29,6 +29,8 @@
 
     <properties>
         <java.version>1.8</java.version>
+            <releases.repo>http://127.0.0.1:8081/nexus/content/repositories/releases/</releases.repo>
+            <snapshots.repo>http://127.0.0.1:8081/nexus/content/repositories/snapshots/</snapshots.repo>
     </properties>
 
     <dependencies>

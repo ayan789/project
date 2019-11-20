@@ -1,0 +1,8 @@
+spring:
+    application:
+        name: yan-vol-main01-bk01
+server:
+    port: 33336
+management:
+  security:
+    enabled: false
