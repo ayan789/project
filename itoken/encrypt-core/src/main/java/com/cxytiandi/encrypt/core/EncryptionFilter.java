@@ -95,7 +95,7 @@ public class EncryptionFilter implements Filter {
 		}
 
 		Map<String,String> map1 = new HashMap<>();
-		map1.put("start","/book/");
+		map1.put("start","/home");
 		map1.put("end","_put");
 		List<Map<String,String>> list = new ArrayList<>();
 		list.add(map1);

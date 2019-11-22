@@ -1,5 +1,6 @@
 package com.example.yanvolmain01bk01.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
@@ -54,7 +55,10 @@ public class ItemController {
      * @throws Exception
      */
 	@GetMapping("/list")
-	public R list(@RequestParam Map<String, Object> params){
+	public R list(@RequestParam("offset") Integer offset , @RequestParam("limit") Integer limit ){
+		Map<String, Object> params = new HashMap<>();
+		params.put("offset",offset);
+		params.put("limit",limit);
 		logger.info("入参:{}");
 		//查询列表数据
         Query query = new Query(params);
