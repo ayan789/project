@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.yanvolmain01bk01.dao.ContentDao">
+
+	<select id="get" resultType="com.example.yanvolmain01bk01.domain.Content">
+		select `id`,`category_id`,`title`,`sub_title`,`title_desc`,`url`,`pic`,`pic2`,`content`,`created`,`updated` from tb_content where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.example.yanvolmain01bk01.domain.Content">
+		select `id`,`category_id`,`title`,`sub_title`,`title_desc`,`url`,`pic`,`pic2`,`content`,`created`,`updated` from tb_content
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="categoryId != null and categoryId != ''"> and category_id = #{categoryId} </if>
+		  		  <if test="title != null and title != ''"> and title = #{title} </if>
+		  		  <if test="subTitle != null and subTitle != ''"> and sub_title = #{subTitle} </if>
+		  		  <if test="titleDesc != null and titleDesc != ''"> and title_desc = #{titleDesc} </if>
+		  		  <if test="url != null and url != ''"> and url = #{url} </if>
+		  		  <if test="pic != null and pic != ''"> and pic = #{pic} </if>
+		  		  <if test="pic2 != null and pic2 != ''"> and pic2 = #{pic2} </if>
+		  		  <if test="content != null and content != ''"> and content = #{content} </if>
+		  		  <if test="created != null and created != ''"> and created = #{created} </if>
+		  		  <if test="updated != null and updated != ''"> and updated = #{updated} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from tb_content
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="categoryId != null and categoryId != ''"> and category_id = #{categoryId} </if>
+		  		  <if test="title != null and title != ''"> and title = #{title} </if>
+		  		  <if test="subTitle != null and subTitle != ''"> and sub_title = #{subTitle} </if>
+		  		  <if test="titleDesc != null and titleDesc != ''"> and title_desc = #{titleDesc} </if>
+		  		  <if test="url != null and url != ''"> and url = #{url} </if>
+		  		  <if test="pic != null and pic != ''"> and pic = #{pic} </if>
+		  		  <if test="pic2 != null and pic2 != ''"> and pic2 = #{pic2} </if>
+		  		  <if test="content != null and content != ''"> and content = #{content} </if>
+		  		  <if test="created != null and created != ''"> and created = #{created} </if>
+		  		  <if test="updated != null and updated != ''"> and updated = #{updated} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.example.yanvolmain01bk01.domain.Content" useGeneratedKeys="true" keyProperty="id">
+		insert into tb_content
+		(
+			`category_id`, 
+			`title`, 
+			`sub_title`, 
+			`title_desc`, 
+			`url`, 
+			`pic`, 
+			`pic2`, 
+			`content`, 
+			`created`, 
+			`updated`
+		)
+		values
+		(
+			#{categoryId}, 
+			#{title}, 
+			#{subTitle}, 
+			#{titleDesc}, 
+			#{url}, 
+			#{pic}, 
+			#{pic2}, 
+			#{content}, 
+			#{created}, 
+			#{updated}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.example.yanvolmain01bk01.domain.Content">
+		update tb_content 
+		<set>
+			<if test="categoryId != null">`category_id` = #{categoryId}, </if>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="subTitle != null">`sub_title` = #{subTitle}, </if>
+			<if test="titleDesc != null">`title_desc` = #{titleDesc}, </if>
+			<if test="url != null">`url` = #{url}, </if>
+			<if test="pic != null">`pic` = #{pic}, </if>
+			<if test="pic2 != null">`pic2` = #{pic2}, </if>
+			<if test="content != null">`content` = #{content}, </if>
+			<if test="created != null">`created` = #{created}, </if>
+			<if test="updated != null">`updated` = #{updated}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from tb_content where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from tb_content where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

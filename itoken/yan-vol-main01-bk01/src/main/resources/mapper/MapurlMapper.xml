@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.yanvolmain01bk01.dao.MapurlDao">
+
+	<select id="get" resultType="com.example.yanvolmain01bk01.domain.Mapurl">
+		select `mapurlid`,`createdate`,`createuserid`,`isdelete`,`deletedate`,`deleteuserid`,`controller`,`intercept`,`pclink`,`mobilelink`,`method`,`paramsize`,`methodt`,`methodh` from tb_mapurl where mapurlid = #{value}
+	</select>
+
+	<select id="list" resultType="com.example.yanvolmain01bk01.domain.Mapurl">
+		select `mapurlid`,`createdate`,`createuserid`,`isdelete`,`deletedate`,`deleteuserid`,`controller`,`intercept`,`pclink`,`mobilelink`,`method`,`paramsize`,`methodt`,`methodh` from tb_mapurl
+        <where>  
+		  		  <if test="mapurlid != null and mapurlid != ''"> and mapurlid = #{mapurlid} </if>
+		  		  <if test="createdate != null and createdate != ''"> and createdate = #{createdate} </if>
+		  		  <if test="createuserid != null and createuserid != ''"> and createuserid = #{createuserid} </if>
+		  		  <if test="isdelete != null and isdelete != ''"> and isdelete = #{isdelete} </if>
+		  		  <if test="deletedate != null and deletedate != ''"> and deletedate = #{deletedate} </if>
+		  		  <if test="deleteuserid != null and deleteuserid != ''"> and deleteuserid = #{deleteuserid} </if>
+		  		  <if test="controller != null and controller != ''"> and controller = #{controller} </if>
+		  		  <if test="intercept != null and intercept != ''"> and intercept = #{intercept} </if>
+		  		  <if test="pclink != null and pclink != ''"> and pclink = #{pclink} </if>
+		  		  <if test="mobilelink != null and mobilelink != ''"> and mobilelink = #{mobilelink} </if>
+		  		  <if test="method != null and method != ''"> and method = #{method} </if>
+		  		  <if test="paramsize != null and paramsize != ''"> and paramsize = #{paramsize} </if>
+		  		  <if test="methodt != null and methodt != ''"> and methodt = #{methodt} </if>
+		  		  <if test="methodh != null and methodh != ''"> and methodh = #{methodh} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by mapurlid desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from tb_mapurl
+		 <where>  
+		  		  <if test="mapurlid != null and mapurlid != ''"> and mapurlid = #{mapurlid} </if>
+		  		  <if test="createdate != null and createdate != ''"> and createdate = #{createdate} </if>
+		  		  <if test="createuserid != null and createuserid != ''"> and createuserid = #{createuserid} </if>
+		  		  <if test="isdelete != null and isdelete != ''"> and isdelete = #{isdelete} </if>
+		  		  <if test="deletedate != null and deletedate != ''"> and deletedate = #{deletedate} </if>
+		  		  <if test="deleteuserid != null and deleteuserid != ''"> and deleteuserid = #{deleteuserid} </if>
+		  		  <if test="controller != null and controller != ''"> and controller = #{controller} </if>
+		  		  <if test="intercept != null and intercept != ''"> and intercept = #{intercept} </if>
+		  		  <if test="pclink != null and pclink != ''"> and pclink = #{pclink} </if>
+		  		  <if test="mobilelink != null and mobilelink != ''"> and mobilelink = #{mobilelink} </if>
+		  		  <if test="method != null and method != ''"> and method = #{method} </if>
+		  		  <if test="paramsize != null and paramsize != ''"> and paramsize = #{paramsize} </if>
+		  		  <if test="methodt != null and methodt != ''"> and methodt = #{methodt} </if>
+		  		  <if test="methodh != null and methodh != ''"> and methodh = #{methodh} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.example.yanvolmain01bk01.domain.Mapurl">
+		insert into tb_mapurl
+		(
+			`mapurlid`, 
+			`createdate`, 
+			`createuserid`, 
+			`isdelete`, 
+			`deletedate`, 
+			`deleteuserid`, 
+			`controller`, 
+			`intercept`, 
+			`pclink`, 
+			`mobilelink`, 
+			`method`, 
+			`paramsize`, 
+			`methodt`, 
+			`methodh`
+		)
+		values
+		(
+			#{mapurlid}, 
+			#{createdate}, 
+			#{createuserid}, 
+			#{isdelete}, 
+			#{deletedate}, 
+			#{deleteuserid}, 
+			#{controller}, 
+			#{intercept}, 
+			#{pclink}, 
+			#{mobilelink}, 
+			#{method}, 
+			#{paramsize}, 
+			#{methodt}, 
+			#{methodh}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.example.yanvolmain01bk01.domain.Mapurl">
+		update tb_mapurl 
+		<set>
+			<if test="createdate != null">`createdate` = #{createdate}, </if>
+			<if test="createuserid != null">`createuserid` = #{createuserid}, </if>
+			<if test="isdelete != null">`isdelete` = #{isdelete}, </if>
+			<if test="deletedate != null">`deletedate` = #{deletedate}, </if>
+			<if test="deleteuserid != null">`deleteuserid` = #{deleteuserid}, </if>
+			<if test="controller != null">`controller` = #{controller}, </if>
+			<if test="intercept != null">`intercept` = #{intercept}, </if>
+			<if test="pclink != null">`pclink` = #{pclink}, </if>
+			<if test="mobilelink != null">`mobilelink` = #{mobilelink}, </if>
+			<if test="method != null">`method` = #{method}, </if>
+			<if test="paramsize != null">`paramsize` = #{paramsize}, </if>
+			<if test="methodt != null">`methodt` = #{methodt}, </if>
+			<if test="methodh != null">`methodh` = #{methodh}</if>
+		</set>
+		where mapurlid = #{mapurlid}
+	</update>
+	
+	<delete id="remove">
+		delete from tb_mapurl where mapurlid = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from tb_mapurl where mapurlid in 
+		<foreach item="mapurlid" collection="array" open="(" separator="," close=")">
+			#{mapurlid}
+		</foreach>
+	</delete>
+
+</mapper>

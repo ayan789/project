@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.yanvolmain01bk01.dao.ItemDao">
+
+	<select id="get" resultType="com.example.yanvolmain01bk01.domain.Item">
+		select `id`,`title`,`sell_point`,`price`,`num`,`barcode`,`image`,`cid`,`status`,`created`,`updated` from tb_item where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.example.yanvolmain01bk01.domain.Item">
+		select `id`,`title`,`sell_point`,`price`,`num`,`barcode`,`image`,`cid`,`status`,`created`,`updated` from tb_item
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="title != null and title != ''"> and title = #{title} </if>
+		  		  <if test="sellPoint != null and sellPoint != ''"> and sell_point = #{sellPoint} </if>
+		  		  <if test="price != null and price != ''"> and price = #{price} </if>
+		  		  <if test="num != null and num != ''"> and num = #{num} </if>
+		  		  <if test="barcode != null and barcode != ''"> and barcode = #{barcode} </if>
+		  		  <if test="image != null and image != ''"> and image = #{image} </if>
+		  		  <if test="cid != null and cid != ''"> and cid = #{cid} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="created != null and created != ''"> and created = #{created} </if>
+		  		  <if test="updated != null and updated != ''"> and updated = #{updated} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from tb_item
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="title != null and title != ''"> and title = #{title} </if>
+		  		  <if test="sellPoint != null and sellPoint != ''"> and sell_point = #{sellPoint} </if>
+		  		  <if test="price != null and price != ''"> and price = #{price} </if>
+		  		  <if test="num != null and num != ''"> and num = #{num} </if>
+		  		  <if test="barcode != null and barcode != ''"> and barcode = #{barcode} </if>
+		  		  <if test="image != null and image != ''"> and image = #{image} </if>
+		  		  <if test="cid != null and cid != ''"> and cid = #{cid} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="created != null and created != ''"> and created = #{created} </if>
+		  		  <if test="updated != null and updated != ''"> and updated = #{updated} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.example.yanvolmain01bk01.domain.Item">
+		insert into tb_item
+		(
+			`id`, 
+			`title`, 
+			`sell_point`, 
+			`price`, 
+			`num`, 
+			`barcode`, 
+			`image`, 
+			`cid`, 
+			`status`, 
+			`created`, 
+			`updated`
+		)
+		values
+		(
+			#{id}, 
+			#{title}, 
+			#{sellPoint}, 
+			#{price}, 
+			#{num}, 
+			#{barcode}, 
+			#{image}, 
+			#{cid}, 
+			#{status}, 
+			#{created}, 
+			#{updated}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.example.yanvolmain01bk01.domain.Item">
+		update tb_item 
+		<set>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="sellPoint != null">`sell_point` = #{sellPoint}, </if>
+			<if test="price != null">`price` = #{price}, </if>
+			<if test="num != null">`num` = #{num}, </if>
+			<if test="barcode != null">`barcode` = #{barcode}, </if>
+			<if test="image != null">`image` = #{image}, </if>
+			<if test="cid != null">`cid` = #{cid}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="created != null">`created` = #{created}, </if>
+			<if test="updated != null">`updated` = #{updated}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from tb_item where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from tb_item where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

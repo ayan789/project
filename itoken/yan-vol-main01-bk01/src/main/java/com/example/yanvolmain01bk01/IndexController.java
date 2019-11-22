@@ -1,6 +1,6 @@
 package com.example.yanvolmain01bk01;
 
-import com.example.yanvolcommon.YanVolCommonUtils;
+//import com.example.yanvolcommon.YanVolCommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -17,24 +17,24 @@ public class IndexController {
     @Value("${server.port}")
     String port;
 
-    @Autowired
-    UserService userService;
+//    @Autowired
+//    UserService userService;
 
     @GetMapping("/home")
     public String index(){
         return "yan-vol-main01-bk01";
     }
 
-    @RequestMapping("/config")
-    public String config() {
-        YanVolCommonUtils yanVolCommonUtils = new YanVolCommonUtils();
-        return this.hello+",port:" + port + yanVolCommonUtils.getYanVolCommonUtils();
-    }
+//    @RequestMapping("/config")
+//    public String config() {
+//        YanVolCommonUtils yanVolCommonUtils = new YanVolCommonUtils();
+//        return this.hello+",port:" + port + yanVolCommonUtils.getYanVolCommonUtils();
+//    }
 
-    @RequestMapping("/getUser")
-    public String getUser() {
-        return userService.getById(1).getName();
-    }
+//    @RequestMapping("/getUser")
+//    public String getUser() {
+//        return userService.getById(1).getName();
+//    }
 
 
 }
