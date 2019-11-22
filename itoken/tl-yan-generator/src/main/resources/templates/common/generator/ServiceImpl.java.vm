@@ -1,5 +1,6 @@
 package ${package}.service.impl;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -7,12 +8,11 @@ import java.util.Map;
 import ${package}.dao.${className}Dao;
 import ${package}.domain.${className};
 import ${package}.service.${className}Service;
-import org.apache.commons.logging.LogFactory;
 
 @Service
 public class ${className}ServiceImpl implements ${className}Service {
 
-	private static Log logger = LogFactory.getLog(${className}Controller.class);
+	private static Logger logger = Logger.getLogger(${className}ServiceImpl.class);
 
 	/*************************特别强调：
 	 * 1、status 转码，转成  1:可用   0：不可用
@@ -21,7 +21,7 @@ public class ${className}ServiceImpl implements ${className}Service {
 	 **************************/
 
 	@Autowired
-	private ${className}Dao ${className}Dao;
+	private ${className}Dao ${classname}Dao;
 
 	/*============通用get开始===========*/
 	/**
@@ -32,15 +32,15 @@ public class ${className}ServiceImpl implements ${className}Service {
      */
 	@Override
 	public ${className} get(${pk.attrType} ${pk.attrname}){
-		return ${className}Dao.get(${pk.attrname});
+		return ${classname}Dao.get(${pk.attrname});
 	}
 	
 	@Override
 	public List<${className}> list(Map<String, Object> map)
 	{
 		logger.info("入参:{}");
-		return ${className}Dao.list(map);
-		logger.info("出参:{}");
+		return ${classname}Dao.list(map);
+
 	}
 	/*============通用get结束===========*/
 
@@ -53,7 +53,7 @@ public class ${className}ServiceImpl implements ${className}Service {
      */
 	@Override
 	public int count(Map<String, Object> map){
-		return ${className}Dao.count(map);
+		return ${classname}Dao.count(map);
 	}
 	/*============通用count结束===========*/
 
@@ -65,7 +65,7 @@ public class ${className}ServiceImpl implements ${className}Service {
      * @throws Exception
      */
 	@Override
-	public int save(${className} ${classname}){ return ${className}Dao.save(${classname}); }
+	public int save(${className} ${classname}){ return ${classname}Dao.save(${classname}); }
 	/*============通用save结束===========*/
 
 	/*============通用update开始===========*/
@@ -77,7 +77,7 @@ public class ${className}ServiceImpl implements ${className}Service {
      */
 	@Override
 	public int update(${className} ${classname}){
-		return ${className}Dao.update(${className});
+		return ${classname}Dao.update(${classname});
 	}
 	/*============通用update结束===========*/
 
@@ -90,7 +90,7 @@ public class ${className}ServiceImpl implements ${className}Service {
      */
 	@Override
 	public int remove(${pk.attrType} ${pk.attrname}){
-		return ${className}Dao.remove(${pk.attrname});
+		return ${classname}Dao.remove(${pk.attrname});
 	}
 	/*============通用remove结束===========*/
 
@@ -103,7 +103,7 @@ public class ${className}ServiceImpl implements ${className}Service {
      */
 	@Override
 	public int batchRemove(${pk.attrType}[] ${pk.attrname}s){
-		return ${className}Dao.batchRemove(${pk.attrname}s);
+		return ${classname}Dao.batchRemove(${pk.attrname}s);
 	}
 	/*============通用batchRemove结束===========*/
 	

@@ -58,10 +58,12 @@ public class GenUtils {
         System.out.println("leiming:"+tableDTO.getTableName());
         //表名转换成Java类名
         String className = tableToJava(tableDTO.getTableName(), config.getString("tablePrefix"), config.getString("autoRemovePre"));
+
         System.out.println("javaleiming:"+className);
         tableDTO.setClassName(className);
+
         System.out.println(StringUtils.uncapitalize(className));
-//        tableDTO.setClassname(StringUtils.uncapitalize(className));
+        tableDTO.setClassname(StringUtils.uncapitalize(className));
 
         //列信息
         List<ColumnDO> columsList = new ArrayList<>();
