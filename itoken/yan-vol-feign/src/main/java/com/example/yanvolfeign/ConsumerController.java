@@ -46,7 +46,7 @@ public class ConsumerController{
         long end = System.currentTimeMillis();
         String time = "总调用时间是：" + (end - start) + "毫秒";
         System.out.println(time);
-        return homeFeignClient.itemList(1,10);
+        return homeFeignClient.itemList(query);
     }
 
 }

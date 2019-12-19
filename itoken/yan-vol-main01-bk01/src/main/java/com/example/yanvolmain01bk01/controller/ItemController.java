@@ -69,6 +69,17 @@ public class ItemController {
 		return R.ok().data(pageUtils);
 	}
 
+	@GetMapping("/list2")
+	public R list(Query query){
+		logger.info("入参:{}");
+		//查询列表数据
+		List<Item> itemList = itemService.list(query);
+		int total = itemService.count(query);
+		PageUtils pageUtils = new PageUtils(itemList, total);
+		logger.info("出参:{}");
+		return R.ok().data(pageUtils);
+	}
+
 	/**
      * <P></P>
      * @param
