@@ -1,4 +1,7 @@
 linux 
+scp 复制文件和目录
+ps|grep 常用组合用法 查找特定进程
+top 监控Linux的cpu、内存的使用
 cd 切换目录
 ls 查看文件与目录
 grep 分析一行信息

@@ -14,3 +14,19 @@ upstream 负载均衡配置  ip_hash 服务器列表 down 暂停该服务 max_fa
 
 include /etc/nginx/conf.d/*.conf;
 
+nginx -v nginx版本
+nginx –t 检查配置文件
+nginx –s reload 重新加载配置文件
+nginx -s stop 关闭nginx
+
+反向代理
+server_name  www.123.com;
+proxy_pass http://127.0.0.1:8080;
+
+负载均衡
+轮询（默认） 指定权重  IP绑定 ip_hash（可解决session的问题）
+upstream backserver { 
+server 192.168.0.14; 
+server 192.168.0.15; 
+} 
+
