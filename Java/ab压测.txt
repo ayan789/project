@@ -1,0 +1,11 @@
+ab压测
+get
+ab -c 10 -n 10 http://localhost:8019/hello2
+post
+ab -n 1000 -c 100 -p postdata.txt -T application/json http://localhost:8019/book/123
+cat postdata.txt
+{"createTime":1571389709558,"id":1,"insure":{"rider":"附加险"},"name":"ABC","price":199.99}
+put
+ab -n 1000 -c 100 -u postdata.txt -T application/json http://localhost:8019/book/123
+cat postdata.txt
+{"createTime":1571389709558,"id":1,"insure":{"rider":"附加险"},"name":"ABC","price":199.99}
