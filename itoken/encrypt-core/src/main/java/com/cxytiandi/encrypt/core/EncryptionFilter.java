@@ -106,10 +106,10 @@ public class EncryptionFilter implements Filter {
 		boolean decryptionIgnoreStatus = this.contains(ApiEncryptDataInit.responseEncryptUriIgnoreList, uri, req.getMethod());
 		boolean encryptionIgnoreStatus = this.contains(ApiEncryptDataInit.responseEncryptUriIgnoreList, uri, req.getMethod());
 
-		System.out.println(decryptionStatus);
-		System.out.println(encryptionStatus);
-		System.out.println(decryptionIgnoreStatus);
-		System.out.println(encryptionIgnoreStatus);
+//		System.out.println(decryptionStatus);
+//		System.out.println(encryptionStatus);
+//		System.out.println(decryptionIgnoreStatus);
+//		System.out.println(encryptionIgnoreStatus);
 
 
 //		System.out.println("aaaafff:"+JSONObject.toJSONString(encryptionConfig.getResponseEncryptUriIgnoreMapList()));
@@ -221,9 +221,9 @@ public class EncryptionFilter implements Filter {
 		for(int i=0;i<list.size();i++){
 			boolean a = methodType.equalsIgnoreCase(list.get(i).split(":")[0]);
 			boolean b = StringUtils.startsWithIgnoreCase(uri,list.get(i).split(":")[1]);
-			System.out.println("-----======");
-			System.out.println(list.get(i).split(":")[0]);
-			System.out.println(list.get(i).split(":")[1]);
+//			System.out.println("-----======");
+//			System.out.println(list.get(i).split(":")[0]);
+//			System.out.println(list.get(i).split(":")[1]);
 			if(a && b) return true;
 		}
 		return false;
@@ -260,9 +260,9 @@ public class EncryptionFilter implements Filter {
 		if (null != methods && !methods.isEmpty()) {
 			for (Method method : methods) {
 
-				System.out.println(JSONObject.toJSONString(method));
+//				System.out.println(JSONObject.toJSONString(method));
 				String excludeUrl = method.getAnnotation(PutMapping.class).value()[0];
-				System.out.println("excludeUrl:"+excludeUrl);
+//				System.out.println("excludeUrl:"+excludeUrl);
 				excludeUrls.add(excludeUrl);
 			}
 		}
