@@ -3,6 +3,11 @@ package com.example.tlyannoif;
 
 import java.util.function.Predicate;
 
+//.test 断传入的字符串的长度是否满足
+//.and 是否满足两个条件
+//.negate() 逻辑非
+//.or 两个或多个条件满足一个就好
+//.isEqual
 public class PredicateUtil {
     public static boolean judgeString(String str, Predicate<String> p) {
         if (null == str) {
