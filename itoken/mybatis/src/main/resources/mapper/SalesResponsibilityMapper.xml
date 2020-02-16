@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mybatis.dao.SalesResponsibilityDao">
+
+	<resultMap id="BaseResultMap" type="com.example.mybatis.domain.SalesResponsibility">
+		<id column="ID" property="id" />
+		<result column="USER_CODE" property="userCode"/>
+		<result column="RESPONSIBILITY_NAME" property="responsibilityName"/>
+		<result column="RESPONSIBILITY_NOTE" property="responsibilityNote"/>
+		<result column="CAR_INSURE_PREMIUM" property="carInsurePremium"/>
+		<result column="ACC_INSURE_PREMIUM" property="accInsurePremium"/>
+		<result column="HEA_INSURE_PREMIUM" property="heaInsurePremium"/>
+		<result column="PROP_INSURE_PREMIUM" property="propInsurePremium"/>
+		<result column="JAN_TOTAL_PREMIUM" property="janTotalPremium"/>
+		<result column="FEB_TOTAL_PREMIUM" property="febTotalPremium"/>
+		<result column="MAR_TOTAL_PREMIUM" property="marTotalPremium"/>
+		<result column="APR_TOTAL_PREMIUM" property="aprTotalPremium"/>
+		<result column="MAY_TOTAL_PREMIUM" property="mayTotalPremium"/>
+		<result column="JUN_TOTAL_PREMIUM" property="junTotalPremium"/>
+		<result column="JUL_TOTAL_PREMIUM" property="julTotalPremium"/>
+		<result column="AUG_TOTAL_PREMIUM" property="augTotalPremium"/>
+		<result column="SEP_TOTAL_PREMIUM" property="sepTotalPremium"/>
+		<result column="OCT_TOTAL_PREMIUM" property="octTotalPremium"/>
+		<result column="NOV_TOTAL_PREMIUM" property="novTotalPremium"/>
+		<result column="DEC_TOTAL_PREMIUM" property="decTotalPremium"/>
+		<result column="RANK_CODE" property="rankCode"/>
+		<result column="MULTIPLE" property="multiple"/>
+		<result column="LEADER_SIGN_URL" property="leaderSignUrl"/>
+		<result column="USER_SIGN_URL" property="userSignUrl"/>
+		<result column="RESPONSIBILITY_URL" property="responsibilityUrl"/>
+		<result column="SIGN_STATUS" property="signStatus"/>
+		<result column="SIGN_TIME" property="signTime"/>
+		<result column="SHARE_FLAG" property="shareFlag"/>
+		<result column="CREATE_TIME" property="createTime"/>
+		<result column="UPDATE_TIME" property="updateTime"/>
+		<result column="LAST_UPDATE_TIME" property="lastUpdateTime"/>
+		<result column="CREATE_BY" property="createBy"/>
+		<result column="LAST_UPDATE_BY" property="lastUpdateBy"/>
+		<result column="STATUS" property="status"/>
+		<result column="DESC" property="desc"/>
+	</resultMap>
+
+	<select id="get" resultMap="BaseResultMap">
+		select `ID`,`USER_CODE`,`RESPONSIBILITY_NAME`,`RESPONSIBILITY_NOTE`,`CAR_INSURE_PREMIUM`,`ACC_INSURE_PREMIUM`,`HEA_INSURE_PREMIUM`,`PROP_INSURE_PREMIUM`,`JAN_TOTAL_PREMIUM`,`FEB_TOTAL_PREMIUM`,`MAR_TOTAL_PREMIUM`,`APR_TOTAL_PREMIUM`,`MAY_TOTAL_PREMIUM`,`JUN_TOTAL_PREMIUM`,`JUL_TOTAL_PREMIUM`,`AUG_TOTAL_PREMIUM`,`SEP_TOTAL_PREMIUM`,`OCT_TOTAL_PREMIUM`,`NOV_TOTAL_PREMIUM`,`DEC_TOTAL_PREMIUM`,`RANK_CODE`,`MULTIPLE`,`LEADER_SIGN_URL`,`USER_SIGN_URL`,`RESPONSIBILITY_URL`,`SIGN_STATUS`,`SIGN_TIME`,`SHARE_FLAG`,`CREATE_TIME`,`UPDATE_TIME`,`LAST_UPDATE_TIME`,`CREATE_BY`,`LAST_UPDATE_BY`,`STATUS`,`DESC` from t_sales_responsibility where ID = #{value}
+	</select>
+
+	<select id="list" resultMap="BaseResultMap">
+		select `ID`,`USER_CODE`,`RESPONSIBILITY_NAME`,`RESPONSIBILITY_NOTE`,`CAR_INSURE_PREMIUM`,`ACC_INSURE_PREMIUM`,`HEA_INSURE_PREMIUM`,`PROP_INSURE_PREMIUM`,`JAN_TOTAL_PREMIUM`,`FEB_TOTAL_PREMIUM`,`MAR_TOTAL_PREMIUM`,`APR_TOTAL_PREMIUM`,`MAY_TOTAL_PREMIUM`,`JUN_TOTAL_PREMIUM`,`JUL_TOTAL_PREMIUM`,`AUG_TOTAL_PREMIUM`,`SEP_TOTAL_PREMIUM`,`OCT_TOTAL_PREMIUM`,`NOV_TOTAL_PREMIUM`,`DEC_TOTAL_PREMIUM`,`RANK_CODE`,`MULTIPLE`,`LEADER_SIGN_URL`,`USER_SIGN_URL`,`RESPONSIBILITY_URL`,`SIGN_STATUS`,`SIGN_TIME`,`SHARE_FLAG`,`CREATE_TIME`,`UPDATE_TIME`,`LAST_UPDATE_TIME`,`CREATE_BY`,`LAST_UPDATE_BY`,`STATUS`,`DESC` from t_sales_responsibility
+        <where>  
+		  		  <if test="id != null and id != ''"> and ID = #{id} </if>
+		  		  <if test="userCode != null and userCode != ''"> and USER_CODE = #{userCode} </if>
+		  		  <if test="responsibilityName != null and responsibilityName != ''"> and RESPONSIBILITY_NAME = #{responsibilityName} </if>
+		  		  <if test="responsibilityNote != null and responsibilityNote != ''"> and RESPONSIBILITY_NOTE = #{responsibilityNote} </if>
+		  		  <if test="carInsurePremium != null and carInsurePremium != ''"> and CAR_INSURE_PREMIUM = #{carInsurePremium} </if>
+		  		  <if test="accInsurePremium != null and accInsurePremium != ''"> and ACC_INSURE_PREMIUM = #{accInsurePremium} </if>
+		  		  <if test="heaInsurePremium != null and heaInsurePremium != ''"> and HEA_INSURE_PREMIUM = #{heaInsurePremium} </if>
+		  		  <if test="propInsurePremium != null and propInsurePremium != ''"> and PROP_INSURE_PREMIUM = #{propInsurePremium} </if>
+		  		  <if test="janTotalPremium != null and janTotalPremium != ''"> and JAN_TOTAL_PREMIUM = #{janTotalPremium} </if>
+		  		  <if test="febTotalPremium != null and febTotalPremium != ''"> and FEB_TOTAL_PREMIUM = #{febTotalPremium} </if>
+		  		  <if test="marTotalPremium != null and marTotalPremium != ''"> and MAR_TOTAL_PREMIUM = #{marTotalPremium} </if>
+		  		  <if test="aprTotalPremium != null and aprTotalPremium != ''"> and APR_TOTAL_PREMIUM = #{aprTotalPremium} </if>
+		  		  <if test="mayTotalPremium != null and mayTotalPremium != ''"> and MAY_TOTAL_PREMIUM = #{mayTotalPremium} </if>
+		  		  <if test="junTotalPremium != null and junTotalPremium != ''"> and JUN_TOTAL_PREMIUM = #{junTotalPremium} </if>
+		  		  <if test="julTotalPremium != null and julTotalPremium != ''"> and JUL_TOTAL_PREMIUM = #{julTotalPremium} </if>
+		  		  <if test="augTotalPremium != null and augTotalPremium != ''"> and AUG_TOTAL_PREMIUM = #{augTotalPremium} </if>
+		  		  <if test="sepTotalPremium != null and sepTotalPremium != ''"> and SEP_TOTAL_PREMIUM = #{sepTotalPremium} </if>
+		  		  <if test="octTotalPremium != null and octTotalPremium != ''"> and OCT_TOTAL_PREMIUM = #{octTotalPremium} </if>
+		  		  <if test="novTotalPremium != null and novTotalPremium != ''"> and NOV_TOTAL_PREMIUM = #{novTotalPremium} </if>
+		  		  <if test="decTotalPremium != null and decTotalPremium != ''"> and DEC_TOTAL_PREMIUM = #{decTotalPremium} </if>
+		  		  <if test="rankCode != null and rankCode != ''"> and RANK_CODE = #{rankCode} </if>
+		  		  <if test="multiple != null and multiple != ''"> and MULTIPLE = #{multiple} </if>
+		  		  <if test="leaderSignUrl != null and leaderSignUrl != ''"> and LEADER_SIGN_URL = #{leaderSignUrl} </if>
+		  		  <if test="userSignUrl != null and userSignUrl != ''"> and USER_SIGN_URL = #{userSignUrl} </if>
+		  		  <if test="responsibilityUrl != null and responsibilityUrl != ''"> and RESPONSIBILITY_URL = #{responsibilityUrl} </if>
+		  		  <if test="signStatus != null and signStatus != ''"> and SIGN_STATUS = #{signStatus} </if>
+		  		  <if test="signTime != null and signTime != ''"> and SIGN_TIME = #{signTime} </if>
+		  		  <if test="shareFlag != null and shareFlag != ''"> and SHARE_FLAG = #{shareFlag} </if>
+		  		  <if test="createTime != null and createTime != ''"> and CREATE_TIME = #{createTime} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and UPDATE_TIME = #{updateTime} </if>
+		  		  <if test="lastUpdateTime != null and lastUpdateTime != ''"> and LAST_UPDATE_TIME = #{lastUpdateTime} </if>
+		  		  <if test="createBy != null and createBy != ''"> and CREATE_BY = #{createBy} </if>
+		  		  <if test="lastUpdateBy != null and lastUpdateBy != ''"> and LAST_UPDATE_BY = #{lastUpdateBy} </if>
+		  		  <if test="status != null and status != ''"> and STATUS = #{status} </if>
+		  		  <if test="desc != null and desc != ''"> and DESC = #{desc} </if>
+		  		</where>
+                order by CREATE_TIME desc
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from t_sales_responsibility
+		 <where>  
+		  		  <if test="id != null and id != ''"> and ID = #{id} </if>
+		  		  <if test="userCode != null and userCode != ''"> and USER_CODE = #{userCode} </if>
+		  		  <if test="responsibilityName != null and responsibilityName != ''"> and RESPONSIBILITY_NAME = #{responsibilityName} </if>
+		  		  <if test="responsibilityNote != null and responsibilityNote != ''"> and RESPONSIBILITY_NOTE = #{responsibilityNote} </if>
+		  		  <if test="carInsurePremium != null and carInsurePremium != ''"> and CAR_INSURE_PREMIUM = #{carInsurePremium} </if>
+		  		  <if test="accInsurePremium != null and accInsurePremium != ''"> and ACC_INSURE_PREMIUM = #{accInsurePremium} </if>
+		  		  <if test="heaInsurePremium != null and heaInsurePremium != ''"> and HEA_INSURE_PREMIUM = #{heaInsurePremium} </if>
+		  		  <if test="propInsurePremium != null and propInsurePremium != ''"> and PROP_INSURE_PREMIUM = #{propInsurePremium} </if>
+		  		  <if test="janTotalPremium != null and janTotalPremium != ''"> and JAN_TOTAL_PREMIUM = #{janTotalPremium} </if>
+		  		  <if test="febTotalPremium != null and febTotalPremium != ''"> and FEB_TOTAL_PREMIUM = #{febTotalPremium} </if>
+		  		  <if test="marTotalPremium != null and marTotalPremium != ''"> and MAR_TOTAL_PREMIUM = #{marTotalPremium} </if>
+		  		  <if test="aprTotalPremium != null and aprTotalPremium != ''"> and APR_TOTAL_PREMIUM = #{aprTotalPremium} </if>
+		  		  <if test="mayTotalPremium != null and mayTotalPremium != ''"> and MAY_TOTAL_PREMIUM = #{mayTotalPremium} </if>
+		  		  <if test="junTotalPremium != null and junTotalPremium != ''"> and JUN_TOTAL_PREMIUM = #{junTotalPremium} </if>
+		  		  <if test="julTotalPremium != null and julTotalPremium != ''"> and JUL_TOTAL_PREMIUM = #{julTotalPremium} </if>
+		  		  <if test="augTotalPremium != null and augTotalPremium != ''"> and AUG_TOTAL_PREMIUM = #{augTotalPremium} </if>
+		  		  <if test="sepTotalPremium != null and sepTotalPremium != ''"> and SEP_TOTAL_PREMIUM = #{sepTotalPremium} </if>
+		  		  <if test="octTotalPremium != null and octTotalPremium != ''"> and OCT_TOTAL_PREMIUM = #{octTotalPremium} </if>
+		  		  <if test="novTotalPremium != null and novTotalPremium != ''"> and NOV_TOTAL_PREMIUM = #{novTotalPremium} </if>
+		  		  <if test="decTotalPremium != null and decTotalPremium != ''"> and DEC_TOTAL_PREMIUM = #{decTotalPremium} </if>
+		  		  <if test="rankCode != null and rankCode != ''"> and RANK_CODE = #{rankCode} </if>
+		  		  <if test="multiple != null and multiple != ''"> and MULTIPLE = #{multiple} </if>
+		  		  <if test="leaderSignUrl != null and leaderSignUrl != ''"> and LEADER_SIGN_URL = #{leaderSignUrl} </if>
+		  		  <if test="userSignUrl != null and userSignUrl != ''"> and USER_SIGN_URL = #{userSignUrl} </if>
+		  		  <if test="responsibilityUrl != null and responsibilityUrl != ''"> and RESPONSIBILITY_URL = #{responsibilityUrl} </if>
+		  		  <if test="signStatus != null and signStatus != ''"> and SIGN_STATUS = #{signStatus} </if>
+		  		  <if test="signTime != null and signTime != ''"> and SIGN_TIME = #{signTime} </if>
+		  		  <if test="shareFlag != null and shareFlag != ''"> and SHARE_FLAG = #{shareFlag} </if>
+		  		  <if test="createTime != null and createTime != ''"> and CREATE_TIME = #{createTime} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and UPDATE_TIME = #{updateTime} </if>
+		  		  <if test="lastUpdateTime != null and lastUpdateTime != ''"> and LAST_UPDATE_TIME = #{lastUpdateTime} </if>
+		  		  <if test="createBy != null and createBy != ''"> and CREATE_BY = #{createBy} </if>
+		  		  <if test="lastUpdateBy != null and lastUpdateBy != ''"> and LAST_UPDATE_BY = #{lastUpdateBy} </if>
+		  		  <if test="status != null and status != ''"> and STATUS = #{status} </if>
+		  		  <if test="desc != null and desc != ''"> and DESC = #{desc} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.example.mybatis.domain.SalesResponsibility">
+		insert into t_sales_responsibility
+		(
+			`ID`, 
+			`USER_CODE`, 
+			`RESPONSIBILITY_NAME`, 
+			`RESPONSIBILITY_NOTE`, 
+			`CAR_INSURE_PREMIUM`, 
+			`ACC_INSURE_PREMIUM`, 
+			`HEA_INSURE_PREMIUM`, 
+			`PROP_INSURE_PREMIUM`, 
+			`JAN_TOTAL_PREMIUM`, 
+			`FEB_TOTAL_PREMIUM`, 
+			`MAR_TOTAL_PREMIUM`, 
+			`APR_TOTAL_PREMIUM`, 
+			`MAY_TOTAL_PREMIUM`, 
+			`JUN_TOTAL_PREMIUM`, 
+			`JUL_TOTAL_PREMIUM`, 
+			`AUG_TOTAL_PREMIUM`, 
+			`SEP_TOTAL_PREMIUM`, 
+			`OCT_TOTAL_PREMIUM`, 
+			`NOV_TOTAL_PREMIUM`, 
+			`DEC_TOTAL_PREMIUM`, 
+			`RANK_CODE`, 
+			`MULTIPLE`, 
+			`LEADER_SIGN_URL`, 
+			`USER_SIGN_URL`, 
+			`RESPONSIBILITY_URL`, 
+			`SIGN_STATUS`, 
+			`SIGN_TIME`, 
+			`SHARE_FLAG`, 
+			`CREATE_TIME`, 
+			`UPDATE_TIME`, 
+			`LAST_UPDATE_TIME`, 
+			`CREATE_BY`, 
+			`LAST_UPDATE_BY`, 
+			`STATUS`, 
+			`DESC`
+		)
+		values
+		(
+			#{id}, 
+			#{userCode}, 
+			#{responsibilityName}, 
+			#{responsibilityNote}, 
+			#{carInsurePremium}, 
+			#{accInsurePremium}, 
+			#{heaInsurePremium}, 
+			#{propInsurePremium}, 
+			#{janTotalPremium}, 
+			#{febTotalPremium}, 
+			#{marTotalPremium}, 
+			#{aprTotalPremium}, 
+			#{mayTotalPremium}, 
+			#{junTotalPremium}, 
+			#{julTotalPremium}, 
+			#{augTotalPremium}, 
+			#{sepTotalPremium}, 
+			#{octTotalPremium}, 
+			#{novTotalPremium}, 
+			#{decTotalPremium}, 
+			#{rankCode}, 
+			#{multiple}, 
+			#{leaderSignUrl}, 
+			#{userSignUrl}, 
+			#{responsibilityUrl}, 
+			#{signStatus}, 
+			#{signTime}, 
+			#{shareFlag}, 
+			#{createTime}, 
+			#{updateTime}, 
+			#{lastUpdateTime}, 
+			#{createBy}, 
+			#{lastUpdateBy}, 
+			#{status}, 
+			#{desc}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.example.mybatis.domain.SalesResponsibility">
+		update t_sales_responsibility 
+		<set>
+			<if test="userCode != null">`USER_CODE` = #{userCode}, </if>
+			<if test="responsibilityName != null">`RESPONSIBILITY_NAME` = #{responsibilityName}, </if>
+			<if test="responsibilityNote != null">`RESPONSIBILITY_NOTE` = #{responsibilityNote}, </if>
+			<if test="carInsurePremium != null">`CAR_INSURE_PREMIUM` = #{carInsurePremium}, </if>
+			<if test="accInsurePremium != null">`ACC_INSURE_PREMIUM` = #{accInsurePremium}, </if>
+			<if test="heaInsurePremium != null">`HEA_INSURE_PREMIUM` = #{heaInsurePremium}, </if>
+			<if test="propInsurePremium != null">`PROP_INSURE_PREMIUM` = #{propInsurePremium}, </if>
+			<if test="janTotalPremium != null">`JAN_TOTAL_PREMIUM` = #{janTotalPremium}, </if>
+			<if test="febTotalPremium != null">`FEB_TOTAL_PREMIUM` = #{febTotalPremium}, </if>
+			<if test="marTotalPremium != null">`MAR_TOTAL_PREMIUM` = #{marTotalPremium}, </if>
+			<if test="aprTotalPremium != null">`APR_TOTAL_PREMIUM` = #{aprTotalPremium}, </if>
+			<if test="mayTotalPremium != null">`MAY_TOTAL_PREMIUM` = #{mayTotalPremium}, </if>
+			<if test="junTotalPremium != null">`JUN_TOTAL_PREMIUM` = #{junTotalPremium}, </if>
+			<if test="julTotalPremium != null">`JUL_TOTAL_PREMIUM` = #{julTotalPremium}, </if>
+			<if test="augTotalPremium != null">`AUG_TOTAL_PREMIUM` = #{augTotalPremium}, </if>
+			<if test="sepTotalPremium != null">`SEP_TOTAL_PREMIUM` = #{sepTotalPremium}, </if>
+			<if test="octTotalPremium != null">`OCT_TOTAL_PREMIUM` = #{octTotalPremium}, </if>
+			<if test="novTotalPremium != null">`NOV_TOTAL_PREMIUM` = #{novTotalPremium}, </if>
+			<if test="decTotalPremium != null">`DEC_TOTAL_PREMIUM` = #{decTotalPremium}, </if>
+			<if test="rankCode != null">`RANK_CODE` = #{rankCode}, </if>
+			<if test="multiple != null">`MULTIPLE` = #{multiple}, </if>
+			<if test="leaderSignUrl != null">`LEADER_SIGN_URL` = #{leaderSignUrl}, </if>
+			<if test="userSignUrl != null">`USER_SIGN_URL` = #{userSignUrl}, </if>
+			<if test="responsibilityUrl != null">`RESPONSIBILITY_URL` = #{responsibilityUrl}, </if>
+			<if test="signStatus != null">`SIGN_STATUS` = #{signStatus}, </if>
+			<if test="signTime != null">`SIGN_TIME` = #{signTime}, </if>
+			<if test="shareFlag != null">`SHARE_FLAG` = #{shareFlag}, </if>
+			<if test="createTime != null">`CREATE_TIME` = #{createTime}, </if>
+			<if test="updateTime != null">`UPDATE_TIME` = #{updateTime}, </if>
+			<if test="lastUpdateTime != null">`LAST_UPDATE_TIME` = #{lastUpdateTime}, </if>
+			<if test="createBy != null">`CREATE_BY` = #{createBy}, </if>
+			<if test="lastUpdateBy != null">`LAST_UPDATE_BY` = #{lastUpdateBy}, </if>
+			<if test="status != null">`STATUS` = #{status}, </if>
+			<if test="desc != null">`DESC` = #{desc}</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from t_sales_responsibility where ID = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from t_sales_responsibility where ID in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

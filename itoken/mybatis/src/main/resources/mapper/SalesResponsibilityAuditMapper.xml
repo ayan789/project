@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mybatis.dao.SalesResponsibilityAuditDao">
+
+	<resultMap id="BaseResultMap" type="com.example.mybatis.domain.SalesResponsibilityAudit">
+	<id column="ID" property="id" />
+	<result column="USER_CODE" property="userCode"/>
+	<result column="DEPT_CODE" property="deptCode"/>
+	<result column="CHANNEL_CODE" property="channelCode"/>
+	<result column="RANK_CODE" property="rankCode"/>
+	<result column="ANNUAL_TOTAL_PREMIUM" property="annualTotalPremium"/>
+	<result column="AUDIT_USER_CODE" property="auditUserCode"/>
+	<result column="AUDIT_USER_NAME" property="auditUserName"/>
+	<result column="AUDIT_SORT" property="auditSort"/>
+	<result column="AUDIT_ROLE" property="auditRole"/>
+	<result column="RESPONSIBILITY_ID" property="responsibilityId"/>
+	<result column="AUDIT_TIME" property="auditTime"/>
+	<result column="AUDIT_REMARK" property="auditRemark"/>
+	<result column="AUDIT_RESULT" property="auditResult"/>
+	<result column="CREATE_TIME" property="createTime"/>
+	<result column="UPDATE_TIME" property="updateTime"/>
+	<result column="LAST_UPDATE_TIME" property="lastUpdateTime"/>
+	<result column="CREATE_BY" property="createBy"/>
+	<result column="LAST_UPDATE_BY" property="lastUpdateBy"/>
+	<result column="STATUS" property="status"/>
+	<result column="DESC" property="desc"/>
+	</resultMap>
+
+	<select id="get" resultMap="BaseResultMap">
+		select `ID`,`USER_CODE`,`DEPT_CODE`,`CHANNEL_CODE`,`RANK_CODE`,`ANNUAL_TOTAL_PREMIUM`,`AUDIT_USER_CODE`,`AUDIT_USER_NAME`,`AUDIT_SORT`,`AUDIT_ROLE`,`RESPONSIBILITY_ID`,`AUDIT_TIME`,`AUDIT_REMARK`,`AUDIT_RESULT`,`CREATE_TIME`,`UPDATE_TIME`,`LAST_UPDATE_TIME`,`CREATE_BY`,`LAST_UPDATE_BY`,`STATUS`,`DESC` from t_sales_responsibility_audit where ID = #{value}
+	</select>
+
+	<select id="list" resultMap="BaseResultMap">
+		select `ID`,`USER_CODE`,`DEPT_CODE`,`CHANNEL_CODE`,`RANK_CODE`,`ANNUAL_TOTAL_PREMIUM`,`AUDIT_USER_CODE`,`AUDIT_USER_NAME`,`AUDIT_SORT`,`AUDIT_ROLE`,`RESPONSIBILITY_ID`,`AUDIT_TIME`,`AUDIT_REMARK`,`AUDIT_RESULT`,`CREATE_TIME`,`UPDATE_TIME`,`LAST_UPDATE_TIME`,`CREATE_BY`,`LAST_UPDATE_BY`,`STATUS`,`DESC` from t_sales_responsibility_audit
+        <where>  
+		  		  <if test="id != null and id != ''"> and ID = #{id} </if>
+		  		  <if test="userCode != null and userCode != ''"> and USER_CODE = #{userCode} </if>
+		  		  <if test="deptCode != null and deptCode != ''"> and DEPT_CODE = #{deptCode} </if>
+		  		  <if test="channelCode != null and channelCode != ''"> and CHANNEL_CODE = #{channelCode} </if>
+		  		  <if test="rankCode != null and rankCode != ''"> and RANK_CODE = #{rankCode} </if>
+		  		  <if test="annualTotalPremium != null and annualTotalPremium != ''"> and ANNUAL_TOTAL_PREMIUM = #{annualTotalPremium} </if>
+		  		  <if test="auditUserCode != null and auditUserCode != ''"> and AUDIT_USER_CODE = #{auditUserCode} </if>
+		  		  <if test="auditUserName != null and auditUserName != ''"> and AUDIT_USER_NAME = #{auditUserName} </if>
+		  		  <if test="auditSort != null and auditSort != ''"> and AUDIT_SORT = #{auditSort} </if>
+		  		  <if test="auditRole != null and auditRole != ''"> and AUDIT_ROLE = #{auditRole} </if>
+		  		  <if test="responsibilityId != null and responsibilityId != ''"> and RESPONSIBILITY_ID = #{responsibilityId} </if>
+		  		  <if test="auditTime != null and auditTime != ''"> and AUDIT_TIME = #{auditTime} </if>
+		  		  <if test="auditRemark != null and auditRemark != ''"> and AUDIT_REMARK = #{auditRemark} </if>
+		  		  <if test="auditResult != null and auditResult != ''"> and AUDIT_RESULT = #{auditResult} </if>
+		  		  <if test="createTime != null and createTime != ''"> and CREATE_TIME = #{createTime} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and UPDATE_TIME = #{updateTime} </if>
+		  		  <if test="lastUpdateTime != null and lastUpdateTime != ''"> and LAST_UPDATE_TIME = #{lastUpdateTime} </if>
+		  		  <if test="createBy != null and createBy != ''"> and CREATE_BY = #{createBy} </if>
+		  		  <if test="lastUpdateBy != null and lastUpdateBy != ''"> and LAST_UPDATE_BY = #{lastUpdateBy} </if>
+		  		  <if test="status != null and status != ''"> and STATUS = #{status} </if>
+		  		  <if test="desc != null and desc != ''"> and DESC = #{desc} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by ID desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from t_sales_responsibility_audit
+		 <where>  
+		  		  <if test="id != null and id != ''"> and ID = #{id} </if>
+		  		  <if test="userCode != null and userCode != ''"> and USER_CODE = #{userCode} </if>
+		  		  <if test="deptCode != null and deptCode != ''"> and DEPT_CODE = #{deptCode} </if>
+		  		  <if test="channelCode != null and channelCode != ''"> and CHANNEL_CODE = #{channelCode} </if>
+		  		  <if test="rankCode != null and rankCode != ''"> and RANK_CODE = #{rankCode} </if>
+		  		  <if test="annualTotalPremium != null and annualTotalPremium != ''"> and ANNUAL_TOTAL_PREMIUM = #{annualTotalPremium} </if>
+		  		  <if test="auditUserCode != null and auditUserCode != ''"> and AUDIT_USER_CODE = #{auditUserCode} </if>
+		  		  <if test="auditUserName != null and auditUserName != ''"> and AUDIT_USER_NAME = #{auditUserName} </if>
+		  		  <if test="auditSort != null and auditSort != ''"> and AUDIT_SORT = #{auditSort} </if>
+		  		  <if test="auditRole != null and auditRole != ''"> and AUDIT_ROLE = #{auditRole} </if>
+		  		  <if test="responsibilityId != null and responsibilityId != ''"> and RESPONSIBILITY_ID = #{responsibilityId} </if>
+		  		  <if test="auditTime != null and auditTime != ''"> and AUDIT_TIME = #{auditTime} </if>
+		  		  <if test="auditRemark != null and auditRemark != ''"> and AUDIT_REMARK = #{auditRemark} </if>
+		  		  <if test="auditResult != null and auditResult != ''"> and AUDIT_RESULT = #{auditResult} </if>
+		  		  <if test="createTime != null and createTime != ''"> and CREATE_TIME = #{createTime} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and UPDATE_TIME = #{updateTime} </if>
+		  		  <if test="lastUpdateTime != null and lastUpdateTime != ''"> and LAST_UPDATE_TIME = #{lastUpdateTime} </if>
+		  		  <if test="createBy != null and createBy != ''"> and CREATE_BY = #{createBy} </if>
+		  		  <if test="lastUpdateBy != null and lastUpdateBy != ''"> and LAST_UPDATE_BY = #{lastUpdateBy} </if>
+		  		  <if test="status != null and status != ''"> and STATUS = #{status} </if>
+		  		  <if test="desc != null and desc != ''"> and DESC = #{desc} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.example.mybatis.domain.SalesResponsibilityAudit">
+		insert into t_sales_responsibility_audit
+		(
+			`ID`, 
+			`USER_CODE`, 
+			`DEPT_CODE`, 
+			`CHANNEL_CODE`, 
+			`RANK_CODE`, 
+			`ANNUAL_TOTAL_PREMIUM`, 
+			`AUDIT_USER_CODE`, 
+			`AUDIT_USER_NAME`, 
+			`AUDIT_SORT`, 
+			`AUDIT_ROLE`, 
+			`RESPONSIBILITY_ID`, 
+			`AUDIT_TIME`, 
+			`AUDIT_REMARK`, 
+			`AUDIT_RESULT`, 
+			`CREATE_TIME`, 
+			`UPDATE_TIME`, 
+			`LAST_UPDATE_TIME`, 
+			`CREATE_BY`, 
+			`LAST_UPDATE_BY`, 
+			`STATUS`, 
+			`DESC`
+		)
+		values
+		(
+			#{id}, 
+			#{userCode}, 
+			#{deptCode}, 
+			#{channelCode}, 
+			#{rankCode}, 
+			#{annualTotalPremium}, 
+			#{auditUserCode}, 
+			#{auditUserName}, 
+			#{auditSort}, 
+			#{auditRole}, 
+			#{responsibilityId}, 
+			#{auditTime}, 
+			#{auditRemark}, 
+			#{auditResult}, 
+			#{createTime}, 
+			#{updateTime}, 
+			#{lastUpdateTime}, 
+			#{createBy}, 
+			#{lastUpdateBy}, 
+			#{status}, 
+			#{desc}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.example.mybatis.domain.SalesResponsibilityAudit">
+		update t_sales_responsibility_audit 
+		<set>
+			<if test="userCode != null">`USER_CODE` = #{userCode}, </if>
+			<if test="deptCode != null">`DEPT_CODE` = #{deptCode}, </if>
+			<if test="channelCode != null">`CHANNEL_CODE` = #{channelCode}, </if>
+			<if test="rankCode != null">`RANK_CODE` = #{rankCode}, </if>
+			<if test="annualTotalPremium != null">`ANNUAL_TOTAL_PREMIUM` = #{annualTotalPremium}, </if>
+			<if test="auditUserCode != null">`AUDIT_USER_CODE` = #{auditUserCode}, </if>
+			<if test="auditUserName != null">`AUDIT_USER_NAME` = #{auditUserName}, </if>
+			<if test="auditSort != null">`AUDIT_SORT` = #{auditSort}, </if>
+			<if test="auditRole != null">`AUDIT_ROLE` = #{auditRole}, </if>
+			<if test="responsibilityId != null">`RESPONSIBILITY_ID` = #{responsibilityId}, </if>
+			<if test="auditTime != null">`AUDIT_TIME` = #{auditTime}, </if>
+			<if test="auditRemark != null">`AUDIT_REMARK` = #{auditRemark}, </if>
+			<if test="auditResult != null">`AUDIT_RESULT` = #{auditResult}, </if>
+			<if test="createTime != null">`CREATE_TIME` = #{createTime}, </if>
+			<if test="updateTime != null">`UPDATE_TIME` = #{updateTime}, </if>
+			<if test="lastUpdateTime != null">`LAST_UPDATE_TIME` = #{lastUpdateTime}, </if>
+			<if test="createBy != null">`CREATE_BY` = #{createBy}, </if>
+			<if test="lastUpdateBy != null">`LAST_UPDATE_BY` = #{lastUpdateBy}, </if>
+			<if test="status != null">`STATUS` = #{status}, </if>
+			<if test="desc != null">`DESC` = #{desc}</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from t_sales_responsibility_audit where ID = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from t_sales_responsibility_audit where ID in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
