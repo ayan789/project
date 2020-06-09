@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.example.tlyanprd.TPrdPlanFormMapper">
+
+	<select id="selectPlanElementGroup" resultType="com.example.tlyanprd.PlanElementGroup" parameterType="java.util.HashMap" >
+	  SELECT id,category,`code`,`name`,sort from t_noncar_plan_element_group where biz_type=#{bizType} and biz_id=#{bizId} and category=#{category} ORDER BY sort
+	 </select>
+	 
+	<!--  biz_id=#{planId} and -->
+
+	<select id="selectPlanElement" resultType="com.example.tlyanprd.PlanElement" parameterType="java.util.HashMap" >
+	  SELECT
+			tnpe.id,tnpe.source_Element_id sourceElementId,tnpe.code,tnpe.trial_flag trialFlag,tnpe.name,tnpe.require_input requireInput,tnpe.default_value defaultValue,tmec.control_type controlType,tnpe.sort,
+			tmec.min_length minLength,tmec.max_length maxLength,tmec.min_value minValue,tmec.max_value `maxValue`,tmec.element_type elementType,tmec.control_type controlType,tmec.event_script eventScript,tmec.validate_Type validateType,tmec.link_Elment_Code linkElmentCode,tmec.placeholder
+		FROM
+			t_noncar_plan_element tnpe
+			LEFT JOIN t_noncar_element_config tmec ON tnpe.source_element_id = tmec.id
+		WHERE
+			tnpe.group_id = #{groupId}
+		ORDER BY
+			tnpe.sort
+	 </select>
+
+	<select id="selectPlanElementOption" resultType="com.example.tlyanprd.PlanElementOption" parameterType="java.util.HashMap" >
+		SELECT id,code value,name label,selected,sort from t_noncar_plan_element_option where element_id=#{elementId} ORDER BY sort
+	 </select>
+	 
+	 <select id="selectCommonProblemContent" resultType="com.example.tlyanprd.planelement.CommonProblemContent" parameterType="java.util.HashMap" >
+	 	SELECT id,question title,answer `desc` from t_noncar_plan_strategy_question where strategy_id=#{strategyId}
+	 </select>
+	 
+	 <select id="selectPlanStrategy" resultType="com.example.tlyanprd.planelement.PlanElementDetailDto" parameterType="java.util.HashMap" >
+	 	SELECT id strategyId,code productCode,name productName,code riskCode,plan_reverse backReasoning from t_noncar_plan_strategy where id=#{strategyId}
+	 </select>
+	
+	 <select id="selectPlanStrategyHeader" resultType="com.example.tlyanprd.planelement.Header" parameterType="java.util.HashMap" >
+	 SELECT id,share_able isShare,name title,memo `desc`,(SELECT  min(premium_min) from t_noncar_plan_info where strategy_id=#{strategyId}) basePremium from t_noncar_plan_strategy where id=#{strategyId}
+	 </select>
+	 
+	 <select id="selectHeaderSwipper" resultType="com.example.tlyanprd.planelement.Swipper" parameterType="java.util.HashMap" >
+	  SELECT t1.id,attach_url `value`,attach_type type from t_noncar_plan_attach t1 left join t_noncar_plan_strategy t2 on t1.biz_id=t2.id where t1.biz_type='stragety' and t2.id=#{strategyId}
+	 </select>
+	
+	<select id="selectPlanStrategyAttach" resultType="com.example.tlyanprd.planelement.ImgList" parameterType="java.util.HashMap" >
+	  SELECT id,attach_url img from t_noncar_plan_attach where biz_type='plan' and biz_id=#{planId} and attach_type=#{attachType}
+	</select>
+	
+	<select id="selectPlanInfoFormulas" resultType="com.example.tlyanprd.planelement.FormulaList" parameterType="java.util.HashMap" >
+	SELECT id planId,strategy_id strategyId,plan_code formulaCode,plan_name formulaName,plan_version edition from t_noncar_plan_info where strategy_id=#{strategyId}
+	</select>
+    
+    <select id="selectConditionsContent" resultType="com.example.tlyanprd.planelement.TermsAndConditionsContent" parameterType="java.util.HashMap" >
+    	SELECT  p.plan_coverage_name title,s.product_element_code code,tnpa.attach_url link,tnpa.id
+		 FROM `t_prd_plan_ct` s 
+		 left join (
+		 SELECT plan_coverage_name,plan_coverage_id,parent_plan_coverage_id,product_element_code
+		 FROM `t_prd_plan_ct`  ) p 
+		 on s.parent_plan_coverage_id = p.plan_coverage_id  
+		 left join t_prd_plan_ct_detail d on s.plan_coverage_id = d.plan_coverage_id
+		  inner join  t_noncar_plan_attach tnpa on tnpa.attach_code=s.product_element_code
+		 where s.parent_plan_coverage_id is not null 
+		 and s.plan_def_id = 7000550379020
+		 order by d.clause_property
+    </select>
+    
+    <select id="selectPlanRate" resultType="com.example.tlyanprd.planelement.RateParams" parameterType="java.util.HashMap" >
+	SELECT
+	  t1.id,
+		t1.rate_age_min rateAgeMin,
+		t1.rate_age_max rateAgeMax,
+		t1.rate_social_security_flag isHaveSheBao,
+		t1.period_premium_rate premium 
+	FROM
+		t_prd_plan_ct_rate t1 
+		inner join t_prd_plan_ct t2 on t1.plan_coverage_id=t2.plan_coverage_id
+		inner join t_noncar_plan_info pi on pi.prd_plan_def_id=t2.plan_def_id
+	WHERE
+		t1.rate_type = '1' 
+		AND pi.id=#{planId} and t1.plan_coverage_id='7000550380036'
+	ORDER BY
+		t1.rate_age_min
+    </select>
+	
+	<select id="selectButton" resultType="com.example.tlyanprd.planelement.PlanButton" parameterType="java.util.HashMap" >
+	SELECT show_poster poster,show_proposal proposal from t_noncar_plan_strategy where id=2
+	</select>
+
+	<select id="selectPlanCt" resultType="com.example.tlyanprd.planelement.Insurance" parameterType="java.util.HashMap" >
+		SELECT s.plan_coverage_name title,s.product_element_code kindCode,p.product_element_code clauseCode,s.fixed_insure fixedInsure,s.insure_amount insureAmount
+		 FROM `t_prd_plan_ct` s
+		 left join (
+		 SELECT plan_coverage_name,plan_coverage_id,parent_plan_coverage_id,product_element_code
+		 FROM `t_prd_plan_ct`  ) p 
+		 on s.parent_plan_coverage_id = p.plan_coverage_id  
+		 left join t_prd_plan_ct_detail d on s.plan_coverage_id = d.plan_coverage_id
+		 left join t_noncar_plan_info pi on pi.prd_plan_def_id=s.plan_def_id
+		 where s.parent_plan_coverage_id is not null 
+		 and pi.id=#{planId} and d.clause_property=#{property}
+		order by d.clause_property
+	</select>
+	
+	<select id="selectPlanCustomElement" resultType="com.example.tlyanprd.planelement.BizVo" parameterType="java.util.HashMap" >
+	SELECT t1.id planId,t2.id strategyId,t1.custom_element customElement from t_noncar_plan_info t1 left join t_noncar_plan_strategy t2 on t1.strategy_id=t2.id where t1.id=#{planId} 
+	</select>
+	
+	<select id="selectPlanElementValue" resultType="com.example.tlyanprd.planelement.BizVo" parameterType="java.util.HashMap" >
+	SELECT
+		t2.element_value elementValue ,t2.array_index arrayIndex
+	FROM
+		t_noncar_order t1
+		LEFT JOIN t_noncar_order_detail t2 ON t1.id = t2.order_id 
+	WHERE
+		t1.insure_no = #{insureNo} and t2.element_id=#{elementId}
+	</select>
+	
+	<select id="selectPlanElementApiMapping" resultType="com.example.tlyanprd.planelement.ApiMapping" parameterType="java.util.HashMap" >
+		SELECT
+			t1.element_code elementCode,
+			GROUP_CONCAT(t1.api_node ORDER BY t1.id) apiNodes
+		FROM
+			t_noncar_element_api_mapping t1
+			INNER JOIN t_noncar_plan_element t2 ON t1.element_code = t2.CODE 
+		WHERE
+			t2.CODE = #{elementCode}
+			GROUP BY t1.element_code
+	</select>
+	
+	<select id="selectPlanCodeLink" resultType="com.example.tlyanprd.planelement.LinkElmentCode" parameterType="java.util.HashMap" >
+		SELECT code,type,link_code linkCode from  t_noncar_element_code_link where code=#{elementCode} and cate=#{cate}
+	</select>
+	<!-- SELECT code,type,GROUP_CONCAT(link_code) linkCode from  t_noncar_element_code_link where code='securityNum' and cate='ss' GROUP BY type -->
+	 
+</mapper>
