@@ -12,12 +12,13 @@ import lombok.Data;
 @Data
 public class PlanElementGroup {
 	
-	private int id;
-	private int planId;
+	//private int id;
+	//private int planId;
+	private int groupId;
 	private String planBatch; 
 	private String bizType;
 	private int bizId;
-	private int sourceGroupId;
+	//private int sourceGroupId;
 	private String category;
 	private String code;
 	private String name;
@@ -25,5 +26,6 @@ public class PlanElementGroup {
 	
 	
 	List<PlanElement> planElementList =  new ArrayList<PlanElement>();
+	
 	
 }

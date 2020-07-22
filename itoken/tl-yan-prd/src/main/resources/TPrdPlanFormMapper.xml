@@ -8,14 +8,14 @@
 	</select>
 
 	<select id="selectPlanElementGroup" resultType="com.example.tlyanprd.PlanElementGroup" parameterType="java.util.HashMap" >
-	  SELECT id,category,`code`,`name`,sort from t_noncar_plan_element_group where biz_type=#{bizType} and biz_id=#{bizId} and category=#{category} ORDER BY sort
+	  SELECT id groupId,category,`code`,`name`,sort from t_noncar_plan_element_group where biz_type=#{bizType} and biz_id=#{bizId} and category=#{category} ORDER BY sort
 	 </select>
 	 
 	<!--  biz_id=#{planId} and -->
 
 	<select id="selectPlanElement" resultType="com.example.tlyanprd.PlanElement" parameterType="java.util.HashMap" >
-	  SELECT
-			tnpe.id,tnpe.source_Element_id sourceElementId,tnpe.code,tnpe.trial_flag trialFlag,tnpe.name,tnpe.require_input requireInput,tnpe.default_value defaultValue,tmec.control_type controlType,tnpe.sort,
+	   SELECT
+			tnpe.id,tnpe.source_Element_id sourceElementId,tnpe.code,tnpe.name,tnpe.require_input requireInput,tnpe.default_value defaultValue,tmec.control_type controlType,tnpe.sort,
 			tmec.min_length minLength,tmec.max_length maxLength,tmec.min_value minValue,tmec.max_value `maxValue`,tmec.element_type elementType,tmec.control_type controlType,tmec.event_script eventScript,tmec.validate_Type validateType,tmec.link_Elment_Code linkElmentCode,tmec.placeholder
 		FROM
 			t_noncar_plan_element tnpe
@@ -35,7 +35,7 @@
 	 </select>
 	 
 	 <select id="selectPlanStrategy" resultType="com.example.tlyanprd.planelement.PlanElementDetailDto" parameterType="java.util.HashMap" >
-	 	SELECT id strategyId,code productCode,name productName,code riskCode,plan_reverse backReasoning,plan_reverse_factor planReverseFactor from t_noncar_plan_strategy where id=#{strategyId}
+	 	SELECT id strategyId,code productCode,name productName,code riskCode,plan_reverse backReasoning,plan_reverse_factor planReverseFactor,policy_start_type policyStartType,policy_start_range policyStartRang from t_noncar_plan_strategy where id=#{strategyId}
 	 </select>
 	
 	 <select id="selectPlanStrategyHeader" resultType="com.example.tlyanprd.planelement.Header" parameterType="java.util.HashMap" >
@@ -50,12 +50,16 @@
 	  SELECT id,attach_url img from t_noncar_plan_attach where biz_type='plan' and biz_id=#{planId} and attach_type=#{attachType}
 	</select>
 	
+	<select id="selectPlanAttachealth" resultType="com.example.tlyanprd.planelement.ImgList" parameterType="java.util.HashMap" >
+	 SELECT id,attach_url img from t_noncar_plan_attach where biz_type='plan' and attach_type=#{attachType} and biz_id=#{planId} and attach_name=#{attachName}
+	</select>
+	
 	<select id="selectPlanInfoFormulas" resultType="com.example.tlyanprd.planelement.FormulaList" parameterType="java.util.HashMap" >
 	SELECT id planId,strategy_id strategyId,plan_code formulaCode,plan_name formulaName,plan_version edition from t_noncar_plan_info where strategy_id=#{strategyId}
 	</select>
     
     <select id="selectConditionsContent" resultType="com.example.tlyanprd.planelement.TermsAndConditionsContent" parameterType="java.util.HashMap" >
-    	SELECT  p.plan_coverage_name title,s.product_element_code code,tnpa.attach_url link,tnpa.id
+    	<!-- SELECT  p.plan_coverage_name title,s.product_element_code code,tnpa.attach_url link,tnpa.id
 		 FROM `t_prd_plan_ct` s 
 		 left join (
 		 SELECT plan_coverage_name,plan_coverage_id,parent_plan_coverage_id,product_element_code
@@ -65,7 +69,17 @@
 		  inner join  t_noncar_plan_attach tnpa on tnpa.attach_code=s.product_element_code
 		 where s.parent_plan_coverage_id is not null 
 		 and s.plan_def_id = 7000550379020
-		 order by d.clause_property
+		 order by d.clause_property -->
+		 SELECT
+			t1.plan_coverage_name title,  
+			t1.product_element_code code,
+			tnpa.attach_url link,tnpa.id
+			FROM
+			t_noncar_plan_ct t1
+			LEFT JOIN t_noncar_plan_ct_detail t2 ON t1.plan_coverage_id = t2.plan_coverage_id 
+			LEFT join  t_noncar_plan_attach tnpa on tnpa.attach_code=t1.product_element_code
+			where t1.product_element_code LIKE 'CF%' 
+			AND t1.plan_id = #{planId}		 
     </select>
     
     <select id="selectPlanRate" resultType="com.example.tlyanprd.planelement.RateParams" parameterType="java.util.HashMap" >
@@ -103,6 +117,16 @@
 		order by d.clause_property -->
 		
 		SELECT
+		    t1.id id,
+		    t2.sum_insured_default amount,
+		    t2.insure_remark `desc`,
+		    case t2.insure_unit 
+			when 1 then '元/人'
+			when 2 then '元/座'
+			when 3 then '元/家庭'
+			when 4 then '元/天'
+			else ''
+			end unit,
 			t1.plan_coverage_name title,
 			t1.product_element_code kindCode,
 			t1.fixed_insure fixedInsure,
@@ -141,13 +165,139 @@
 			t_noncar_element_api_mapping t1
 			INNER JOIN t_noncar_plan_element t2 ON t1.element_code = t2.CODE 
 		WHERE
-			t2.CODE = #{elementCode}
+			t2.CODE = #{elementCode} and t2.group_id=#{groupId}
 			GROUP BY t1.element_code
 	</select>
 	
 	<select id="selectPlanCodeLink" resultType="com.example.tlyanprd.planelement.LinkElementCode" parameterType="java.util.HashMap" >
 		SELECT code,type,link_code linkCode from  t_noncar_element_code_link where code=#{elementCode} and cate=#{cate}
 	</select>
+	
 	<!-- SELECT code,type,GROUP_CONCAT(link_code) linkCode from  t_noncar_element_code_link where code='securityNum' and cate='ss' GROUP BY type -->
+	 <select id="selectPlanTrialFlag" resultType="com.example.tlyanprd.PlanTrialFlag" parameterType="java.util.HashMap" >
+		SELECT
+			t1.element_code elementCode 
+		FROM
+			t_noncar_element_rate_mapping t1
+			left join t_noncar_plan_element t2 on t1.element_code=t2.code 
+		WHERE
+			t1.element_code = #{elementCode} and t2.group_id=#{groupId}
+	</select>
+	
+	 <select id="selectPlanBackReasoningFactor" resultType="com.example.tlyanprd.PlanBackReasoningFactor" parameterType="java.util.HashMap" >
+	 	SELECT t1.id planId from t_noncar_plan_info t1 left join t_noncar_plan_method t2 on t1.id=t2.plan_id
+			where t1.strategy_id=#{strategyId}  and t2.has_social_insurance= #{sheBaoType}
+	 </select>
+	 
+	 <select id="selectPlanRateCode" resultType="java.lang.String" parameterType="java.util.HashMap" >
+	 	SELECT group_concat(t1.element_code ORDER BY t1.sort) from t_noncar_element_rate_mapping t1 
+		INNER join t_noncar_plan_element t2 on t1.element_code=t2.code
+		where t2.group_id in (4,9) GROUP BY t1.rate_code
+	 </select>
+	 
+	 <select id="selectPlanRateMapping" resultType="com.example.tlyanprd.planelement.Rates" parameterType="java.util.HashMap" >
+	 	SELECT CONCAT_WS("_", ${codes} ) `key`,premium from (
+		SELECT
+			t1.period_premium_rate premium ,
+			CONCAT_WS( "-", t1.rate_age_min, t1.rate_age_max ) insuredAge,
+			t1.rate_social_security_flag insuredIsHaveShebao
+		FROM
+			t_noncar_plan_ct_rate t1 
+			left join t_noncar_plan_ct t2 on t1.plan_coverage_id=t2.plan_coverage_id
+		WHERE
+			t2.plan_id = '1'
+		) t
+	 </select>
+	 
+	  <select id="selectPlanRatePrem" resultType="java.util.HashMap" parameterType="java.util.HashMap" >	
+		SELECT 
+		t1.plan_id planId,
+		t1.rate_age_min_type rateAgeMinType,
+		t1.rate_age_min rateAgeMin,
+		t1.rate_age_max_type rateAgeMaxType,
+		t1.rate_age_max rateAgeMax,
+		t1.period_min periodMin,
+		period_max periodMax,
+		t1.rate_period ratePeriod,
+		sum(any_value(t1.period_premium_rate)) premium from t_noncar_plan_ct_rate t1
+		left join t_noncar_plan_ct_detail t2 on t1.plan_coverage_id=t2.plan_coverage_id
+		where t1.plan_id =#{planId} and t2.required=1 GROUP BY 
+		t1.rate_type,
+		t1.rate_period,
+		t1.rate_age_max_type,
+		t1.rate_age_max,
+		t1.rate_age_min_type,
+		t1.rate_age_min,
+		t1.rate_sex,
+		t1.rate_occupation_type,
+		t1.rate_social_security_flag,
+		t1.rate_seat_max,
+		t1.rate_seat_min,
+		t1.period_max,
+		t1.period_min  
+	</select>
+	
+	<select id="selectPlanRateFee" resultType="java.lang.Double" parameterType="java.util.HashMap" >
+	SELECT sum(period_premium_rate) from (
+		SELECT
+	  t1.plan_coverage_id,
+	  t1.plan_id,
+	  t1.rate_type,
+		t1.rate_period,
+		CASE
+		t1.rate_age_min_type 
+		WHEN 1 THEN
+		t1.rate_age_min
+		WHEN 2 THEN
+		t1.rate_age_min*365
+		ELSE 0 END rate_age_min,
+		CASE
+		t1.rate_age_max_type
+		WHEN 1 THEN
+		t1.rate_age_max
+		WHEN 2 THEN
+		(t1.rate_age_max+1)*365
+		ELSE 0 END rate_age_max,
+		t1.rate_sex,
+		t1.rate_occupation_type,
+		t1.rate_social_security_flag,
+		t1.rate_seat_max,
+		t1.rate_seat_min,
+		t1.period_max,
+		t1.period_min,
+		t1.period_premium_rate
+		FROM
+			t_noncar_plan_ct_rate  t1
+		WHERE
+			t1.plan_id = #{planId}
+			)t2  where  
+			t2.plan_coverage_id in 
+			<foreach collection="planCoverageIds" item="planCoverageId" index="index" open="(" close=")" separator=",">
+			 #{planCoverageId} 
+			</foreach>
+			 <if test="rateAgeMin != null">
+			 and t2.rate_age_min <![CDATA[<=]]> #{rateAgeMin}
+			 </if>
+			 <if test="rateAgeMax != null">
+			  and t2.rate_age_max <![CDATA[>=]]>#{rateAgeMax}
+			 </if>
+			 <if test="periodMin != null">
+			  and t2.period_min <![CDATA[<=]]> #{periodMin}
+			 </if>
+			 <if test="periodMax != null">
+			  and t2.period_max <![CDATA[>=]]> #{periodMax}
+			 </if>
+			 <if test="rateSeatMin != null">
+			  and t2.rate_seat_min <![CDATA[<=]]> #{rateSeatMin}
+			 </if>
+			 <if test="rateSeatMax != null">
+			  and t2.rate_seat_max <![CDATA[>=]]> #{rateSeatMax}
+			 </if>
+	</select>
+	
+	
+
+	
+	
 	 
 </mapper>

@@ -148,4 +148,9 @@ public class Tree<T> {
 		return JSON.toJSONString(this);
 	}
 
+	public void setHasChildren(boolean hasChildren) {
+		this.hasChildren = hasChildren;
+	}
+	
+
 }

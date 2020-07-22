@@ -13,6 +13,8 @@ public class PlanElementDetailDto {
     private String riskCode ="";
 	private String backReasoning ="";
 	private String planReverseFactor ="";
+	private String policyStartType ="";
+	private String policyStartRange ="";
 	private  List<BackReasoningFactor> backReasoningFactor = new ArrayList<BackReasoningFactor>();
 	
 	private Header header = new Header();

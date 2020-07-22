@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.bootdo.system.domain.MenuDO2;
 import org.springframework.stereotype.Service;
 
 import com.bootdo.common.domain.Tree;
@@ -16,6 +17,8 @@ public interface MenuService {
 	List<Tree<MenuDO>> listMenuTree(Long id);
 
 	Tree<MenuDO> getTree();
+
+	Tree<MenuDO2> getTree2();
 
 	Tree<MenuDO> getTree(Long id);
 

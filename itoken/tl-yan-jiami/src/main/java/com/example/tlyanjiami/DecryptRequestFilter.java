@@ -48,9 +48,12 @@ public class DecryptRequestFilter extends OncePerRequestFilter {
         String inner = request.getHeader(CoreContants.X_INNER_SERVICE);
         boolean isInner = StringUtils.isNotBlank(inner) && Boolean.valueOf(inner);
         log.info("requestUri:{},shouldDecrypt:{},DecryptSwitch:{},isInner:{}", requestUri, shouldDecrypt, decryptSwitch, isInner);
+        shouldDecrypt = true;
+        decryptSwitch = true;
         if (shouldDecrypt && decryptSwitch && !isInner) {
 //            String keyInfo = accessId(request);
-            String staticKey=AESUtil.key();
+           // String staticKey=AESUtil.key();
+        	 String staticKey="k4Ea3T650sPdUdM5";
             try {
                 wrapper = new PltHttpServletRequestWrapper(request, staticKey);
             } catch (NoSuchAlgorithmException | InvalidKeyException | BadPaddingException | NoSuchPaddingException | IllegalBlockSizeException e) {

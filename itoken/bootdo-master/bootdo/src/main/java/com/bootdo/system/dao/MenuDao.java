@@ -5,6 +5,7 @@ import com.bootdo.system.domain.MenuDO;
 import java.util.List;
 import java.util.Map;
 
+import com.bootdo.system.domain.MenuDO2;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -19,6 +20,8 @@ public interface MenuDao {
 	MenuDO get(Long menuId);
 	
 	List<MenuDO> list(Map<String,Object> map);
+
+	List<MenuDO2> list2(Map<String,Object> map);
 	
 	int count(Map<String,Object> map);
 	

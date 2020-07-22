@@ -8,19 +8,19 @@ import lombok.Data;
 @Data
 public class Insurance {
 	private int id;
-	private String clauseCode;
-	private String kindCode;
-	private String desc;
-	private String insuranceType;
+	private String clauseCode = "";
+	private String kindCode = "";
+	private String desc = "";
+	private String insuranceType = "";
 	private double amount;
-	private String title ;
+	private String title = "";
 	private boolean isRequired;
-	private String type;
-	private String unit ;
-	private String defaultValue ;
+	private String type = "";
+	private String unit = "";
+	private String defaultValue = "";
 	private int fixedInsure;
 	private double insureAmount;
-	private List<ValueList> valueList;
+	private List<ValueList> valueList = new ArrayList<ValueList>();
 	private List<Rates> rates = new ArrayList<Rates>();
     
     

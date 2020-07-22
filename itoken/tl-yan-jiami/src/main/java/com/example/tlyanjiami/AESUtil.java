@@ -1,6 +1,9 @@
 package com.example.tlyanjiami;
 
 import lombok.extern.slf4j.Slf4j;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.boot.jackson.JsonObjectSerializer;
 import org.springframework.util.Base64Utils;
 
 import javax.crypto.BadPaddingException;
@@ -12,6 +15,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @version V1.0
@@ -44,7 +49,8 @@ public class AESUtil {
     }
 
     public static String getKey() throws NoSuchAlgorithmException {
-        return generate(16);
+        //return generate(16);
+    	return "k4Ea3T650sPdUdM5";
     }
 
     private static String generate(int length) throws NoSuchAlgorithmException {
@@ -60,15 +66,38 @@ public class AESUtil {
     }
 
 
-    public static void main(String[] args) throws NoSuchAlgorithmException {
-        for (int i = 0; i < 10; i++) {
-            System.out.println(getKey());
-        }
-    }
+//    public static void main(String[] args) throws NoSuchAlgorithmException {
+//        for (int i = 0; i < 10; i++) {
+//            System.out.println(getKey());
+//        }
+//    }
 
     public static String key(){
         return PropertiesUtil.getProperty("SALES_APP_AES_KEY","9CF181E2CD72F8E6");
     }
+    
+//    public static void main(String[] args) throws InvalidKeyException, NoSuchPaddingException, NoSuchAlgorithmException, UnsupportedEncodingException, BadPaddingException, IllegalBlockSizeException {
+//    	String a = AESUtil.encrypt("[{\"aaa\":\"123\",\"bbb\":{\"bb\":\"123\"}},{\"aaa\":\"456\",\"bbb\":{\"bb\":\"456\"}}]", "k4Ea3T650sPdUdM5");
+//    	System.out.println(a);
+//	}
+    
+    public static void main(String[] args) throws InvalidKeyException, NoSuchPaddingException, NoSuchAlgorithmException, UnsupportedEncodingException, BadPaddingException, IllegalBlockSizeException {
+    	String a = AESUtil.decrypt("L1CcWBQMhOcLjJ9EzPAxMvR/NjnR6WmTIJBNHmLYEH1x/JywFcXq9Utae0rls6fx85V1Sm4ZINq/XvKLtNvVlM8HMhulVxVx4fyzMzCcuPQ=", "k4Ea3T650sPdUdM5");
+    	System.out.println(a);
+	}
+    
+    //盐 k4Ea3T650sPdUdM5
+    //入餐
+    //[{"aaa":"123","bbb":{"bb":"123"}},{"aaa":"456","bbb":{"bb":"456"}}]
+    //L1CcWBQMhOcLjJ9EzPAxMvR/NjnR6WmTIJBNHmLYEH1x/JywFcXq9Utae0rls6fx85V1Sm4ZINq/XvKLtNvVlM8HMhulVxVx4fyzMzCcuPQ=
+    //出餐
+    //L1CcWBQMhOcLjJ9EzPAxMvR/NjnR6WmTIJBNHmLYEH1x/JywFcXq9Utae0rls6fx85V1Sm4ZINq/XvKLtNvVlM8HMhulVxVx4fyzMzCcuPQ=
+    //[{"aaa":"123","bbb":{"bb":"123"}},{"aaa":"456","bbb":{"bb":"456"}}]
+
+    
+    
+    
+    
 }
 
 

@@ -237,6 +237,10 @@
             <artifactId>jsoup</artifactId>
             <version>1.9.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
 
         <!--war包部署需要-->
         <!--<dependency>-->

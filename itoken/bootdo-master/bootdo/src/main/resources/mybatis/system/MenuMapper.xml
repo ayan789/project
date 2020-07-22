@@ -38,6 +38,10 @@
 		</if>
 	</select>
 
+	<select id="list2" resultType="com.bootdo.system.domain.MenuDO2">
+		select `id` id,`pid` pid,`name` from t_prd_city ORDER BY id desc
+	</select>
+
 	<select id="count" resultType="int">
 		select count(*) from sys_menu
 		<where>

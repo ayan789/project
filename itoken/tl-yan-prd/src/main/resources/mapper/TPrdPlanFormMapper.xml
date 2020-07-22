@@ -131,4 +131,51 @@
 	</select>
 	<!-- SELECT code,type,GROUP_CONCAT(link_code) linkCode from  t_noncar_element_code_link where code='securityNum' and cate='ss' GROUP BY type -->
 	 
+	 
+	 <select id="selectPlanCodeLink" resultType="com.example.tlyanprd.planelement.LinkElmentCode" parameterType="java.util.HashMap" >
+		SELECT code,type,link_code linkCode from  t_noncar_element_code_link where code=#{elementCode} and cate=#{cate}
+	</select>
+	 
+	 <select id="selectPlanRatePrem" resultType="java.util.HashMap" parameterType="java.util.HashMap" >
+		
+SELECT 
+		t1.plan_id planId,
+		CASE
+		t1.rate_age_min_type 
+		WHEN 1 THEN
+		t1.rate_age_min
+		WHEN 2 THEN
+		t1.rate_age_min*365
+		ELSE 0 END rateAgeMin,
+		CASE
+		t1.rate_age_max_type
+		WHEN 1 THEN
+		t1.rate_age_max
+		WHEN 2 THEN
+		(t1.rate_age_max+1)*365
+		ELSE 0 END rateAgeMax,
+		t1.period_min periodMin,
+		period_max periodMax,
+		t1.rate_period ratePeriod,
+		sum(any_value(t1.period_premium_rate)) premium from t_noncar_plan_ct_rate t1
+		left join t_noncar_plan_ct_detail t2 on t1.plan_coverage_id=t2.plan_coverage_id
+		where t1.plan_id in (43) and t2.required=1 GROUP BY 
+		t1.rate_type,
+		t1.rate_period,
+		t1.rate_age_max_type,
+		t1.rate_age_max,
+		t1.rate_age_min_type,
+		t1.rate_age_min,
+		t1.rate_sex,
+		t1.rate_occupation_type,
+		t1.rate_social_security_flag,
+		t1.rate_seat_max,
+		t1.rate_seat_min,
+		t1.period_max,
+		t1.period_min  
+	</select>
+	
+	SELECT * from t_noncar_plan_ct_rate_range where plan_id=43 and max_type=2 and max_value=60 and min_type=2 and min_value=56
+	
+	
 </mapper>

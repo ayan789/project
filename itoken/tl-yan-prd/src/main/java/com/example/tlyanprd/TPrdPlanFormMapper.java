@@ -1,31 +1,30 @@
 package com.example.tlyanprd;
-import org.apache.ibatis.annotations.Mapper;
-
 import java.util.HashMap;
 import java.util.List;
 
-import com.example.tlyanprd.planelement.FormulaList;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
+
 import com.example.tlyanprd.planelement.ApiMapping;
 import com.example.tlyanprd.planelement.BizVo;
 import com.example.tlyanprd.planelement.CommonProblemContent;
+import com.example.tlyanprd.planelement.FormulaList;
 import com.example.tlyanprd.planelement.Header;
 import com.example.tlyanprd.planelement.ImgList;
 import com.example.tlyanprd.planelement.Insurance;
 import com.example.tlyanprd.planelement.LinkElementCode;
 import com.example.tlyanprd.planelement.PlanButton;
-import com.example.tlyanprd.planelement.PlanCodeLink;
 import com.example.tlyanprd.planelement.PlanElementDetailDto;
 import com.example.tlyanprd.planelement.RateParams;
+import com.example.tlyanprd.planelement.Rates;
 import com.example.tlyanprd.planelement.Swipper;
 import com.example.tlyanprd.planelement.TermsAndConditionsContent;
-
-import org.springframework.stereotype.Component;
 
 @Component
 @Mapper
 public interface TPrdPlanFormMapper {
 	
-	 List<PlanFieldDto> selectPlanField(HashMap<String, Object> map);
+List<PlanFieldDto> selectPlanField(HashMap<String, Object> map);
     
     List<PlanElementGroup> selectPlanElementGroup(HashMap<String, Object> map);
 
@@ -42,6 +41,8 @@ public interface TPrdPlanFormMapper {
     List<Swipper> selectHeaderSwipper(HashMap<String, Object> map);
     
     List<ImgList> selectPlanStrategyAttach(HashMap<String, Object> map);
+    
+    List<ImgList> selectPlanAttachealth(HashMap<String, Object> map);
     
     List<FormulaList> selectPlanInfoFormulas(HashMap<String, Object> map);
     
@@ -60,4 +61,20 @@ public interface TPrdPlanFormMapper {
     ApiMapping selectPlanElementApiMapping(HashMap<String, Object> map);
     
     List<LinkElementCode> selectPlanCodeLink(HashMap<String, Object> map);
+    
+    PlanBackReasoningFactor selectPlanBackReasoningFactor(HashMap<String, Object> map);
+    
+    String selectPlanRateCode(HashMap<String, Object> map);
+    
+    List<Rates> selectPlanRateMapping(HashMap<String, Object> map);
+    
+    PlanTrialFlag selectPlanTrialFlag(HashMap<String, Object> map);
+    
+    List<HashMap<String, Object>> selectPlanRatePrem(HashMap<String, Object> map);
+    
+//    HashMap<String, Object> selectPlanRateRange(HashMap<String, Object> map);
+    
+    Double selectPlanRateFee(HashMap<String, Object> map);
+    
+    
 }

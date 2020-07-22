@@ -1,11 +1,14 @@
 package com.bootdo.system.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bootdo.common.annotation.Log;
 import com.bootdo.common.config.Constant;
 import com.bootdo.common.controller.BaseController;
 import com.bootdo.common.domain.Tree;
 import com.bootdo.common.utils.R;
 import com.bootdo.system.domain.MenuDO;
+import com.bootdo.system.domain.MenuDO2;
+import com.bootdo.system.domain.RateVo;
 import com.bootdo.system.service.MenuService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -120,6 +124,46 @@ public class MenuController extends BaseController {
 		Tree<MenuDO>  tree = menuService.getTree();
 		return tree;
 	}
+
+	@GetMapping("/tree2")
+	@ResponseBody
+	Tree<MenuDO2> tree2() {
+		Tree<MenuDO2>  tree2 = menuService.getTree2();
+		List<RateVo> list = new ArrayList<RateVo>();
+//		String tk="";
+//		aa(tree2,tk,list);
+		System.out.println(JSONObject.toJSONString(list));
+		return tree2;
+	}
+	
+	void aa(Tree<MenuDO2> nodes,String tk,List<RateVo> list) {
+		if(nodes.isHasChildren()) {
+			if(nodes.getParentId().equals("0")){
+				System.out.println(nodes.getText());
+				tk=nodes.getText();
+			}
+			List<Tree<MenuDO2>> bb = nodes.getChildren();
+			for(Tree<MenuDO2> cc:bb) {
+				if(!cc.isHasChildren()){
+					RateVo rateVo = new RateVo();
+					System.out.println(cc.getText());
+					rateVo.setTk(tk);
+					rateVo.setZr(cc.getText());
+					list.add(rateVo);
+				}
+				aa(cc,tk,list);
+			}
+		}
+//		else if(!nodes.isHasChildren()){
+//			System.out.println(nodes.getText());
+//			rateVo.setZr(nodes.getText());
+//		}
+	}
+	
+	
+	
+
+
 
 	@GetMapping("/tree/{roleId}")
 	@ResponseBody

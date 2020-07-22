@@ -1,10 +1,12 @@
 package com.bootdo.system.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bootdo.common.domain.Tree;
 import com.bootdo.common.utils.BuildTree;
 import com.bootdo.system.dao.MenuDao;
 import com.bootdo.system.dao.RoleMenuDao;
 import com.bootdo.system.domain.MenuDO;
+import com.bootdo.system.domain.MenuDO2;
 import com.bootdo.system.service.MenuService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +96,24 @@ public class MenuServiceImpl implements MenuService {
 		Tree<MenuDO> t = BuildTree.build(trees);
 		return t;
 	}
+
+	@Override
+	public Tree<MenuDO2> getTree2() {
+		List<Tree<MenuDO2>> trees = new ArrayList<Tree<MenuDO2>>();
+		List<MenuDO2> menuDOs = menuMapper.list2(new HashMap<>(16));
+		for (MenuDO2 sysMenuDO : menuDOs) {
+			System.out.println(JSONObject.toJSONString(sysMenuDO));
+			Tree<MenuDO2> tree = new Tree<MenuDO2>();
+			tree.setId(sysMenuDO.getId().toString());
+			tree.setParentId(sysMenuDO.getPid().toString());
+			tree.setText(sysMenuDO.getName());
+			trees.add(tree);
+		}
+		// 默认顶级菜单为０，根据数据库实际情况调整
+		Tree<MenuDO2> t = BuildTree.build(trees);
+		return t;
+	}
+	
 
 	@Override
 	public Tree<MenuDO> getTree(Long id) {
