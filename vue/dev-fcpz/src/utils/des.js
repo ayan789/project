@@ -1,0 +1,33 @@
+/*
+ * @Description: DES加密
+ * @Date: 2020-03-31 19:54:56
+ * @Author: zhangminjie
+ * @LastEditTime: 2020-03-31 19:55:07
+ * @FilePath: \vue-sales\src\utils\des.js
+ */
+
+import cryptoJs from "crypto-js";
+
+// DES加密
+export const encryptDes = (message, key) => {
+  var keyHex = cryptoJs.enc.Utf8.parse(key);
+  var option = { mode: cryptoJs.mode.ECB, padding: cryptoJs.pad.Pkcs7 };
+  var encrypted = cryptoJs.DES.encrypt(message, keyHex, option);
+  return encrypted.ciphertext.toString();
+};
+
+// DES解密
+export const decryptDes = (message, key) => {
+  var keyHex = cryptoJs.enc.Utf8.parse(key);
+  var decrypted = cryptoJs.DES.decrypt(
+    {
+      ciphertext: cryptoJs.enc.Hex.parse(message)
+    },
+    keyHex,
+    {
+      mode: cryptoJs.mode.ECB,
+      padding: cryptoJs.pad.Pkcs7
+    }
+  );
+  return decrypted.toString(cryptoJs.enc.Utf8);
+};

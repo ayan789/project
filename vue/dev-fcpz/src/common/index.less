@@ -1,0 +1,494 @@
+li {
+  list-style: none;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
+body,
+#app {
+  height: 100%;
+  background-color: #f7f7f7;
+}
+.van-field__error-message {
+  text-align: right;
+}
+.vehicleInformatization {
+  .pd30 .van-field__error-message {
+    padding-right: 30px;
+  }
+  .pd20 .van-field__error-message {
+    padding-right: 20px;
+  }
+}
+.van-toast {
+  min-width: 90px;
+  width: min-content;
+}
+// .van-tabs__line {
+//     background-color: #3B8AFE;
+//     width:28px !important;
+//     height:5px
+// }
+// .van-tab {
+//     line-height: 46px;
+//     height: 46px;
+//     color: #666666;
+//     background: #F7F7F7;
+//     margin: 2px 0;
+// }
+// .amplification .van-tab__text{
+//  font-size:20px !important;
+// }
+// .van-icon::before{
+//     background:#3B8AFE !important;
+//     border-radius: 50%;
+// }
+.individual .van-cell {
+  padding: 0 !important;
+  border-radius: 20px !important;
+  opacity: 0.98 !important;
+}
+.individual .van-field__body {
+  padding-left: 28px;
+  background: #f4f4f4;
+}
+.individual .van-icon-star::before {
+  font-size: 13px;
+}
+.individual .van-popup__close-icon--top-right {
+  left: 0;
+}
+.individual .van-popup__close-icon {
+  font-size: 16px;
+  color: #4a4a4a;
+  position: absolute;
+  left: 16px;
+  top: 16px;
+}
+.individual .van-popup__close-icon {
+  width: 18px;
+}
+//搜索样式
+.searchPage  {
+  .van-field__body {
+    padding: 0;
+    border-radius: 20px;
+  }
+  .van-search {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .van-search__content {
+    border-radius: 20px;
+    background: rgba(244, 244, 244, 0.98);
+    height: 26px;
+    line-height: 26px;
+  }
+  .van-field__control {
+    font-size: 12px;
+  }
+  .van-search {
+    padding: 0;
+  }
+  .van-search .van-cell {
+    padding: 0;
+  }
+  .van-field__left-icon .van-icon {
+    line-height: 28px;
+  }
+}
+.containerIncreased {
+  .van-cell {
+    line-height: 48px;
+    border-bottom: 1px solid #e5e6e8;
+    padding: 0;
+  }
+  .van-field__label {
+    font-size: 15px;
+    color: rgba(51, 51, 51, 1);
+  }
+  .van-field__control--right {
+    font-size: 15px;
+    color: #666666;
+  }
+  li.phoneNumber {
+    .phone {
+      .van-field__control--right {
+        padding-right: 29px;
+      }
+    }
+  }
+  li.contactNumber {
+    .contact {
+      .van-field__control--right {
+        padding-right: 21px;
+      }
+    }
+  }
+  li.labelNumber {
+    .van-field__control--right {
+      color: #3b8afe !important;
+    }
+  }
+  .van-icon-arrow::before {
+    font-size: 16px;
+    color: #666666;
+  }
+}
+
+.vehicleInformatization .inforagent {
+  .van-cell {
+    padding: 0;
+    padding-right: 15px;
+    padding-left: 15px;
+    line-height: 48px;
+  }
+  .occupation {
+    .van-dropdown-menu {
+      width: 100px;
+      height: 48px;
+      position: absolute;
+      right: 21px;
+      top: 0;
+    }
+    .van-dropdown-menu__title {
+      color: #c1c1c1;
+    }
+    .van-dropdown-menu__title::after {
+      display: none;
+    }
+  }
+  .van-field__control {
+    padding-right: 21px;
+    color: #666666;
+  }
+}
+.vehicleInformatization .licenseNumber {
+  .van-cell {
+    line-height: 48px;
+    padding: 0;
+    padding-right: 161px;
+    padding-left: 15px;
+  }
+}
+.vehicleInformatization .licenseNumberRight .radioButton {
+  .van-checkbox__icon .van-icon {
+    font-size: 16px;
+  }
+  .van-checkbox__label {
+    margin-left: 5px;
+    height: 20px;
+    font-size: 14px;
+    color: rgba(51, 51, 51, 1);
+    line-height: 20px;
+  }
+}
+.vehicleInformatization .vinNumber {
+  .van-cell {
+    padding: 0;
+    padding-right: 15px;
+    padding-left: 15px;
+    line-height: 48px;
+  }
+  .van-field__control {
+    padding-right: 29px;
+    color: #666666;
+  }
+}
+.vehicleInformatization .engineNumber {
+  .van-cell {
+    padding: 0;
+    padding-right: 15px;
+    padding-left: 15px;
+    line-height: 48px;
+  }
+}
+.vehicleInformatization .certificate {
+  .van-cell {
+    line-height: 48px;
+    padding: 0;
+    padding-right: 141px;
+    padding-left: 15px;
+  }
+}
+.van-field__label {
+  -webkit-box-flex: 0;
+  -webkit-flex: none;
+  flex: none;
+  width: 100px;
+}
+.vehicleInformatization {
+  .informatization {
+    .defaultBusiness .squareCheck {
+      .van-checkbox__icon .van-icon {
+        width: 16px;
+        height: 16px;
+        margin-top: 2px;
+        margin-left: 15px;
+      }
+      .van-checkbox__label {
+        font-size: 14px;
+        color: rgba(51, 51, 51, 1);
+        line-height: 20px;
+        width: 285px;
+      }
+    }
+  }
+}
+.simpleVersions {
+  .simplecompulsory {
+    .poupupFirst {
+      .van-popup--center {
+        top: 218px;
+        border-radius: 5px;
+        height: 175px;
+      }
+    }
+    .poupupSecond {
+      .van-popup--center {
+        top: 268px !important;
+        border-radius: 5px;
+      }
+    }
+  }
+  .compulsoryInfo {
+    .compulsory {
+      .van-checkbox__icon .van-icon {
+        width: 16px;
+        height: 16px;
+        margin-top: 2px;
+        margin-left: 5px;
+      }
+      .van-checkbox__label {
+        height: 21px;
+        font-size: 15px;
+        font-weight: 500;
+        color: rgba(51, 51, 51, 1);
+        line-height: 21px;
+      }
+    }
+    .insuranceDeadline .van-cell {
+      background: none;
+    }
+  }
+}
+.simpleVersions {
+  .meansRick {
+    .van-checkbox__icon .van-icon {
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+    }
+    .van-checkbox__label {
+      height: 21px;
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(51, 51, 51, 1);
+      line-height: 21px;
+    }
+  }
+}
+.simpleVersions .compulsoryInfo .insuranceDeadline .van-cell {
+  padding: 0;
+  padding-right: 36px;
+  span {
+    display: block;
+    padding: 14px 0;
+    height: 20px;
+    font-size: 14px;
+    color: rgba(51, 51, 51, 1);
+    line-height: 20px;
+  }
+}
+.simpleVersions .simplecompulsory .expectationDiscounts .van-cell {
+  padding: 14px 37px 20px 15px;
+}
+.simpleVersions .settlement .van-icon {
+  color: #bfbfbf;
+  font-size: 14px;
+}
+.vehicleCommercial {
+  .container {
+    .van-checkbox__icon {
+      font-size: 16px;
+    }
+    .van-checkbox__label {
+      color: #323233;
+      line-height: 48px;
+      margin-left: 7px;
+    }
+    .import {
+      .van-cell {
+        width: 200px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 14px 36px 14px 0;
+        height: 48px;
+      }
+      .van-field__control {
+        color: rgba(102, 102, 102, 1);
+      }
+    }
+  }
+}
+.vehicleCommercial {
+  .container {
+    ul {
+      li {
+        .van-dropdown-menu {
+          position: absolute;
+          top: 0;
+          right: 28px;
+          height: 48px;
+        }
+        .van-dropdown-menu__title::after {
+          display: none;
+        }
+        .van-ellipsis {
+          color: #c1c1c1;
+          font-size: 14px;
+        }
+        .pullDown .van-icon {
+          font-size: 16px;
+          position: absolute;
+          right: 12px;
+          top: 16px;
+          color: #bfbfbf;
+        }
+      }
+    }
+  }
+  .van-popup--bottom {
+    border-radius: 15px 15px 0px 0px;
+  }
+  .containerShow {
+    .insure {
+      .van-cell {
+        padding: 0;
+        line-height: 48px;
+        padding-right: 37px;
+      }
+      .van-field__control {
+        color: #c1c1c1;
+      }
+    }
+  }
+}
+
+.vehicleInformatization {
+  .vehicleMoneymeansrisk {
+    .informatization {
+      .van-checkbox__label {
+        height: 20px;
+        font-size: 14px;
+        color: rgba(51, 51, 51, 1);
+        line-height: 20px;
+      }
+      .van-dropdown-menu {
+        height: 48px;
+      }
+      .van-dropdown-menu__title {
+        margin-right: 37px;
+      }
+      .van-dropdown-menu__title::after {
+        display: none;
+      }
+      .van-dropdown-menu__title {
+        padding: 0;
+      }
+      .van-ellipsis {
+        font-size: 14px;
+        color: rgba(193, 193, 193, 1);
+      }
+      .van-checkbox__icon {
+        font-size: 16px;
+      }
+      .arrows {
+        .van-icon {
+          font-size: 14px;
+          color: #bfbfbf;
+        }
+      }
+    }
+  }
+}
+.inforagent {
+  position: relative;
+  .drowDown {
+    position: absolute;
+    right: 21px;
+    top: 0;
+    .van-dropdown-menu {
+      width: 100px;
+      height: 47px;
+      padding: 0;
+    }
+    .van-dropdown-menu__title::after {
+      display: none !important;
+    }
+    .van-ellipsis {
+      color: #c1c1c1;
+    }
+  }
+}
+.equipmentDamage {
+  .container {
+    .containerMain {
+      .equipmentCenter {
+        .van-field__control {
+        }
+        .van-cell {
+          border-radius: 3px;
+          border: 1px solid rgba(229, 229, 229, 1);
+          width: 200px;
+          height: 36px;
+          line-height: 0px;
+          padding-left: 10px;
+        }
+        .van-field__control {
+          font-size: 12px;
+        }
+      }
+      .equipmentRight {
+        .van-field__control {
+        }
+        .van-cell {
+          padding-left: 10px;
+          border-radius: 3px;
+          border: 1px solid rgba(229, 229, 229, 1);
+          width: 80px;
+          height: 36px;
+          line-height: 0px;
+        }
+        .van-field__control {
+          font-size: 12px;
+        }
+      }
+      .insuredAmount {
+        .van-cell {
+          padding: 0;
+          line-height: 48px;
+          font-size: 14px;
+          color: rgba(51, 51, 51, 1);
+        }
+        .van-field__control {
+          padding-right: 35px;
+          color: #666666;
+        }
+      }
+    }
+  }
+}
+.vehicleCommercial {
+  .container {
+    .popupBox {
+      .van-popup--center {
+        border-radius: 8px;
+        width: 325px;
+      }
+    }
+  }
+}

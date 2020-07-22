@@ -1,0 +1,1886 @@
+{
+  "code": "1",
+  "data": {
+    "strategyId": "2",
+    "productCode": "FM50",
+    "productName": "天地关爱百万医疗(2020个人版)",
+    "riskCode": "FM50",
+    "backReasoning": "1",
+    "backReasoningFactor": [
+      {
+        "factor": "sheBaoType",
+        "factorValue": "Y",
+        "planId": 1
+      },
+      {
+        "factor": "sheBaoType",
+        "factorValue": "N",
+        "planId": 2
+      }
+    ],
+    "header": {
+      "isShare": "1",
+      "swipper": [
+        {
+          "id": 3,
+          "type": "swipper",
+          "value": "http://mobilesales-supsale-test.caas.ccic-test.com.cn/assets/img/r.png"
+        },
+        {
+          "id": 4,
+          "type": "swipper",
+          "value": "http://mobilesales-supsale-test.caas.ccic-test.com.cn/assets/img/r.png"
+        }
+      ],
+      "saleNum": 0,
+      "title": "天地关爱百万医疗(2020个人版)",
+      "desc": "住院、特殊门诊、交通多重保障",
+      "basePremium": 198.0
+    },
+    "bottom": [
+      {
+        "id": 1,
+        "type": "text",
+        "desc": "保费(元)",
+        "pbBox": []
+      },
+      {
+        "id": 2,
+        "type": "button",
+        "desc": "我要投保",
+        "pbBox": []
+      }
+    ],
+    "commonProblem": {},
+    "formulaList": [
+      {
+        "planId": 1,
+        "strategyId": 2,
+        "formulaCode": "WTN2050025",
+        "formulaName": "天地关爱百万医疗(2020个人版)",
+        "edition": "个人版",
+        "limQuantity": 0,
+        "isHaveSheBao": null,
+        "isIssueAfterPay": null,
+        "safeguardPlan": {
+          "title": "保障计划",
+          "desc": "",
+          "formulaObj": {
+            "mainInsurance": [
+              {
+                "id": 0,
+                "clauseCode": "CF1100290",
+                "kindCode": "C100590",
+                "desc": "住院医疗、特殊门诊医疗、门诊手术医疗、住院前30天/出院后30天门急诊医疗费用",
+                "insuranceType": "1",
+                "amount": 3000000.0,
+                "title": "公共交通意外伤害-汽车",
+                "type": "collage",
+                "unit": "元/人",
+                "defaultValue": "1",
+                "fixedInsure": 1,
+                "insureAmount": 500.0,
+                "valueList": null,
+                "rates": [],
+                "required": false
+              },
+              {
+                "id": 1,
+                "clauseCode": "CF1100290",
+                "kindCode": "C100470",
+                "desc": "住院医疗、特殊门诊医疗、门诊手术医疗、住院前30天/出院后30天门急诊医疗费用",
+                "insuranceType": "1",
+                "amount": 3000000.0,
+                "title": "公共交通意外伤害-火车（地铁、轻轨）",
+                "type": "collage",
+                "unit": "元/人",
+                "defaultValue": "1",
+                "fixedInsure": 0,
+                "insureAmount": 0.0,
+                "valueList": null,
+                "rates": [
+                  {
+                    "key": "0-4_N",
+                    "premium": 50.0
+                  },
+                  {
+                    "key": "5-10_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "11-15_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "16-20_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "21-25_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "26-30_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "31-35_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "36-40_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "41-45_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "46-50_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "51-55_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "56-60_N",
+                    "premium": 30.0
+                  }
+                ],
+                "required": false
+              },
+              {
+                "id": 2,
+                "clauseCode": "CF1100290",
+                "kindCode": "C100468",
+                "desc": "住院医疗、特殊门诊医疗、门诊手术医疗、住院前30天/出院后30天门急诊医疗费用",
+                "insuranceType": "1",
+                "amount": 3000000.0,
+                "title": "公共交通意外伤害-飞机",
+                "type": "collage",
+                "unit": "元/人",
+                "defaultValue": "1",
+                "fixedInsure": 0,
+                "insureAmount": 0.0,
+                "valueList": null,
+                "rates": [
+                  {
+                    "key": "0-4_N",
+                    "premium": 50.0
+                  },
+                  {
+                    "key": "5-10_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "11-15_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "16-20_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "21-25_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "26-30_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "31-35_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "36-40_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "41-45_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "46-50_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "51-55_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "56-60_N",
+                    "premium": 30.0
+                  }
+                ],
+                "required": false
+              },
+              {
+                "id": 3,
+                "clauseCode": "CF1100290",
+                "kindCode": "C100469",
+                "desc": "住院医疗、特殊门诊医疗、门诊手术医疗、住院前30天/出院后30天门急诊医疗费用",
+                "insuranceType": "1",
+                "amount": 3000000.0,
+                "title": "公共交通意外伤害-轮船",
+                "type": "collage",
+                "unit": "元/人",
+                "defaultValue": "1",
+                "fixedInsure": 0,
+                "insureAmount": 0.0,
+                "valueList": null,
+                "rates": [
+                  {
+                    "key": "0-4_N",
+                    "premium": 50.0
+                  },
+                  {
+                    "key": "5-10_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "11-15_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "16-20_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "21-25_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "26-30_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "31-35_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "36-40_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "41-45_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "46-50_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "51-55_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "56-60_N",
+                    "premium": 30.0
+                  }
+                ],
+                "required": false
+              }
+            ],
+            "subsidiaryInsurance": [
+              {
+                "id": 0,
+                "clauseCode": "CF2100881",
+                "kindCode": "C101252",
+                "desc": "二级以上(含)公立医院特需部或VIP部(不包含观察室、联合病房和康复病房)治疗恶性肿瘤而发生的合理费用",
+                "insuranceType": "0",
+                "amount": 3000000.0,
+                "title": "恶性肿瘤赴日医疗责任",
+                "type": "checkBox",
+                "unit": null,
+                "defaultValue": "0",
+                "fixedInsure": 1,
+                "insureAmount": 1000.0,
+                "valueList": [
+                  {
+                    "id": 1,
+                    "value": true
+                  },
+                  {
+                    "id": 0,
+                    "value": false
+                  }
+                ],
+                "rates": [
+                  {
+                    "key": "0-4_N",
+                    "premium": 50.0
+                  },
+                  {
+                    "key": "5-10_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "11-15_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "16-20_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "21-25_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "26-30_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "31-35_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "36-40_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "41-45_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "46-50_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "51-55_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "56-60_N",
+                    "premium": 30.0
+                  }
+                ],
+                "required": false
+              },
+              {
+                "id": 1,
+                "clauseCode": "CF2100880",
+                "kindCode": "C101257",
+                "desc": "二级以上(含)公立医院特需部或VIP部(不包含观察室、联合病房和康复病房)治疗恶性肿瘤而发生的合理费用",
+                "insuranceType": "0",
+                "amount": 3000000.0,
+                "title": "扩展恶性肿瘤特需医疗责任",
+                "type": "checkBox",
+                "unit": null,
+                "defaultValue": "0",
+                "fixedInsure": 0,
+                "insureAmount": 0.0,
+                "valueList": [
+                  {
+                    "id": 1,
+                    "value": true
+                  },
+                  {
+                    "id": 0,
+                    "value": false
+                  }
+                ],
+                "rates": [
+                  {
+                    "key": "0-4_N",
+                    "premium": 50.0
+                  },
+                  {
+                    "key": "5-10_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "11-15_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "16-20_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "21-25_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "26-30_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "31-35_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "36-40_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "41-45_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "46-50_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "51-55_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "56-60_N",
+                    "premium": 30.0
+                  }
+                ],
+                "required": false
+              },
+              {
+                "id": 2,
+                "clauseCode": "CF2100879",
+                "kindCode": "C101255",
+                "desc": "二级以上(含)公立医院特需部或VIP部(不包含观察室、联合病房和康复病房)治疗恶性肿瘤而发生的合理费用",
+                "insuranceType": "0",
+                "amount": 3000000.0,
+                "title": "恶性肿瘤扩展质子重离子医疗责任",
+                "type": "checkBox",
+                "unit": null,
+                "defaultValue": "0",
+                "fixedInsure": 0,
+                "insureAmount": 0.0,
+                "valueList": [
+                  {
+                    "id": 1,
+                    "value": true
+                  },
+                  {
+                    "id": 0,
+                    "value": false
+                  }
+                ],
+                "rates": [
+                  {
+                    "key": "0-4_N",
+                    "premium": 50.0
+                  },
+                  {
+                    "key": "5-10_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "11-15_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "16-20_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "21-25_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "26-30_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "31-35_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "36-40_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "41-45_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "46-50_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "51-55_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "56-60_N",
+                    "premium": 30.0
+                  }
+                ],
+                "required": false
+              },
+              {
+                "id": 3,
+                "clauseCode": "CF2100878",
+                "kindCode": "C101256",
+                "desc": "二级以上(含)公立医院特需部或VIP部(不包含观察室、联合病房和康复病房)治疗恶性肿瘤而发生的合理费用",
+                "insuranceType": "0",
+                "amount": 3000000.0,
+                "title": "恶性肿瘤院外特种药品费用医疗责任",
+                "type": "checkBox",
+                "unit": null,
+                "defaultValue": "0",
+                "fixedInsure": 0,
+                "insureAmount": 0.0,
+                "valueList": [
+                  {
+                    "id": 1,
+                    "value": true
+                  },
+                  {
+                    "id": 0,
+                    "value": false
+                  }
+                ],
+                "rates": [
+                  {
+                    "key": "0-4_N",
+                    "premium": 50.0
+                  },
+                  {
+                    "key": "5-10_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "11-15_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "16-20_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "21-25_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "26-30_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "31-35_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "36-40_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "41-45_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "46-50_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "51-55_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "56-60_N",
+                    "premium": 30.0
+                  }
+                ],
+                "required": false
+              }
+            ]
+          },
+          "relatedPersonInfo": {
+            "form": [
+              {
+                "id": 4,
+                "planId": 0,
+                "bizId": 0,
+                "sourceGroupId": 0,
+                "category": "shisuan",
+                "code": "formData",
+                "name": "投保人",
+                "sort": 1,
+                "planElementList": [
+                  {
+                    "id": 17,
+                    "groupId": 0,
+                    "sourceElementId": 17,
+                    "code": "securityNum",
+                    "name": "保障人数",
+                    "requireInput": 1,
+                    "defaultValue": "2",
+                    "arrayIndex": 0,
+                    "submitName": "/policyLobList/A,/policyLobList/B",
+                    "sort": 1,
+                    "trialFlag": 0,
+                    "trialSort": 0,
+                    "planElementOptionList": [
+                      {
+                        "id": 18,
+                        "elementId": 0,
+                        "sourceOptionId": 0,
+                        "value": "2",
+                        "label": "2人",
+                        "selected": 1,
+                        "sort": 1,
+                        "children": []
+                      },
+                      {
+                        "id": 19,
+                        "elementId": 0,
+                        "sourceOptionId": 0,
+                        "value": "3",
+                        "label": "3人",
+                        "selected": 0,
+                        "sort": 2,
+                        "children": []
+                      },
+                      {
+                        "id": 20,
+                        "elementId": 0,
+                        "sourceOptionId": 0,
+                        "value": "4",
+                        "label": "4人",
+                        "selected": 0,
+                        "sort": 3,
+                        "children": []
+                      }
+                    ],
+                    "minLength": 0,
+                    "maxLength": 0,
+                    "minValue": 0,
+                    "maxValue": 0,
+                    "elementType": "String",
+                    "controlType": "select",
+                    "eventScript": null,
+                    "validateType": null,
+                    "linkElmentCode": null,
+                    "placeholder": null
+                  },
+                  {
+                    "id": 19,
+                    "groupId": 0,
+                    "sourceElementId": 19,
+                    "code": "appliName",
+                    "name": "投保人姓名",
+                    "requireInput": 1,
+                    "defaultValue": "",
+                    "arrayIndex": 0,
+                    "submitName": "",
+                    "sort": 3,
+                    "trialFlag": 1,
+                    "trialSort": 0,
+                    "minLength": 0,
+                    "maxLength": 0,
+                    "minValue": 0,
+                    "maxValue": 0,
+                    "elementType": "String",
+                    "controlType": "input",
+                    "eventScript": null,
+                    "validateType": null,
+                    "linkElmentCode": null,
+                    "placeholder": "请输入姓名",
+                    "validate": [
+                      {
+                        "required": true,
+                        "message": "请输入姓名",
+                        "trigger": "blur"
+                      }
+                    ]
+                  },
+                  {
+                    "id": 20,
+                    "groupId": 0,
+                    "sourceElementId": 20,
+                    "code": "twoTitle",
+                    "name": "为谁投保",
+                    "requireInput": 1,
+                    "defaultValue": "",
+                    "arrayIndex": 0,
+                    "submitName": "",
+                    "sort": 3,
+                    "trialFlag": 1,
+                    "trialSort": 0,
+                    "minLength": 0,
+                    "maxLength": 0,
+                    "minValue": 0,
+                    "maxValue": 0,
+                    "elementType": "String",
+                    "controlType": "text",
+                    "eventScript": null,
+                    "validateType": null,
+                    "linkElmentCode": null,
+                    "placeholder": null
+                  },
+                  {
+                    "id": 18,
+                    "groupId": 0,
+                    "sourceElementId": 18,
+                    "code": "appliIdentity",
+                    "name": "与投保人关系",
+                    "requireInput": 1,
+                    "defaultValue": "本人",
+                    "arrayIndex": 0,
+                    "submitName": "/policyLobList/0/appliIdentity",
+                    "sort": 2,
+                    "trialFlag": 1,
+                    "trialSort": 0,
+                    "planElementOptionList": [
+                      {
+                        "id": 21,
+                        "elementId": 0,
+                        "sourceOptionId": 0,
+                        "value": "本人",
+                        "label": "本人",
+                        "selected": 1,
+                        "sort": 1,
+                        "children": []
+                      },
+                      {
+                        "id": 22,
+                        "elementId": 0,
+                        "sourceOptionId": 0,
+                        "value": "父母",
+                        "label": "父母",
+                        "selected": 0,
+                        "sort": 2,
+                        "children": []
+                      },
+                      {
+                        "id": 23,
+                        "elementId": 0,
+                        "sourceOptionId": 0,
+                        "value": "配偶",
+                        "label": "配偶",
+                        "selected": 1,
+                        "sort": 1,
+                        "children": []
+                      },
+                      {
+                        "id": 24,
+                        "elementId": 0,
+                        "sourceOptionId": 0,
+                        "value": "子女",
+                        "label": "子女",
+                        "selected": 0,
+                        "sort": 2,
+                        "children": []
+                      }
+                    ],
+                    "minLength": 0,
+                    "maxLength": 0,
+                    "minValue": 0,
+                    "maxValue": 0,
+                    "elementType": "String",
+                    "controlType": "select",
+                    "eventScript": null,
+                    "validateType": null,
+                    "linkElmentCode": null,
+                    "placeholder": null
+                  },
+                  {
+                    "id": 21,
+                    "groupId": 0,
+                    "sourceElementId": 21,
+                    "code": "insuredName",
+                    "name": "被保人姓名",
+                    "requireInput": 1,
+                    "defaultValue": "",
+                    "arrayIndex": 0,
+                    "submitName": "",
+                    "sort": 3,
+                    "trialFlag": 1,
+                    "trialSort": 0,
+                    "minLength": 0,
+                    "maxLength": 0,
+                    "minValue": 0,
+                    "maxValue": 0,
+                    "elementType": "String",
+                    "controlType": "input",
+                    "eventScript": null,
+                    "validateType": null,
+                    "linkElmentCode": null,
+                    "placeholder": "请输入姓名",
+                    "validate": [
+                      {
+                        "required": true,
+                        "message": "请输入姓名",
+                        "trigger": "blur"
+                      }
+                    ]
+                  },
+
+                  {
+                    "id": 18,
+                    "groupId": 0,
+                    "sourceElementId": 18,
+                    "code": "insuredAge",
+                    "name": "被保人年龄",
+                    "requireInput": 1,
+                    "defaultValue": "0-4",
+                    "arrayIndex": 0,
+                    "submitName": "/policyLobList/0/insuredAge",
+                    "sort": 2,
+                    "trialFlag": 1,
+                    "trialSort": 0,
+                    "planElementOptionList": [
+                      {
+                        "id": 21,
+                        "elementId": 0,
+                        "sourceOptionId": 0,
+                        "value": "0-4",
+                        "label": "0-4岁",
+                        "selected": 1,
+                        "sort": 1,
+                        "children": []
+                      },
+                      {
+                        "id": 22,
+                        "elementId": 0,
+                        "sourceOptionId": 0,
+                        "value": "5-10",
+                        "label": "5-10岁",
+                        "selected": 0,
+                        "sort": 2,
+                        "children": []
+                      }
+                    ],
+                    "minLength": 0,
+                    "maxLength": 0,
+                    "minValue": 0,
+                    "maxValue": 0,
+                    "elementType": "String",
+                    "controlType": "select",
+                    "eventScript": null,
+                    "validateType": null,
+                    "linkElmentCode": null,
+                    "placeholder": null
+                  },
+                  {
+                    "id": 19,
+                    "groupId": 0,
+                    "sourceElementId": 19,
+                    "code": "sheBaoType",
+                    "name": "是否有医保",
+                    "requireInput": 1,
+                    "defaultValue": "Y",
+                    "arrayIndex": 0,
+                    "submitName": "",
+                    "sort": 3,
+                    "trialFlag": 1,
+                    "trialSort": 0,
+                    "planElementOptionList": [
+                      {
+                        "id": 23,
+                        "elementId": 0,
+                        "sourceOptionId": 0,
+                        "value": "Y",
+                        "label": "有社保",
+                        "selected": 1,
+                        "sort": 1,
+                        "children": []
+                      },
+                      {
+                        "id": 24,
+                        "elementId": 0,
+                        "sourceOptionId": 0,
+                        "value": "N",
+                        "label": "无社保",
+                        "selected": 0,
+                        "sort": 2,
+                        "children": []
+                      }
+                    ],
+                    "minLength": 0,
+                    "maxLength": 0,
+                    "minValue": 0,
+                    "maxValue": 0,
+                    "elementType": "String",
+                    "controlType": "checkBox",
+                    "eventScript": null,
+                    "validateType": null,
+                    "linkElmentCode": null,
+                    "placeholder": null
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "productInfo": {
+          "title": "产品简介",
+          "desc": "花小钱，免大灾，承保货物运输过程中遭受的货物损失或招致的第三者经济赔偿责任",
+          "content": [
+            {
+              "id": 9,
+              "img": "http://mobilesales-supsale-test.caas.ccic-test.com.cn/assets/img/chanpin.png"
+            },
+            {
+              "id": 10,
+              "img": "http://mobilesales-supsale-test.caas.ccic-test.com.cn/assets/img/chanpin.png"
+            }
+          ]
+        },
+        "safeguardDetail": {
+          "title": "保障详情",
+          "desc": "承保货物运输过程中遭受的货物损失或招致的第三者经济赔偿责任",
+          "content": [
+            {
+              "id": 13,
+              "img": "http://securityDetails"
+            },
+            {
+              "id": 14,
+              "img": "http://securityDetails"
+            }
+          ]
+        },
+        "claimStatement": {
+          "title": "理赔说明",
+          "desc": "全程指导，4步快速理赔",
+          "content": [
+            {
+              "id": 17,
+              "img": "http://claimStatement"
+            },
+            {
+              "id": 18,
+              "img": "http://claimStatement"
+            }
+          ]
+        },
+        "termsAndConditions": {
+          "title": "条款须知",
+          "desc": "",
+          "content": [
+            {
+              "id": 1,
+              "title": "保险条款",
+              "link": "",
+              "type": "list",
+              "chlidren": [
+                {
+                  "id": 6,
+                  "code": "C101091",
+                  "title": "中国大地保险个人医疗保险条款（C款）",
+                  "link": "http://ccicf-img-test.ccic-test.com.cn:8088/UW/2020/05/12/15/TWTN20530121030000000015/54CB25FCE49240CA9E5F06101A65614C.pdf?Expires=1591007432&OSSAccessKeyId=LTAIuHOPWRzmt1dK&Signature=JBWpztpcGU8CEcWiGDlZvfdxGcE%3D&nsukey=3JYDhtobS2z3IWSgozBvSlZYxlZA3VSr4W2zFqfPb1INCHSeXJmwe7Tyd6Rdxh4QyjNDboX%2BlifkyCxFjfTiAgfN2zsLztJTvipTtT%2FCtzwWBmVplrDPiiS4mNkGC1RJKirPhxQ1tBZKPGk4HVkESZ3NEY0bgWGsbMKMhQia6ooD8pB%2FlEAKaYjQ5vxFK0AdC%2BhvrND%2FEivdkbn6uMHnyw%3D%3D",
+                  "chlidren": []
+                },
+                {
+                  "id": 7,
+                  "code": "C100590",
+                  "title": "大地通达公共交通工具意外伤害保险条款",
+                  "link": "http://ccicf-img-test.ccic-test.com.cn:8088/UW/2020/05/12/15/TWTN20530121030000000015/54CB25FCE49240CA9E5F06101A65614C.pdf?Expires=1591007432&OSSAccessKeyId=LTAIuHOPWRzmt1dK&Signature=JBWpztpcGU8CEcWiGDlZvfdxGcE%3D&nsukey=3JYDhtobS2z3IWSgozBvSlZYxlZA3VSr4W2zFqfPb1INCHSeXJmwe7Tyd6Rdxh4QyjNDboX%2BlifkyCxFjfTiAgfN2zsLztJTvipTtT%2FCtzwWBmVplrDPiiS4mNkGC1RJKirPhxQ1tBZKPGk4HVkESZ3NEY0bgWGsbMKMhQia6ooD8pB%2FlEAKaYjQ5vxFK0AdC%2BhvrND%2FEivdkbn6uMHnyw%3D%3D",
+                  "chlidren": []
+                },
+                {
+                  "id": 8,
+                  "code": "C100470",
+                  "title": "大地通达公共交通工具意外伤害保险条款",
+                  "link": "http://ccicf-img-test.ccic-test.com.cn:8088/UW/2020/05/12/15/TWTN20530121030000000015/54CB25FCE49240CA9E5F06101A65614C.pdf?Expires=1591007432&OSSAccessKeyId=LTAIuHOPWRzmt1dK&Signature=JBWpztpcGU8CEcWiGDlZvfdxGcE%3D&nsukey=3JYDhtobS2z3IWSgozBvSlZYxlZA3VSr4W2zFqfPb1INCHSeXJmwe7Tyd6Rdxh4QyjNDboX%2BlifkyCxFjfTiAgfN2zsLztJTvipTtT%2FCtzwWBmVplrDPiiS4mNkGC1RJKirPhxQ1tBZKPGk4HVkESZ3NEY0bgWGsbMKMhQia6ooD8pB%2FlEAKaYjQ5vxFK0AdC%2BhvrND%2FEivdkbn6uMHnyw%3D%3D",
+                  "chlidren": []
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "title": "投保须知",
+              "link": "XXX.pdf",
+              "type": "link",
+              "chlidren": []
+            },
+            {
+              "id": 3,
+              "title": "投保声明",
+              "link": "XXX.pdf",
+              "type": "link",
+              "chlidren": []
+            },
+            {
+              "id": 4,
+              "title": "特别声明",
+              "link": "XXX.pdf",
+              "type": "link",
+              "chlidren": []
+            },
+            {
+              "id": 5,
+              "title": "责任免除",
+              "link": "XXX.pdf",
+              "type": "link",
+              "chlidren": []
+            }
+          ]
+        },
+        "productPoster": {
+          "title": "产品海报",
+          "imgList": [
+            {
+              "id": 1,
+              "img": "img.png"
+            },
+            {
+              "id": 2,
+              "img": "img.png"
+            }
+          ],
+          "sharePlatform": [
+            {
+              "id": 0,
+              "value": "微信好友"
+            },
+            {
+              "id": 1,
+              "value": "微信朋友圈"
+            },
+            {
+              "id": 2,
+              "value": "下载"
+            }
+          ]
+        },
+        "healthNotice": {
+          "title": "健康须知",
+          "url": "健康及职业告知.pdf",
+          "content": "本人确认以上填写的各项内容均真实，未发生健康与职业声明中所有情形；日后如发现有不实告知，保险公司有权按《保险法》等有关法律规定解除或部分解除保险合同。"
+        },
+        "needHealthNotice": true
+      },
+      {
+        "planId": 2,
+        "strategyId": 2,
+        "formulaCode": "WTN2050024",
+        "formulaName": "天地关爱百万医疗(2020无忧版)",
+        "edition": "无忧版",
+        "limQuantity": 0,
+        "isHaveSheBao": null,
+        "isIssueAfterPay": null,
+        "safeguardPlan": {
+          "title": "保障计划",
+          "desc": "",
+          "formulaObj": {
+            "mainInsurance": [
+              {
+                "id": 0,
+                "clauseCode": "CF1100290",
+                "kindCode": "C100590",
+                "desc": "住院医疗、特殊门诊医疗、门诊手术医疗、住院前30天/出院后30天门急诊医疗费用",
+                "insuranceType": "1",
+                "amount": 3000000.0,
+                "title": "公共交通意外伤害-汽车",
+                "type": "collage",
+                "unit": "元/人",
+                "defaultValue": "1",
+                "fixedInsure": 1,
+                "insureAmount": 500.0,
+                "valueList": null,
+                "rates": [],
+                "required": false
+              },
+              {
+                "id": 1,
+                "clauseCode": "CF1100290",
+                "kindCode": "C100470",
+                "desc": "住院医疗、特殊门诊医疗、门诊手术医疗、住院前30天/出院后30天门急诊医疗费用",
+                "insuranceType": "1",
+                "amount": 3000000.0,
+                "title": "公共交通意外伤害-火车（地铁、轻轨）",
+                "type": "collage",
+                "unit": "元/人",
+                "defaultValue": "1",
+                "fixedInsure": 0,
+                "insureAmount": 0.0,
+                "valueList": null,
+                "rates": [
+                  {
+                    "key": "0-4_N",
+                    "premium": 50.0
+                  },
+                  {
+                    "key": "5-10_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "11-15_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "16-20_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "21-25_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "26-30_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "31-35_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "36-40_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "41-45_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "46-50_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "51-55_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "56-60_N",
+                    "premium": 30.0
+                  }
+                ],
+                "required": false
+              },
+              {
+                "id": 2,
+                "clauseCode": "CF1100290",
+                "kindCode": "C100468",
+                "desc": "住院医疗、特殊门诊医疗、门诊手术医疗、住院前30天/出院后30天门急诊医疗费用",
+                "insuranceType": "1",
+                "amount": 3000000.0,
+                "title": "公共交通意外伤害-飞机",
+                "type": "collage",
+                "unit": "元/人",
+                "defaultValue": "1",
+                "fixedInsure": 0,
+                "insureAmount": 0.0,
+                "valueList": null,
+                "rates": [
+                  {
+                    "key": "0-4_N",
+                    "premium": 50.0
+                  },
+                  {
+                    "key": "5-10_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "11-15_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "16-20_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "21-25_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "26-30_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "31-35_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "36-40_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "41-45_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "46-50_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "51-55_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "56-60_N",
+                    "premium": 30.0
+                  }
+                ],
+                "required": false
+              },
+              {
+                "id": 3,
+                "clauseCode": "CF1100290",
+                "kindCode": "C100469",
+                "desc": "住院医疗、特殊门诊医疗、门诊手术医疗、住院前30天/出院后30天门急诊医疗费用",
+                "insuranceType": "1",
+                "amount": 3000000.0,
+                "title": "公共交通意外伤害-轮船",
+                "type": "collage",
+                "unit": "元/人",
+                "defaultValue": "1",
+                "fixedInsure": 0,
+                "insureAmount": 0.0,
+                "valueList": null,
+                "rates": [
+                  {
+                    "key": "0-4_N",
+                    "premium": 50.0
+                  },
+                  {
+                    "key": "5-10_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "11-15_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "16-20_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "21-25_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "26-30_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "31-35_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "36-40_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "41-45_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "46-50_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "51-55_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "56-60_N",
+                    "premium": 30.0
+                  }
+                ],
+                "required": false
+              }
+            ],
+            "subsidiaryInsurance": [
+              {
+                "id": 0,
+                "clauseCode": "CF2100881",
+                "kindCode": "C101252",
+                "desc": "二级以上(含)公立医院特需部或VIP部(不包含观察室、联合病房和康复病房)治疗恶性肿瘤而发生的合理费用",
+                "insuranceType": "0",
+                "amount": 3000000.0,
+                "title": "恶性肿瘤赴日医疗责任",
+                "type": "checkBox",
+                "unit": null,
+                "defaultValue": "0",
+                "fixedInsure": 1,
+                "insureAmount": 1000.0,
+                "valueList": [
+                  {
+                    "id": 1,
+                    "value": true
+                  },
+                  {
+                    "id": 0,
+                    "value": false
+                  }
+                ],
+                "rates": [
+                  {
+                    "key": "0-4_N",
+                    "premium": 50.0
+                  },
+                  {
+                    "key": "5-10_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "11-15_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "16-20_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "21-25_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "26-30_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "31-35_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "36-40_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "41-45_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "46-50_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "51-55_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "56-60_N",
+                    "premium": 30.0
+                  }
+                ],
+                "required": false
+              },
+              {
+                "id": 1,
+                "clauseCode": "CF2100880",
+                "kindCode": "C101257",
+                "desc": "二级以上(含)公立医院特需部或VIP部(不包含观察室、联合病房和康复病房)治疗恶性肿瘤而发生的合理费用",
+                "insuranceType": "0",
+                "amount": 3000000.0,
+                "title": "扩展恶性肿瘤特需医疗责任",
+                "type": "checkBox",
+                "unit": null,
+                "defaultValue": "0",
+                "fixedInsure": 0,
+                "insureAmount": 0.0,
+                "valueList": [
+                  {
+                    "id": 1,
+                    "value": true
+                  },
+                  {
+                    "id": 0,
+                    "value": false
+                  }
+                ],
+                "rates": [
+                  {
+                    "key": "0-4_N",
+                    "premium": 50.0
+                  },
+                  {
+                    "key": "5-10_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "11-15_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "16-20_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "21-25_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "26-30_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "31-35_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "36-40_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "41-45_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "46-50_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "51-55_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "56-60_N",
+                    "premium": 30.0
+                  }
+                ],
+                "required": false
+              },
+              {
+                "id": 2,
+                "clauseCode": "CF2100879",
+                "kindCode": "C101255",
+                "desc": "二级以上(含)公立医院特需部或VIP部(不包含观察室、联合病房和康复病房)治疗恶性肿瘤而发生的合理费用",
+                "insuranceType": "0",
+                "amount": 3000000.0,
+                "title": "恶性肿瘤扩展质子重离子医疗责任",
+                "type": "checkBox",
+                "unit": null,
+                "defaultValue": "0",
+                "fixedInsure": 0,
+                "insureAmount": 0.0,
+                "valueList": [
+                  {
+                    "id": 1,
+                    "value": true
+                  },
+                  {
+                    "id": 0,
+                    "value": false
+                  }
+                ],
+                "rates": [
+                  {
+                    "key": "0-4_N",
+                    "premium": 50.0
+                  },
+                  {
+                    "key": "5-10_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "11-15_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "16-20_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "21-25_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "26-30_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "31-35_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "36-40_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "41-45_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "46-50_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "51-55_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "56-60_N",
+                    "premium": 30.0
+                  }
+                ],
+                "required": false
+              },
+              {
+                "id": 3,
+                "clauseCode": "CF2100878",
+                "kindCode": "C101256",
+                "desc": "二级以上(含)公立医院特需部或VIP部(不包含观察室、联合病房和康复病房)治疗恶性肿瘤而发生的合理费用",
+                "insuranceType": "0",
+                "amount": 3000000.0,
+                "title": "恶性肿瘤院外特种药品费用医疗责任",
+                "type": "checkBox",
+                "unit": null,
+                "defaultValue": "0",
+                "fixedInsure": 0,
+                "insureAmount": 0.0,
+                "valueList": [
+                  {
+                    "id": 1,
+                    "value": true
+                  },
+                  {
+                    "id": 0,
+                    "value": false
+                  }
+                ],
+                "rates": [
+                  {
+                    "key": "0-4_N",
+                    "premium": 50.0
+                  },
+                  {
+                    "key": "5-10_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "11-15_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "16-20_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "21-25_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "26-30_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "31-35_N",
+                    "premium": 10.0
+                  },
+                  {
+                    "key": "36-40_N",
+                    "premium": 20.0
+                  },
+                  {
+                    "key": "41-45_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "46-50_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "51-55_N",
+                    "premium": 30.0
+                  },
+                  {
+                    "key": "56-60_N",
+                    "premium": 30.0
+                  }
+                ],
+                "required": false
+              }
+            ]
+          },
+          "relatedPersonInfo": {
+            "form": [
+              {
+                "id": 4,
+                "planId": 0,
+                "bizId": 0,
+                "sourceGroupId": 0,
+                "category": "shisuan",
+                "code": "relatPersInfo",
+                "name": "关系人信息",
+                "sort": 1,
+                "planElementList": [
+                  {
+                    "id": 17,
+                    "groupId": 0,
+                    "sourceElementId": 17,
+                    "code": "securityNum",
+                    "name": "保障人数",
+                    "requireInput": 1,
+                    "defaultValue": "2",
+                    "arrayIndex": 0,
+                    "submitName": "/policyLobList/A,/policyLobList/B",
+                    "sort": 1,
+                    "trialFlag": 0,
+                    "trialSort": 0,
+                    "planElementOptionList": [
+                      {
+                        "id": 18,
+                        "elementId": 0,
+                        "sourceOptionId": 0,
+                        "value": "2",
+                        "label": "2人",
+                        "selected": 1,
+                        "sort": 1,
+                        "children": []
+                      },
+                      {
+                        "id": 19,
+                        "elementId": 0,
+                        "sourceOptionId": 0,
+                        "value": "3",
+                        "label": "3人",
+                        "selected": 0,
+                        "sort": 2,
+                        "children": []
+                      },
+                      {
+                        "id": 20,
+                        "elementId": 0,
+                        "sourceOptionId": 0,
+                        "value": "4",
+                        "label": "4人",
+                        "selected": 0,
+                        "sort": 3,
+                        "children": []
+                      }
+                    ],
+                    "minLength": 0,
+                    "maxLength": 0,
+                    "minValue": 0,
+                    "maxValue": 0,
+                    "elementType": "String",
+                    "controlType": "select",
+                    "eventScript": null,
+                    "validateType": null,
+                    "linkElmentCode": null,
+                    "placeholder": null
+                  },
+                  {
+                    "id": 18,
+                    "groupId": 0,
+                    "sourceElementId": 18,
+                    "code": "insuredAge",
+                    "name": "被保人年龄",
+                    "requireInput": 1,
+                    "defaultValue": "5-10",
+                    "arrayIndex": 0,
+                    "submitName": "/policyLobList/0/insuredAge",
+                    "sort": 2,
+                    "trialFlag": 1,
+                    "trialSort": 0,
+                    "planElementOptionList": [
+                      {
+                        "id": 21,
+                        "elementId": 0,
+                        "sourceOptionId": 0,
+                        "value": "0-4",
+                        "label": "0-4岁",
+                        "selected": 1,
+                        "sort": 1,
+                        "children": []
+                      },
+                      {
+                        "id": 22,
+                        "elementId": 0,
+                        "sourceOptionId": 0,
+                        "value": "5-10",
+                        "label": "5-10岁",
+                        "selected": 0,
+                        "sort": 2,
+                        "children": []
+                      }
+                    ],
+                    "minLength": 0,
+                    "maxLength": 0,
+                    "minValue": 0,
+                    "maxValue": 0,
+                    "elementType": "String",
+                    "controlType": "select",
+                    "eventScript": null,
+                    "validateType": null,
+                    "linkElmentCode": null,
+                    "placeholder": null
+                  },
+                  {
+                    "id": 19,
+                    "groupId": 0,
+                    "sourceElementId": 19,
+                    "code": "sheBaoType",
+                    "name": "是否有医保",
+                    "requireInput": 1,
+                    "defaultValue": "N",
+                    "arrayIndex": 0,
+                    "submitName": "",
+                    "sort": 3,
+                    "trialFlag": 1,
+                    "trialSort": 0,
+                    "planElementOptionList": [
+                      {
+                        "id": 23,
+                        "elementId": 0,
+                        "sourceOptionId": 0,
+                        "value": "Y",
+                        "label": "有社保",
+                        "selected": 1,
+                        "sort": 1,
+                        "children": []
+                      },
+                      {
+                        "id": 24,
+                        "elementId": 0,
+                        "sourceOptionId": 0,
+                        "value": "N",
+                        "label": "无社保",
+                        "selected": 0,
+                        "sort": 2,
+                        "children": []
+                      }
+                    ],
+                    "minLength": 0,
+                    "maxLength": 0,
+                    "minValue": 0,
+                    "maxValue": 0,
+                    "elementType": "String",
+                    "controlType": "checkBox",
+                    "eventScript": null,
+                    "validateType": null,
+                    "linkElmentCode": null,
+                    "placeholder": null
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "productInfo": {
+          "title": "产品简介",
+          "desc": "花小钱，免大灾，承保货物运输过程中遭受的货物损失或招致的第三者经济赔偿责任",
+          "content": [
+            {
+              "id": 11,
+              "img": "http://mobilesales-supsale-test.caas.ccic-test.com.cn/assets/img/chanpin.png"
+            },
+            {
+              "id": 12,
+              "img": "http://mobilesales-supsale-test.caas.ccic-test.com.cn/assets/img/chanpin.png"
+            }
+          ]
+        },
+        "safeguardDetail": {
+          "title": "保障详情",
+          "desc": "承保货物运输过程中遭受的货物损失或招致的第三者经济赔偿责任",
+          "content": [
+            {
+              "id": 15,
+              "img": "http://securityDetails"
+            },
+            {
+              "id": 16,
+              "img": "http://securityDetails"
+            }
+          ]
+        },
+        "claimStatement": {
+          "title": "理赔说明",
+          "desc": "全程指导，4步快速理赔",
+          "content": [
+            {
+              "id": 19,
+              "img": "http://claimStatement"
+            },
+            {
+              "id": 20,
+              "img": "http://claimStatement"
+            }
+          ]
+        },
+        "termsAndConditions": {
+          "title": "条款须知",
+          "desc": "",
+          "content": [
+            {
+              "id": 1,
+              "title": "保险条款",
+              "link": "",
+              "type": "list",
+              "chlidren": [
+                {
+                  "id": 6,
+                  "code": "C101091",
+                  "title": "中国大地保险个人医疗保险条款（C款）",
+                  "link": "http://ccicf-img-test.ccic-test.com.cn:8088/UW/2020/05/12/15/TWTN20530121030000000015/54CB25FCE49240CA9E5F06101A65614C.pdf?Expires=1591007432&OSSAccessKeyId=LTAIuHOPWRzmt1dK&Signature=JBWpztpcGU8CEcWiGDlZvfdxGcE%3D&nsukey=3JYDhtobS2z3IWSgozBvSlZYxlZA3VSr4W2zFqfPb1INCHSeXJmwe7Tyd6Rdxh4QyjNDboX%2BlifkyCxFjfTiAgfN2zsLztJTvipTtT%2FCtzwWBmVplrDPiiS4mNkGC1RJKirPhxQ1tBZKPGk4HVkESZ3NEY0bgWGsbMKMhQia6ooD8pB%2FlEAKaYjQ5vxFK0AdC%2BhvrND%2FEivdkbn6uMHnyw%3D%3D",
+                  "chlidren": []
+                },
+                {
+                  "id": 7,
+                  "code": "C100590",
+                  "title": "大地通达公共交通工具意外伤害保险条款",
+                  "link": "http://ccicf-img-test.ccic-test.com.cn:8088/UW/2020/05/12/15/TWTN20530121030000000015/54CB25FCE49240CA9E5F06101A65614C.pdf?Expires=1591007432&OSSAccessKeyId=LTAIuHOPWRzmt1dK&Signature=JBWpztpcGU8CEcWiGDlZvfdxGcE%3D&nsukey=3JYDhtobS2z3IWSgozBvSlZYxlZA3VSr4W2zFqfPb1INCHSeXJmwe7Tyd6Rdxh4QyjNDboX%2BlifkyCxFjfTiAgfN2zsLztJTvipTtT%2FCtzwWBmVplrDPiiS4mNkGC1RJKirPhxQ1tBZKPGk4HVkESZ3NEY0bgWGsbMKMhQia6ooD8pB%2FlEAKaYjQ5vxFK0AdC%2BhvrND%2FEivdkbn6uMHnyw%3D%3D",
+                  "chlidren": []
+                },
+                {
+                  "id": 8,
+                  "code": "C100470",
+                  "title": "大地通达公共交通工具意外伤害保险条款",
+                  "link": "http://ccicf-img-test.ccic-test.com.cn:8088/UW/2020/05/12/15/TWTN20530121030000000015/54CB25FCE49240CA9E5F06101A65614C.pdf?Expires=1591007432&OSSAccessKeyId=LTAIuHOPWRzmt1dK&Signature=JBWpztpcGU8CEcWiGDlZvfdxGcE%3D&nsukey=3JYDhtobS2z3IWSgozBvSlZYxlZA3VSr4W2zFqfPb1INCHSeXJmwe7Tyd6Rdxh4QyjNDboX%2BlifkyCxFjfTiAgfN2zsLztJTvipTtT%2FCtzwWBmVplrDPiiS4mNkGC1RJKirPhxQ1tBZKPGk4HVkESZ3NEY0bgWGsbMKMhQia6ooD8pB%2FlEAKaYjQ5vxFK0AdC%2BhvrND%2FEivdkbn6uMHnyw%3D%3D",
+                  "chlidren": []
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "title": "投保须知",
+              "link": "XXX.pdf",
+              "type": "link",
+              "chlidren": []
+            },
+            {
+              "id": 3,
+              "title": "投保声明",
+              "link": "XXX.pdf",
+              "type": "link",
+              "chlidren": []
+            },
+            {
+              "id": 4,
+              "title": "特别声明",
+              "link": "XXX.pdf",
+              "type": "link",
+              "chlidren": []
+            },
+            {
+              "id": 5,
+              "title": "责任免除",
+              "link": "XXX.pdf",
+              "type": "link",
+              "chlidren": []
+            }
+          ]
+        },
+        "productPoster": {
+          "title": "产品海报",
+          "imgList": [
+            {
+              "id": 1,
+              "img": "img.png"
+            },
+            {
+              "id": 2,
+              "img": "img.png"
+            }
+          ],
+          "sharePlatform": [
+            {
+              "id": 0,
+              "value": "微信好友"
+            },
+            {
+              "id": 1,
+              "value": "微信朋友圈"
+            },
+            {
+              "id": 2,
+              "value": "下载"
+            }
+          ]
+        },
+        "healthNotice": {
+          "title": "健康须知",
+          "url": "健康及职业告知.pdf",
+          "content": "本人确认以上填写的各项内容均真实，未发生健康与职业声明中所有情形；日后如发现有不实告知，保险公司有权按《保险法》等有关法律规定解除或部分解除保险合同。"
+        },
+        "needHealthNotice": true
+      }
+    ]
+  },
+  "msg": "SUCCESS"
+}

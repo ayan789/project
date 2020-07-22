@@ -1,0 +1,174 @@
+<!--
+ * @Author: King
+ * @Page: 
+ * @Date: 2020-03-21 14:37:34
+ * @Last Modified by: King
+ * @Last Modified time: 2020-04-28 14:51:04
+ * @FilePath: /public/index.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta name="viewport" content="width=device-width,initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- <script src="https://cbe-dmhub-test.ccic-net.com.cn/cbe/collect?tid=393279833&at=0&h=web"></script> -->
+    <title>大地行</title>
+    <script src="static/js/index.js"></script>
+  </head>
+  <body>
+    <!-- <noscript>
+      <strong>We're sorry but demo doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript> -->
+    
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+  <script type="text/javascript">
+  const script = document.createElement('script');
+  // script.src = window.location.host===('mobilesales-supsale.caas.ccic-net.com.cn'||'mobilesales-supsale.caas.ccic-net.com.cn')?'https://cbe-dmhub.ccic-net.com.cn/cbe/collect?tid=1492027403&at=0&h=web': "https://cbe-dmhub-test.ccic-net.com.cn/cbe/collect?tid=393279833&at=0&h=web";
+  script.src='https://cbe-dmhub.ccic-net.com.cn/cbe/collect?tid=1492027403&at=0&h=web';
+  console.log('埋点脚本地址',script.src)
+  document.getElementsByTagName('head')[0].appendChild(script);
+
+  //判断是不是在iPhone的其他浏览器打开的本页面
+  var isOtherBrowser = function() {
+    var ua = window.navigator.userAgent.toLowerCase();
+    //UC浏览器
+    var uc = ua.indexOf("ucbrowser") > -1 ? true : false;
+    //百度浏览器
+    var baidu = ua.indexOf("baidu") > -1 ? true : false;
+    //QQ浏览器
+    var qq = ua.indexOf("qqbrowser") > -1 ? true : false;
+    //支付宝浏览器
+    var alipay = ua.indexOf("alipay") > -1 ? true : false;
+    //微信浏览器
+    var wechat = ua.indexOf("micromessenger") > -1 ? true : false;
+    //aliapp浏览器
+    var aliapp = ua.indexOf("aliapp") > -1 ? true : false;
+
+    //safari浏览器
+    var safari = ua.indexOf("safari") > -1 ? true : false;
+    //android浏览器
+    var android = ua.indexOf("android") > -1 ? true : false;
+    //browser浏览器
+    var browser = ua.indexOf("browser") > -1 ? true : false;
+
+    //如果是Android, 不校验safari
+    if (android) {
+      safari = false;
+    }
+
+    var isOtherBrowser =
+      uc || baidu || qq || alipay || wechat || aliapp || safari || browser;
+  
+    console.log("=====index isOtherBrowser:" + isOtherBrowser);
+  
+    if (isOtherBrowser) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  //prompt 获取值
+  var getNativeDataFunction = function(functionName, parm) {
+    var payload = {
+      type: "JSbridge",
+      functionName: functionName,
+      arguments: parm
+    };
+  
+    return prompt(JSON.stringify(payload));
+  };
+  
+  console.log("=====index prompt LLLL");
+  var dataUserfo = "";
+  var dataConfig = "";
+  if (!isOtherBrowser()) {
+    dataUserfo = getNativeDataFunction("userInfo");
+    dataConfig = getNativeDataFunction("ConfigParams");
+
+    console.log("=====index dataUserfo:" + dataUserfo);
+    console.log("=====index dataConfig:" + dataConfig);
+
+    //用户信息对象
+    if (dataUserfo && dataUserfo != "{}") {
+      localStorage.setItem("userInfo", dataUserfo);
+
+      var userInfo = JSON.parse(dataUserfo);
+      if (userInfo) {
+        localStorage.setItem("userCode", userInfo.userCode);
+        localStorage.setItem("storeCode", userInfo.storeCode);
+        localStorage.setItem("comCode", userInfo.comCode);
+      }
+    }
+    //配置信息对象
+    if (dataConfig && dataConfig != "{}") {
+      localStorage.setItem("ConfigParams", dataConfig);
+    }
+  }
+  </script>
+  <script>
+    window.onload=(()=>{
+      try {
+      let _u = JSON.parse(localStorage.getItem("userInfo")),
+          flag = true;
+      if (
+      _u.userCode.includes("agen") ||
+      (_u.agentCode && _u.agentCode.startsWith("P"))
+      ){
+        flag = false;
+      }
+      clab_tracker.ready(function(){
+      this.push({'identityType': 'c_employeeId', 'identityValue': flag? localStorage.getItem('userCode'):_u.agentCode});
+      //  this.track("open_page", {});
+    });
+      } catch (error) {
+        console.warn('埋点脚本加载失败===',error)
+      }
+    })
+   
+  </script>
+  <style>
+    #__vconsole{
+      margin-bottom: 100px !important;
+    }
+    .ant-calendar-input-wrap {
+      height: 0.90667rem;
+      padding: 0.16rem 0.26667rem;
+      border-bottom: 0.02667rem solid #e8e8e8;
+      display: none;
+    }
+    .ant-calendar.ant-calendar-time {
+      position: relative;
+      top: 36px;
+    }
+    .ant-calendar-picker-container{
+      /* left: 13% !important;
+      top: 143px !important; */
+    }
+    .ant-form-explain {
+      margin-bottom: -0.02667rem;
+      display: none;
+    }
+    .tenmillionForm[data-v-5ad970d9] .diyInput .ant-form-item-label {
+      width: 28%;
+    }
+    .tenmillionForm[data-v-5ad970d9] .diyInput .ant-input {
+      border: none;
+      text-align: right;
+      padding-right: 20px;
+    }
+
+    .van-nav-bar__title{
+      color: rgb(255, 255, 255);
+    }
+    #rightFather {
+      margin-right: 30px;
+      margin-bottom: 20px;
+  }
+  </style>
+  </html>
