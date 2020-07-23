@@ -39,6 +39,7 @@
 
 <script>
 import {
+  trial,
   getPlanDynamicForms,
   createFromPlaceOrder
 } from "@src/http/module/nonCar.js";
@@ -162,7 +163,7 @@ let newObj = {};
                 this.formCreateApi.setValue(field, value);
                 this.formCreateApi.setValue(field + "1", value);
               }
-              //this.updatePremiumsNum(field, value);
+              this.updatePremiumsNum(field, value);
               // this.$store.dispatch(
               //   "config/updateCommNumOfCopies",
               //   !this.$isNull(value) ? parseInt(value) : 1
@@ -207,7 +208,7 @@ let newObj = {};
               let code =
                 currentDatePickerCode.toLowerCase().split("birthdate")[0] + "Age";
               console.log("---getAge---", getAge * 365);
-              //this.updatePremiumsNum(code, getAge * 365);
+              this.updatePremiumsNum(code, getAge * 365);
             } else {
               this.formCreateApi.setValue(
                 currentDatePickerCode,
@@ -216,7 +217,23 @@ let newObj = {};
             }
              this.showDate = false;
           },
-          
+           /**
+           * 更新计算保费试算
+           * code:对应的影响元素
+           * value：对应的影响因子的值 具体的一个值，不带-
+           * name: 对应的元素名称
+           */
+          updatePremiumsNum (code, value, name) {
+            console.log('updatePremiumsNum');
+            let obj = {
+                planId: 1,
+                planCoverageIds: 1
+              };
+              trial(obj)
+                .then(res => {
+                    console.log(res);
+                })
+          },
           /**
            * code:对应的表单元素code
            * val：传入信息包含具体值
@@ -687,7 +704,7 @@ let newObj = {};
                 // }, 2000);
               }
             }
-            //this.updatePremiumsNum();
+            this.updatePremiumsNum();
           }
           
         }
