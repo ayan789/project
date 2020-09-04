@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/tl-common-components/tl-common-components.iml" filepath="$PROJECT_DIR$/tl-common-components/tl-common-components.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tl-yan-customer/tl-yan-customer.iml" filepath="$PROJECT_DIR$/tl-yan-customer/tl-yan-customer.iml" />
       <module fileurl="file://$PROJECT_DIR$/tl-yan-eureka/tl-yan-eureka.iml" filepath="$PROJECT_DIR$/tl-yan-eureka/tl-yan-eureka.iml" />
     </modules>
   </component>

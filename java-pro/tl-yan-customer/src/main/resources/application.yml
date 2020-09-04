@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: tl-yan-customer
+server:
+  port: 8112
+management:
+  security:
+    enabled: false
+eureka:
+  client:
+    registry-fetch-interval-seconds: 5 
+    service-url:
+      defaultZone: http://127.0.0.1:8111/eureka/
