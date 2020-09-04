@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: tl-yan-eureka
+server:
+  port: 8111
+eureka:
+  instance:
+    hostname: 127.0.0.1
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+        # 测试时关闭自我保护机制，保证不可用服务及时踢出
+        enable-self-preservation: false
