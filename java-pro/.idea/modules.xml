@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/tl-common-components/tl-common-components.iml" filepath="$PROJECT_DIR$/tl-common-components/tl-common-components.iml" />
       <module fileurl="file://$PROJECT_DIR$/tl-yan-customer/tl-yan-customer.iml" filepath="$PROJECT_DIR$/tl-yan-customer/tl-yan-customer.iml" />
       <module fileurl="file://$PROJECT_DIR$/tl-yan-eureka/tl-yan-eureka.iml" filepath="$PROJECT_DIR$/tl-yan-eureka/tl-yan-eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tl-yan-gateway/tl-yan-gateway.iml" filepath="$PROJECT_DIR$/tl-yan-gateway/tl-yan-gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/tl-yan-support/tl-yan-support.iml" filepath="$PROJECT_DIR$/tl-yan-support/tl-yan-support.iml" />
     </modules>
   </component>
