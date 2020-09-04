@@ -75,10 +75,13 @@ call abc_pro();
 
 
 
-MVCC
+MVCC create CRUD version delete version 系统版本号
 无锁读和有锁读
 有锁读分共享和排他
-java问到mycat、redis，并发和PV，dubbo和springcloud
+java mycat、redis，并发和PV，dubbo和springcloud
+
+DATE_FORMAT,索引会失效,导致全表扫描
+
 
 
 
