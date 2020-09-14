@@ -39,6 +39,20 @@ public class IndexController {
 
     @Autowired
     AccountService accountService;
+    
+    @Autowired
+    CoinInfoMapper coinInfoMapper;
+    
+    @GetMapping("/coinInfo")
+    public String coinInfo () {
+    	CoinInfo coinInfo = new CoinInfo();
+    	coinInfo.setCode("1");
+    	coinInfo.setFullname("1");
+    	coinInfo.setPrice(1d);
+    	coinInfo.setPriceUsd(1d);
+        coinInfoMapper.insertSelective(coinInfo);
+        return "OK";
+    }
 
     @GetMapping("/home")
     public String index () {

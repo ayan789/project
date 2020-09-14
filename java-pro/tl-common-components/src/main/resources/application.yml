@@ -1,11 +1,8 @@
 spring:
   application:
-    name: tl-yan-support
-  cloud: 
-    config: 
-      enabled: false
+    name: tl-common-components
 server:
-  port: 8113
+  port: 8114
 management:
   security:
     enabled: false

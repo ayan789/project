@@ -1,29 +1,5 @@
 spring:
   application:
     name: tl-yan-gateway
-  
-endpoints:
-  restart:
-    enabled: true
-  shutdown:
-    enabled: true
-  health:
-    sensitive: false
-
-zuul:
-  routes:
-    tl-yan-customer: /api/customer/**
-    tl-yan-support: /api/support/**
-
-server:
-  port: 8777
-
-logging:
-  level:
-    ROOT: INFO
-    org.springframework.web: DEBUG
-eureka:
-  client:
-    registry-fetch-interval-seconds: 5 
-    service-url:
-      defaultZone: http://127.0.0.1:8111/eureka/
+  server:
+    port: 8778
