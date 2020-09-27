@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.UtilMapper">
+		
+	
+	<select id="getSeq" parameterType="java.lang.String" resultType="java.math.BigDecimal">
+		select CEILING(RAND()*9000000000+1000000000)
+	</select>
+	
+	<select id="getOccupationGrage"  parameterType="java.lang.String" resultType="java.lang.String">
+		select grage from t_prd_occupation where id = #{id} limit 1
+	</select>
+	
+	
+</mapper>

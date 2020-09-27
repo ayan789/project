@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanChgMapper">
+	<resultMap id="BaseResultMap"
+		type="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanChg">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="PLAN_CHG_ID" property="planChgId" jdbcType="BIGINT" />
+		<result column="PLAN_DEF_ID" property="planDefId" jdbcType="BIGINT" />
+		<result column="PLAN_EXPIRY_DATE" property="planExpiryDate"
+			jdbcType="TIMESTAMP" />
+		<result column="SUBMIT_BY" property="submitBy" jdbcType="VARCHAR" />
+		<result column="EFFECT_FLAG" property="effectFlag" jdbcType="VARCHAR" />
+		<result column="PLAN_STATUS" property="planStatus" jdbcType="VARCHAR" />
+		<result column="LAST_FLAG" property="lastFlag" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, PLAN_CHG_ID, PLAN_DEF_ID, PLAN_EXPIRY_DATE, SUBMIT_BY, EFFECT_FLAG,
+		PLAN_STATUS,
+		LAST_FLAG
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_prd_plan_chg
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_prd_plan_chg
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanChg">
+		insert into t_prd_plan_chg (id, PLAN_CHG_ID, PLAN_DEF_ID,
+		PLAN_EXPIRY_DATE, SUBMIT_BY, EFFECT_FLAG,
+		PLAN_STATUS, LAST_FLAG)
+		values (#{id,jdbcType=BIGINT}, #{planChgId,jdbcType=BIGINT},
+		#{planDefId,jdbcType=BIGINT},
+		#{planExpiryDate,jdbcType=TIMESTAMP}, #{submitBy,jdbcType=VARCHAR}, #{effectFlag,jdbcType=VARCHAR},
+		#{planStatus,jdbcType=VARCHAR}, #{lastFlag,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanChg">
+		insert into t_prd_plan_chg
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="planChgId != null">
+				PLAN_CHG_ID,
+			</if>
+			<if test="planDefId != null">
+				PLAN_DEF_ID,
+			</if>
+			<if test="planExpiryDate != null">
+				PLAN_EXPIRY_DATE,
+			</if>
+			<if test="submitBy != null">
+				SUBMIT_BY,
+			</if>
+			<if test="effectFlag != null">
+				EFFECT_FLAG,
+			</if>
+			<if test="planStatus != null">
+				PLAN_STATUS,
+			</if>
+			<if test="lastFlag != null">
+				LAST_FLAG,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="planChgId != null">
+				#{planChgId,jdbcType=BIGINT},
+			</if>
+			<if test="planDefId != null">
+				#{planDefId,jdbcType=BIGINT},
+			</if>
+			<if test="planExpiryDate != null">
+				#{planExpiryDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="submitBy != null">
+				#{submitBy,jdbcType=VARCHAR},
+			</if>
+			<if test="effectFlag != null">
+				#{effectFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="planStatus != null">
+				#{planStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="lastFlag != null">
+				#{lastFlag,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanChg">
+		update t_prd_plan_chg
+		<set>
+			<if test="planChgId != null">
+				PLAN_CHG_ID = #{planChgId,jdbcType=BIGINT},
+			</if>
+			<if test="planDefId != null">
+				PLAN_DEF_ID = #{planDefId,jdbcType=BIGINT},
+			</if>
+			<if test="planExpiryDate != null">
+				PLAN_EXPIRY_DATE = #{planExpiryDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="submitBy != null">
+				SUBMIT_BY = #{submitBy,jdbcType=VARCHAR},
+			</if>
+			<if test="effectFlag != null">
+				EFFECT_FLAG = #{effectFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="planStatus != null">
+				PLAN_STATUS = #{planStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="lastFlag != null">
+				LAST_FLAG = #{lastFlag,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanChg">
+		update t_prd_plan_chg
+		set PLAN_CHG_ID = #{planChgId,jdbcType=BIGINT},
+		PLAN_DEF_ID = #{planDefId,jdbcType=BIGINT},
+		PLAN_EXPIRY_DATE = #{planExpiryDate,jdbcType=TIMESTAMP},
+		SUBMIT_BY = #{submitBy,jdbcType=VARCHAR},
+		EFFECT_FLAG = #{effectFlag,jdbcType=VARCHAR},
+		PLAN_STATUS = #{planStatus,jdbcType=VARCHAR},
+		LAST_FLAG = #{lastFlag,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

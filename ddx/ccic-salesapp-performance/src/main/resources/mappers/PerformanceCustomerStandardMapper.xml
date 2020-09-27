@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ccic.salesapp.performance.domain.mapper.PerformanceCustomerStandardDao">
+
+	<select id="get" resultType="com.ccic.salesapp.performance.domain.vo.dto.PerformanceCustomerStandard">
+		select `id`,`user_code`,`customer_total`,`capacity`,`channel` from t_performance_customer_standard where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.ccic.salesapp.performance.domain.vo.dto.PerformanceCustomerStandard">
+		select `id`,`user_code`,`customer_total`,`capacity`,`channel` from t_performance_customer_standard
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="userCode != null and userCode != ''"> and user_code = #{userCode} </if>
+		  		  <if test="customerTotal != null and customerTotal != ''"> and customer_total = #{customerTotal} </if>
+		  		  <if test="capacity != null and capacity != ''"> and capacity = #{capacity} </if>
+		  		  <if test="channel != null and channel != ''"> and channel = #{channel} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from t_performance_customer_standard
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="userCode != null and userCode != ''"> and user_code = #{userCode} </if>
+		  		  <if test="customerTotal != null and customerTotal != ''"> and customer_total = #{customerTotal} </if>
+		  		  <if test="capacity != null and capacity != ''"> and capacity = #{capacity} </if>
+		  		  <if test="channel != null and channel != ''"> and channel = #{channel} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.ccic.salesapp.performance.domain.vo.dto.PerformanceCustomerStandard">
+		insert into t_performance_customer_standard
+		(
+			`id`, 
+			`user_code`, 
+			`customer_total`, 
+			`capacity`, 
+			`channel`
+		)
+		values
+		(
+			#{id}, 
+			#{userCode}, 
+			#{customerTotal}, 
+			#{capacity}, 
+			#{channel}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.ccic.salesapp.performance.domain.vo.dto.PerformanceCustomerStandard">
+		update t_performance_customer_standard 
+		<set>
+			<if test="userCode != null">`user_code` = #{userCode}, </if>
+			<if test="customerTotal != null">`customer_total` = #{customerTotal}, </if>
+			<if test="capacity != null">`capacity` = #{capacity}, </if>
+			<if test="channel != null">`channel` = #{channel}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from t_performance_customer_standard where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from t_performance_customer_standard where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<select id="getPerformanceCustomer" resultType="com.ccic.salesapp.performance.domain.vo.dto.PerformanceCustomerStandard" parameterType="java.util.HashMap">
+		SELECT 
+		`id`,`user_code` userCode,`customer_total` customerTotal,`capacity`,`channel`
+		from t_performance_customer_standard where USER_CODE=#{userCode}
+	</select>
+	
+	<select id="getGZCustomerNum" resultType="java.lang.Double" parameterType="java.util.HashMap">
+		SELECT avg(customer_total)
+		from t_performance_customer_standard where capacity<![CDATA[>=]]>1000000 and  capacity<![CDATA[<=]]>1500000 and channel='C0000015'
+	</select>
+	
+	<select id="getFGZCustomerNum" resultType="java.lang.Double" parameterType="java.util.HashMap">	
+	 SELECT avg(customer_total)
+	from t_performance_customer_standard where capacity<![CDATA[>=]]>
+	(SELECT avg(capacity) from t_performance_customer_standard where channel != 'C0000015')
+	and  capacity<![CDATA[<=]]>(SELECT (SELECT avg(capacity) from t_performance_customer_standard where channel != 'C0000015')*1.5) and channel!='C0000015'
+	</select>
+
+</mapper>

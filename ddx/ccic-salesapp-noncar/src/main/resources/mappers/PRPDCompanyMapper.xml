@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.PRPDCompanyMapper">
+
+<select id="getComName" resultType="java.lang.String" parameterType="java.lang.String">
+	       	SELECT TC.COMCNAME FROM T_PRPDCOMPANY TC
+	        WHERE TC.COMCODE=#{comCode}
+	</select>
+	
+	<select id="getUpperComCode" parameterType="java.lang.String" resultType="com.ccic.salesapp.noncar.dto.Prpdcompany"  >
+	SELECT TC.COMCODE,Tc.UPPERCOMCODE,tc.COMLEVEL,tc.NEWCOMCODE
+ 		FROM T_PRPDCOMPANY TC
+	        WHERE TC.COMCODE=#{comCode}
+	</select>
+
+	<select id="getlowComCode" parameterType="String"
+			resultType="String">
+
+	     select tp.COMCODE from t_prpdcompany tp where tp.UPPERCOMCODE=#{comCode}
+
+		</select>
+
+
+</mapper>

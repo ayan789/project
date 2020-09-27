@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.PolicyCustomerMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.basedb.po.PolicyCustomer">
+    <id column="customer_id" jdbcType="BIGINT" property="customerId" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="customer_role_code" jdbcType="VARCHAR" property="customerRoleCode" />
+    <result column="is_contact_pol_holder" jdbcType="VARCHAR" property="isContactPolHolder" />
+    <result column="pol_holder_insured_rela_code" jdbcType="VARCHAR" property="polHolderInsuredRelaCode" />
+    <result column="insured_vehicle_rela_code" jdbcType="VARCHAR" property="insuredVehicleRelaCode" />
+    <result column="permanent_address" jdbcType="VARCHAR" property="permanentAddress" />
+    <result column="party_category" jdbcType="VARCHAR" property="partyCategory" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="indi_age" jdbcType="SMALLINT" property="indiAge" />
+    <result column="indi_gender_code" jdbcType="VARCHAR" property="indiGenderCode" />
+    <result column="indi_date_of_birth" jdbcType="VARCHAR" property="indiDateOfBirth" />
+    <result column="id_type" jdbcType="VARCHAR" property="idType" />
+    <result column="id_no" jdbcType="VARCHAR" property="idNo" />
+    <result column="indi_mobile" jdbcType="VARCHAR" property="indiMobile" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="add_insured_insured_rela_code" jdbcType="VARCHAR" property="addInsuredInsuredRelaCode" />
+    <result column="customer_no" jdbcType="VARCHAR" property="customerNo" />
+    <result column="social_security_flag" jdbcType="VARCHAR" property="socialSecurityFlag" />
+    <result column="medical_insurance_code" jdbcType="VARCHAR" property="medicalInsuranceCode" />
+    <result column="full_address" jdbcType="VARCHAR" property="fullAddress" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    customer_id, order_id, customer_role_code, is_contact_pol_holder, pol_holder_insured_rela_code, 
+    insured_vehicle_rela_code, permanent_address, party_category, customer_name, indi_age, 
+    indi_gender_code, indi_date_of_birth, id_type, id_no, indi_mobile, email, add_insured_insured_rela_code, 
+    customer_no, social_security_flag, medical_insurance_code, full_address, address
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_noncar_policy_customer
+    where customer_id = #{customerId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_noncar_policy_customer
+    where customer_id = #{customerId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.PolicyCustomer">
+    insert into t_noncar_policy_customer (customer_id, order_id, customer_role_code, 
+      is_contact_pol_holder, pol_holder_insured_rela_code, 
+      insured_vehicle_rela_code, permanent_address, 
+      party_category, customer_name, indi_age, 
+      indi_gender_code, indi_date_of_birth, id_type, 
+      id_no, indi_mobile, email, 
+      add_insured_insured_rela_code, customer_no, 
+      social_security_flag, medical_insurance_code, 
+      full_address, address)
+    values (#{customerId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{customerRoleCode,jdbcType=VARCHAR}, 
+      #{isContactPolHolder,jdbcType=VARCHAR}, #{polHolderInsuredRelaCode,jdbcType=VARCHAR}, 
+      #{insuredVehicleRelaCode,jdbcType=VARCHAR}, #{permanentAddress,jdbcType=VARCHAR}, 
+      #{partyCategory,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{indiAge,jdbcType=SMALLINT}, 
+      #{indiGenderCode,jdbcType=VARCHAR}, #{indiDateOfBirth,jdbcType=VARCHAR}, #{idType,jdbcType=VARCHAR}, 
+      #{idNo,jdbcType=VARCHAR}, #{indiMobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{addInsuredInsuredRelaCode,jdbcType=VARCHAR}, #{customerNo,jdbcType=VARCHAR}, 
+      #{socialSecurityFlag,jdbcType=VARCHAR}, #{medicalInsuranceCode,jdbcType=VARCHAR}, 
+      #{fullAddress,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.PolicyCustomer">
+    insert into t_noncar_policy_customer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="customerRoleCode != null">
+        customer_role_code,
+      </if>
+      <if test="isContactPolHolder != null">
+        is_contact_pol_holder,
+      </if>
+      <if test="polHolderInsuredRelaCode != null">
+        pol_holder_insured_rela_code,
+      </if>
+      <if test="insuredVehicleRelaCode != null">
+        insured_vehicle_rela_code,
+      </if>
+      <if test="permanentAddress != null">
+        permanent_address,
+      </if>
+      <if test="partyCategory != null">
+        party_category,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="indiAge != null">
+        indi_age,
+      </if>
+      <if test="indiGenderCode != null">
+        indi_gender_code,
+      </if>
+      <if test="indiDateOfBirth != null">
+        indi_date_of_birth,
+      </if>
+      <if test="idType != null">
+        id_type,
+      </if>
+      <if test="idNo != null">
+        id_no,
+      </if>
+      <if test="indiMobile != null">
+        indi_mobile,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="addInsuredInsuredRelaCode != null">
+        add_insured_insured_rela_code,
+      </if>
+      <if test="customerNo != null">
+        customer_no,
+      </if>
+      <if test="socialSecurityFlag != null">
+        social_security_flag,
+      </if>
+      <if test="medicalInsuranceCode != null">
+        medical_insurance_code,
+      </if>
+      <if test="fullAddress != null">
+        full_address,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="customerId != null">
+        #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="customerRoleCode != null">
+        #{customerRoleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isContactPolHolder != null">
+        #{isContactPolHolder,jdbcType=VARCHAR},
+      </if>
+      <if test="polHolderInsuredRelaCode != null">
+        #{polHolderInsuredRelaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="insuredVehicleRelaCode != null">
+        #{insuredVehicleRelaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="permanentAddress != null">
+        #{permanentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="partyCategory != null">
+        #{partyCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="indiAge != null">
+        #{indiAge,jdbcType=SMALLINT},
+      </if>
+      <if test="indiGenderCode != null">
+        #{indiGenderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="indiDateOfBirth != null">
+        #{indiDateOfBirth,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null">
+        #{idType,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null">
+        #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="indiMobile != null">
+        #{indiMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="addInsuredInsuredRelaCode != null">
+        #{addInsuredInsuredRelaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNo != null">
+        #{customerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="socialSecurityFlag != null">
+        #{socialSecurityFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalInsuranceCode != null">
+        #{medicalInsuranceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fullAddress != null">
+        #{fullAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.PolicyCustomer">
+    update t_noncar_policy_customer
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="customerRoleCode != null">
+        customer_role_code = #{customerRoleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isContactPolHolder != null">
+        is_contact_pol_holder = #{isContactPolHolder,jdbcType=VARCHAR},
+      </if>
+      <if test="polHolderInsuredRelaCode != null">
+        pol_holder_insured_rela_code = #{polHolderInsuredRelaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="insuredVehicleRelaCode != null">
+        insured_vehicle_rela_code = #{insuredVehicleRelaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="permanentAddress != null">
+        permanent_address = #{permanentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="partyCategory != null">
+        party_category = #{partyCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="indiAge != null">
+        indi_age = #{indiAge,jdbcType=SMALLINT},
+      </if>
+      <if test="indiGenderCode != null">
+        indi_gender_code = #{indiGenderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="indiDateOfBirth != null">
+        indi_date_of_birth = #{indiDateOfBirth,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null">
+        id_type = #{idType,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null">
+        id_no = #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="indiMobile != null">
+        indi_mobile = #{indiMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="addInsuredInsuredRelaCode != null">
+        add_insured_insured_rela_code = #{addInsuredInsuredRelaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNo != null">
+        customer_no = #{customerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="socialSecurityFlag != null">
+        social_security_flag = #{socialSecurityFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalInsuranceCode != null">
+        medical_insurance_code = #{medicalInsuranceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fullAddress != null">
+        full_address = #{fullAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where customer_id = #{customerId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.PolicyCustomer">
+    update t_noncar_policy_customer
+    set order_id = #{orderId,jdbcType=BIGINT},
+      customer_role_code = #{customerRoleCode,jdbcType=VARCHAR},
+      is_contact_pol_holder = #{isContactPolHolder,jdbcType=VARCHAR},
+      pol_holder_insured_rela_code = #{polHolderInsuredRelaCode,jdbcType=VARCHAR},
+      insured_vehicle_rela_code = #{insuredVehicleRelaCode,jdbcType=VARCHAR},
+      permanent_address = #{permanentAddress,jdbcType=VARCHAR},
+      party_category = #{partyCategory,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      indi_age = #{indiAge,jdbcType=SMALLINT},
+      indi_gender_code = #{indiGenderCode,jdbcType=VARCHAR},
+      indi_date_of_birth = #{indiDateOfBirth,jdbcType=VARCHAR},
+      id_type = #{idType,jdbcType=VARCHAR},
+      id_no = #{idNo,jdbcType=VARCHAR},
+      indi_mobile = #{indiMobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      add_insured_insured_rela_code = #{addInsuredInsuredRelaCode,jdbcType=VARCHAR},
+      customer_no = #{customerNo,jdbcType=VARCHAR},
+      social_security_flag = #{socialSecurityFlag,jdbcType=VARCHAR},
+      medical_insurance_code = #{medicalInsuranceCode,jdbcType=VARCHAR},
+      full_address = #{fullAddress,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR}
+    where customer_id = #{customerId,jdbcType=BIGINT}
+  </update>
+  
+  
+  <delete id="deleteByOrderId" parameterType="java.lang.Long"  >
+    delete from t_noncar_policy_customer
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </delete>
+</mapper>

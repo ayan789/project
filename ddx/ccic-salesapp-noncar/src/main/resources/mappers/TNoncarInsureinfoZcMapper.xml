@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.TNoncarInsureinfoZcMapper">
+	<resultMap type="com.ccic.salesapp.noncar.dto.response.TNoncarInsureZcResVO"
+		id="BaseResultMap">
+		<result column="id" property="id" />
+		<result column="insure_no" property="insureNo" />
+		<result column="json_text" property="jsonText" />
+		<result column="insurance_code" property="insuranceCode" />
+		<result column="formula_code" property="formulaCode" />
+		<result column="create_time" property="createTime" />
+		<result column="destroy_date" property="destroyDate" />
+		<result column="order_amount" property="orderAmount" />
+		<result column="order_no" property="orderNo" />
+		<result column="order_status" property="orderStatus" />
+		<result column="order_time" property="orderTime" />
+		<result column="pay_amount" property="payAmount" />
+		<result column="pay_success_date" property="paySuccessDate" />
+		<result column="pay_type" property="payType" />
+		<result column="check_no" property="checkNo" />
+		<result column="update_time" property="updateTime" />
+	</resultMap>
+
+	<insert id="insertZc" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.ccic.salesapp.noncar.dto.request.TNoncarInsureZcReqVO">
+		INSERT INTO `t_noncar_insureinfo_zc` (
+		insure_no,
+		json_text,
+		insurance_code,
+		formula_code,
+		destroy_date,
+		order_amount,
+		order_no,
+		order_status,
+		order_time,
+		pay_amount,
+		pay_success_date,
+		pay_type,
+		check_no
+		)
+		VALUES
+		(
+		#{insureNo},
+		#{jsonText},
+		#{insuranceCode},
+		#{formulaCode},
+		#{destroyDate},
+		#{orderAmount},
+		#{orderNo},
+		#{orderStatus},
+		#{orderTime},
+		#{payAmount},
+		#{paySuccessDate},
+		#{payType},
+		#{checkNo}
+		);
+	</insert>
+
+	<select id="queryZc"
+		parameterType="com.ccic.salesapp.noncar.dto.request.TNoncarInsureZcReqVO"
+		resultMap="BaseResultMap">
+		select * from t_noncar_insureinfo_zc
+		where order_no =
+		#{orderNo}
+	</select>
+
+	<update id="updateZcInfo"
+		parameterType="com.ccic.salesapp.noncar.dto.request.TNoncarInsureZcReqVO">
+		UPDATE `t_noncar_insureinfo_zc` 
+		 <set>
+	      <if test="jsonText != null">
+	        json_text = #{jsonText},
+	      </if>
+	      <if test="insureNo != null">
+	        insure_no = #{insureNo},
+	      </if>
+	      <if test="insuranceCode != null">
+	        insurance_code = #{insuranceCode},
+	      </if>
+	      <if test="formulaCode != null">
+	        formula_code = #{formulaCode},
+	      </if>
+	      <if test="destroyDate != null">
+	        destroy_date = #{destroyDate},
+	      </if>
+	      <if test="orderAmount != null">
+	        order_amount = #{orderAmount},
+	      </if>
+	      <if test="orderStatus != null">
+	        order_status = #{orderStatus},
+	      </if>
+	      <if test="orderTime != null">
+	        order_time = #{orderTime},
+	      </if>
+	      <if test="payAmount != null">
+	        pay_amount = #{payAmount},
+	      </if>
+	      <if test="paySuccessDate != null">
+	        pay_success_date = #{paySuccessDate},
+	      </if>
+	      <if test="payType != null">
+	        pay_type = #{payType},
+	      </if>
+	      <if test="checkNo != null">
+	        check_no = #{checkNo},
+	      </if>
+    	</set>
+		where order_no =#{orderNo};
+	</update>
+
+</mapper>

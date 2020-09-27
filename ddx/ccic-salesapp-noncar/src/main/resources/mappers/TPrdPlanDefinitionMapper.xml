@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanDefinitionMapper">
+	<resultMap id="BaseResultMap"
+		type="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanDefinition">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="PLAN_DEF_ID" property="planDefId" jdbcType="BIGINT" />
+		<result column="PLAN_TYPE" property="planType" jdbcType="VARCHAR" />
+		<result column="PLAN_CATEGORY" property="planCategory"
+			jdbcType="VARCHAR" />
+		<result column="PLAN_CODE" property="planCode" jdbcType="VARCHAR" />
+		<result column="PLAN_VERSION" property="planVersion" jdbcType="BIGINT" />
+		<result column="PLAN_NAME" property="planName" jdbcType="VARCHAR" />
+		<result column="PLAN_EFFECTIVE_DATE" property="planEffectiveDate"
+			jdbcType="TIMESTAMP" />
+		<result column="PLAN_EXPIRY_DATE" property="planExpiryDate"
+			jdbcType="TIMESTAMP" />
+		<result column="PLAN_DESCRIPTION" property="planDescription"
+			jdbcType="VARCHAR" />
+		<result column="PRODUCT_ID" property="productId" jdbcType="BIGINT" />
+		<result column="PLAN_NAME_EN" property="planNameEn" jdbcType="VARCHAR" />
+		<result column="EFFECT_FLAG" property="effectFlag" jdbcType="VARCHAR" />
+		<result column="PLAN_STATUS" property="planStatus" jdbcType="VARCHAR" />
+		<result column="SUBMIT_BY" property="submitBy" jdbcType="VARCHAR" />
+		<result column="APPROVE_BY" property="approveBy" jdbcType="VARCHAR" />
+		<result column="IS_SUSPEND" property="isSuspend" jdbcType="VARCHAR" />
+		<result column="IF_UNIFY_ISSUE_PLAN" property="ifUnifyIssuePlan"
+			jdbcType="VARCHAR" />
+		<result column="IS_COMBINATION" property="isCombination"
+			jdbcType="VARCHAR" />
+		<result column="UW_NEED_LEVEL" property="uwNeedLevel" jdbcType="VARCHAR" />
+		<result column="UW_HI_LEVEL" property="uwHiLevel" jdbcType="VARCHAR" />
+		<result column="PRODUCT_LOB_CODE" property="productLobCode"
+			jdbcType="VARCHAR" />
+		<result column="INSURED_CODE" property="insuredCode" jdbcType="VARCHAR" />
+		<result column="POLICY_PLAN_BO_ID" property="policyPlanBoId"
+			jdbcType="VARCHAR" />
+		<result column="POLICY_ID" property="policyId" jdbcType="VARCHAR" />
+		<result column="SEQUENCE_NUMBER" property="sequenceNumber"
+			jdbcType="VARCHAR" />
+		<result column="BUSINESS_OBJECT_ID" property="businessObjectId"
+			jdbcType="VARCHAR" />
+		<result column="Product_Code" property="productCode" jdbcType="VARCHAR" />
+		<result column="Product_Name" property="productName" jdbcType="VARCHAR" />
+		<result column="Product_Version" property="productVersion"
+			jdbcType="VARCHAR" />
+		<result column="product_line_id" property="productLineId" jdbcType="BIGINT" />
+		<result column="second_line" property="secondLine" jdbcType="VARCHAR" />
+			
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, PLAN_DEF_ID, PLAN_TYPE, PLAN_CATEGORY, PLAN_CODE,
+		PLAN_VERSION,
+		PLAN_NAME, PLAN_EFFECTIVE_DATE,
+		PLAN_EXPIRY_DATE,
+		PLAN_DESCRIPTION, PRODUCT_ID, PLAN_NAME_EN, EFFECT_FLAG, PLAN_STATUS,
+		SUBMIT_BY, APPROVE_BY, IS_SUSPEND, IF_UNIFY_ISSUE_PLAN,
+		IS_COMBINATION, UW_NEED_LEVEL,
+		UW_HI_LEVEL,
+		PRODUCT_LOB_CODE,
+		INSURED_CODE, POLICY_PLAN_BO_ID,
+		POLICY_ID,
+		SEQUENCE_NUMBER,
+		BUSINESS_OBJECT_ID,
+		product_code,
+		product_name,
+		product_version,
+		product_line_id,
+		second_line
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_prd_plan_definition
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		t_prd_plan_definition
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanDefinition">
+		insert into t_prd_plan_definition (id, PLAN_DEF_ID,
+		PLAN_TYPE,
+		PLAN_CATEGORY, PLAN_CODE, PLAN_VERSION,
+		PLAN_NAME,
+		PLAN_EFFECTIVE_DATE, PLAN_EXPIRY_DATE,
+		PLAN_DESCRIPTION, PRODUCT_ID,
+		PLAN_NAME_EN,
+		EFFECT_FLAG, PLAN_STATUS, SUBMIT_BY,
+		APPROVE_BY,
+		IS_SUSPEND, IF_UNIFY_ISSUE_PLAN,
+		IS_COMBINATION, UW_NEED_LEVEL,
+		UW_HI_LEVEL,
+		PRODUCT_LOB_CODE, INSURED_CODE,
+		POLICY_PLAN_BO_ID,
+		POLICY_ID, SEQUENCE_NUMBER,
+		BUSINESS_OBJECT_ID,
+		Product_Code,
+		Product_Name,
+		Product_Version,
+		product_line_id,
+		second_line
+		)
+		values
+		(#{id,jdbcType=BIGINT},
+		#{planDefId,jdbcType=BIGINT},
+		#{planType,jdbcType=VARCHAR},
+		#{planCategory,jdbcType=VARCHAR},
+		#{planCode,jdbcType=VARCHAR},
+		#{planVersion,jdbcType=BIGINT},
+		#{planName,jdbcType=VARCHAR},
+		#{planEffectiveDate,jdbcType=TIMESTAMP},
+		#{planExpiryDate,jdbcType=TIMESTAMP},
+		#{planDescription,jdbcType=VARCHAR}, #{productId,jdbcType=BIGINT},
+		#{planNameEn,jdbcType=VARCHAR},
+		#{effectFlag,jdbcType=VARCHAR},
+		#{planStatus,jdbcType=VARCHAR}, #{submitBy,jdbcType=VARCHAR},
+		#{approveBy,jdbcType=VARCHAR}, #{isSuspend,jdbcType=VARCHAR},
+		#{ifUnifyIssuePlan,jdbcType=VARCHAR},
+		#{isCombination,jdbcType=VARCHAR}, #{uwNeedLevel,jdbcType=VARCHAR},
+		#{uwHiLevel,jdbcType=VARCHAR},
+		#{productLobCode,jdbcType=VARCHAR},
+		#{insuredCode,jdbcType=VARCHAR},
+		#{policyPlanBoId,jdbcType=VARCHAR},
+		#{policyId,jdbcType=VARCHAR},
+		#{sequenceNumber,jdbcType=VARCHAR},
+		#{businessObjectId,jdbcType=VARCHAR},
+		#{productCode,jdbcType=VARCHAR},
+		#{productName,jdbcType=VARCHAR},
+		#{productVersion,jdbcType=VARCHAR},
+		#{productLineId,jdbcType=BIGINT},
+		#{secondLine,jdbcType=VARCHAR}
+		)
+		ON
+		DUPLICATE KEY UPDATE
+		PLAN_DEF_ID=VALUES(PLAN_DEF_ID),
+		PLAN_TYPE=VALUES(PLAN_TYPE),
+		PLAN_CATEGORY=VALUES(PLAN_CATEGORY),
+		PLAN_CODE=VALUES(PLAN_CODE),
+		PLAN_VERSION=VALUES(PLAN_VERSION),
+		PLAN_NAME=VALUES(PLAN_NAME),
+		PLAN_EFFECTIVE_DATE=VALUES(
+		PLAN_EFFECTIVE_DATE),
+		PLAN_EXPIRY_DATE=VALUES(PLAN_EXPIRY_DATE),
+		PLAN_DESCRIPTION=VALUES(PLAN_DESCRIPTION),
+		PRODUCT_ID=VALUES(PRODUCT_ID),
+		PLAN_NAME_EN=VALUES(PLAN_NAME_EN),
+		EFFECT_FLAG=VALUES(EFFECT_FLAG),
+		PLAN_STATUS=VALUES(PLAN_STATUS),
+		SUBMIT_BY=VALUES(SUBMIT_BY),
+		APPROVE_BY=VALUES(APPROVE_BY),
+		IS_SUSPEND=VALUES(IS_SUSPEND),
+		IF_UNIFY_ISSUE_PLAN=VALUES(IF_UNIFY_ISSUE_PLAN),
+		IS_COMBINATION=VALUES(IS_COMBINATION),
+		UW_NEED_LEVEL=VALUES(UW_NEED_LEVEL),
+		UW_HI_LEVEL=VALUES(UW_HI_LEVEL),
+		PRODUCT_LOB_CODE=VALUES(PRODUCT_LOB_CODE),
+		INSURED_CODE=VALUES(INSURED_CODE),
+		POLICY_PLAN_BO_ID=VALUES(POLICY_PLAN_BO_ID),
+		POLICY_ID=VALUES(POLICY_ID),
+		SEQUENCE_NUMBER=VALUES(SEQUENCE_NUMBER),
+		BUSINESS_OBJECT_ID=VALUES(BUSINESS_OBJECT_ID),
+		Product_Code=VALUES(Product_Code),
+		Product_Name=VALUES(Product_Name),
+		Product_Version=VALUES(Product_Version),
+		product_line_id=VALUES(product_line_id),
+		second_line=VALUES(second_line)
+	</insert>
+	
+	<delete id="deleteByPlanDefinitionId"	parameterType="java.lang.Long">
+		delete from t_prd_plan_definition where PLAN_DEF_ID =#{delPlanDefId}
+	</delete>
+	
+	<insert id="insertSelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanDefinition">
+		insert into t_prd_plan_definition
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="planDefId != null">
+				PLAN_DEF_ID,
+			</if>
+			<if test="planType != null">
+				PLAN_TYPE,
+			</if>
+			<if test="planCategory != null">
+				PLAN_CATEGORY,
+			</if>
+			<if test="planCode != null">
+				PLAN_CODE,
+			</if>
+			<if test="planVersion != null">
+				PLAN_VERSION,
+			</if>
+			<if test="planName != null">
+				PLAN_NAME,
+			</if>
+			<if test="planEffectiveDate != null">
+				PLAN_EFFECTIVE_DATE,
+			</if>
+			<if test="planExpiryDate != null">
+				PLAN_EXPIRY_DATE,
+			</if>
+			<if test="planDescription != null">
+				PLAN_DESCRIPTION,
+			</if>
+			<if test="productId != null">
+				PRODUCT_ID,
+			</if>
+			<if test="planNameEn != null">
+				PLAN_NAME_EN,
+			</if>
+			<if test="effectFlag != null">
+				EFFECT_FLAG,
+			</if>
+			<if test="planStatus != null">
+				PLAN_STATUS,
+			</if>
+			<if test="submitBy != null">
+				SUBMIT_BY,
+			</if>
+			<if test="approveBy != null">
+				APPROVE_BY,
+			</if>
+			<if test="isSuspend != null">
+				IS_SUSPEND,
+			</if>
+			<if test="ifUnifyIssuePlan != null">
+				IF_UNIFY_ISSUE_PLAN,
+			</if>
+			<if test="isCombination != null">
+				IS_COMBINATION,
+			</if>
+			<if test="uwNeedLevel != null">
+				UW_NEED_LEVEL,
+			</if>
+			<if test="uwHiLevel != null">
+				UW_HI_LEVEL,
+			</if>
+			<if test="productLobCode != null">
+				PRODUCT_LOB_CODE,
+			</if>
+			<if test="insuredCode != null">
+				INSURED_CODE,
+			</if>
+			<if test="policyPlanBoId != null">
+				POLICY_PLAN_BO_ID,
+			</if>
+			<if test="policyId != null">
+				POLICY_ID,
+			</if>
+			<if test="sequenceNumber != null">
+				SEQUENCE_NUMBER,
+			</if>
+			<if test="businessObjectId != null">
+				BUSINESS_OBJECT_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="planDefId != null">
+				#{planDefId,jdbcType=BIGINT},
+			</if>
+			<if test="planType != null">
+				#{planType,jdbcType=VARCHAR},
+			</if>
+			<if test="planCategory != null">
+				#{planCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="planCode != null">
+				#{planCode,jdbcType=VARCHAR},
+			</if>
+			<if test="planVersion != null">
+				#{planVersion,jdbcType=BIGINT},
+			</if>
+			<if test="planName != null">
+				#{planName,jdbcType=VARCHAR},
+			</if>
+			<if test="planEffectiveDate != null">
+				#{planEffectiveDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="planExpiryDate != null">
+				#{planExpiryDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="planDescription != null">
+				#{planDescription,jdbcType=VARCHAR},
+			</if>
+			<if test="productId != null">
+				#{productId,jdbcType=BIGINT},
+			</if>
+			<if test="planNameEn != null">
+				#{planNameEn,jdbcType=VARCHAR},
+			</if>
+			<if test="effectFlag != null">
+				#{effectFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="planStatus != null">
+				#{planStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="submitBy != null">
+				#{submitBy,jdbcType=VARCHAR},
+			</if>
+			<if test="approveBy != null">
+				#{approveBy,jdbcType=VARCHAR},
+			</if>
+			<if test="isSuspend != null">
+				#{isSuspend,jdbcType=VARCHAR},
+			</if>
+			<if test="ifUnifyIssuePlan != null">
+				#{ifUnifyIssuePlan,jdbcType=VARCHAR},
+			</if>
+			<if test="isCombination != null">
+				#{isCombination,jdbcType=VARCHAR},
+			</if>
+			<if test="uwNeedLevel != null">
+				#{uwNeedLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="uwHiLevel != null">
+				#{uwHiLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="productLobCode != null">
+				#{productLobCode,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredCode != null">
+				#{insuredCode,jdbcType=VARCHAR},
+			</if>
+			<if test="policyPlanBoId != null">
+				#{policyPlanBoId,jdbcType=VARCHAR},
+			</if>
+			<if test="policyId != null">
+				#{policyId,jdbcType=VARCHAR},
+			</if>
+			<if test="sequenceNumber != null">
+				#{sequenceNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="businessObjectId != null">
+				#{businessObjectId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanDefinition">
+		update t_prd_plan_definition
+		<set>
+			<if test="planDefId != null">
+				PLAN_DEF_ID = #{planDefId,jdbcType=BIGINT},
+			</if>
+			<if test="planType != null">
+				PLAN_TYPE = #{planType,jdbcType=VARCHAR},
+			</if>
+			<if test="planCategory != null">
+				PLAN_CATEGORY = #{planCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="planCode != null">
+				PLAN_CODE = #{planCode,jdbcType=VARCHAR},
+			</if>
+			<if test="planVersion != null">
+				PLAN_VERSION = #{planVersion,jdbcType=BIGINT},
+			</if>
+			<if test="planName != null">
+				PLAN_NAME = #{planName,jdbcType=VARCHAR},
+			</if>
+			<if test="planEffectiveDate != null">
+				PLAN_EFFECTIVE_DATE =
+				#{planEffectiveDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="planExpiryDate != null">
+				PLAN_EXPIRY_DATE = #{planExpiryDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="planDescription != null">
+				PLAN_DESCRIPTION = #{planDescription,jdbcType=VARCHAR},
+			</if>
+			<if test="productId != null">
+				PRODUCT_ID = #{productId,jdbcType=BIGINT},
+			</if>
+			<if test="planNameEn != null">
+				PLAN_NAME_EN = #{planNameEn,jdbcType=VARCHAR},
+			</if>
+			<if test="effectFlag != null">
+				EFFECT_FLAG = #{effectFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="planStatus != null">
+				PLAN_STATUS = #{planStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="submitBy != null">
+				SUBMIT_BY = #{submitBy,jdbcType=VARCHAR},
+			</if>
+			<if test="approveBy != null">
+				APPROVE_BY = #{approveBy,jdbcType=VARCHAR},
+			</if>
+			<if test="isSuspend != null">
+				IS_SUSPEND = #{isSuspend,jdbcType=VARCHAR},
+			</if>
+			<if test="ifUnifyIssuePlan != null">
+				IF_UNIFY_ISSUE_PLAN =
+				#{ifUnifyIssuePlan,jdbcType=VARCHAR},
+			</if>
+			<if test="isCombination != null">
+				IS_COMBINATION = #{isCombination,jdbcType=VARCHAR},
+			</if>
+			<if test="uwNeedLevel != null">
+				UW_NEED_LEVEL = #{uwNeedLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="uwHiLevel != null">
+				UW_HI_LEVEL = #{uwHiLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="productLobCode != null">
+				PRODUCT_LOB_CODE = #{productLobCode,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredCode != null">
+				INSURED_CODE = #{insuredCode,jdbcType=VARCHAR},
+			</if>
+			<if test="policyPlanBoId != null">
+				POLICY_PLAN_BO_ID = #{policyPlanBoId,jdbcType=VARCHAR},
+			</if>
+			<if test="policyId != null">
+				POLICY_ID = #{policyId,jdbcType=VARCHAR},
+			</if>
+			<if test="sequenceNumber != null">
+				SEQUENCE_NUMBER = #{sequenceNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="businessObjectId != null">
+				BUSINESS_OBJECT_ID =
+				#{businessObjectId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanDefinition">
+		update t_prd_plan_definition
+		set PLAN_DEF_ID =
+		#{planDefId,jdbcType=BIGINT},
+		PLAN_TYPE = #{planType,jdbcType=VARCHAR},
+		PLAN_CATEGORY = #{planCategory,jdbcType=VARCHAR},
+		PLAN_CODE =
+		#{planCode,jdbcType=VARCHAR},
+		PLAN_VERSION =
+		#{planVersion,jdbcType=BIGINT},
+		PLAN_NAME =
+		#{planName,jdbcType=VARCHAR},
+		PLAN_EFFECTIVE_DATE =
+		#{planEffectiveDate,jdbcType=TIMESTAMP},
+		PLAN_EXPIRY_DATE =
+		#{planExpiryDate,jdbcType=TIMESTAMP},
+		PLAN_DESCRIPTION =
+		#{planDescription,jdbcType=VARCHAR},
+		PRODUCT_ID =
+		#{productId,jdbcType=BIGINT},
+		PLAN_NAME_EN =
+		#{planNameEn,jdbcType=VARCHAR},
+		EFFECT_FLAG =
+		#{effectFlag,jdbcType=VARCHAR},
+		PLAN_STATUS =
+		#{planStatus,jdbcType=VARCHAR},
+		SUBMIT_BY =
+		#{submitBy,jdbcType=VARCHAR},
+		APPROVE_BY =
+		#{approveBy,jdbcType=VARCHAR},
+		IS_SUSPEND =
+		#{isSuspend,jdbcType=VARCHAR},
+		IF_UNIFY_ISSUE_PLAN =
+		#{ifUnifyIssuePlan,jdbcType=VARCHAR},
+		IS_COMBINATION =
+		#{isCombination,jdbcType=VARCHAR},
+		UW_NEED_LEVEL =
+		#{uwNeedLevel,jdbcType=VARCHAR},
+		UW_HI_LEVEL =
+		#{uwHiLevel,jdbcType=VARCHAR},
+		PRODUCT_LOB_CODE =
+		#{productLobCode,jdbcType=VARCHAR},
+		INSURED_CODE =
+		#{insuredCode,jdbcType=VARCHAR},
+		POLICY_PLAN_BO_ID =
+		#{policyPlanBoId,jdbcType=VARCHAR},
+		POLICY_ID =
+		#{policyId,jdbcType=VARCHAR},
+		SEQUENCE_NUMBER =
+		#{sequenceNumber,jdbcType=VARCHAR},
+		BUSINESS_OBJECT_ID =
+		#{businessObjectId,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	
+	<select id="selectByPlanDefId"
+	 resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_prd_plan_definition
+		where plan_def_id = #{id,jdbcType=BIGINT}
+	</select>
+</mapper>

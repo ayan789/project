@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanCoInsurerMapper" >
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCoInsurer" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="plan_CoInsuer_Id" property="planCoinsuerId" jdbcType="VARCHAR" />
+    <result column="plan_CoInsurance_Id" property="planCoinsuranceId" jdbcType="VARCHAR" />
+    <result column="coInsurer_Branch_Name" property="coinsurerBranchName" jdbcType="VARCHAR" />
+    <result column="insurer_Party_Id" property="insurerPartyId" jdbcType="VARCHAR" />
+    <result column="Is_Leader" property="isLeader" jdbcType="VARCHAR" />
+    <result column="share_Rate" property="shareRate" jdbcType="VARCHAR" />
+    <result column="total_Share_Rate" property="totalShareRate" jdbcType="VARCHAR" />
+    <result column="Business_Source_Code" property="businessSourceCode" jdbcType="VARCHAR" />
+    <result column="Belong_ToHandlerId" property="belongTohandlerid" jdbcType="VARCHAR" />
+    <result column="Belong_ToOrgId" property="belongToorgid" jdbcType="VARCHAR" />
+    <result column="Agent_Id" property="agentId" jdbcType="VARCHAR" />
+    <result column="Agreement_No" property="agreementNo" jdbcType="VARCHAR" />
+    <result column="Agreement_Name" property="agreementName" jdbcType="VARCHAR" />
+    <result column="Issue_UserId" property="issueUserid" jdbcType="VARCHAR" />
+    <result column="Issue_OrgId" property="issueOrgid" jdbcType="VARCHAR" />
+    <result column="Belong_ToHandler2Id" property="belongTohandler2id" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, plan_CoInsuer_Id, plan_CoInsurance_Id, coInsurer_Branch_Name, insurer_Party_Id, 
+    Is_Leader, share_Rate, total_Share_Rate, Business_Source_Code, Belong_ToHandlerId, 
+    Belong_ToOrgId, Agent_Id, Agreement_No, Agreement_Name, Issue_UserId, Issue_OrgId, 
+    Belong_ToHandler2Id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_prd_plan_co_insurer
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_prd_plan_co_insurer
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCoInsurer" >
+    insert into t_prd_plan_co_insurer (id, plan_CoInsuer_Id, plan_CoInsurance_Id, 
+      coInsurer_Branch_Name, insurer_Party_Id, Is_Leader, 
+      share_Rate, total_Share_Rate, Business_Source_Code, 
+      Belong_ToHandlerId, Belong_ToOrgId, Agent_Id, 
+      Agreement_No, Agreement_Name, Issue_UserId, 
+      Issue_OrgId, Belong_ToHandler2Id)
+    values (#{id,jdbcType=BIGINT}, #{planCoinsuerId,jdbcType=VARCHAR}, #{planCoinsuranceId,jdbcType=VARCHAR}, 
+      #{coinsurerBranchName,jdbcType=VARCHAR}, #{insurerPartyId,jdbcType=VARCHAR}, #{isLeader,jdbcType=VARCHAR}, 
+      #{shareRate,jdbcType=VARCHAR}, #{totalShareRate,jdbcType=VARCHAR}, #{businessSourceCode,jdbcType=VARCHAR}, 
+      #{belongTohandlerid,jdbcType=VARCHAR}, #{belongToorgid,jdbcType=VARCHAR}, #{agentId,jdbcType=VARCHAR}, 
+      #{agreementNo,jdbcType=VARCHAR}, #{agreementName,jdbcType=VARCHAR}, #{issueUserid,jdbcType=VARCHAR}, 
+      #{issueOrgid,jdbcType=VARCHAR}, #{belongTohandler2id,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCoInsurer" >
+    insert into t_prd_plan_co_insurer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="planCoinsuerId != null" >
+        plan_CoInsuer_Id,
+      </if>
+      <if test="planCoinsuranceId != null" >
+        plan_CoInsurance_Id,
+      </if>
+      <if test="coinsurerBranchName != null" >
+        coInsurer_Branch_Name,
+      </if>
+      <if test="insurerPartyId != null" >
+        insurer_Party_Id,
+      </if>
+      <if test="isLeader != null" >
+        Is_Leader,
+      </if>
+      <if test="shareRate != null" >
+        share_Rate,
+      </if>
+      <if test="totalShareRate != null" >
+        total_Share_Rate,
+      </if>
+      <if test="businessSourceCode != null" >
+        Business_Source_Code,
+      </if>
+      <if test="belongTohandlerid != null" >
+        Belong_ToHandlerId,
+      </if>
+      <if test="belongToorgid != null" >
+        Belong_ToOrgId,
+      </if>
+      <if test="agentId != null" >
+        Agent_Id,
+      </if>
+      <if test="agreementNo != null" >
+        Agreement_No,
+      </if>
+      <if test="agreementName != null" >
+        Agreement_Name,
+      </if>
+      <if test="issueUserid != null" >
+        Issue_UserId,
+      </if>
+      <if test="issueOrgid != null" >
+        Issue_OrgId,
+      </if>
+      <if test="belongTohandler2id != null" >
+        Belong_ToHandler2Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="planCoinsuerId != null" >
+        #{planCoinsuerId,jdbcType=VARCHAR},
+      </if>
+      <if test="planCoinsuranceId != null" >
+        #{planCoinsuranceId,jdbcType=VARCHAR},
+      </if>
+      <if test="coinsurerBranchName != null" >
+        #{coinsurerBranchName,jdbcType=VARCHAR},
+      </if>
+      <if test="insurerPartyId != null" >
+        #{insurerPartyId,jdbcType=VARCHAR},
+      </if>
+      <if test="isLeader != null" >
+        #{isLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="shareRate != null" >
+        #{shareRate,jdbcType=VARCHAR},
+      </if>
+      <if test="totalShareRate != null" >
+        #{totalShareRate,jdbcType=VARCHAR},
+      </if>
+      <if test="businessSourceCode != null" >
+        #{businessSourceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="belongTohandlerid != null" >
+        #{belongTohandlerid,jdbcType=VARCHAR},
+      </if>
+      <if test="belongToorgid != null" >
+        #{belongToorgid,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null" >
+        #{agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementNo != null" >
+        #{agreementNo,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementName != null" >
+        #{agreementName,jdbcType=VARCHAR},
+      </if>
+      <if test="issueUserid != null" >
+        #{issueUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="issueOrgid != null" >
+        #{issueOrgid,jdbcType=VARCHAR},
+      </if>
+      <if test="belongTohandler2id != null" >
+        #{belongTohandler2id,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCoInsurer" >
+    update t_prd_plan_co_insurer
+    <set >
+      <if test="planCoinsuerId != null" >
+        plan_CoInsuer_Id = #{planCoinsuerId,jdbcType=VARCHAR},
+      </if>
+      <if test="planCoinsuranceId != null" >
+        plan_CoInsurance_Id = #{planCoinsuranceId,jdbcType=VARCHAR},
+      </if>
+      <if test="coinsurerBranchName != null" >
+        coInsurer_Branch_Name = #{coinsurerBranchName,jdbcType=VARCHAR},
+      </if>
+      <if test="insurerPartyId != null" >
+        insurer_Party_Id = #{insurerPartyId,jdbcType=VARCHAR},
+      </if>
+      <if test="isLeader != null" >
+        Is_Leader = #{isLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="shareRate != null" >
+        share_Rate = #{shareRate,jdbcType=VARCHAR},
+      </if>
+      <if test="totalShareRate != null" >
+        total_Share_Rate = #{totalShareRate,jdbcType=VARCHAR},
+      </if>
+      <if test="businessSourceCode != null" >
+        Business_Source_Code = #{businessSourceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="belongTohandlerid != null" >
+        Belong_ToHandlerId = #{belongTohandlerid,jdbcType=VARCHAR},
+      </if>
+      <if test="belongToorgid != null" >
+        Belong_ToOrgId = #{belongToorgid,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null" >
+        Agent_Id = #{agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementNo != null" >
+        Agreement_No = #{agreementNo,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementName != null" >
+        Agreement_Name = #{agreementName,jdbcType=VARCHAR},
+      </if>
+      <if test="issueUserid != null" >
+        Issue_UserId = #{issueUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="issueOrgid != null" >
+        Issue_OrgId = #{issueOrgid,jdbcType=VARCHAR},
+      </if>
+      <if test="belongTohandler2id != null" >
+        Belong_ToHandler2Id = #{belongTohandler2id,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCoInsurer" >
+    update t_prd_plan_co_insurer
+    set plan_CoInsuer_Id = #{planCoinsuerId,jdbcType=VARCHAR},
+      plan_CoInsurance_Id = #{planCoinsuranceId,jdbcType=VARCHAR},
+      coInsurer_Branch_Name = #{coinsurerBranchName,jdbcType=VARCHAR},
+      insurer_Party_Id = #{insurerPartyId,jdbcType=VARCHAR},
+      Is_Leader = #{isLeader,jdbcType=VARCHAR},
+      share_Rate = #{shareRate,jdbcType=VARCHAR},
+      total_Share_Rate = #{totalShareRate,jdbcType=VARCHAR},
+      Business_Source_Code = #{businessSourceCode,jdbcType=VARCHAR},
+      Belong_ToHandlerId = #{belongTohandlerid,jdbcType=VARCHAR},
+      Belong_ToOrgId = #{belongToorgid,jdbcType=VARCHAR},
+      Agent_Id = #{agentId,jdbcType=VARCHAR},
+      Agreement_No = #{agreementNo,jdbcType=VARCHAR},
+      Agreement_Name = #{agreementName,jdbcType=VARCHAR},
+      Issue_UserId = #{issueUserid,jdbcType=VARCHAR},
+      Issue_OrgId = #{issueOrgid,jdbcType=VARCHAR},
+      Belong_ToHandler2Id = #{belongTohandler2id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

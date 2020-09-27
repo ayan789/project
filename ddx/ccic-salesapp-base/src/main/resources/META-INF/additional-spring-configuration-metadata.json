@@ -1,0 +1,234 @@
+{
+  "properties": [
+    {
+      "name": "sonic.platform.mybatis.mapper-locations",
+      "type": "java.lang.String[]",
+      "description": "mybatis Mapper XML 文件映射路径，如：[classpath:/mappers/*Mapper.xml].",
+      "sourceType": "com.ccic.salessapp.common.mybatis.MybatisProperties"
+    },
+    {
+      "name": "sonic.platform.datasource.jdbc-url",
+      "type": "java.lang.String",
+      "description": "数据源JDBC URL.",
+      "sourceType": "com.ccic.salessapp.common.mybatis.DatasourceProperties"
+    },
+    {
+      "name": "sonic.platform.datasource.username",
+      "type": "java.lang.String",
+      "description": "数据库用户名.",
+      "sourceType": "com.ccic.salessapp.common.mybatis.DatasourceProperties"
+    },
+    {
+      "name": "sonic.platform.datasource.password",
+      "type": "java.lang.String",
+      "description": "数据库密码.",
+      "sourceType": "com.ccic.salessapp.common.mybatis.DatasourceProperties"
+    },
+    {
+      "name": "sonic.platform.datasource.driver-class",
+      "type": "java.lang.String",
+      "description": "数据库连接驱动.",
+      "sourceType": "com.ccic.salessapp.common.mybatis.DatasourceProperties"
+    },
+    {
+      "name": "sonic.platform.datasource.initial-size",
+      "type": "java.lang.Integer",
+      "description": "初始化时建立物理连接的个数.",
+      "defaultValue": 8,
+      "sourceType": "com.ccic.salessapp.common.mybatis.DatasourceProperties"
+    },
+    {
+      "name": "sonic.platform.datasource.max-active",
+      "type": "java.lang.Integer",
+      "description": "最大连接池数量.",
+      "defaultValue": 20,
+      "sourceType": "com.ccic.salessapp.common.mybatis.DatasourceProperties"
+    },
+    {
+      "name": "sonic.platform.datasource.min-idle",
+      "type": "java.lang.Integer",
+      "description": "最小连接池数量.",
+      "defaultValue": 8,
+      "sourceType": "com.ccic.salessapp.common.mybatis.DatasourceProperties"
+    },
+    {
+      "name": "sonic.platform.datasource.max-wait",
+      "type": "java.lang.Integer",
+      "description": "获取连接时最大等待时间 毫秒.",
+      "defaultValue": 60000,
+      "sourceType": "com.ccic.salessapp.common.mybatis.DatasourceProperties"
+    },
+    {
+      "name": "sonic.platform.datasource.remove-abandoned-timeout",
+      "type": "java.lang.Integer",
+      "description": "强制回收连接时间 秒.",
+      "defaultValue": 1800,
+      "sourceType": "com.ccic.salessapp.common.mybatis.DatasourceProperties"
+    },
+    {
+      "name": "sonic.platform.datasource.pool-prepared-statements",
+      "type": "java.lang.Boolean",
+      "description": "是否缓存preparedStatement(PSCache mysql建议关闭).",
+      "defaultValue": false,
+      "sourceType": "com.ccic.salessapp.common.mybatis.DatasourceProperties"
+    },
+    {
+      "name": "sonic.platform.datasource.max-pool-prepared-statement-per-connection-size",
+      "type": "java.lang.Integer",
+      "description": "要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true.",
+      "defaultValue": -1,
+      "sourceType": "com.ccic.salessapp.common.mybatis.DatasourceProperties"
+    },
+    {
+      "name": "sonic.platform.datasource.test-on-borrow",
+      "type": "java.lang.Boolean",
+      "description": "申请连接时执行validationQuery检测连接是否有效.",
+      "defaultValue": false,
+      "sourceType": "com.ccic.salessapp.common.mybatis.DatasourceProperties"
+    },
+    {
+      "name": "sonic.platform.datasource.validation-query",
+      "type": "java.lang.Boolean",
+      "description": "用来检测连接是否有效的sql (validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会其作用).",
+      "defaultValue": "select 1",
+      "sourceType": "com.ccic.salessapp.common.mybatis.DatasourceProperties"
+    },
+    {
+      "name": "sonic.platform.datasource.test-on-return",
+      "type": "java.lang.Boolean",
+      "description": "归还连接时执行validationQuery检测连接是否有效.",
+      "defaultValue": false,
+      "sourceType": "com.ccic.salessapp.common.mybatis.DatasourceProperties"
+    },
+    {
+      "name": "sonic.platform.datasource.test-while-idle",
+      "type": "java.lang.Boolean",
+      "description": "申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效.",
+      "defaultValue": true,
+      "sourceType": "com.ccic.salessapp.common.mybatis.DatasourceProperties"
+    },
+    {
+      "name": "sonic.platform.datasource.time-between-eviction-runs-millis",
+      "type": "java.lang.Integer",
+      "description": "多久才进行一次检测 毫秒.",
+      "defaultValue": 60000,
+      "sourceType": "com.ccic.salessapp.common.mybatis.DatasourceProperties"
+    },
+    {
+      "name": "sonic.platform.datasource.min-evictable-idle-time-millis",
+      "type": "java.lang.Integer",
+      "description": "连接在池中最小生存的时间 毫秒.",
+      "defaultValue": 300000,
+      "sourceType": "com.ccic.salessapp.common.mybatis.DatasourceProperties"
+    },
+    {
+      "name": "sonic.platform.api.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用Swagger 文档.",
+      "defaultValue": false,
+      "sourceType": "com.ccic.salessapp.common.springfox.ApiDocProperties"
+    },
+    {
+      "name": "sonic.platform.api.title",
+      "type": "java.lang.String",
+      "description": "文档标题.",
+      "defaultValue": "",
+      "sourceType": "com.ccic.salessapp.common.springfox.ApiDocProperties"
+    },
+    {
+      "name": "sonic.platform.api.description",
+      "type": "java.lang.String",
+      "description": "文档描述.",
+      "defaultValue": "",
+      "sourceType": "com.ccic.salessapp.common.springfox.ApiDocProperties"
+    },
+    {
+      "name": "sonic.platform.api.version",
+      "type": "java.lang.String",
+      "description": "文档版本号.",
+      "defaultValue": "",
+      "sourceType": "com.ccic.salessapp.common.springfox.ApiDocProperties"
+    },
+    {
+      "name": "sonic.platform.api.headers",
+      "type": "java.util.Map",
+      "description": "请求头描述 .",
+      "sourceType": "com.ccic.salessapp.common.springfox.ApiDocProperties"
+    },
+    {
+      "name": "sonic.platform.filter.special-uri",
+      "type": "java.lang.String",
+      "description": "完全不走过滤器的URI(webservice等).",
+      "sourceType": "com.ccic.salessapp.common.core.filter.extend.FilterProperties"
+    },
+    {
+      "name": "sonic.platform.filter.not-decrypt-uri",
+      "type": "java.lang.String",
+      "description": "不需要解密的请求URI.",
+      "sourceType": "com.ccic.salessapp.common.core.filter.extend.FilterProperties"
+    },
+    {
+      "name": "sonic.platform.filter.not-login-uri",
+      "type": "java.lang.String",
+      "description": "不需要登录的请求URI.",
+      "sourceType": "com.ccic.salessapp.common.core.filter.extend.FilterProperties"
+    },
+    {
+      "name": "sonic.platform.filter.not-encrypt-uri",
+      "type": "java.lang.String",
+      "description": "不需要加密返回的请求URI.",
+      "sourceType": "com.ccic.salessapp.common.core.filter.extend.FilterProperties"
+    },
+    {
+      "name": "sonic.platform.filter.decrypt-switch",
+      "type": "java.lang.Boolean",
+      "description": "解密请求报文开关(true:开;false:关).",
+      "defaultValue": false,
+      "sourceType": "com.ccic.salessapp.common.core.filter.extend.FilterProperties"
+    },
+    {
+      "name": "sonic.platform.filter.encrypt-switch",
+      "type": "java.lang.Boolean",
+      "description": "加密返回报文开关(true:开;false:关).",
+      "defaultValue": false,
+      "sourceType": "com.ccic.salessapp.common.core.filter.extend.FilterProperties"
+    },
+    {
+      "name": "sonic.platform.filter.login-switch",
+      "type": "java.lang.Boolean",
+      "description": "登录拦截(token认证)开关(true:开;false:关).",
+      "defaultValue": false,
+      "sourceType": "com.ccic.salessapp.common.core.filter.extend.FilterProperties"
+    },
+    {
+      "name": "sonic.platform.log.path",
+      "type": "java.lang.String",
+      "description": "日志输出默认路径.",
+      "defaultValue": "/deployments/applog",
+      "sourceType": "com.ccic.salessapp.common.core.logger.LogProperties"
+    },
+    {
+      "name": "sonic.platform.log.name",
+      "type": "java.lang.String",
+      "description": "日志输出默认名称.",
+      "defaultValue": "daily.log",
+      "sourceType": "com.ccic.salessapp.common.core.logger.LogProperties"
+    },
+    {
+      "name": "sonic.platform.log.max-history",
+      "type": "java.lang.Integer",
+      "description": "日志历史默认天数.",
+      "defaultValue": 60,
+      "sourceType": "com.ccic.salessapp.common.core.logger.LogProperties"
+    },
+    {
+      "name": "sonic.platform.log.level",
+      "type": "java.lang.String",
+      "description": "日志历史默认天数.",
+      "defaultValue": "INFO",
+      "sourceType": "com.ccic.salessapp.common.core.logger.LogProperties"
+    }
+  ],
+  "hints": []
+}
+

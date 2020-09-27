@@ -1,0 +1,55 @@
+ENV: test
+SERVER_PORT: 8084
+#服务调用超时时间,熔断时间
+TIMEOUT.IN.MILLISECONDS: 120000
+# 注册中心地址
+#EUREKA_SERVER_URL: http://eureka-supsale-uat.caas.ccic-test.com.cn/eureka/
+EUREKA_SERVER_URL: http://127.0.0.1:8099/eureka/
+
+# redis相关配置
+REDIS.PASSWORD: RedisDadi
+REDIS.MASTER: mymaster
+REDIS.NODES: 10.100.172.11:26379,10.100.172.11:26380
+REDIS.MAXACTIVE: 8
+REDIS.MAXIDLE: 8
+REDIS.MINIDLE: 0
+
+# 日志级别配置
+logging:
+  level:
+    com.ccic.salesapp.noncar: debug
+
+#数据库相关配置
+DB.URL: jdbc:mysql://10.1.11.127:3306/salesapp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+DB.USERNAME: salesbusi
+DB.PASSWORD: ccic_1865
+DB.MINIDLE: 5
+DB.MAXACTIVE: 10
+DB.INITIALSIZE: 5
+
+# 过滤器相关配置
+# 请求解密开关
+DECRYPT.SWITCH: false
+# 登录拦截器开关
+LOGIN.SWITCH: false
+# 返回加密开关
+ENCRYPT.SWITCH: false
+# 不解密URI
+NOT.DECRYPT.URI: 
+# 不加密URI
+NOT.ENCRYPT.URI: 
+# 不登录拦截URI
+NOT.LOGIN.URI: 
+
+API.ENABLED: true
+
+
+ESB_HOST: http://10.1.11.116:8080/daditestgroup/ccicsit
+ESB_CONSUMERID: supsale
+ESB_CONSUMERID_PERFORMANCE: icore
+
+
+  
+
+
+

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ccic.salesapp.performance.domain.mapper.PerformanceEmpAsmtInfoDao">
+
+	<select id="get" resultType="com.ccic.salesapp.performance.domain.vo.dto.PerformanceEmpAsmtInfo">
+		select `id`,`emp_no`,`emp_name`,`yearMonth`,`policy_premium_total`,`policy_premium_plan`,`rolling_12ms_std_prem`,`year_total_std_prem_plan`,`created_date`,`update_date` from t_performance_emp_asmt_info where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.ccic.salesapp.performance.domain.vo.dto.PerformanceEmpAsmtInfo">
+		select `id`,`emp_no`,`emp_name`,`yearMonth`,`policy_premium_total`,`policy_premium_plan`,`rolling_12ms_std_prem`,`year_total_std_prem_plan`,`created_date`,`update_date` from t_performance_emp_asmt_info
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="empNo != null and empNo != ''"> and emp_no = #{empNo} </if>
+		  		  <if test="empName != null and empName != ''"> and emp_name = #{empName} </if>
+		  		  <if test="yearmonth != null and yearmonth != ''"> and yearMonth = #{yearmonth} </if>
+		  		  <if test="policyPremiumTotal != null and policyPremiumTotal != ''"> and policy_premium_total = #{policyPremiumTotal} </if>
+		  		  <if test="policyPremiumPlan != null and policyPremiumPlan != ''"> and policy_premium_plan = #{policyPremiumPlan} </if>
+		  		  <if test="rolling12msStdPrem != null and rolling12msStdPrem != ''"> and rolling_12ms_std_prem = #{rolling12msStdPrem} </if>
+		  		  <if test="yearTotalStdPremPlan != null and yearTotalStdPremPlan != ''"> and year_total_std_prem_plan = #{yearTotalStdPremPlan} </if>
+		  		  <if test="createdDate != null and createdDate != ''"> and created_date = #{createdDate} </if>
+		  		  <if test="updateDate != null and updateDate != ''"> and update_date = #{updateDate} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from t_performance_emp_asmt_info
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="empNo != null and empNo != ''"> and emp_no = #{empNo} </if>
+		  		  <if test="empName != null and empName != ''"> and emp_name = #{empName} </if>
+		  		  <if test="yearmonth != null and yearmonth != ''"> and yearMonth = #{yearmonth} </if>
+		  		  <if test="policyPremiumTotal != null and policyPremiumTotal != ''"> and policy_premium_total = #{policyPremiumTotal} </if>
+		  		  <if test="policyPremiumPlan != null and policyPremiumPlan != ''"> and policy_premium_plan = #{policyPremiumPlan} </if>
+		  		  <if test="rolling12msStdPrem != null and rolling12msStdPrem != ''"> and rolling_12ms_std_prem = #{rolling12msStdPrem} </if>
+		  		  <if test="yearTotalStdPremPlan != null and yearTotalStdPremPlan != ''"> and year_total_std_prem_plan = #{yearTotalStdPremPlan} </if>
+		  		  <if test="createdDate != null and createdDate != ''"> and created_date = #{createdDate} </if>
+		  		  <if test="updateDate != null and updateDate != ''"> and update_date = #{updateDate} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.ccic.salesapp.performance.domain.vo.dto.PerformanceEmpAsmtInfo" useGeneratedKeys="true" keyProperty="id">
+		insert into t_performance_emp_asmt_info
+		(
+			`emp_no`, 
+			`emp_name`, 
+			`yearMonth`, 
+			`policy_premium_total`, 
+			`policy_premium_plan`, 
+			`rolling_12ms_std_prem`, 
+			`year_total_std_prem_plan`, 
+			`created_date`, 
+			`update_date`
+		)
+		values
+		(
+			#{empNo}, 
+			#{empName}, 
+			#{yearmonth}, 
+			#{policyPremiumTotal}, 
+			#{policyPremiumPlan}, 
+			#{rolling12msStdPrem}, 
+			#{yearTotalStdPremPlan}, 
+			#{createdDate}, 
+			#{updateDate}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.ccic.salesapp.performance.domain.vo.dto.PerformanceEmpAsmtInfo">
+		update t_performance_emp_asmt_info 
+		<set>
+			<if test="empNo != null">`emp_no` = #{empNo}, </if>
+			<if test="empName != null">`emp_name` = #{empName}, </if>
+			<if test="yearmonth != null">`yearMonth` = #{yearmonth}, </if>
+			<if test="policyPremiumTotal != null">`policy_premium_total` = #{policyPremiumTotal}, </if>
+			<if test="policyPremiumPlan != null">`policy_premium_plan` = #{policyPremiumPlan}, </if>
+			<if test="rolling12msStdPrem != null">`rolling_12ms_std_prem` = #{rolling12msStdPrem}, </if>
+			<if test="yearTotalStdPremPlan != null">`year_total_std_prem_plan` = #{yearTotalStdPremPlan}, </if>
+			<if test="createdDate != null">`created_date` = #{createdDate}, </if>
+			<if test="updateDate != null">`update_date` = #{updateDate}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from t_performance_emp_asmt_info where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove" >
+		delete from t_performance_emp_asmt_info where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	
+	<select id="selectRankCheck" parameterType="String" resultType="com.ccic.salesapp.performance.domain.vo.response.CheckRankResponse">
+		select 
+			current_rank_policy_premium_plan keepStandard, 
+			rolling_12ms_grade_prem `real`
+			,high_rank_policy_premium_plan promotionStandard ,
+			rolling_12ms_grade_prem promotionReal,
+			<!-- person.comcode,
+			area.area,
+			price.price, -->
+			round((current_rank_policy_premium_plan - rolling_12ms_grade_prem)/price.price,2)  num,
+			round(((current_rank_policy_premium_plan - rolling_12ms_grade_prem)/price.price)/abs(datediff(now(),  LAST_DAY(now()))),2) perDayNum
+		from t_performance_emp_asmt_info asmt
+		left join t_performance_databus_salelaw_person person on asmt.emp_no = person.usercode
+		left join t_company_area area on person.comcode = area.com_code
+		left join t_performance_dept_price price on price.area = area.area
+		where asmt.emp_no = #{userCode} and asmt.yearMonth in (
+		select max(yearMonth) yearMonth from t_performance_emp_asmt_info 
+		where emp_no = #{userCode}
+		)
+	</select>
+
+</mapper>

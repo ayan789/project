@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="" >
+  
+  <statement id="synchronizeData">
+  		INSERT INTO t_app_agent_PREMIUM
+	        (REPORTDATE,
+	         COMCODE,
+	         AGENTCODE,
+	         CLASSNAME,
+	         REALPREMIUM_D,
+	         REALPREMIUM_M,
+	         REALPREMIUM_Y,
+	         HANDLER1CODE)
+	     SELECT
+	         REPORTDATE,
+	         COMCODE,
+	         AGENTCODE,
+	         CLASSNAME,
+	         REALPREMIUM_D,
+	         REALPREMIUM_M,
+	         REALPREMIUM_Y,
+	         HANDLER1CODE
+	     FROM MISSEND.DA_UW_REALPREMIUM
+  </statement>
+  
+  <!-- &#36710;&#38505;代表汉字车险的意思 防止sql乱码 通过StringEscapeUtils.escapeXml("")转码而来 -->
+  <select id="selectByYesterday" resultClass="com.estar.app.chinare.sell.domain.AgentPremium"  parameterClass="java.util.HashMap">
+	    SELECT SUM(NVL(T.REALPREMIUM_D,0)) total,
+	           SUM(CASE WHEN CLASSNAME='&#36710;&#38505;' THEN NVL(T.REALPREMIUM_D,0) ELSE 0 END) cx,
+	           SUM(CASE WHEN CLASSNAME='&#38750;&#36710;&#38505;' THEN NVL(T.REALPREMIUM_D,0) ELSE 0 END) fcx,
+	           SUM(CASE WHEN CLASSNAME='&#24847;&#22806;&#38505;' THEN NVL(T.REALPREMIUM_D,0) ELSE 0 END) ywx,
+			   SUM(CASE WHEN CLASSNAME='&#20581;&#24247;&#38505;' THEN NVL(T.REALPREMIUM_D,0) ELSE 0 END) jkx
+		FROM t_app_agent_PREMIUM T
+		WHERE T.AGENTCODE=#agentCode#
+		AND T.REPORTDATE = TO_CHAR(SYSDATE-1,'YYYYMMDD')
+		<isNotEmpty  property="handler1Code">
+		       AND T.HANDLER1CODE=#handler1Code#
+		</isNotEmpty>
+   </select>
+   
+   <select id="selectByMonth" resultClass="com.estar.app.chinare.sell.domain.AgentPremium"  parameterClass="java.util.HashMap">
+	    SELECT SUM(NVL(T.REALPREMIUM_M,0)) TOTAL,
+	           SUM(CASE WHEN CLASSNAME='&#36710;&#38505;' THEN NVL(T.REALPREMIUM_M,0) ELSE 0 END) CX,
+	           SUM(CASE WHEN CLASSNAME='&#38750;&#36710;&#38505;' THEN NVL(T.REALPREMIUM_M,0) ELSE 0 END) FCX,
+	           SUM(CASE WHEN CLASSNAME='&#24847;&#22806;&#38505;' THEN NVL(T.REALPREMIUM_M,0) ELSE 0 END) YWX,
+	           SUM(CASE WHEN CLASSNAME='&#20581;&#24247;&#38505;' THEN NVL(T.REALPREMIUM_M,0) ELSE 0 END) JKX
+	    FROM t_app_agent_PREMIUM T
+	    WHERE T.REPORTDATE = (SELECT MAX(S.REPORTDATE) FROM t_app_agent_PREMIUM S 
+	                       	  WHERE S.REPORTDATE <![CDATA[>=]]> #month# || '01'
+	                       	  AND S.REPORTDATE <![CDATA[<=]]> #month# || '31'
+	                       	  AND S.REPORTDATE <![CDATA[<=]]> TO_CHAR(SYSDATE-1,'YYYYMMDD')
+	                       	  <isNotEmpty  property="handler1Code">
+							       	AND S.HANDLER1CODE=T.HANDLER1CODE
+							  </isNotEmpty>
+	                       	  AND S.AGENTCODE=T.AGENTCODE)
+	    AND T.AGENTCODE=#agentCode#
+	   	<isNotEmpty  property="handler1Code">
+		       AND T.HANDLER1CODE=#handler1Code#
+		</isNotEmpty>
+   </select>
+   
+   <select id="selectByYear" resultClass="com.estar.app.chinare.sell.domain.AgentPremium"  parameterClass="java.util.HashMap">
+	    SELECT SUM(NVL(T.REALPREMIUM_Y,0)) TOTAL,
+	           SUM(CASE WHEN CLASSNAME='&#36710;&#38505;' THEN NVL(T.REALPREMIUM_Y,0) ELSE 0 END) CX,
+	           SUM(CASE WHEN CLASSNAME='&#38750;&#36710;&#38505;' THEN NVL(T.REALPREMIUM_Y,0) ELSE 0 END) FCX,
+	           SUM(CASE WHEN CLASSNAME='&#24847;&#22806;&#38505;' THEN NVL(T.REALPREMIUM_Y,0) ELSE 0 END) YWX,
+	           SUM(CASE WHEN CLASSNAME='&#20581;&#24247;&#38505;' THEN NVL(T.REALPREMIUM_Y,0) ELSE 0 END) JKX
+	    FROM t_app_agent_PREMIUM T
+	    WHERE T.REPORTDATE = (SELECT MAX(S.REPORTDATE) FROM t_app_agent_PREMIUM S 
+	                       	  WHERE S.REPORTDATE <![CDATA[>=]]> TO_CHAR(SYSDATE,'YYYY') || '0101'
+	                       	  AND S.REPORTDATE <![CDATA[<=]]> TO_CHAR(SYSDATE-1,'YYYYMMDD')
+	                       	  <isNotEmpty  property="handler1Code">
+							  		AND S.HANDLER1CODE=T.HANDLER1CODE
+							  </isNotEmpty>
+	                       	  AND S.AGENTCODE=T.AGENTCODE)
+	    AND T.AGENTCODE=#agentCode#
+	    <isNotEmpty  property="handler1Code">
+		       AND T.HANDLER1CODE=#handler1Code#
+		</isNotEmpty>
+   </select>
+</sqlMap>

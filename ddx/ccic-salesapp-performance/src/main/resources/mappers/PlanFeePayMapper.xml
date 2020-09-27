@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ccic.salesapp.performance.repository.basedb.mapper.PlanFeePayMapper">
+
+	<resultMap
+		type="com.ccic.salesapp.performance.domain.vo.dto.PlanFeePay"
+		id="BaseResultMap">
+		<result column="CERTIID_F" property="certiId" />
+		<result column="POLICYNO" property="policyNo" />
+		<result column="CERTINO" property="certiNo" />
+		<result column="AGENTCODE" property="agentCode" />
+		<result column="RISKCNAME" property="riskCName" />
+		<result column="REALPOLIFEE" property="realPoliFee" />
+		<result column="DISRATE" property="disRate" />
+		<result column="PLANFEE" property="planFee" />
+		<result column="INSUREDNAME" property="insuredName" />
+		<result column="ITEMATTRIBUTE" property="itemAttribute" />
+		<result column="WITHDRAWALSFLAG" property="withdrawalsFlag" />
+		<result column="WITHDRAWALSMSG" property="withdrawalsMsg" />
+		<result column="WITHDRAWALSDATE" property="withdrawalsDate" />
+		<result column="PACKNO" property="packNo" />
+		<result column="BRANCHCODE" property="branchCode" />
+		<result column="AGREEMENTNO" property="agreementNo" />
+		<result column="AGENTORIGIN" property="agentOrigin" />
+		<result column="HANDLER1CODE" property="handler1code" />
+		<result column="BILLSTATUS" property="billStatus" />
+		<result column="PACKAGEDATE" property="packageDate" />
+	</resultMap>
+
+	<select id="sumPlanFee" parameterType="java.util.HashMap"
+		resultType="java.lang.Double">
+		select sum(T.PLANFEE) SUMPLANFEE FROM t_performance_commplan T
+		where T.ITEMATTRIBUTE IN ('0','3','6','4')
+		AND T.WITHDRAWALSFLAG ='0'
+		AND (T.PACKNO IS NULL or T.PACKNO='')
+		AND T.AGENTCODE = #{agentCode}
+		<if test="queryFlag == '1'.toString()">
+			AND T.ITEMATTRIBUTE IN ('0','3','6')
+			AND EXISTS (SELECT 1
+			FROM t_performance_branchagent_config B
+			WHERE T.BRANCHCODE = B.BRANCHCODE AND T.AGENTORIGIN = B.AGENTORIGIN AND
+			B.STATUS='1')
+		</if>
+	</select>
+
+	<!-- 经办人登陆 -->
+	<!-- 提现总额 -->
+	<select id="queryBillFeeByUserCode"
+		resultType="com.ccic.salesapp.performance.domain.vo.dto.FeeQueryVO"
+		parameterType="java.util.HashMap">
+		SELECT ifnull(SUM(IFNULL(B.BILLFEE,0)),0) sumBillFee,
+		ifnull(SUM(IFNULL(B.BILLFEE,0)),0)-ifnull(SUM(IFNULL(B.BILLNETFEE,0)),0) sumBillTax,
+		ifnull(SUM(CASE WHEN B.PAYREFFLAG='1' THEN IFNULL(B.BILLNETFEE,0) ELSE 0 END),0)
+		sumAccountFee
+		FROM (SELECT DISTINCT S.BILLNO
+		FROM t_performance_commplan S
+		WHERE AGENTCODE = #{agentCode}
+		AND PACKNO IS NOT NULL
+		<if test="startDay != null ">
+			AND PACKAGEDATE <![CDATA[>=]]>
+			str_to_date(#{startDay},'%Y-%m-%d')
+		</if>
+		<if test="endDay != null ">
+			AND PACKAGEDATE <![CDATA[<]]>
+			DATE_ADD(str_to_date(#{endDay},'%Y-%m-%d'),INTERVAL 1 DAY)
+		</if>
+		) P,t_performance_paymentbill B
+		WHERE P.BILLNO = B.PAYREFNO
+	</select>
+
+	<!-- 个人代理人登陆 -->
+	<!-- 提现总额 -->
+	<select id="queryBillFee"
+		resultType="com.ccic.salesapp.performance.domain.vo.dto.FeeQueryVO"
+		parameterType="java.util.HashMap">
+		SELECT SUM(IFNULL(BILLFEE,0)) sumBillFee,
+		SUM(IFNULL(BILLFEE,0))-SUM(IFNULL(BILLNETFEE,0)) sumBillTax,
+		SUM(CASE WHEN PAYREFFLAG='1' THEN IFNULL(BILLNETFEE,0) ELSE 0 END)
+		sumAccountFee
+		FROM t_performance_paymentbill
+		WHERE AGENTCODE =
+		#{agentCode}
+		AND ITEMSTATUS IN ('1', '2', '3', '4', '5', '6')
+		AND
+		PACKAGEDATE <![CDATA[>=]]>
+		str_to_date(#{startDay},'%Y-%m-%d')
+		AND PACKAGEDATE <![CDATA[<]]>
+		DATE_ADD(str_to_date(#{endDay},'%Y-%m-%d'),INTERVAL 1 DAY)
+
+	</select>
+
+	<select id="listByAgentCode" resultMap="BaseResultMap"
+		parameterType="com.ccic.salesapp.performance.domain.vo.request.FeeVo">
+		SELECT * from (
+		SELECT * FROM (
+		SELECT T.CERTIID CERTIID_F,T.* FROM t_performance_commplan T
+		where T.ITEMATTRIBUTE IN ('0','3','6')
+		AND T.WITHDRAWALSFLAG ='0'
+		AND (T.PACKNO IS NULL or T.PACKNO='')
+		AND T.AGENTCODE = #{agentCode}
+		AND T.PLANFEE<![CDATA[<]]>0
+		AND EXISTS (SELECT 1 FROM t_performance_branchagent_config B
+		WHERE T.BRANCHCODE = B.BRANCHCODE AND T.AGENTORIGIN = B.AGENTORIGIN AND
+		B.STATUS='1')ORDER BY T.CERTIID) t
+		UNION ALL
+		SELECT * FROM (
+		SELECT T.CERTIID CERTIID_F,T.* FROM t_performance_commplan T
+		where T.ITEMATTRIBUTE IN ('0','3','6')
+		AND T.WITHDRAWALSFLAG ='0'
+		AND (T.PACKNO IS NULL or T.PACKNO='')
+		AND T.AGENTCODE = #{agentCode}
+		AND T.PLANFEE<![CDATA[>]]>0
+		AND EXISTS (SELECT 1 FROM t_performance_branchagent_config B
+		WHERE T.BRANCHCODE = B.BRANCHCODE AND T.AGENTORIGIN = B.AGENTORIGIN AND
+		B.STATUS='1')ORDER BY T.CERTIID) t
+		UNION ALL
+		SELECT * FROM (
+		SELECT '' CERTIID_F,T.* FROM t_performance_commplan T
+		where T.ITEMATTRIBUTE IN ('0','3','6')
+		AND T.WITHDRAWALSFLAG ='0'
+		AND (T.PACKNO IS NULL or T.PACKNO='')
+		AND T.AGENTCODE = #{agentCode}
+		AND T.PLANFEE<![CDATA[<>]]>0
+		AND NOT EXISTS (SELECT 1 FROM t_performance_branchagent_config B
+		WHERE T.BRANCHCODE = B.BRANCHCODE AND T.AGENTORIGIN = B.AGENTORIGIN AND
+		B.STATUS='1')ORDER BY T.CERTIID) t
+		UNION ALL
+		SELECT * FROM (
+		SELECT '' CERTIID_F,T.* FROM t_performance_commplan T
+		where T.ITEMATTRIBUTE = '4'
+		AND T.WITHDRAWALSFLAG ='0'
+		AND (T.PACKNO IS NULL or T.PACKNO='')
+		AND T.AGENTCODE = #{agentCode}
+		AND T.PLANFEE<![CDATA[<>]]>0
+		ORDER BY T.CERTIID) t ) t
+		<if test="start != null and pageSize != null">
+			limit #{start}, #{pageSize}
+		</if>
+	</select>
+	
+	<select id="agentFee" resultType="java.lang.Double"
+		parameterType="com.ccic.salesapp.performance.domain.vo.request.FeeVo">
+		SELECT IFNULL(sum(t.PLANFEE),0) from (
+				SELECT * FROM (
+				SELECT T.CERTIID CERTIID_F,T.* FROM t_performance_commplan T
+				where T.ITEMATTRIBUTE IN ('0','3','6')
+				AND T.WITHDRAWALSFLAG ='0'
+				AND (T.PACKNO IS NULL or T.PACKNO='')
+				AND T.AGENTCODE = #{agentCode}
+				AND T.PLANFEE<![CDATA[<]]>0
+				AND EXISTS (SELECT 1 FROM t_performance_branchagent_config B
+				WHERE T.BRANCHCODE = B.BRANCHCODE AND T.AGENTORIGIN = B.AGENTORIGIN AND
+				B.STATUS='1')ORDER BY T.CERTIID) t
+				UNION ALL
+				SELECT * FROM (
+				SELECT T.CERTIID CERTIID_F,T.* FROM t_performance_commplan T
+				where T.ITEMATTRIBUTE IN ('0','3','6')
+				AND T.WITHDRAWALSFLAG ='0'
+				AND (T.PACKNO IS NULL or T.PACKNO='')
+				AND T.AGENTCODE = #{agentCode}
+				AND T.PLANFEE<![CDATA[>]]>0
+				AND EXISTS (SELECT 1 FROM t_performance_branchagent_config B
+				WHERE T.BRANCHCODE = B.BRANCHCODE AND T.AGENTORIGIN = B.AGENTORIGIN AND
+				B.STATUS='1')ORDER BY T.CERTIID) t
+				UNION ALL
+				SELECT * FROM (
+				SELECT '' CERTIID_F,T.* FROM t_performance_commplan T
+				where T.ITEMATTRIBUTE IN ('0','3','6')
+				AND T.WITHDRAWALSFLAG ='0'
+				AND (T.PACKNO IS NULL or T.PACKNO='')
+				AND T.AGENTCODE = #{agentCode}
+				AND T.PLANFEE<![CDATA[<>]]>0
+				AND NOT EXISTS (SELECT 1 FROM t_performance_branchagent_config B
+				WHERE T.BRANCHCODE = B.BRANCHCODE AND T.AGENTORIGIN = B.AGENTORIGIN AND
+				B.STATUS='1')ORDER BY T.CERTIID) t
+		) t
+	</select>
+	
+	<update id="toUpdate"
+		parameterType="com.ccic.salesapp.performance.domain.vo.dto.PlanFeePay">
+		update t_performance_commplan set
+		<if test="withdrawalsMsg != null">
+			WITHDRAWALSMSG=#{withdrawalsMsg},
+		</if>
+		<if test="withdrawalsFlag != null">
+			WITHDRAWALSFLAG=#{withdrawalsFlag}
+		</if>
+		where CERTIID = #{certiId} and AGENTCODE=#{agentCode}
+	</update>
+
+	<resultMap
+		type="com.ccic.salesapp.performance.domain.vo.dto.PackNoVO"
+		id="BaseResultMap_PackVO">
+		<result column="PACKAGEDATE" property="packageDate" />
+		<result column="PACKNO" property="packNo" />
+		<result column="PACKSUMFEE" property="packSumFee" />
+	</resultMap>
+
+	<select id="queryPackNo" resultMap="BaseResultMap_PackVO"
+		parameterType="java.util.HashMap">
+		SELECT SUM(IFNULL(T.PLANFEE,0)) PACKSUMFEE,T.PACKNO,MIN(T.PACKAGEDATE)
+		PACKAGEDATE
+		FROM t_performance_commplan T
+		WHERE T.AGENTCODE=#{agentCode}
+		<if test="handler1Code != null and handler1Code !=''">
+			AND EXISTS (
+			SELECT 1 FROM t_performance_commplan P
+			WHERE
+			P.AGENTCODE = #{agentCode}
+			AND P.HANDLER1CODE = #{handler1Code}
+			AND
+			P.BILLNO=T.BILLNO
+			)
+		</if>
+		AND T.PACKNO IS NOT NULL
+		AND T.PACKAGEDATE <![CDATA[>=]]>
+		str_to_date(#{startDay},'%Y-%m-%d')
+		AND T.PACKAGEDATE <![CDATA[<]]>
+		DATE_ADD(str_to_date(#{endDay},'%Y-%m-%d'),INTERVAL 1 DAY)
+		GROUP BY
+		T.PACKNO
+		ORDER BY MIN(T.PACKAGEDATE) DESC, T.PACKNO DESC
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+	<select id="queryPackNoNum" resultType="java.lang.Integer"
+		parameterType="java.util.HashMap">
+		select count(*) from (
+		SELECT SUM(IFNULL(T.PLANFEE,0)) PACKSUMFEE,T.PACKNO,MIN(T.PACKAGEDATE)
+		PACKAGEDATE
+		FROM t_performance_commplan T
+		WHERE T.AGENTCODE=#{agentCode}
+		<if test="handler1Code != null and handler1Code !=''">
+			AND EXISTS (
+			SELECT 1 FROM t_performance_commplan P
+			WHERE P.AGENTCODE = #{agentCode}
+			AND P.HANDLER1CODE = #{handler1Code}
+			AND P.BILLNO=T.BILLNO
+			)
+		</if>
+		AND T.PACKNO IS NOT NULL
+		AND T.PACKAGEDATE <![CDATA[>=]]>
+		str_to_date(#{startDay},'%Y-%m-%d')
+		AND T.PACKAGEDATE <![CDATA[<]]>
+		DATE_ADD(str_to_date(#{endDay},'%Y-%m-%d'),INTERVAL 1 DAY)
+		GROUP BY T.PACKNO
+		ORDER BY MIN(T.PACKAGEDATE) DESC, T.PACKNO DESC
+		) t
+	</select>
+
+
+	<select id="queryPolicy" resultMap="BaseResultMap"
+		parameterType="java.util.HashMap">
+		SELECT T.CERTIID CERTIID_F,T.* FROM t_performance_commplan T
+		WHERE
+		T.AGENTCODE=#{agentCode}
+		<if test="handler1Code != null and handler1Code !=''">
+			AND EXISTS (
+			SELECT 1 FROM t_performance_commplan P
+			WHERE
+			P.AGENTCODE = #{agentCode}
+			AND P.HANDLER1CODE = #{handler1Code}
+			AND
+			P.BILLNO=T.BILLNO
+			)
+		</if>
+		AND T.PACKNO IS NOT NULL
+		AND T.PACKNO=#{packNo}
+		ORDER BY T.CERTIID
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+	<select id="queryPolicyNum" resultType="java.lang.Integer"
+		parameterType="java.util.HashMap">
+		select count(1) from (
+		SELECT T.CERTIID CERTIID_F,T.* FROM
+		t_performance_commplan T
+		WHERE T.AGENTCODE=#{agentCode}
+		<if test="handler1Code != null and handler1Code !=''">
+			AND EXISTS (
+			SELECT 1 FROM t_performance_commplan P
+			WHERE
+			P.AGENTCODE = #{agentCode}
+			AND P.HANDLER1CODE = #{handler1Code}
+			AND
+			P.BILLNO=T.BILLNO
+			)
+		</if>
+		AND T.PACKNO IS NOT NULL
+		AND T.PACKNO=#{packNo}
+		ORDER BY T.CERTIID
+		) t
+	</select>
+
+	<insert id="updatePlanFee"
+		parameterType="com.ccic.salesapp.performance.domain.vo.dto.PlanFeePay">
+		<selectKey keyProperty="count" resultType="int"
+			order="BEFORE">
+			select count(*) from t_performance_commplan where CERTIID = #{certiId}
+		</selectKey>
+		<if test="count > 0">
+			update t_performance_commplan s
+			<set>
+				<if test="policyNo!= null">
+					S.POLICYNO = #{policyNo},
+				</if>
+				<if test="certiNo!= null">
+					S.CERTINO = #{certiNo},
+				</if>
+				<if test="agentCode!= null">
+					S.AGENTCODE = #{agentCode},
+				</if>
+				<if test="riskCName!= null">
+					S.RISKCNAME = #{riskCName},
+				</if>
+				<if test="realPoliFee!= null">
+					S.REALPOLIFEE = #{realPoliFee},
+				</if>
+				<if test="disRate!= null">
+					S.DISRATE = #{disRate},
+				</if>
+				<if test="planFee!= null">
+					S.PLANFEE = #{planFee},
+				</if>
+				<if test="insuredName!= null">
+					S.INSUREDNAME = #{insuredName},
+				</if>
+				<if test="itemAttribute!= null">
+					S.ITEMATTRIBUTE = #{itemAttribute},
+				</if>
+				<if test="withdrawalsFlag!= null">
+					S.WITHDRAWALSFLAG = #{withdrawalsFlag},
+				</if>
+				<if test="withdrawalsMsg!= null">
+					S.WITHDRAWALSMSG = #{withdrawalsMsg},
+				</if>
+				<if test="withdrawalsDate!= null">
+					S.WITHDRAWALSDATE = #{withdrawalsDate},
+				</if>
+				<if test="packNo!= null">
+					S.PACKNO = #{packNo},
+				</if>
+
+				S.UPDATEDATE = now(),
+
+				<if test="agreementNo!= null">
+					S.AGREEMENTNO = #{agreementNo},
+				</if>
+				<if test="agentOrigin!= null">
+					S.AGENTORIGIN = #{agentOrigin},
+				</if>
+				<if test="branchCode!= null">
+					S.BRANCHCODE = #{branchCode},
+				</if>
+				<if test="handler1code!= null">
+					S.HANDLER1CODE = #{handler1code},
+				</if>
+				<if test="billStatus!= null">
+					S.BILLSTATUS = #{billStatus},
+				</if>
+				<if test="packageDate!= null">
+					S.PACKAGEDATE = #{packageDate},
+				</if>
+				<if test="certiType!= null">
+
+					S.CERTITYPE = #{certiType},
+				</if>
+				<if test="commisionType!= null">
+					S.COMMISIONTYPE = #{commisionType},
+				</if>
+				<if test="riskCode!= null">
+					S.RISKCODE = #{riskCode},
+				</if>
+				<if test="contractno!= null">
+					S.CONTRACTNO = #{contractno},
+				</if>
+				<if test="appliCode!= null">
+					S.APPLICODE = #{appliCode},
+				</if>
+				<if test="appliName!= null">
+					S.APPLINAME = #{appliName},
+				</if>
+				<if test="insuredCode!= null">
+					S.INSUREDCODE = #{insuredCode},
+				</if>
+				<if test="startDate!= null">
+					S.STARTDATE = #{startDate},
+				</if>
+				<if test="endDate!= null">
+					S.ENDDATE = #{endDate},
+				</if>
+				<if test="underWriteDate!= null">
+					S.UNDERWRITEDATE = #{underWriteDate},
+				</if>
+				<if test="validDate!= null">
+					S.VALIDDATE = #{validDate},
+				</if>
+				<if test="comCode!= null">
+					S.COMCODE = #{comCode},
+				</if>
+				<if test="makeCom!= null">
+					S.MAKECOM = #{makeCom},
+				</if>
+				<if test="agentName!= null">
+					S.AGENTNAME = #{agentName},
+				</if>
+				<if test="handler1Name!= null">
+					S.HANDLER1NAME = #{handler1Name},
+				</if>
+				<if test="handlerCode!= null">
+					S.HANDLERCODE = #{handlerCode},
+				</if>
+				<if test="businessNature!= null">
+					S.BUSINESSNATURE = #{businessNature},
+				</if>
+				<if test="shareholderFlag!= null">
+					S.SHAREHOLDERFLAG = #{shareholderFlag},
+				</if>
+				<if test="carNatureCode!= null">
+					S.CARNATURECODE = #{carNatureCode},
+				</if>
+				<if test="writeOffFlag!= null">
+					S.WRITEOFFFLAG = #{writeOffFlag},
+				</if>
+				<if test="mainPolicyFlag!= null">
+					S.MAINPOLICYFLAG = #{mainPolicyFlag},
+				</if>
+				<if test="maxDisRate!= null">
+					S.MAXDISRATE = #{maxDisRate},
+				</if>
+				<if test="accBookCode!= null">
+					S.ACCBOOKCODE = #{accBookCode},
+				</if>
+				<if test="packFlag!= null">
+					S.PACKFLAG = #{packFlag},
+				</if>
+				<if test="packPrintFee!= null">
+					S.PACKPRINTFEE = #{packPrintFee},
+				</if>
+				<if test="attribute5!= null">
+					S.ATTRIBUTE5 = #{attribute5},
+				</if>
+				<if test="hD1ExhibitionNo!= null">
+					S.HD1EXHIBITIONNO = #{hD1ExhibitionNo},
+				</if>
+				<if test="certifiCateNo!= null">
+					S.CERTIFICATENO = #{certifiCateNo},
+				</if>
+				<if test="proJectSerialNo!= null">
+					S.PROJECTSERIALNO = #{proJectSerialNo},
+				</if>
+				<if test="businessNature2!= null">
+					S.BUSINESSNATURE2 = #{businessNature2},
+				</if>
+				<if test="businessNature2Name!= null">
+					S.BUSINESSNATURE2NAME = #{businessNature2Name},
+				</if>
+				<if test="handler2Code!= null">
+					S.HANDLER2CODE = #{handler2Code},
+				</if>
+				<if test="handler2Name!= null">
+					S.HANDLER2NAME = #{handler2Name},
+				</if>
+				<if test="billNo!= null">
+					S.BILLNO = #{billNo},
+				</if>
+				<if test="reimNo!= null">
+					S.REIMNO = #{reimNo},
+				</if>
+				<if test="payInfoStatus!= null">
+					S.PAYINFOSTATUS = #{payInfoStatus},
+				</if>
+				<if test="callBackFlag!= null">
+					S.CALLBACKFLAG = #{callBackFlag},
+				</if>
+				<if test="needCallBack!= null">
+					S.NEEDCALLBACK = #{needCallBack},
+				</if>
+				<if test="agencyCode!= null">
+					S.AGENCYCODE = #{agencyCode},
+				</if>
+				<if test="realPremium!= null">
+					S.REALPREMIUM = #{realPremium},
+				</if>
+				<if test="auditDate!= null">
+					S.AUDITDATE = #{auditDate},
+				</if>
+				<if test="classCode!= null">
+					S.CLASSCODE = #{classCode}
+				</if>
+			</set>
+			<where>
+				CERTIID = #{certiId}
+			</where>
+		</if>
+		<if test="count==0">
+			insert into t_performance_commplan ( CERTIID,  
+                    POLICYNO,  
+                    CERTINO,  
+                    AGENTCODE,  
+                    RISKCNAME,  
+                    REALPOLIFEE,  
+                    DISRATE,
+                    PLANFEE,
+                    INSUREDNAME,
+                    ITEMATTRIBUTE,
+                    WITHDRAWALSFLAG,
+                    WITHDRAWALSMSG,
+                    WITHDRAWALSDATE,
+                    PACKNO,
+                    UPDATEDATE,
+                    AGREEMENTNO,
+                    AGENTORIGIN,
+                    BRANCHCODE,
+                    HANDLER1CODE,
+                    BILLSTATUS,
+                    PACKAGEDATE,
+					CERTITYPE,
+					COMMISIONTYPE,
+					RISKCODE,
+					CONTRACTNO,
+					APPLICODE,
+					APPLINAME,
+					INSUREDCODE,
+					STARTDATE,
+					ENDDATE,
+					UNDERWRITEDATE,
+					VALIDDATE,
+					COMCODE,
+					MAKECOM,
+					AGENTNAME,
+					HANDLER1NAME,
+					HANDLERCODE,
+					BUSINESSNATURE,
+					SHAREHOLDERFLAG,
+					CARNATURECODE,
+					WRITEOFFFLAG,
+					MAINPOLICYFLAG,
+					MAXDISRATE,
+					ACCBOOKCODE,
+					PACKFLAG,
+					PACKPRINTFEE,
+					ATTRIBUTE5,
+					HD1EXHIBITIONNO,
+					CERTIFICATENO,
+					PROJECTSERIALNO,
+					BUSINESSNATURE2,
+					BUSINESSNATURE2NAME,
+					HANDLER2CODE,
+					HANDLER2NAME,
+					BILLNO,
+					REIMNO,
+					PAYINFOSTATUS,
+					CALLBACKFLAG,
+					NEEDCALLBACK,
+					AGENCYCODE,
+					REALPREMIUM,
+					AUDITDATE,
+					CLASSCODE) 
+           VALUES( #{certiId},  
+                   #{policyNo},   
+                   #{certiNo},  
+                   #{agentCode},  
+                   #{riskCName},   
+                   #{realPoliFee},  
+                   #{disRate},
+                   #{planFee},
+                   #{insuredName},
+                   #{itemAttribute},
+                   #{withdrawalsFlag},
+                   #{withdrawalsMsg},
+                   #{withdrawalsDate},
+                   #{packNo},
+                   now(),
+                   #{agreementNo},
+                   #{agentOrigin},
+                   #{branchCode},
+                   #{handler1code},
+                   #{billStatus},
+                   #{packageDate},
+                   #{certiType},
+               	   #{commisionType},
+               	   #{riskCode},
+               	   #{contractno},
+               	   #{appliCode},
+               	   #{appliName},
+               	   #{insuredCode},
+               	   #{startDate},
+               	   #{endDate},
+               	   #{underWriteDate},
+               	   #{validDate},
+               	   #{comCode},
+               	   #{makeCom},
+               	   #{agentName},
+               	   #{handler1Name},
+               	   #{handlerCode},
+               	   #{businessNature},
+               	   #{shareholderFlag},
+               	   #{carNatureCode},
+               	   #{writeOffFlag},
+               	   #{mainPolicyFlag},
+               	   #{maxDisRate},
+               	   #{accBookCode},
+               	   #{packFlag},
+               	   #{packPrintFee},
+               	   #{attribute5},
+               	   #{hD1ExhibitionNo},
+               	   #{certifiCateNo},
+               	   #{proJectSerialNo},
+               	   #{businessNature2},
+               	   #{businessNature2Name},
+               	   #{handler2Code},
+               	   #{handler2Name},
+               	   #{billNo},
+               	   #{reimNo},
+               	   #{payInfoStatus},
+               	   #{callBackFlag},
+               	   #{needCallBack},
+               	   #{agencyCode},
+               	   #{realPremium},
+               	   #{auditDate},
+               	   #{classCode})   
+		</if>
+
+	</insert>
+
+
+</mapper>

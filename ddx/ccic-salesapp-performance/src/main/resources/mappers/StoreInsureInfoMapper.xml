@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.performance.domain.mapper.StoreInsureInfoMapper">
+
+	<resultMap type="com.ccic.salesapp.performance.domain.vo.dto.StoreInsureInfo" id="BaseResultMap">
+	    <result column="ID"               property="id" />
+	    <result column="INSURE_NO"        property="insureNo" />
+	    <result column="POLICY_NO"        property="policyNo" />
+	    <result column="INSURANCE_CODE"   property="insuranceCode" />
+	    <result column="INSURANCE_NAME"   property="insuranceName" />
+	    <result column="CREATE_DATE"      property="createDate" />
+	    <result column="START_DATE"       property="startDate" />
+	    <result column="END_DATE"         property="endDate" />
+	    <result column="START_TIME"       property="startTime" />
+	    <result column="END_TIME"         property="endTime" />
+	    <result column="INSURANCE_PERIOD" property="insurancePeriod" />
+	    <result column="UNDERWRITE_DATE"  property="underwriteDate" />
+	    <result column="SUMPREMIUM"       property="sumPremium" />
+	    <result column="SUMAMOUNT"        property="sumAmount" />
+	    <result column="BUSINESS_TYPE"    property="businessType" />
+	    <result column="STATUS"           property="status" />
+	    <result column="USER_ID"          property="userId" />
+	    <result column="INSURANCE_COUNT"  property="insuranceCount" />
+	    <result column="LICENSE_PLATE_NO" property="licensePlateNo" />
+	    <result column="COM_CODE"         property="comCode" />
+	    <result column="HANDLER_CODE"     property="handlerCode" />
+	    <result column="OPERATOR_CODE"    property="operatorCode" />
+	    <result column="OPERATOR_NAME"    property="operatorName" />
+	    <result column="PAYAPPLY_NO"      property="payApplyNo" />
+	    <result column="IDENTITY_CODE"    property="identityCode" />
+	    <result column="APPLICANT_NAME"   property="applicantName" />
+	    <result column="APPLI_IDENTIFY"   property="appliIdentify" />
+	    <result column="APPLIIDENTIFY_TYPE"   property="appliIdentifyType" />
+	    <result column="INSURED_NAME"     property="insuredName" />
+	    <result column="INSURED_IDENTIFY" property="insuredIdentify" />
+	    <result column="INSUREDIDENTIFY_TYPE"   property="insuredIdentifyType" />
+	    <result column="BIRTH_DATE"       property="birthDate" />
+	    <result column="MOBILE_NO"        property="mobileNo" />
+	    <result column="ADDRESS"          property="address" />
+	    <result column="EMAIL"            property="email" />
+	    <result column="FORMULA_CODE"     property="formulaCode" />
+	    <result column="FORMULA_NAME"     property="formulaName" />
+	    <result column="RELATE_INSURED"   property="relateInsured" />
+	    <result column="IMEI"             property="imei" />
+	    <result column="AGENT_CODE"       property="agentCode" />
+	    <result column="AGREEMENT_NO"     property="agreementNo" />
+	    <result column="AGREEMENT_NAME"   property="agreementName" />
+	    <result column="INSURANCE_TYPE"   property="insuranceType" />
+	    <result column="HANDLER_CODE2"   property="handlerCode2" />
+	    <result column="ISRUNAPP"   property="isRunApp" />
+	    <result column="PRODUCT_CODE" property="productCode" />
+	    <result column="IS_OPENAIR" property="isOpenair" />
+	    <result column="SHOW_NO" property="showNo" />
+	    <result column="SHOW_NAME" property="showName" />
+	    <result column="PROVINCE_CODE" property="provinceCode" />
+	    <result column="PREFECTURE_CODE" property="prefectureCode" />
+	    <result column="COUNTY_CODE" property="countyCode" />
+	    <result column="SIGNSTATUS" property="signStatus" />
+	    <result column="IMGID" property="imgId" />
+	    <result column="ADDITIONALCODE" property="additionalCode" />
+	    <result column="PLATFORM_FLAG" property="platformFlag" />
+	    <result column="NCL_USER_CODE" property="nclUserCode" />
+	    <result column="PRODUCT_NAME" property="productName" />
+	    <result column="EXHIBITION_AREA" property="exhibitionArea" />
+	    <result column="INSURED_MOBILE" property="insuredMobile" />
+	    <result column="ASSOCIATED_INSURE_ID" property="associatedInsureID" />
+	  </resultMap>
+		
+		<select id="selectBySureInfoNo" resultMap="BaseResultMap" parameterType="com.ccic.salesapp.performance.domain.vo.dto.ApplyPayVo">
+		  	select S.*,
+		  	(SELECT P.PRODUCT_NAME FROM T_APP_S_STORE_PRODUCT P WHERE P.PRODUCT_CODE=S.PRODUCT_CODE limit 1) PRODUCT_NAME
+		  	from T_APP_S_STORE_INSUREINFO S where INSURE_NO=#{insureNo}
+		 </select>
+		 
+		 <update id="updateInsureInfoById"  parameterType="java.util.Map">
+		 	update T_APP_S_STORE_INSUREINFO set  STATUS='4' where  ID=#{id}
+		 </update>
+		 
+		 <update id="doUpdate" parameterType="com.ccic.salesapp.performance.domain.vo.dto.StoreInsureInfo">
+		  	update T_APP_S_STORE_INSUREINFO 
+		  	set INSURE_NO=#{insureNo}, 
+			POLICY_NO=#{policyNo},
+			INSURANCE_CODE=#{insuranceCode},
+			INSURANCE_NAME=#{insuranceName},
+			CREATE_DATE=#{createDate},
+			START_DATE=#{startDate},
+			END_DATE=#{endDate},
+			START_TIME=#{startTime},
+			END_TIME=#{endTime},
+			INSURANCE_PERIOD=#{insurancePeriod},
+			UNDERWRITE_DATE=#{underwriteDate},
+			SUMPREMIUM=#{sumPremium},
+			SUMAMOUNT=#{sumAmount},
+			BUSINESS_TYPE=#{businessType},
+			STATUS=#{status},
+			USER_ID=#{userId},
+			INSURANCE_COUNT=#{insuranceCount},
+			LICENSE_PLATE_NO=#{licensePlateNo},
+			COM_CODE=#{comCode},
+			HANDLER_CODE=#{handlerCode},
+			OPERATOR_CODE=#{operatorCode},
+			OPERATOR_NAME=#{operatorName},
+			PAYAPPLY_NO=#{payApplyNo},
+			IDENTITY_CODE=#{identityCode},
+			APPLICANT_NAME=#{applicantName},
+			APPLI_IDENTIFY=#{appliIdentify},
+			INSURED_NAME=#{insuredName},
+			INSURED_IDENTIFY=#{insuredIdentify},
+			BIRTH_DATE=#{birthDate},
+			MOBILE_NO=#{mobileNo},
+			ADDRESS=#{address},
+			EMAIL=#{email},
+			FORMULA_CODE=#{formulaCode},
+			FORMULA_NAME=#{formulaName},
+			RELATE_INSURED=#{relateInsured},
+			IMEI=#{imei},
+			AGENT_CODE=#{agentCode},
+			AGREEMENT_NO=#{agreementNo},
+			AGREEMENT_NAME=#{agreementName},
+			INSURANCE_TYPE=#{insuranceType},
+			HANDLER_CODE2=#{handlerCode2},
+			ISRUNAPP=#{isRunApp}
+		  	where INSURE_NO = #{insureNo}
+		  </update>
+		  
+		 <update id="upPolicyNoInfo"  parameterType="java.util.Map">
+		 update T_APP_S_STORE_INSUREINFO set  POLICY_NO=#{policyNo}, STATUS='7' where  INSURE_NO=#{insureNo}
+		 </update>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.PupilNameMapper">
+	<resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.dto.PupilName" >
+		<result column="ID" property="id" />
+		<result column="INSUREINFO_ID" property="insureinfoId"/>
+		<result column="PUPILNAME" property="pupilName"/>
+	</resultMap>
+
+
+	<insert id="insert" parameterType="com.ccic.salesapp.noncar.dto.PupilName" >
+    insert into T_APP_S_STORE_PUPILNAME (
+    	ID,
+    	INSUREINFO_ID,
+    	PUPILNAME,
+    	CREATE_DATE)
+    values (SEQ_APP_S_STORE_PUPILNAME_ID.NEXTVAL, #{insureinfoId}, #{pupilName},sysdate)
+  </insert>
+
+	<select id="doSelect" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    	SELECT * FROM t_noncar_pupilname WHERE INSUREINFO_ID = #{insureInfoId}
+  </select>
+</mapper>

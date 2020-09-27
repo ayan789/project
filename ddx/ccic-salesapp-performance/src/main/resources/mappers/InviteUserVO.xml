@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="InviteUserVO" >
+   <resultMap id="BaseResultMap" class="com.ccic.salesapp.performance.domain.vo.dto.InviteUserVO" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USERCODE" property="usercode" jdbcType="VARCHAR" />
+    <result column="PCODE" property="pcode" jdbcType="VARCHAR" />
+    <result column="QUALIFICATIONS_CODE" property="qualificationsCode" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="CARDID" property="cardid" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="PROVINCECODE" property="provincecode" jdbcType="VARCHAR" />
+    <result column="PREFECTURECODE" property="prefecturecode" jdbcType="VARCHAR" />
+    <result column="COUNTYCODE" property="countycode" jdbcType="VARCHAR" />
+    <result column="COMCODE" property="comcode" jdbcType="VARCHAR" />
+    <result column="ADDRESSNAME" property="addressname" jdbcType="VARCHAR" />
+    <result column="EXAM_SCORE" property="examScore" jdbcType="VARCHAR" />
+    <result column="EXAM_DATE" property="examDate" jdbcType="TIMESTAMP" />
+    <result column="EXAM_STATE" property="examState" jdbcType="VARCHAR" />
+    <result column="EXAMINE_STATE" property="examineState" jdbcType="VARCHAR" />
+    <result column="EXAMINE_RESULT" property="examineResult" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USERCODE, PCODE, QUALIFICATIONS_CODE, USER_NAME, CARDID, MOBILE, 
+    PROVINCECODE, PREFECTURECODE, COUNTYCODE, COMCODE, ADDRESSNAME, EXAM_SCORE, EXAM_DATE, 
+    EXAM_STATE, EXAMINE_STATE, EXAMINE_RESULT, CREATE_DATE, UPDATE_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterClass="com.ccic.salesapp.performance.domain.vo.dto.InviteUserVO" >
+    select 
+    <include refid="InviteUserVO.Base_Column_List" />
+    from t_app_invite_agent
+    where ID = #id:VARCHAR#
+  </select>
+  <delete id="deleteByPrimaryKey" parameterClass="com.ccic.salesapp.performance.domain.vo.dto.InviteUserVO" >
+    delete from t_app_invite_agent
+    where ID = #id:VARCHAR#
+  </delete>
+  <insert id="insert" parameterClass="com.ccic.salesapp.performance.domain.vo.dto.InviteUserVO" >
+    insert into t_app_invite_agent (ID, USERCODE,  PCODE, 
+      QUALIFICATIONS_CODE, USER_NAME, CARDID, MOBILE, 
+      PROVINCECODE, PREFECTURECODE, COUNTYCODE, COMCODE, 
+      ADDRESSNAME, EXAM_SCORE, EXAM_DATE, EXAM_STATE, 
+      EXAMINE_STATE, EXAMINE_RESULT, CREATE_DATE, UPDATE_DATE
+      )
+    values (#id:VARCHAR#, #usercode:VARCHAR#, #pcode:VARCHAR#, 
+      #qualificationsCode:VARCHAR#, #userName:VARCHAR#, #cardid:VARCHAR#, #mobile:VARCHAR#, 
+      #provincecode:VARCHAR#, #prefecturecode:VARCHAR#, #countycode:VARCHAR#, #comcode:VARCHAR#, 
+      #addressname:VARCHAR#, #examScore:VARCHAR#, #examDate:TIMESTAMP#, #examState:VARCHAR#, 
+      #examineState:VARCHAR#, #examineResult:VARCHAR#, #createDate:TIMESTAMP#, #updateDate:TIMESTAMP#
+      )
+  </insert>
+  <insert id="insertSelective" parameterClass="com.ccic.salesapp.performance.domain.vo.dto.InviteUserVO" >
+    insert into t_app_invite_agent
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="id" >
+        ID
+      </isNotNull>
+      <isNotNull prepend="," property="usercode" >
+        USERCODE
+      </isNotNull>
+      <isNotNull prepend="," property="pcode" >
+        PCODE
+      </isNotNull>
+      <isNotNull prepend="," property="qualificationsCode" >
+        QUALIFICATIONS_CODE
+      </isNotNull>
+      <isNotNull prepend="," property="userName" >
+        USER_NAME
+      </isNotNull>
+      <isNotNull prepend="," property="cardid" >
+        CARDID
+      </isNotNull>
+      <isNotNull prepend="," property="mobile" >
+        MOBILE
+      </isNotNull>
+      <isNotNull prepend="," property="provincecode" >
+        PROVINCECODE
+      </isNotNull>
+      <isNotNull prepend="," property="prefecturecode" >
+        PREFECTURECODE
+      </isNotNull>
+      <isNotNull prepend="," property="countycode" >
+        COUNTYCODE
+      </isNotNull>
+      <isNotNull prepend="," property="comcode" >
+        COMCODE
+      </isNotNull>
+      <isNotNull prepend="," property="addressname" >
+        ADDRESSNAME
+      </isNotNull>
+      <isNotNull prepend="," property="examScore" >
+        EXAM_SCORE
+      </isNotNull>
+      <isNotNull prepend="," property="examDate" >
+        EXAM_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="examState" >
+        EXAM_STATE
+      </isNotNull>
+      <isNotNull prepend="," property="examineState" >
+        EXAMINE_STATE
+      </isNotNull>
+      <isNotNull prepend="," property="examineResult" >
+        EXAMINE_RESULT
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE
+      </isNotNull>
+      <isNotNull prepend="," property="updateDate" >
+        UPDATE_DATE
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="id" >
+        #id:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="usercode" >
+        #usercode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="inviteUsercode" >
+        #inviteUsercode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="pcode" >
+        #pcode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="qualificationsCode" >
+        #qualificationsCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="userName" >
+        #userName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="cardid" >
+        #cardid:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="mobile" >
+        #mobile:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="provincecode" >
+        #provincecode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="prefecturecode" >
+        #prefecturecode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="countycode" >
+        #countycode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="comcode" >
+        #comcode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="addressname" >
+        #addressname:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="examScore" >
+        #examScore:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="examDate" >
+        #examDate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="examState" >
+        #examState:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="examineState" >
+        #examineState:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="examineResult" >
+        #examineResult:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        #createDate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="updateDate" >
+        #updateDate:TIMESTAMP#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterClass="com.ccic.salesapp.performance.domain.vo.dto.InviteUserVO" >
+    update t_app_invite_agent
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="usercode" >
+        USERCODE = #usercode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="pcode" >
+        PCODE = #pcode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="qualificationsCode" >
+        QUALIFICATIONS_CODE = #qualificationsCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="userName" >
+        USER_NAME = #userName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="cardid" >
+        CARDID = #cardid:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="mobile" >
+        MOBILE = #mobile:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="provincecode" >
+        PROVINCECODE = #provincecode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="prefecturecode" >
+        PREFECTURECODE = #prefecturecode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="countycode" >
+        COUNTYCODE = #countycode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="comcode" >
+        COMCODE = #comcode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="addressname" >
+        ADDRESSNAME = #addressname:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="examScore" >
+        EXAM_SCORE = #examScore:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="examDate" >
+        EXAM_DATE = #examDate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="examState" >
+        EXAM_STATE = #examState:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="examineState" >
+        EXAMINE_STATE = #examineState:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="examineResult" >
+        EXAMINE_RESULT = #examineResult:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE = #createDate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="updateDate" >
+        UPDATE_DATE = #updateDate:TIMESTAMP#
+      </isNotNull>
+    </dynamic>
+    where ID = #id:VARCHAR#
+  </update>
+  <update id="updateByPrimaryKey" parameterClass="com.ccic.salesapp.performance.domain.vo.dto.InviteUserVO" >
+    update t_app_invite_agent
+    set USERCODE = #usercode:VARCHAR#,
+      PCODE = #pcode:VARCHAR#,
+      QUALIFICATIONS_CODE = #qualificationsCode:VARCHAR#,
+      USER_NAME = #userName:VARCHAR#,
+      CARDID = #cardid:VARCHAR#,
+      MOBILE = #mobile:VARCHAR#,
+      PROVINCECODE = #provincecode:VARCHAR#,
+      PREFECTURECODE = #prefecturecode:VARCHAR#,
+      COUNTYCODE = #countycode:VARCHAR#,
+      COMCODE = #comcode:VARCHAR#,
+      ADDRESSNAME = #addressname:VARCHAR#,
+      EXAM_SCORE = #examScore:VARCHAR#,
+      EXAM_DATE = #examDate:TIMESTAMP#,
+      EXAM_STATE = #examState:VARCHAR#,
+      EXAMINE_STATE = #examineState:VARCHAR#,
+      EXAMINE_RESULT = #examineResult:VARCHAR#,
+      CREATE_DATE = #createDate:TIMESTAMP#,
+      UPDATE_DATE = #updateDate:TIMESTAMP#
+    where ID = #id:VARCHAR#
+  </update>
+  <select id="selectBycardId" resultMap="BaseResultMap" parameterClass="java.lang.String" >
+    select 
+    <include refid="InviteUserVO.Base_Column_List" />
+    from t_app_invite_agent
+    where cardid = #cardid:VARCHAR#
+  </select>
+  <select id="selectByInviteUsercode" resultMap="BaseResultMap" parameterClass="java.lang.String" >
+<!-- 	SELECT <include refid="InviteUserVO.Base_Column_List" /> FROM   -->
+<!-- 	(   -->
+<!-- 	SELECT A.<include refid="InviteUserVO.Base_Column_List" />, ROWNUM RN   -->
+<!-- 	FROM (SELECT * FROM t_app_invite_agent ) A   -->
+<!-- 	WHERE ROWNUM <![CDATA[<=]]> #pageSize#   -->
+<!-- 	)   -->
+<!-- 	WHERE RN <![CDATA[>=]]> #page#  -->
+    select 
+    <include refid="InviteUserVO.Base_Column_List" />
+    from t_app_invite_agent
+    where userCode = #userCode:VARCHAR# order by CREATE_DATE desc
+  </select>
+</sqlMap>

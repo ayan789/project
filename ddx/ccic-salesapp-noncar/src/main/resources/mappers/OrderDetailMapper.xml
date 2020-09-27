@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.OrderDetailMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.basedb.po.OrderDetail">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="group_id" jdbcType="BIGINT" property="groupId" />
+    <result column="group_code" jdbcType="VARCHAR" property="groupCode" />
+    <result column="element_id" jdbcType="BIGINT" property="elementId" />
+    <result column="label" jdbcType="VARCHAR" property="label" />
+    <result column="array_index" jdbcType="INTEGER" property="arrayIndex" />
+    <result column="element_value" jdbcType="VARCHAR" property="elementValue" />
+    <result column="display_value" jdbcType="VARCHAR" property="displayValue" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    
+    <result column="name" jdbcType="VARCHAR" property="groupName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_id, group_id, group_code, element_id, label, array_index, element_value, 
+    display_value, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_noncar_order_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_noncar_order_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.OrderDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_noncar_order_detail (order_id, group_id, group_code, 
+      element_id, label, array_index, 
+      element_value, display_value, create_time, 
+      create_user, update_time, update_user
+      )
+    values (#{orderId,jdbcType=BIGINT}, #{groupId,jdbcType=BIGINT}, #{groupCode,jdbcType=VARCHAR}, 
+      #{elementId,jdbcType=BIGINT}, #{label,jdbcType=VARCHAR}, #{arrayIndex,jdbcType=INTEGER}, 
+      #{elementValue,jdbcType=VARCHAR}, #{displayValue,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.OrderDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_noncar_order_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="groupId != null">
+        group_id,
+      </if>
+      <if test="groupCode != null">
+        group_code,
+      </if>
+      <if test="elementId != null">
+        element_id,
+      </if>
+      <if test="label != null">
+        label,
+      </if>
+      <if test="arrayIndex != null">
+        array_index,
+      </if>
+      <if test="elementValue != null">
+        element_value,
+      </if>
+      <if test="displayValue != null">
+        display_value,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=BIGINT},
+      </if>
+      <if test="groupCode != null">
+        #{groupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="elementId != null">
+        #{elementId,jdbcType=BIGINT},
+      </if>
+      <if test="label != null">
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="arrayIndex != null">
+        #{arrayIndex,jdbcType=INTEGER},
+      </if>
+      <if test="elementValue != null">
+        #{elementValue,jdbcType=VARCHAR},
+      </if>
+      <if test="displayValue != null">
+        #{displayValue,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.OrderDetail">
+    update t_noncar_order_detail
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="groupId != null">
+        group_id = #{groupId,jdbcType=BIGINT},
+      </if>
+      <if test="groupCode != null">
+        group_code = #{groupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="elementId != null">
+        element_id = #{elementId,jdbcType=BIGINT},
+      </if>
+      <if test="label != null">
+        label = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="arrayIndex != null">
+        array_index = #{arrayIndex,jdbcType=INTEGER},
+      </if>
+      <if test="elementValue != null">
+        element_value = #{elementValue,jdbcType=VARCHAR},
+      </if>
+      <if test="displayValue != null">
+        display_value = #{displayValue,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.OrderDetail">
+    update t_noncar_order_detail
+    set order_id = #{orderId,jdbcType=BIGINT},
+      group_id = #{groupId,jdbcType=BIGINT},
+      group_code = #{groupCode,jdbcType=VARCHAR},
+      element_id = #{elementId,jdbcType=BIGINT},
+      label = #{label,jdbcType=VARCHAR},
+      array_index = #{arrayIndex,jdbcType=INTEGER},
+      element_value = #{elementValue,jdbcType=VARCHAR},
+      display_value = #{displayValue,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <delete id="deleteByOrderId" parameterType="java.lang.Long" >
+    delete 
+    from t_noncar_order_detail
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </delete>
+  
+  <select id="selectOrderDetailByOrderId" parameterType="java.lang.Long" resultMap="BaseResultMap" >
+  	select g.`name`,d.* from t_noncar_order_detail d
+	left join t_noncar_plan_element e on d.element_id = e.id 
+	left join t_noncar_element_config c on e.code = c.code
+	inner join t_noncar_plan_element_group g on g.id = d.group_id 
+	where d.order_id = #{orderId} and g.category = 'policy' and c.control_type != 'hidden'
+	order by g.sort , e.sort, d.array_index
+  </select>
+</mapper>

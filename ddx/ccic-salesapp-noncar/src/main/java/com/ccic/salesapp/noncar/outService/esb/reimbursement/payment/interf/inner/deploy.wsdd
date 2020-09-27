@@ -1,0 +1,78 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ReimbursementWebServiceService WSDL service -->
+
+  <service name="ReimbursementWebService" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="http://inner.interf.payment.sinosoft.com"/>
+      <parameter name="wsdlServiceElement" value="ReimbursementWebServiceService"/>
+      <parameter name="schemaUnqualified" value="http://inner.interf.payment.sinosoft.com,http://custom.dto.base.payment.sinosoft.com"/>
+      <parameter name="wsdlServicePort" value="ReimbursementWebService"/>
+      <parameter name="className" value="com.sinosoft.payment.interf.inner.ReimbursementWebServiceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="ReimbursementWebService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="dealRequest" qname="operNS:dealRequest" xmlns:operNS="http://inner.interf.payment.sinosoft.com" returnQName="dealRequestReturn" returnType="rtns:SalesMainMsgDto" xmlns:rtns="http://custom.dto.base.payment.sinosoft.com" soapAction="" >
+        <parameter qname="salesMainMsgDto" type="tns:SalesMainMsgDto" xmlns:tns="http://custom.dto.base.payment.sinosoft.com"/>
+      </operation>
+      <operation name="dealRequest" qname="operNS:dealRequest" xmlns:operNS="http://inner.interf.payment.sinosoft.com" returnQName="dealRequestReturn" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="inputXml" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="dealRequest"/>
+
+      <typeMapping
+        xmlns:ns="http://custom.dto.base.payment.sinosoft.com"
+        qname="ns:SalesAgreementMsgDto"
+        type="java:com.sinosoft.payment.base.dto.custom.SalesAgreementMsgDto"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://custom.dto.base.payment.sinosoft.com"
+        qname="ns:SalesShadowAgentMsgDto"
+        type="java:com.sinosoft.payment.base.dto.custom.SalesShadowAgentMsgDto"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="http://inner.interf.payment.sinosoft.com"
+        qname="ns:ArrayOf_tns1_SalesAgreementMsgDto"
+        type="java:com.sinosoft.payment.base.dto.custom.SalesAgreementMsgDto[]"
+        innerType="cmp-ns:SalesAgreementMsgDto" xmlns:cmp-ns="http://custom.dto.base.payment.sinosoft.com"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://custom.dto.base.payment.sinosoft.com"
+        qname="ns:SalesMainMsgDto"
+        type="java:com.sinosoft.payment.base.dto.custom.SalesMainMsgDto"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <arrayMapping
+        xmlns:ns="http://inner.interf.payment.sinosoft.com"
+        qname="ns:ArrayOf_tns1_SalesShadowAgentMsgDto"
+        type="java:com.sinosoft.payment.base.dto.custom.SalesShadowAgentMsgDto[]"
+        innerType="cmp-ns:SalesShadowAgentMsgDto" xmlns:cmp-ns="http://custom.dto.base.payment.sinosoft.com"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://custom.dto.base.payment.sinosoft.com"
+        qname="ns:SalesAgentMsgDto"
+        type="java:com.sinosoft.payment.base.dto.custom.SalesAgentMsgDto"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+</deployment>

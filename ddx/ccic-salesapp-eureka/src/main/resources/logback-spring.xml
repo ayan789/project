@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <springProperty scope="context" name="LogHome" source="sonic.platform.log.path" defaultValue="/deployments/applog"/>
+    <springProperty scope="context" name="LogName" source="sonic.platform.log.name" defaultValue="daily.log"/>
+    <springProperty scope="context" name="MaxHistory" source="sonic.platform.log.max-history" defaultValue="60"/>
+    <springProperty scope="context" name="Level" source="sonic.platform.log.level" defaultValue="INFO"/>
+    <springProperty scope="context" name="AppEnv" source="spring.profiles.active" defaultValue=""/>
+    <springProperty scope="context" name="AppName" source="spring.application.name" defaultValue=""/>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${Level}</level>
+        </filter>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd} %date{HH:mm:ss.SSS} [%-5level] [%logger{0}] - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${Level}</level>
+        </filter>
+        <file>${LogHome}/${AppName}/${AppEnv}/${LogName}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LogHome}/${AppName}/${AppEnv}/daily-%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <MaxHistory>${MaxHistory}</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd} %date{HH:mm:ss.SSS} [%-5level] [%logger{0}] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="${Level}">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>

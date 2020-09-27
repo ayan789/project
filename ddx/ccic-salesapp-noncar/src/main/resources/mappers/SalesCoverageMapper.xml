@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.SalesCoverageMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.basedb.po.SalesCoverage">
+    <id column="coverage_id" jdbcType="INTEGER" property="coverageId" />
+    <result column="coverage_code" jdbcType="VARCHAR" property="coverageCode" />
+    <result column="coverage_name" jdbcType="VARCHAR" property="coverageName" />
+    <result column="clause_code" jdbcType="VARCHAR" property="clauseCode" />
+    <result column="clause_name" jdbcType="VARCHAR" property="clauseName" />
+    <result column="child_plan_id" jdbcType="INTEGER" property="childPlanId" />
+    <result column="sum_insured" jdbcType="DECIMAL" property="sumInsured" />
+    <result column="base_sum_insured" jdbcType="DECIMAL" property="baseSumInsured" />
+    <result column="sum_insured_fields" jdbcType="VARCHAR" property="sumInsuredFields" />
+    <result column="insured_type" jdbcType="VARCHAR" property="insuredType" />
+    <result column="insured_name" jdbcType="VARCHAR" property="insuredName" />
+    <result column="main_ct" jdbcType="VARCHAR" property="mainCt" />
+    <result column="risk_type" jdbcType="VARCHAR" property="riskType" />
+    <result column="insurance_type" jdbcType="VARCHAR" property="insuranceType" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMap2" type="com.ccic.salesapp.noncar.dto.salesplan.PlanCoverage">
+    <id column="coverage_id" jdbcType="INTEGER" property="coverageId" />
+    <result column="coverage_code" jdbcType="VARCHAR" property="coverageCode" />
+    <result column="coverage_name" jdbcType="VARCHAR" property="coverageName" />
+    <result column="clause_code" jdbcType="VARCHAR" property="clauseCode" />
+    <result column="clause_name" jdbcType="VARCHAR" property="clauseName" />
+    <result column="child_plan_id" jdbcType="INTEGER" property="childPlanId" />
+    <result column="sum_insured" jdbcType="DECIMAL" property="sumInsured" />
+    <result column="base_sum_insured" jdbcType="DECIMAL" property="baseSumInsured" />
+    <result column="insured_type" jdbcType="VARCHAR" property="insuredType" />
+    <result column="insured_name" jdbcType="VARCHAR" property="insuredName" />
+    <result column="main_ct" jdbcType="VARCHAR" property="mainCt" />
+    <result column="risk_type" jdbcType="VARCHAR" property="riskType" />
+    <result column="insurance_type" jdbcType="VARCHAR" property="insuranceType" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    coverage_id, coverage_code, coverage_name, clause_code, clause_name, child_plan_id, sum_insured, 
+    base_sum_insured, sum_insured_fields, insured_type, insured_name, main_ct, risk_type, 
+    insurance_type
+  </sql>
+  
+  <sql id="Base_Column_List2">
+    coverage_id, coverage_code, coverage_name, clause_code, clause_name, child_plan_id, sum_insured, 
+    base_sum_insured, insured_type, insured_name, main_ct, risk_type, 
+    insurance_type
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_noncar_sales_coverage
+    where coverage_id = #{coverageId,jdbcType=INTEGER}
+  </select>
+  
+   <select id="selectByChildPlanId" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
+    select <include refid="Base_Column_List2" /> from t_noncar_sales_coverage where child_plan_id = #{childPlanId,jdbcType=INTEGER} ORDER BY sort
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_noncar_sales_coverage
+    where coverage_id = #{coverageId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.SalesCoverage">
+    insert into t_noncar_sales_coverage (coverage_id, coverage_code, coverage_name, 
+      clause_code, clause_name, child_plan_id, 
+      sum_insured, base_sum_insured, sum_insured_fields, 
+      insured_type, insured_name, main_ct, 
+      risk_type, insurance_type)
+    values (#{coverageId,jdbcType=INTEGER}, #{coverageCode,jdbcType=VARCHAR}, #{coverageName,jdbcType=VARCHAR}, 
+      #{clauseCode,jdbcType=VARCHAR}, #{clauseName,jdbcType=VARCHAR}, #{childPlanId,jdbcType=INTEGER}, 
+      #{sumInsured,jdbcType=DECIMAL}, #{baseSumInsured,jdbcType=DECIMAL}, #{sumInsuredFields,jdbcType=VARCHAR}, 
+      #{insuredType,jdbcType=VARCHAR}, #{insuredName,jdbcType=VARCHAR}, #{mainCt,jdbcType=VARCHAR}, 
+      #{riskType,jdbcType=VARCHAR}, #{insuranceType,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insert2" parameterType="com.ccic.salesapp.noncar.dto.salesplan.PlanCoverage">
+    insert into t_noncar_sales_coverage (coverage_id, coverage_code, coverage_name, 
+      clause_code, clause_name, child_plan_id, 
+      sum_insured, base_sum_insured, sum_insured_fields, 
+      insured_type, insured_name, main_ct, 
+      risk_type, insurance_type)
+    values (#{coverageId,jdbcType=INTEGER}, #{coverageCode,jdbcType=VARCHAR}, #{coverageName,jdbcType=VARCHAR}, 
+      #{clauseCode,jdbcType=VARCHAR}, #{clauseName,jdbcType=VARCHAR}, #{childPlanId,jdbcType=INTEGER}, 
+      #{sumInsured,jdbcType=DECIMAL}, #{baseSumInsured,jdbcType=DECIMAL}, #{sumInsuredFields,jdbcType=VARCHAR}, 
+      #{insuredType,jdbcType=VARCHAR}, #{insuredName,jdbcType=VARCHAR}, #{mainCt,jdbcType=VARCHAR}, 
+      #{riskType,jdbcType=VARCHAR}, #{insuranceType,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.SalesCoverage">
+    insert into t_noncar_sales_coverage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="coverageId != null">
+        coverage_id,
+      </if>
+      <if test="coverageCode != null">
+        coverage_code,
+      </if>
+      <if test="coverageName != null">
+        coverage_name,
+      </if>
+      <if test="clauseCode != null">
+        clause_code,
+      </if>
+      <if test="clauseName != null">
+        clause_name,
+      </if>
+      <if test="childPlanId != null">
+        child_plan_id,
+      </if>
+      <if test="sumInsured != null">
+        sum_insured,
+      </if>
+      <if test="baseSumInsured != null">
+        base_sum_insured,
+      </if>
+      <if test="sumInsuredFields != null">
+        sum_insured_fields,
+      </if>
+      <if test="insuredType != null">
+        insured_type,
+      </if>
+      <if test="insuredName != null">
+        insured_name,
+      </if>
+      <if test="mainCt != null">
+        main_ct,
+      </if>
+      <if test="riskType != null">
+        risk_type,
+      </if>
+      <if test="insuranceType != null">
+        insurance_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="coverageId != null">
+        #{coverageId,jdbcType=INTEGER},
+      </if>
+      <if test="coverageCode != null">
+        #{coverageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="coverageName != null">
+        #{coverageName,jdbcType=VARCHAR},
+      </if>
+      <if test="clauseCode != null">
+        #{clauseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="clauseName != null">
+        #{clauseName,jdbcType=VARCHAR},
+      </if>
+      <if test="childPlanId != null">
+        #{childPlanId,jdbcType=INTEGER},
+      </if>
+      <if test="sumInsured != null">
+        #{sumInsured,jdbcType=DECIMAL},
+      </if>
+      <if test="baseSumInsured != null">
+        #{baseSumInsured,jdbcType=DECIMAL},
+      </if>
+      <if test="sumInsuredFields != null">
+        #{sumInsuredFields,jdbcType=VARCHAR},
+      </if>
+      <if test="insuredType != null">
+        #{insuredType,jdbcType=VARCHAR},
+      </if>
+      <if test="insuredName != null">
+        #{insuredName,jdbcType=VARCHAR},
+      </if>
+      <if test="mainCt != null">
+        #{mainCt,jdbcType=VARCHAR},
+      </if>
+      <if test="riskType != null">
+        #{riskType,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceType != null">
+        #{insuranceType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.SalesCoverage">
+    update t_noncar_sales_coverage
+    <set>
+      <if test="coverageCode != null">
+        coverage_code = #{coverageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="coverageName != null">
+        coverage_name = #{coverageName,jdbcType=VARCHAR},
+      </if>
+      <if test="clauseCode != null">
+        clause_code = #{clauseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="clauseName != null">
+        clause_name = #{clauseName,jdbcType=VARCHAR},
+      </if>
+      <if test="childPlanId != null">
+        child_plan_id = #{childPlanId,jdbcType=INTEGER},
+      </if>
+      <if test="sumInsured != null">
+        sum_insured = #{sumInsured,jdbcType=DECIMAL},
+      </if>
+      <if test="baseSumInsured != null">
+        base_sum_insured = #{baseSumInsured,jdbcType=DECIMAL},
+      </if>
+      <if test="sumInsuredFields != null">
+        sum_insured_fields = #{sumInsuredFields,jdbcType=VARCHAR},
+      </if>
+      <if test="insuredType != null">
+        insured_type = #{insuredType,jdbcType=VARCHAR},
+      </if>
+      <if test="insuredName != null">
+        insured_name = #{insuredName,jdbcType=VARCHAR},
+      </if>
+      <if test="mainCt != null">
+        main_ct = #{mainCt,jdbcType=VARCHAR},
+      </if>
+      <if test="riskType != null">
+        risk_type = #{riskType,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceType != null">
+        insurance_type = #{insuranceType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where coverage_id = #{coverageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.SalesCoverage">
+    update t_noncar_sales_coverage
+    set coverage_code = #{coverageCode,jdbcType=VARCHAR},
+      coverage_name = #{coverageName,jdbcType=VARCHAR},
+      clause_code = #{clauseCode,jdbcType=VARCHAR},
+      clause_name = #{clauseName,jdbcType=VARCHAR},
+      child_plan_id = #{childPlanId,jdbcType=INTEGER},
+      sum_insured = #{sumInsured,jdbcType=DECIMAL},
+      base_sum_insured = #{baseSumInsured,jdbcType=DECIMAL},
+      sum_insured_fields = #{sumInsuredFields,jdbcType=VARCHAR},
+      insured_type = #{insuredType,jdbcType=VARCHAR},
+      insured_name = #{insuredName,jdbcType=VARCHAR},
+      main_ct = #{mainCt,jdbcType=VARCHAR},
+      risk_type = #{riskType,jdbcType=VARCHAR},
+      insurance_type = #{insuranceType,jdbcType=VARCHAR}
+    where coverage_id = #{coverageId,jdbcType=INTEGER}
+  </update>
+</mapper>

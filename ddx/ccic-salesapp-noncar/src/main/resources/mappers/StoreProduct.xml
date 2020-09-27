@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="storeProduct">
+    <resultMap id="BaseResultMap" type="com.estar.app.chinare.sell.domain.StoreProduct">
+        <result property="id" column="ID"/>
+        <result property="productCode" column="PRODUCT_CODE"/>
+        <result property="productName" column="PRODUCT_NAME"/>
+        <result property="productDesc" column="PRODUCT_DESC"/>
+        <result property="productExplain" column="PRODUCT_EXPLAIN"/>
+        <result property="productType" column="PRODUCT_TYPE"/>
+        <result property="productBuyUrl" column="PRODUCT_BUY_URL"/>
+        <result property="productImgUrl" column="PRODUCT_IMG_URL"/>
+        <result property="createDate" column="CREATE_DATE"/>
+        <result property="state" column="STATE"/>
+        <result property="comCode" column="COM_CODE"/>
+        <result property="newCore" column="NEW_CORE"/>
+        <result property="productRisk" column="PRODUCT_RISK"/>
+        <result property="userCode" column="USER_CODE"/>
+
+    </resultMap>
+
+    <select id="findProductByStoreCode" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select a.* from t_noncar_product a ,t_noncar_store_config b
+        where a.product_code =b.product_code
+        and a.state=1
+        and a.new_core = #newCore:VARCHAR#
+        <if test="productRisk != null and productRisk != ''">AND
+            a.PRODUCT_RISK = #productRisk:VARCHAR#
+        </if>
+        and b.store_code=#storeCode:VARCHAR#
+        and (a.com_code is null or exists (
+        select 1 from (SELECT TC.UPPERCOMCODE COMCODE,ROWNUM RN FROM T_PRPDCOMPANY TC
+        START WITH TC.COMCODE = #comCode#
+        CONNECT BY PRIOR TC.UPPERCOMCODE  = TC.COMCODE AND TC.COMCODE&lt;&gt;TC.UPPERCOMCODE
+        UNION SELECT #comCode#,0 FROM DUAL) C
+        where a.com_code like '%'||c.comcode||'%')
+        )
+        and (a.user_code is null or a.user_code like '%'||#userCode#||'%')
+        order by b.config_sort,a.product_code
+
+    </select>
+
+    <select id="getAll" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        SELECT * FROM t_noncar_product a
+        where a.state=1
+        and a.new_core = #newCore:VARCHAR#
+        <if test="productRisk != null and productRisk != ''">AND
+            a.PRODUCT_RISK = #productRisk:VARCHAR#
+        </if>
+        and (a.com_code is null or exists (
+        select 1 from (SELECT TC.UPPERCOMCODE COMCODE,ROWNUM RN FROM T_PRPDCOMPANY TC
+        START WITH TC.COMCODE = #comCode#
+        CONNECT BY PRIOR TC.UPPERCOMCODE  = TC.COMCODE AND TC.COMCODE&lt;&gt;TC.UPPERCOMCODE
+        UNION SELECT #comCode#,0 FROM DUAL) C
+        where a.com_code like '%'||c.comcode||'%')
+        )
+        and (a.user_code is null or a.user_code like '%'||#userCode#||'%')
+        order by a.product_code
+
+    </select>
+
+    <select id="getProduct" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM t_noncar_product WHERE PRODUCT_CODE=#productCode:VARCHAR# AND ROWNUM=1
+    </select>
+
+</mapper>

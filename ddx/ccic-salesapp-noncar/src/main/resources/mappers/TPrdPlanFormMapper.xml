@@ -1,0 +1,1056 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanFormMapper">
+	<resultMap id="BaseResultMap"
+		type="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanForm">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="plan_Form_Id" property="planformid" jdbcType="VARCHAR" />
+		<result column="plan_Def_Id" property="plandefid" jdbcType="BIGINT" />
+		<result column="customForm_Title" property="customformtitle"
+			jdbcType="VARCHAR" />
+		<result column="customForm_Content" property="customformcontent"
+		    jdbcType="VARCHAR" />
+		<result column="form_Code" property="formcode" jdbcType="VARCHAR" />
+		<result column="form_Category" property="formcategory" jdbcType="VARCHAR" />
+		<result column="product_Element_Id" property="productelementid"
+			jdbcType="VARCHAR" />
+		<result column="product_Element_Code" property="productelementcode"
+			jdbcType="VARCHAR" />
+		<result column="customForm_Description" property="customformdescription"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, planFormId, planDefId, customFormTitle, customFormContent, formCode,
+		formCategory,
+		productElementId, productElementCode, customFormDescription
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_prd_plan_form
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_prd_plan_form
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanForm">
+		insert into t_prd_plan_form (id, plan_Form_Id, plan_Def_Id,
+		customForm_Title, customForm_Content, form_Code,
+		form_Category, product_Element_Id, product_Element_Code,
+		customForm_Description)
+		values (#{id,jdbcType=BIGINT}, #{planformid,jdbcType=VARCHAR},
+		#{plandefid,jdbcType=BIGINT},
+		#{customformtitle,jdbcType=VARCHAR}, #{customformcontent,jdbcType=VARCHAR}, #{formcode,jdbcType=VARCHAR},
+		#{formcategory,jdbcType=VARCHAR},
+		#{productelementid,jdbcType=VARCHAR},
+		#{productelementcode,jdbcType=VARCHAR},
+		#{customformdescription,jdbcType=VARCHAR})
+		ON DUPLICATE KEY UPDATE
+		plan_Form_Id=VALUES(plan_Form_Id),
+		plan_Def_Id=VALUES(plan_Def_Id),
+		customForm_Title=VALUES(customForm_Title),
+		customForm_Content=VALUES(customForm_Content),
+		form_Code=VALUES(form_Code),
+		form_Category=VALUES(form_Category),
+		product_Element_Id=VALUES(product_Element_Id),
+		product_Element_Code=VALUES(product_Element_Code),
+		customForm_Description=VALUES(customForm_Description)
+	</insert>
+	
+	<delete id="deleteByPlanFormId"	parameterType="java.lang.Long">
+		delete from t_prd_plan_form where PLAN_DEF_ID =#{delPlanDefId}
+	</delete>
+	
+	<insert id="insertSelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanForm">
+		insert into t_prd_plan_form
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="planformid != null">
+				planFormId,
+			</if>
+			<if test="plandefid != null">
+				planDefId,
+			</if>
+			<if test="customformtitle != null">
+				customFormTitle,
+			</if>
+			<if test="customformcontent != null">
+				customFormContent,
+			</if>
+			<if test="formcode != null">
+				formCode,
+			</if>
+			<if test="formcategory != null">
+				formCategory,
+			</if>
+			<if test="productelementid != null">
+				productElementId,
+			</if>
+			<if test="productelementcode != null">
+				productElementCode,
+			</if>
+			<if test="customformdescription != null">
+				customFormDescription,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="planformid != null">
+				#{planformid,jdbcType=VARCHAR},
+			</if>
+			<if test="plandefid != null">
+				#{plandefid,jdbcType=VARCHAR},
+			</if>
+			<if test="customformtitle != null">
+				#{customformtitle,jdbcType=VARCHAR},
+			</if>
+			<if test="customformcontent != null">
+				#{customformcontent,jdbcType=VARCHAR},
+			</if>
+			<if test="formcode != null">
+				#{formcode,jdbcType=VARCHAR},
+			</if>
+			<if test="formcategory != null">
+				#{formcategory,jdbcType=VARCHAR},
+			</if>
+			<if test="productelementid != null">
+				#{productelementid,jdbcType=VARCHAR},
+			</if>
+			<if test="productelementcode != null">
+				#{productelementcode,jdbcType=VARCHAR},
+			</if>
+			<if test="customformdescription != null">
+				#{customformdescription,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanForm">
+		update t_prd_plan_form
+		<set>
+			<if test="planformid != null">
+				planFormId = #{planformid,jdbcType=VARCHAR},
+			</if>
+			<if test="plandefid != null">
+				planDefId = #{plandefid,jdbcType=VARCHAR},
+			</if>
+			<if test="customformtitle != null">
+				customFormTitle = #{customformtitle,jdbcType=VARCHAR},
+			</if>
+			<if test="customformcontent != null">
+				customFormContent = #{customformcontent,jdbcType=VARCHAR},
+			</if>
+			<if test="formcode != null">
+				formCode = #{formcode,jdbcType=VARCHAR},
+			</if>
+			<if test="formcategory != null">
+				formCategory = #{formcategory,jdbcType=VARCHAR},
+			</if>
+			<if test="productelementid != null">
+				productElementId = #{productelementid,jdbcType=VARCHAR},
+			</if>
+			<if test="productelementcode != null">
+				productElementCode = #{productelementcode,jdbcType=VARCHAR},
+			</if>
+			<if test="customformdescription != null">
+				customFormDescription = #{customformdescription,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanForm">
+		update t_prd_plan_form
+		set planFormId = #{planformid,jdbcType=VARCHAR},
+		planDefId = #{plandefid,jdbcType=VARCHAR},
+		customFormTitle = #{customformtitle,jdbcType=VARCHAR},
+		customFormContent = #{customformcontent,jdbcType=VARCHAR},
+		formCode = #{formcode,jdbcType=VARCHAR},
+		formCategory = #{formcategory,jdbcType=VARCHAR},
+		productElementId = #{productelementid,jdbcType=VARCHAR},
+		productElementCode = #{productelementcode,jdbcType=VARCHAR},
+		customFormDescription = #{customformdescription,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<select id="selectPlanField" resultType="com.ccic.salesapp.noncar.dto.request.noncar.PlanFieldDto" parameterType="java.util.HashMap" >
+	SELECT id planId,strategy_id strategyId,plan_code formulaCode,prd_plan_category prdPlanCategory from t_noncar_plan_info where strategy_id=#{strategyId} and `status`=7 and record_status=0  and put_on_method=1
+	</select>
+	
+	<select id="selectTrial" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
+	SELECT count(1) from t_noncar_element_rate_mapping where element_code in (
+		SELECT t1.code from t_noncar_plan_element t1 left join 
+		t_noncar_plan_element_group t2 on t1.group_id=t2.id where t2.biz_id=#{bizId} and biz_type=#{bizType}
+	)
+	</select>
+	
+	<select id="selectOrderByPlanId" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
+		SELECT count(*) from t_noncar_order where plan_id=#{planId} and id=#{orderId}
+	</select>
+
+	<select id="selectPlanElementGroup" resultType="com.ccic.salesapp.noncar.dto.request.noncar.PlanElementGroup" parameterType="java.util.HashMap" >
+	  SELECT id groupId,category,`code`,`name`,sort from t_noncar_plan_element_group where biz_type=#{bizType} and biz_id=#{bizId} and category=#{category} ORDER BY sort
+	 </select>
+	 
+	<!--  biz_id=#{planId} and   tnpe.trial_flag trialFlag,trial_sort trialSort-->
+	<select id="selectPlanTrialFlag" resultType="com.ccic.salesapp.noncar.dto.request.planelement.PlanTrialFlag" parameterType="java.util.HashMap" >
+		SELECT
+			t1.element_code elementCode 
+		FROM
+			t_noncar_element_rate_mapping t1
+			left join t_noncar_plan_element t2 on t1.element_code=t2.code 
+		WHERE
+			t1.element_code = #{elementCode} and t2.group_id=#{groupId}
+	</select>
+	
+	<select id="selectPlanElement" resultType="com.ccic.salesapp.noncar.dto.request.noncar.PlanElement" parameterType="java.util.HashMap" >
+	  SELECT
+			tnpe.id,t2.code groupCode,tnpe.group_id groupId,tnpe.code,tnpe.name,tnpe.require_input requireInput,tnpe.default_value defaultValue,tmec.control_type controlType,tnpe.sort,
+			tmec.min_length minLength,tmec.max_length maxLength,
+			tmec.min_value minValue,
+			tmec.max_value `maxValue`,
+			tmec.element_type elementType,tmec.control_type controlType,tmec.event_script eventScript,tmec.validate_Type validateType,tmec.link_Elment_Code linkElmentCode,tmec.placeholder
+		FROM
+			t_noncar_plan_element tnpe
+			LEFT JOIN t_noncar_element_config tmec ON tnpe.code = tmec.code
+			left join t_noncar_element_group_config t2 on tmec.group_id=t2.id 
+		WHERE
+			tnpe.group_id = #{groupId}
+		ORDER BY
+			tnpe.sort
+	 </select>
+
+	<select id="selectPlanElementOption" resultType="com.ccic.salesapp.noncar.dto.request.noncar.PlanElementOption" parameterType="java.util.HashMap" >
+		SELECT id,code value,name label,selected,sort from t_noncar_plan_element_option where element_id=#{elementId} and selected = 1 ORDER BY sort
+	 </select>
+	 
+	 <select id="selectCommonProblemContent" resultType="com.ccic.salesapp.noncar.dto.request.planelement.CommonProblemContent" parameterType="java.util.HashMap" >
+	 	SELECT id,question title,answer `desc` from t_noncar_plan_strategy_question where strategy_id=#{strategyId}
+	 </select>
+	 
+	 <select id="selectPlanStrategy" resultType="com.ccic.salesapp.noncar.dto.request.planelement.PlanElementDetailDto" parameterType="java.util.HashMap" >
+	 	SELECT id strategyId,code productCode,name productName,code riskCode,plan_reverse backReasoning,plan_reverse_factor planReverseFactor,policy_start_type policyStartType,policy_start_range policyStartRang,is_watermark isWatermark from t_noncar_plan_strategy where is_main=1 and valid_status=1 and (id=#{strategyId} or `code` = #{strategyCode}) 
+	 </select>
+	
+	 <select id="selectPlanStrategyHeader" resultType="com.ccic.salesapp.noncar.dto.request.planelement.Header" parameterType="java.util.HashMap" >
+	SELECT
+		s.id,
+		s.share_able isShare,
+		s.NAME title,
+		s.memo `desc`,
+		(
+		SELECT
+			min( premium_min ) 
+		FROM
+			t_noncar_plan_info 
+		WHERE
+			strategy_id = #{strategyId} and `status`=7 and record_status=0 and put_on_method=1
+		) basePremium ,
+		(select ifnull(sum(if(number_of_copys is null,1,number_of_copys)),0) from t_noncar_order where strategy_code = s.`code` and (order_status = 6 or order_status = 7)) saleNum
+	FROM
+		t_noncar_plan_strategy s
+	WHERE
+		s.id = #{strategyId}
+	 </select>
+	 
+	 <select id="selectHeaderSwipper" resultType="com.ccic.salesapp.noncar.dto.request.planelement.Swipper" parameterType="java.util.HashMap" >
+	  SELECT t1.id,IFNULL(attach_url,'') `value`,IFNULL(attach_in_url,'') inUrl,attach_type type from t_noncar_plan_attach t1 left join t_noncar_plan_strategy t2 on t1.biz_id=t2.id where t1.biz_type='strategy' and t2.id=#{strategyId} ORDER BY t1.id
+	 </select>
+	
+	<select id="selectPlanStrategyAttach" resultType="com.ccic.salesapp.noncar.dto.request.planelement.ImgList" parameterType="java.util.HashMap" >
+	  SELECT id,IFNULL(attach_url,'') img, IFNULL(attach_in_url,'') imgIn from t_noncar_plan_attach where biz_type='plan' and biz_id=#{planId} 
+	  <if test="attachType != null">
+	  and attach_type=#{attachType}
+	  </if>
+	  <if test="attachCode != null">
+	  and attach_code=#{attachCode}
+	  </if>
+	</select>
+	
+	<select id="selectPlanAttachealth" resultType="com.ccic.salesapp.noncar.dto.request.planelement.ImgList" parameterType="java.util.HashMap" >
+	 SELECT id,attach_url img from t_noncar_plan_attach where biz_type='plan' and attach_type=#{attachType} and biz_id=#{planId} and attach_name=#{attachName}
+	</select>
+	
+	<select id="selectPlanInfoFormulas" resultType="com.ccic.salesapp.noncar.dto.request.planelement.FormulaList" parameterType="java.util.HashMap" >
+	SELECT
+		t1.id planId,
+		t1.strategy_id strategyId,
+		t1.plan_code formulaCode,
+		t1.plan_name formulaName,
+		t1.premium_min basePremium,
+		t1.plan_version edition,
+		t2.has_social_insurance isHaveSheBao,
+	    t1.product_code riskCode,
+	    t1.if_period_fixed ifPeriodFixed, 
+	    t1.fix_coverage_period fixCoveragePeriod,
+	    t1.fix_coverage_year fixCoverageYear,
+	    t2.insured_occupation_type insuredOccupationType,
+		t2.insurant_lowerlimit insurantLowerlimit,
+		t2.insurant_upperlimit insurantUpperlimit,
+		t1.copy_min copyMin,
+		t1.copy_max copyMax,
+		t1.insured_age_lowerlimit insuredAgeLowerlimit,
+		t1.insured_age_upperlimit insuredAgeUpperlimit,
+		t1.insured_age_uppertype insuredAgeUppertype,
+		t1.insured_age_lowertype insuredAgeLowertype,
+		t2.allow_partner_bill allowPartnerBill,
+		t1.gi_coverage_period giCoveragePeriod,
+		t1.gi_period_type giPeriodType,
+		t1.underwriting_type underwritingType,
+		t1.prd_plan_category prdPlanCategory
+	FROM
+		t_noncar_plan_info t1 left join 
+		t_noncar_plan_method t2 
+		on t1.id=t2.plan_id
+	WHERE
+		t1.strategy_id =#{strategyId} and `status`=7 and record_status=0 and put_on_method=1 ORDER BY t1.premium_min
+	</select>
+    
+    <select id="selectConditionsContent" resultType="com.ccic.salesapp.noncar.dto.request.planelement.TermsAndConditionsContent" parameterType="java.util.HashMap" >
+			SELECT
+			DISTINCT(t1.product_element_code) code,
+			t1.plan_coverage_name title,  
+			IFNULL(tnpa.attach_url,'') link,
+			IFNULL(tnpa.attach_in_url,'') inLink,
+			tnpa.id
+			FROM
+			t_noncar_plan_ct t1
+			left join  t_noncar_plan_attach tnpa on t1.plan_id=tnpa.biz_id
+			where t1.product_element_code LIKE 'CF%' 
+			AND t1.plan_id = #{planId}
+			AND tnpa.attach_type = 'product_clause'
+			AND tnpa.biz_type='plan'
+			AND t1.product_element_code=tnpa.attach_code		 
+    </select>
+    
+    <select id="selectPlanRate" resultType="com.ccic.salesapp.noncar.dto.request.planelement.RateParams" parameterType="java.util.HashMap" >
+	 SELECT
+		  t1.id,
+			t1.rate_age_min rateAgeMin,
+			t1.rate_age_max rateAgeMax,
+			t1.rate_social_security_flag isHaveSheBao,
+			t1.period_premium_rate premium 
+		FROM
+			t_noncar_plan_ct_rate t1 
+			inner join t_noncar_plan_ct t2 on t1.plan_coverage_id=t2.plan_coverage_id
+			inner join t_noncar_plan_info pi on pi.id=t2.plan_Id
+		WHERE 1=1
+		AND pi.id=#{planId} 
+		ORDER BY
+			t1.rate_age_min
+    </select>
+	
+	<select id="selectButton" resultType="com.ccic.salesapp.noncar.dto.request.planelement.PlanButton" parameterType="java.util.HashMap" >
+	SELECT IFNULL(show_poster,0)  poster,IFNULL(show_proposal,0) proposal from t_noncar_plan_strategy where id=#{strategyId}
+	</select>
+
+	<select id="selectPlanCt" resultType="com.ccic.salesapp.noncar.dto.request.planelement.Insurance" parameterType="java.util.HashMap" >		
+	SELECT t1.*,t2.product_element_code,t2.fixed_insure fixedInsure,t2.insure_amount insureAmount from (
+		SELECT
+			t1.id tid,
+			t2.plan_coverage_id id,
+			t1.sum_insured_default amount,
+			t1.if_caltotal_sum ifCaltotalSum,
+			t1.link_seats linkSeats,
+			t1.insure_remark `desc`,
+			t1.other_remark `additional`,
+			CASE
+				t1.insure_unit 
+				WHEN 1 THEN
+				'元' 
+				WHEN 2 THEN
+				'元/座' 
+				WHEN 3 THEN
+				'元/家庭' 
+				WHEN 4 THEN
+				'元/天' ELSE '' 
+			END unit,
+			t1.clause_code  clauseCode,
+			t1.clause_property ,
+			t2.plan_coverage_name  title,
+			t2.product_element_code  kindCode,
+			t2.parent_plan_coverage_id,
+			t1.plan_id
+		FROM
+			t_noncar_plan_ct_detail t1
+			INNER JOIN t_noncar_plan_ct t2 ON t1.plan_coverage_id = t2.plan_coverage_id and t1.plan_id = t2.plan_id 
+		WHERE
+			t1.plan_id = #{planId} and t1.`visible`=1 and t2.parent_plan_coverage_id is not null
+	) t1 left join t_noncar_plan_ct t2 on t1.parent_plan_coverage_id=t2.plan_coverage_id and t1.plan_id = t2.plan_id where t1.plan_id = #{planId}
+	
+			<!-- 
+		SELECT
+		 t1.id id,
+		    t2.sum_insured_default amount,
+		    t2.insure_remark `desc`,
+		    case t2.insure_unit 
+			when 1 then '元'
+			when 2 then '元/座'
+			when 3 then '元/家庭'
+			when 4 then '元/天'
+			else ''
+			end unit,
+			t1.plan_coverage_name title,
+			t1.product_element_code kindCode,
+			t1.fixed_insure fixedInsure,
+			t1.insure_amount insureAmount,
+			t2.clause_property 
+		FROM
+			t_noncar_plan_ct t1
+			LEFT JOIN t_noncar_plan_ct_detail t2 ON t1.plan_coverage_id = t2.plan_coverage_id 
+		WHERE
+		 t1.plan_coverage_id = #{planCoverageId} and t1.plan_id=#{planId} limit 1 -->
+	</select>
+	
+	<select id="selectPlanCustomElement" resultType="com.ccic.salesapp.noncar.dto.request.planelement.BizVo" parameterType="java.util.HashMap" >
+	SELECT t1.id planId,t2.id strategyId,t1.custom_element customElement from t_noncar_plan_info t1 left join t_noncar_plan_strategy t2 on t1.strategy_id=t2.id where t1.id=#{planId} 
+	</select>
+	
+	<select id="selectPlanElementValue" resultType="com.ccic.salesapp.noncar.dto.request.planelement.BizVo" parameterType="java.util.HashMap" >
+	SELECT
+		t2.element_value elementValue ,t2.array_index arrayIndex
+	FROM
+		t_noncar_order t1
+		LEFT JOIN t_noncar_order_detail t2 ON t1.id = t2.order_id 
+	WHERE
+		t1.id = #{orderId} and t2.element_id=#{elementId} 
+		<!-- and t1.plan_id=#{planId} -->
+	</select>
+	
+	<select id="selectPlanRateSelected" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
+		SELECT count(t1.kind_code) from t_noncar_order_ct t1 inner join t_noncar_order t2 on t1.order_id=t2.id
+		where t1.kind_code=#{code} and t2.id=#{orderId}
+	</select>
+	
+	<select id="selectPlanRateRequired" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
+		SELECT required from t_noncar_plan_ct_detail where plan_coverage_id =#{planCoverageId} and plan_id =#{planId} limit 1
+	</select>
+	
+	<select id="selectPlanElementApiMapping" resultType="com.ccic.salesapp.noncar.dto.request.planelement.ApiMapping" parameterType="java.util.HashMap" >
+		SELECT
+			t1.element_code elementCode,
+			GROUP_CONCAT(t1.api_node ORDER BY t1.id) apiNodes
+		FROM
+			t_noncar_element_api_mapping t1
+			INNER JOIN t_noncar_plan_element t2 ON t1.element_code = t2.CODE 
+		WHERE
+			t2.CODE = #{elementCode} and t1.risk_code=#{riskCode} and t2.group_id=#{groupId}
+			GROUP BY t1.element_code
+	</select>
+	
+	<select id="selectPlanHiddenElementApiMapping" resultType="com.ccic.salesapp.noncar.dto.request.planelement.ApiMapping" parameterType="java.util.HashMap" >
+		SELECT
+			t1.element_code elementCode,
+			GROUP_CONCAT(t1.api_node ORDER BY t1.id) apiNodes
+		FROM
+			t_noncar_element_api_mapping t1
+			INNER JOIN t_noncar_element_config t2 ON t1.element_code = t2.CODE 
+		WHERE
+			t2.CODE = #{elementCode} and t1.risk_code=#{riskCode}
+			GROUP BY t1.element_code
+	</select>
+	
+	<select id="selectPlanCodeLink" resultType="com.ccic.salesapp.noncar.dto.request.planelement.LinkElementCode" parameterType="java.util.HashMap" >
+		SELECT code,type,link_code linkCode from  t_noncar_element_code_link where code=#{elementCode} and cate=#{cate}
+	</select>
+	<!-- SELECT code,type,GROUP_CONCAT(link_code) linkCode from  t_noncar_element_code_link where code='securityNum' and cate='ss' GROUP BY type -->
+	 
+	 <select id="selectPlanBackReasoningFactor1" resultType="com.ccic.salesapp.noncar.dto.request.planelement.BackReasoningFactor" parameterType="java.util.HashMap" >
+		SELECT t2.has_social_insurance factorValue,'insuredIsHaveShebao' factor,t1.id planId from t_noncar_plan_info t1 left join 
+		t_noncar_plan_method t2 on t1.id=t2.plan_id
+		where t1.strategy_id=#{strategyId} AND t1.record_status='0' AND t1.`status`='7'
+	 </select>
+	 
+	  <select id="selectPlanBackReasoningFactor2" resultType="com.ccic.salesapp.noncar.dto.request.planelement.BackReasoningFactor" parameterType="java.util.HashMap" >
+	 	SELECT CONCAT_WS( "-", t2.insurant_lowerlimit, t2.insurant_upperlimit) factorValue,'commSecurityNum' factor,t1.id planId from t_noncar_plan_info t1 left join 
+			t_noncar_plan_method t2 on t1.id=t2.plan_id
+			where t1.strategy_id=#{strategyId}  AND t1.record_status='0' AND t1.`status`='7'
+	 </select>
+	 
+	 <select id="selectPlanRateCode" resultType="java.lang.String" parameterType="java.util.HashMap" >
+	 	<!-- SELECT group_concat(t1.element_code ORDER BY t1.sort) from t_noncar_element_rate_mapping t1 
+		INNER join t_noncar_plan_element t2 on t1.element_code=t2.code
+		where t2.group_id in (4,9) GROUP BY t1.rate_code -->
+		SELECT  group_concat(DISTINCT(t1.element_code) ORDER BY t1.sort)  from t_noncar_element_rate_mapping t1 
+		INNER JOIN t_noncar_plan_element t2  on t1.element_code=t2.code
+		INNER JOIN t_noncar_plan_element_group t3 on t2.group_id=t3.id
+		where t3.biz_id =#{strategyId} and t3.biz_type='strategy' and t3.category='compute' GROUP BY t1.rate_code
+	 </select>
+	 
+	 <select id="selectPlanRateMapping" resultType="com.ccic.salesapp.noncar.dto.request.planelement.Rates" parameterType="java.util.HashMap" >
+	 	<!-- SELECT CONCAT_WS("_", ${codes} ) `key`,premium from (
+		SELECT
+			t1.period_premium_rate premium ,
+			CONCAT_WS( "-", t1.rate_age_min, t1.rate_age_max ) insuredAge,
+			t1.rate_social_security_flag insuredIsHaveShebao
+		FROM
+			t_noncar_plan_ct_rate t1 
+			left join t_noncar_plan_ct t2 on t1.plan_coverage_id=t2.plan_coverage_id
+		WHERE
+			t2.plan_id = #{planId}
+		) t  -->
+				
+		SELECT CONCAT_WS("_", ${codes} ) `key`,t.premium from (
+			SELECT
+						t1.period_premium_rate premium ,
+						t1.age_range insuredAge
+					FROM
+						(SELECT
+				CONCAT_WS( "-", t1.rate_age_min,t1.rate_age_max ) age_range,
+				any_value(t1.plan_coverage_id) plan_coverage_id,
+				any_value(t2.period_premium_rate) period_premium_rate
+			FROM
+				t_noncar_plan_ct_rate_age_range t1
+				LEFT JOIN t_noncar_plan_ct_rate t2 ON t1.plan_ct_rate_id = t2.plan_ct_rate_id 
+			WHERE
+				t2.plan_coverage_id = #{planCoverageId} and t2.plan_id = #{planId}  GROUP BY t1.rate_age_min,t1.rate_age_max ) t1  
+			left join t_noncar_plan_ct t2 on t1.plan_coverage_id=t2.plan_coverage_id
+			left join t_noncar_plan_info t3 on t2.plan_id=t3.id
+		WHERE
+			t3.id = #{planId} 
+			) t 
+			
+			
+			
+		
+		<!-- left join t_prd_plan_ct t2 on t1.plan_coverage_id=t2.plan_coverage_id
+			left join t_noncar_plan_info t3 on t2.plan_def_id=t3.prd_plan_def_id -->
+
+	 </select>
+	 
+	 <select id="selectPlanRateMapping2" resultType="com.ccic.salesapp.noncar.dto.request.planelement.Rates" parameterType="java.util.HashMap" >
+		SELECT CONCAT_WS("_", ${codes} ) `key`,t.premium from (
+			SELECT
+						t1.period_premium_rate premium ,
+						t1.period_range commSecurityPeriod
+					FROM
+						(SELECT 
+			plan_coverage_id,
+			CONCAT_WS( "-", period_min,period_max,rate_period ) period_range, 
+			CASE
+			rate_period
+			WHEN 9 THEN
+						CONCAT_WS( "",CONCAT_WS( "-", period_min,period_max), '天' )
+			END commSecurityPeriod_range,
+			period_premium_rate
+			from t_noncar_plan_ct_rate where plan_coverage_id=#{planCoverageId} and plan_id= #{planId}
+			 ) t1  
+			left join t_noncar_plan_ct t2 on t1.plan_coverage_id=t2.plan_coverage_id
+			left join t_noncar_plan_info t3 on t2.plan_id=t3.id
+		WHERE
+			t3.id = #{planId} 
+			) t 
+	 </select>
+	 
+	 <select id="list2" resultType="com.ccic.salesapp.noncar.dto.request.planelement.Insurance">
+		SELECT
+			t1.plan_coverage_id id,
+			t1.plan_coverage_name NAME,
+			t1.parent_plan_coverage_id pid 
+		FROM
+			t_noncar_plan_ct t1 left join t_noncar_plan_ct_detail t2 on t1.plan_coverage_id=t2.plan_coverage_id and t1.plan_id = t2.plan_id
+		WHERE
+			t1.plan_id =#{planId} and t2.`visible`=1 and t1.plan_coverage_id is not null
+	</select>
+	
+	<select id="selectAgesOptions" resultType="com.ccic.salesapp.noncar.dto.request.noncar.PlanElementOption">
+	SELECT 
+		CONCAT_WS( "-", t.min_code,t.max_code ) `value`,
+		CONCAT_WS( "-", t.min_value,t.max_value ) label
+		from (
+		SELECT 
+		CASE
+				min_type 
+				WHEN 1 THEN
+				min_value
+				WHEN 2 THEN
+				min_value*365
+				ELSE 0 
+		END min_code,
+		CASE
+				max_type 
+				WHEN 1 THEN
+				max_value+365
+				WHEN 2 THEN
+				(max_value+1)*365
+				ELSE 0 
+		END max_code,
+		CASE
+				min_type 
+				WHEN 1 THEN
+				CONCAT_WS( "", min_value, '天' )
+				WHEN 2 THEN
+				CONCAT_WS( "", min_value, '岁' )
+				ELSE '' 
+		END min_value,
+					CASE
+				max_type 
+				WHEN 1 THEN
+				CONCAT_WS( "", max_value, '天' )
+				WHEN 2 THEN
+				CONCAT_WS( "", max_value, '岁' )
+				ELSE '' 
+			END max_value
+		from t_noncar_plan_ct_rate_range where plan_id=#{planId} and range_type='age'  ORDER BY min_code
+		) t 
+	</select>
+	
+	<select id="selectPeriodOptions" resultType="com.ccic.salesapp.noncar.dto.request.noncar.PlanElementOption">
+		SELECT 
+		CONCAT_WS( "-", t.min_code,t.max_code ) `value`,
+		CONCAT_WS( "-", t.min_value,t.max_value ) label
+		from (
+		 		SELECT 
+ 		CASE
+ 				min_type 
+				WHEN 9 THEN min_value
+				WHEN 8 THEN min_value*30
+				WHEN 7 THEN min_value*90
+				WHEN 6 THEN min_value*180
+				WHEN 5 THEN min_value*365
+ 				ELSE 0 
+		END min_code,	
+ 		CASE
+ 				max_type 
+				WHEN 9 THEN max_value
+				WHEN 8 THEN max_value*30
+				WHEN 7 THEN max_value*90
+				WHEN 6 THEN max_value*180
+				WHEN 5 THEN max_value*365
+ 				ELSE 0 
+ 		END max_code,
+ 		CASE
+ 				min_type 
+				WHEN 9 THEN CONCAT_WS( "", min_value, '天' )
+				WHEN 8 THEN CONCAT_WS( "", min_value, '月' )
+				WHEN 7 THEN CONCAT_WS( "", min_value, '季' )
+				WHEN 6 THEN CONCAT_WS( "", min_value, '半年' )
+				WHEN 5 THEN CONCAT_WS( "", min_value, '年' )
+ 				ELSE '' 
+ 		END min_value,
+ 					CASE
+ 				max_type 
+				WHEN 9 THEN CONCAT_WS( "", max_value, '天' )
+				WHEN 8 THEN CONCAT_WS( "", max_value, '月' )
+				WHEN 7 THEN CONCAT_WS( "", max_value, '季' )
+				WHEN 6 THEN CONCAT_WS( "", max_value, '半年' )
+				WHEN 5 THEN CONCAT_WS( "", max_value, '年' )
+ 				ELSE '' 
+ 			END max_value
+		from t_noncar_plan_ct_rate_range where plan_id=#{planId} and range_type='period' ORDER BY min_code
+		) t 
+	</select>
+	
+	<select id="selectPeriodSeats" resultType="com.ccic.salesapp.noncar.dto.request.noncar.PlanElementOption">
+		SELECT
+		CONCAT_WS( "-", min_value,max_value) `value`,
+		CONCAT_WS( "", min_value,'座') `label`
+		from t_noncar_plan_ct_rate_range where plan_id=#{planId} and range_type='seat' GROUP BY min_value,max_value
+	</select>
+	
+	<select id="selectDefaultNumOfCopies" resultType="com.ccic.salesapp.noncar.dto.request.planelement.NumOfCopies" parameterType="java.util.HashMap" >
+		SELECT copy_min copyMin,copy_max copyMax from t_noncar_plan_info where id=#{planId}
+	</select>
+	
+	<select id="selectDefaultAge" resultType="java.lang.String" parameterType="java.util.HashMap" >
+		SELECT 
+		CONCAT_WS( "-", t.min_code,t.max_code ) age
+		from (
+		SELECT 
+		CASE
+				min_type 
+				WHEN 1 THEN
+				min_value
+				WHEN 2 THEN
+				min_value*365
+				ELSE 0 
+		END min_code,
+		CASE
+				max_type 
+				WHEN 1 THEN
+				max_value+365
+				WHEN 2 THEN
+				(max_value+1)*365
+				ELSE 0 
+		END max_code,
+		CASE
+				min_type 
+				WHEN 1 THEN
+				CONCAT_WS( "", min_value, '天' )
+				WHEN 2 THEN
+				CONCAT_WS( "", min_value, '岁' )
+				ELSE '' 
+		END min_value,
+					CASE
+				max_type 
+				WHEN 1 THEN
+				CONCAT_WS( "", max_value, '天' )
+				WHEN 2 THEN
+				CONCAT_WS( "", max_value, '岁' )
+				ELSE '' 
+			END max_value
+		from t_noncar_plan_ct_rate_range where plan_id=#{planId} and range_type='age'
+		) t  ORDER BY t.min_code LIMIT 1
+	</select>
+	
+	<select id="selectDefaultRateAge" resultType="java.util.HashMap" parameterType="java.util.HashMap" >
+		SELECT 
+		CASE
+				min_type 
+				WHEN 1 THEN
+				min_value
+				WHEN 2 THEN
+				min_value*365
+				ELSE 0 
+		END min_code,
+		CASE
+				max_type 
+				WHEN 1 THEN
+				max_value+365
+				WHEN 2 THEN
+				(max_value+1)*365
+				ELSE 0 
+		END max_code,
+		CASE
+				min_type 
+				WHEN 1 THEN
+				CONCAT_WS( "", min_value, '天' )
+				WHEN 2 THEN
+				CONCAT_WS( "", min_value, '岁' )
+				ELSE '' 
+		END min_value,
+					CASE
+				max_type 
+				WHEN 1 THEN
+				CONCAT_WS( "", max_value, '天' )
+				WHEN 2 THEN
+				CONCAT_WS( "", max_value, '岁' )
+				ELSE '' 
+			END max_value
+		from t_noncar_plan_ct_rate_range where plan_id=#{planId} and range_type='age'
+	</select>
+	
+	<select id="selectDefaultPeriod" resultType="java.lang.String" parameterType="java.util.HashMap" >
+		SELECT 
+		CONCAT_WS( "-", t.min_code,t.max_code ) period
+		from (
+		SELECT 
+		CASE
+				min_type 
+				WHEN 9 THEN min_value
+				WHEN 8 THEN min_value*30
+				WHEN 7 THEN min_value*90
+				WHEN 6 THEN min_value*180
+				WHEN 5 THEN min_value*365
+				ELSE 0 
+		END min_code,	
+		CASE
+				max_type 
+				WHEN 9 THEN max_value
+				WHEN 8 THEN max_value*30
+				WHEN 7 THEN max_value*90
+				WHEN 6 THEN max_value*180
+				WHEN 5 THEN max_value*365
+				ELSE 0 
+		END max_code,
+		CASE
+				min_type 
+				WHEN 9 THEN CONCAT_WS( "", min_value, '天' )
+				WHEN 8 THEN CONCAT_WS( "", min_value, '月' )
+				WHEN 7 THEN CONCAT_WS( "", min_value, '季' )
+				WHEN 6 THEN CONCAT_WS( "", min_value, '半年' )
+				WHEN 5 THEN CONCAT_WS( "", min_value, '年' )
+				ELSE '' 
+		END min_value,
+					CASE
+				max_type 
+				WHEN 9 THEN CONCAT_WS( "", max_value, '天' )
+				WHEN 8 THEN CONCAT_WS( "", max_value, '月' )
+				WHEN 7 THEN CONCAT_WS( "", max_value, '季' )
+				WHEN 6 THEN CONCAT_WS( "", max_value, '半年' )
+				WHEN 5 THEN CONCAT_WS( "", max_value, '年' )
+				ELSE '' 
+			END max_value
+		from t_noncar_plan_ct_rate_range where plan_id=#{planId} and range_type='period'
+		) t  ORDER BY t.min_code LIMIT 1
+	</select>
+	
+	<select id="selectDefaultRatePeriod" resultType="java.util.HashMap" parameterType="java.util.HashMap" >
+		SELECT 
+		CASE
+				min_type 
+				WHEN 9 THEN
+				min_value
+				ELSE 0 
+		END min_code,
+		CASE
+				max_type 
+				WHEN 9 THEN
+				max_value
+				ELSE 0 
+		END max_code,
+		CASE
+				min_type 
+				WHEN 9 THEN
+				CONCAT_WS( "", min_value, '天' )
+				ELSE '' 
+		END min_value,
+					CASE
+				max_type 
+				WHEN 9 THEN
+				CONCAT_WS( "", max_value, '天' )
+				ELSE '' 
+			END max_value
+		from t_noncar_plan_ct_rate_range where plan_id=#{planId} and range_type='period'
+	</select>
+	
+	
+	<select id="selectDefaultRateSeat" resultType="java.util.HashMap" parameterType="java.util.HashMap" >
+		 SELECT 
+			min_value min_code,
+			max_value max_code,
+			CONCAT_WS( "", min_value, '座' ) min_value,
+			CONCAT_WS( "", min_value, '座' ) max_value
+		from t_noncar_plan_ct_rate_range where plan_id=#{planId} and range_type='seat'
+	</select>
+	
+	<select id="selectPlanRequiredPlanCoverage" resultType="java.lang.Long" parameterType="java.util.HashMap">
+	SELECT plan_coverage_id planCoverageId from t_noncar_plan_ct_detail where plan_id=#{planId} and required=1
+	</select>
+	
+	
+	
+	<select id="selectDefaultSeats" resultType="java.lang.String" parameterType="java.util.HashMap" >
+	SELECT
+	CONCAT_WS( "-", min_value,max_value) seats
+	from t_noncar_plan_ct_rate_range where plan_id=#{planId} and range_type='seat' limit 1
+	</select>
+	
+	<update id="updateElementMinAge" parameterType="java.util.HashMap">
+		update t_noncar_plan_element set default_value=#{age} where id=#{elementId}
+	</update>
+	
+	<select id="selectInsuredDate" resultType="com.ccic.salesapp.noncar.dto.request.planelement.InsuredDate" parameterType="java.util.HashMap" >
+		SELECT t1.id, t1.start_date startDate, t1.end_date endDate,t2.gi_coverage_period giCoveragePeriod,t2.gi_period_type giPeriodType from t_noncar_order t1
+		left join t_noncar_plan_info t2 on t1.plan_id=t2.id
+		where t1.id=#{orderId} and t1.plan_id=#{planId}
+	</select>
+	
+	<select id="selectInsuredDate2" resultType="com.ccic.salesapp.noncar.dto.request.planelement.InsuredDate" parameterType="java.util.HashMap" >
+		SELECT gi_coverage_period giCoveragePeriod,gi_period_type giPeriodType from t_noncar_plan_info where id=#{planId}
+	</select>
+	
+	<select id="selectMinPrem1" resultType="java.lang.String" parameterType="java.util.HashMap" >
+		SELECT CONCAT_WS( "-", rate_age_min,rate_age_max ) age from (
+		SELECT t.rate_age_min, t.rate_age_max,sum(any_value(t.premium)) premium from (
+		SELECT 
+			t2.required,
+		 t1.plan_coverage_id,
+		 t1.rate_age_min,
+		 t1.rate_age_max,
+		 t1.period_premium_rate premium
+		from t_noncar_plan_ct_detail t2 left join t_noncar_plan_ct_rate t1 on t1.plan_coverage_id = t2.plan_coverage_id 
+		where t1.plan_id=t2.plan_id and t1.plan_id = #{planId}  and t2.required=1
+		) t GROUP BY t.rate_age_min, t.rate_age_max 
+		) t ORDER BY premium limit 1
+	</select>
+	
+	<select id="selectMinPrem2" resultType="java.lang.String" parameterType="java.util.HashMap" >
+	SELECT CONCAT_WS( "-", period_min,period_max) period from (
+		SELECT t.period_min,t.period_max,sum(any_value(t.premium)) premium from (
+		SELECT 
+		 t2.required,
+		 t1.plan_coverage_id,
+		 t1.period_min,t1.period_max,
+		 t1.period_premium_rate premium
+		from t_noncar_plan_ct_detail t2 left join t_noncar_plan_ct_rate t1 on t1.plan_coverage_id = t2.plan_coverage_id 
+		where t1.plan_id=t2.plan_id and t1.plan_id = #{planId}  and t2.required=1
+		) t GROUP BY t.period_min,t.period_max
+		) t ORDER BY premium limit 1
+	</select>
+	
+	 <select id="selectPlanRatePrem" resultType="java.util.HashMap" parameterType="java.util.HashMap" >	
+		SELECT 
+		t1.plan_id planId,
+		t1.rate_age_min_type rateAgeMinType,
+		t1.rate_age_min rateAgeMin,
+		t1.rate_age_max_type rateAgeMaxType,
+		t1.rate_age_max rateAgeMax,
+		t1.period_min periodMin,
+		period_max periodMax,
+		t1.rate_period ratePeriod,
+		sum(any_value(t1.period_premium_rate)) premium from t_noncar_plan_ct_rate t1
+		left join t_noncar_plan_ct_detail t2 on t1.plan_coverage_id=t2.plan_coverage_id
+		where t1.plan_id =#{planId} and t2.plan_id =#{planId} and t2.required=1 GROUP BY 
+		t1.rate_type,
+		t1.rate_period,
+		t1.rate_age_max_type,
+		t1.rate_age_max,
+		t1.rate_age_min_type,
+		t1.rate_age_min,
+		t1.rate_sex,
+		t1.rate_occupation_type,
+		t1.rate_social_security_flag,
+		t1.rate_seat_max,
+		t1.rate_seat_min,
+		t1.period_max,
+		t1.period_min  
+	</select>
+	
+	<select id="selectPlanRateRange" resultType="java.util.HashMap" parameterType="java.util.HashMap" >
+	SELECT * from t_noncar_plan_ct_rate_range where plan_id=#{planId} and max_type=#{maxType} and max_value=#{maxValue} and min_type=#{minType} and min_value=#{minValue} and range_type=#{rangeType}
+	</select>
+	
+	<select id="selectPlanRateFee" resultType="java.lang.Double" parameterType="java.util.HashMap" >
+	SELECT ifnull(sum(period_premium_rate),0) from (
+		SELECT
+	  t1.plan_coverage_id,
+	  t1.plan_id,
+	  t1.rate_type,
+		t1.rate_period,
+		CASE
+		t1.rate_age_min_type 
+		WHEN 1 THEN
+		t1.rate_age_min
+		WHEN 2 THEN
+		t1.rate_age_min*365
+		ELSE 0 END rate_age_min,
+		CASE
+		t1.rate_age_max_type
+		WHEN 1 THEN
+		t1.rate_age_max
+		WHEN 2 THEN
+		(t1.rate_age_max+1)*365
+		ELSE 0 END rate_age_max,
+		t1.rate_sex,
+		t1.rate_occupation_type,
+		t1.rate_social_security_flag,
+		t1.rate_seat_max,
+		t1.rate_seat_min,
+		CASE
+			t1.rate_period 
+			WHEN 9 THEN period_min
+			WHEN 8 THEN period_min*30
+			WHEN 7 THEN period_min*90
+			WHEN 6 THEN period_min*180
+			WHEN 5 THEN period_min*365
+			ELSE 0 
+		END period_min,
+		CASE
+			t1.rate_period 
+			WHEN 9 THEN period_max
+			WHEN 8 THEN period_max*30
+			WHEN 7 THEN period_max*90
+			WHEN 6 THEN period_max*180
+			WHEN 5 THEN period_max*365
+			ELSE 0 
+		END period_max,
+		t1.period_premium_rate
+		FROM
+			t_noncar_plan_ct_rate  t1
+		WHERE
+			t1.plan_id = #{planId}
+			)t2  where  
+			t2.plan_coverage_id in 
+			<foreach collection="planCoverageIds" item="planCoverageId" index="index" open="(" close=")" separator=",">
+			 #{planCoverageId} 
+			</foreach>
+			 <if test="rateAgeMin != null">
+			 and t2.rate_age_min <![CDATA[<=]]> #{rateAgeMin}
+			 </if>
+			 <if test="rateAgeMax != null">
+			  and t2.rate_age_max <![CDATA[>=]]>#{rateAgeMax}
+			 </if>
+			 <if test="periodMin != null">
+			  and t2.period_min <![CDATA[<=]]> #{periodMin}
+			 </if>
+			 <if test="periodMax != null">
+			  and t2.period_max <![CDATA[>=]]> #{periodMax}
+			 </if>
+			 <if test="rateSeatMin != null">
+			  and t2.rate_seat_min <![CDATA[<=]]> #{rateSeatMin}
+			 </if>
+			 <if test="rateSeatMax != null">
+			  and t2.rate_seat_max <![CDATA[>=]]> #{rateSeatMax}
+			 </if>
+	</select>
+	
+	<select id="selectPlanInsureFixed" resultType="com.ccic.salesapp.noncar.dto.request.planelement.FixedInsureVo" parameterType="java.util.HashMap">
+		<!-- SELECT
+			fixed_insure fixedInsure,
+			insure_amount insureAmount 
+		FROM
+			t_noncar_plan_ct 
+		WHERE
+			product_element_code = (
+			SELECT
+				clause_code 
+			FROM
+				t_noncar_plan_ct_detail 
+			WHERE
+				plan_id = #{planId} 
+				AND plan_coverage_id = #{planCoverageId} 
+			) 
+			AND plan_id = #{planId} -->
+			
+			SELECT fixed_insure fixedInsure,insure_amount insureAmount  from t_noncar_plan_ct where plan_coverage_id=(
+			SELECT parent_plan_coverage_id from t_noncar_plan_ct where plan_id = #{planId} AND plan_coverage_id =  #{planCoverageId}  
+			) and plan_id = #{planId}
+	</select>
+	
+	<select id="selectRateByPlanCoverage" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		SELECT count(1) from t_noncar_plan_ct_rate where plan_id=#{planId} and plan_coverage_id=#{planCoverageId}
+	</select>
+	
+	<select id="selectPremiumByPlanCoverage" resultType="java.lang.Double" parameterType="java.util.HashMap">
+		SELECT 
+		CASE
+		premium_orrate
+		WHEN 1 THEN
+		premium_min
+		WHEN 2 THEN
+		sum_insured_min*premium_min/1000
+		ELSE premium_min END premium_min
+	   from t_noncar_plan_ct_detail where plan_id=#{planId} and plan_coverage_id=#{planCoverageId}
+	</select>
+	
+	<select id="selectElementHidden" resultType="com.ccic.salesapp.noncar.dto.request.noncar.PlanElement" parameterType="java.util.HashMap">
+	SELECT 
+	t2.code groupCode,t1.id id,t1.group_id groupId,t1.code,t1.name,t1.default_value defaultValue,t1.control_type controlType,
+	t1.min_length minLength,t1.max_length maxLength,
+	t1.min_value minValue,
+	t1.max_value `maxValue`,
+	t1.element_type elementType,t1.control_type controlType,t1.event_script eventScript,t1.validate_Type validateType,t1.link_Elment_Code linkElmentCode,t1.placeholder
+	from t_noncar_element_config t1 left join t_noncar_element_group_config t2 on t1.group_id=t2.id where t1.control_type='hidden'
+	</select>
+	
+	<select id="selectPolicyStartRange" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT ifnull(policy_start_type,1) policyStartType,ifnull(policy_start_range,1) policyStartRange from t_noncar_plan_strategy where id=#{strategyId} and valid_status=1
+	</select>
+	
+	<select id="selectOrderInvoiceFlag" resultType="java.lang.String" parameterType="java.lang.Long">
+		SELECT ifnull(invoice_flag,'0') invoiceFlag from t_noncar_order where id=#{orderId}
+	</select>
+	
+	<select id="listTreeDO" resultType="com.ccic.salesapp.noncar.dto.TreeDO">
+		select `id` id,`pid` pid,`name` from t_prd_city ORDER BY id 
+	</select>
+	
+	<select id="listTreeDO2" resultType="com.ccic.salesapp.noncar.dto.TreeDO2">
+				select `id` id,`pid` pid,`name`,grage from t_prd_occupation ORDER BY id+0
+	</select>
+	
+	<insert id="insertCategory" parameterType="com.ccic.salesapp.noncar.dto.request.Occupation">
+		INSERT INTO `t_prd_ssq`(`id`, `name`, `pid`) VALUES (#{id}, #{name}, #{pid})
+	</insert>
+	 
+</mapper>

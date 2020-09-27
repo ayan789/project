@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.performance.domain.mapper.UserMonthlyReportMapper">
+	
+	<select id="selectUserStories" resultType="com.ccic.salesapp.performance.domain.vo.dto.UserMonthlyReportIndex" parameterType="java.util.HashMap">
+		SELECT
+		`id`,
+		`year`,
+		`month`
+		<!-- `user_code` userCode,
+		`user_name` userName,
+		`total_premium` totalPremium,
+		`ranking_rate` rankingRate,
+		`reach_perc` reachPerc,
+		`payreffee_car` payreffeeCar,
+		`payreffee_acc` payreffeeAcc,
+		`payreffee_hea` payreffeeHea,
+		`payreffee_pro` payreffeePro,
+		`car_num` carNum,
+		`acc_num` accNum,
+		`hea_num` heaNum,
+		`pro_num` proNum,
+		`signin_num` signinNum,
+		`invoice_num` invoiceNum,
+		`interaction_num` interactionNum,
+		`push_status` pushStatus,
+		`create_time` createTime,
+		`update_time` updateTime -->
+		from t_user_monthly_report where push_status=1 and user_code=#{userCode} ORDER BY create_time desc LIMIT 12
+	</select>
+	
+	<select id="selectUserStoriesDetail" resultType="com.ccic.salesapp.performance.domain.vo.dto.UserMonthlyReportInfo" parameterType="java.util.HashMap">
+		SELECT
+		`id`,
+		`year`,
+		`month`,
+		`user_code` userCode,
+		`user_name` userName,
+		`total_premium` totalPremium,
+		`payreffee_y_s` payreffeeY,
+		`ranking_rate` rankingRate,
+		`ranking_rate_y` rankingRateY,
+		`reach_perc` reachPerc,
+		`payreffee_car` payreffeeCar,
+		`payreffee_acc` payreffeeAcc,
+		`payreffee_hea` payreffeeHea,
+		`payreffee_pro` payreffeePro,
+		`car_num` carNum,
+		`acc_num` accNum,
+		`hea_num` heaNum,
+		`pro_num` proNum,
+		`signin_num` signinNum,
+		`invoice_num` invoiceNum,
+		`interaction_num` interactionNum,
+		`push_status` pushStatus,
+		`create_time` createTime,
+		`update_time` updateTime
+		from t_user_monthly_report where id=#{id}
+	</select> 
+	
+	<select id="selectPremiumNum" resultType="com.ccic.salesapp.performance.domain.vo.dto.UserMonthlyReportInfo" parameterType="java.util.HashMap">
+		SELECT
+			payreffee_y_s payreffeeY,
+			payreffee_m_s totalPremium,
+			payreffee_m_s_c payreffeeCar,
+			payreffee_m_s_nc payreffeePro,
+			payreffee_m_s_a payreffeeAcc,
+			payreffee_m_s_h payreffeeHea,
+			num_payreffee_m_s invoiceNum,
+			num_payreffee_m_s_c carNum,
+			num_payreffee_m_s_nc proNum,
+			num_payreffee_m_s_a accNum,
+			num_payreffee_m_s_h heaNum,
+			(SELECT sign_status from t_performance_responsibility where user_code=#{userCode} and is_year=#{isYear} and responsibility_type='P') signStatus,
+			(SELECT count(1) from t_support_sign where user_code=#{userCode} and MONTH(sign_time)=#{monthStep}) signinNum,
+			(SELECT count(1) from t_cust_customer_interaction where business_no=#{userCode} and MONTH(create_time)=#{monthStep}) interactionNum
+		FROM
+			t_performance_databus_planfee_day 
+		WHERE
+			usercode = #{userCode}
+			AND realpaydate = #{realpayDate} limit 1
+	</select>
+	
+	<select id="selectRespPremium" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT insure_premium insurePremium from t_performance_responsibility  where user_code=#{userCode} and responsibility_type='P'
+	</select>
+
+	<select id="selectUserComNum" resultType="com.ccic.salesapp.performance.domain.vo.dto.UserMonthlyReportInfo" parameterType="java.util.HashMap">
+		SELECT
+			usercode userCode,
+			username userName,
+			(SELECT count(1) from t_performance_databus_salelaw_person where CONCAT(left(COMCODE, 4),'0000') like (
+			SELECT  CONCAT(left(COMCODE, 4),'0000') from t_performance_databus_salelaw_person where usercode=#{userCode} 
+			)  
+			<if test="channelCode != null">
+			and channelcode=#{channelCode}
+			</if>
+			) comPerNum
+		FROM
+			t_performance_databus_salelaw_person 
+		WHERE
+			usercode = #{userCode} 
+	</select>
+		
+	<insert id="insertList" parameterType="java.util.List">
+    insert into t_user_monthly_report
+    (   
+        `year`,
+		`month`,
+		`user_code`,
+		`user_name`,
+		`total_premium`,
+		`payreffee_y_s`,
+		`ranking_rate`,
+		`ranking_rate_y`,
+		`reach_perc`,
+		`payreffee_car`,
+		`payreffee_acc`,
+		`payreffee_hea`,
+		`payreffee_pro`,
+		`car_num`,
+		`acc_num`,
+		`hea_num`,
+		`pro_num`,
+		`signin_num`,
+		`invoice_num`,
+		`interaction_num`,
+		`push_status`
+    )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+    (
+        #{item.year},
+		#{item.month},
+		#{item.userCode},
+		#{item.userName},
+		#{item.totalPremium},
+		#{item.payreffeeY},
+		#{item.rankingRate},
+		#{item.rankingRateY},
+		#{item.reachPerc},
+		#{item.payreffeeCar},
+		#{item.payreffeeAcc},
+		#{item.payreffeeHea},
+		#{item.payreffeePro},
+		#{item.carNum},
+		#{item.accNum},
+		#{item.heaNum},
+		#{item.proNum},
+		#{item.signinNum},
+		#{item.invoiceNum},
+		#{item.interactionNum},
+		#{item.pushStatus}
+    )
+    </foreach>
+	ON DUPLICATE KEY UPDATE 
+		year = VALUES(year),
+		month = VALUES(month),
+		user_code = VALUES(user_code),
+		user_name = VALUES(user_name),
+		total_premium = VALUES(total_premium),
+		payreffee_y_s = VALUES(payreffee_y_s),
+		ranking_rate = VALUES(ranking_rate),
+		ranking_rate_y = VALUES(ranking_rate_y),
+		reach_perc = VALUES(reach_perc),
+		payreffee_car = VALUES(payreffee_car),
+		payreffee_acc = VALUES(payreffee_acc),
+		payreffee_hea = VALUES(payreffee_hea),
+		payreffee_pro = VALUES(payreffee_pro),
+		car_num = VALUES(car_num),
+		acc_num = VALUES(acc_num),
+		hea_num = VALUES(hea_num),
+		pro_num = VALUES(pro_num),
+		signin_num = VALUES(signin_num),
+		invoice_num = VALUES(invoice_num),
+		interaction_num = VALUES(interaction_num),	
+		push_status = VALUES(push_status)
+    </insert>
+	
+	<select id="selectUserCodes" resultType="java.lang.String" parameterType="java.util.HashMap">
+		SELECT DISTINCT usercode userCode from t_performance_databus_salelaw_person
+		<if test="offset != null and limit != null">
+		    limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<select id="selectUserCodesNum" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		SELECT count(DISTINCT usercode) from t_performance_databus_salelaw_person
+	</select>
+	
+	<select id="selectMonthlyReportUserCodes" resultType="java.lang.String" parameterType="java.util.HashMap">
+		SELECT user_code userCode from t_user_monthly_report where `month`=#{month} and push_status='0'
+		<if test="offset != null and limit != null">
+		    limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<select id="selectMonthlyReportUserCodesNum" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		SELECT count(1) from t_user_monthly_report where `month`=#{month} and push_status='0'
+	</select>
+	
+	<!-- <delete id="deleteMonthlyReportDirtyData" parameterType="java.util.HashMap">
+	    delete from t_user_monthly_report where `year`=#{isYear} and `month`=#{monthStep} and push_status='0'
+	</delete> -->
+	
+	<!-- <select id="selectMonthlyReportStatus" resultType="java.lang.Integer" parameterType="com.ccic.salesapp.performance.domain.vo.dto.UserMonthlyReportInfo">
+		SELECT count(1) from t_user_monthly_report where user_code=#{userCode} and `month`=#{month} and year=#{year}
+	</select> -->
+	
+	<select id="selectUserInfo" resultType="com.ccic.salesapp.performance.domain.vo.dto.UserMonthlyReportInfo" parameterType="com.ccic.salesapp.performance.domain.vo.dto.UserMonthlyReportInfo">
+		SELECT usercode userCode,COMCODE comCode,channelcode channelCode from t_performance_databus_salelaw_person where usercode=#{userCode}
+	</select>
+	
+	<select id="selectRank" resultType="java.lang.String"  parameterType="java.util.HashMap">
+		SELECT t1.USERCODE from t_performance_databus_salelaw_person t1 inner join t_prpdcompany t2 on t1.COMCODE=t2.COMCODE inner join t_performance_databus_planfee_day t3 on  t1.USERCODE=t3.USERCODE where t3.REALPAYDATE=#{realpayDate}
+		and CONCAT(left(t1.COMCODE, 4),'0000') in (
+		SELECT CONCAT(left(comcode, 4),'0000') from t_performance_databus_salelaw_person where USERCODE=#{userCode}
+		) 
+		<if test="channelCode != null">
+		and t1.CHANNELCODE=#{channelCode} 
+		</if>
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,t1.USERCODE DESC</if>
+	</select>
+	
+	<update id="updateMonthlyReportMsgStatus" parameterType="java.util.HashMap">
+		update t_user_monthly_report set push_status='1' where user_code in
+        <foreach item = "item" index = "index" collection = "userCodes" open = "(" separator = "," close = ")">
+                #{item}
+        </foreach>
+	</update>
+	
+	<select id="selectUserSignStatus" resultType="java.lang.String"  parameterType="java.util.HashMap">
+		SELECT sign_status signStatus from t_performance_responsibility where user_code=#{userCode} and is_year=#{isYear} and responsibility_type='P'
+	</select>
+	
+</mapper>

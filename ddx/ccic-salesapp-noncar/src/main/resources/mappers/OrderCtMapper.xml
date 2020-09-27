@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.OrderCtMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.basedb.po.OrderCt">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="clause_code" jdbcType="VARCHAR" property="clauseCode" />
+    <result column="kind_code" jdbcType="VARCHAR" property="kindCode" />
+    <result column="due_premium" jdbcType="DECIMAL" property="duePremium" />
+    <result column="insured" jdbcType="DECIMAL" property="insured" />
+    <result column="before_vat_premium" jdbcType="DECIMAL" property="beforeVatPremium" />
+    <result column="vat" jdbcType="DECIMAL" property="vat" />
+    <result column="insured_item_name" jdbcType="VARCHAR" property="insuredItemName" />
+    <result column="clause_name" jdbcType="VARCHAR" property="clauseName" />
+    <result column="coverage_name" jdbcType="VARCHAR" property="coverageName" />
+    <result column="relation_id" jdbcType="INTEGER" property="relationId" />
+    <result column="relation_type" jdbcType="INTEGER" property="relationType" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, order_id, clause_code, kind_code, due_premium, insured, before_vat_premium, vat, 
+    insured_item_name, clause_name, coverage_name, relation_id, relation_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_noncar_order_ct
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_noncar_order_ct
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.OrderCt">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_noncar_order_ct (order_id, clause_code, kind_code, 
+      due_premium, insured, before_vat_premium, 
+      vat, insured_item_name, clause_name, 
+      coverage_name, relation_id, relation_type
+      )
+    values (#{orderId,jdbcType=BIGINT}, #{clauseCode,jdbcType=VARCHAR}, #{kindCode,jdbcType=VARCHAR}, 
+      #{duePremium,jdbcType=DECIMAL}, #{insured,jdbcType=DECIMAL}, #{beforeVatPremium,jdbcType=DECIMAL}, 
+      #{vat,jdbcType=DECIMAL}, #{insuredItemName,jdbcType=VARCHAR}, #{clauseName,jdbcType=VARCHAR}, 
+      #{coverageName,jdbcType=VARCHAR}, #{relationId,jdbcType=INTEGER}, #{relationType,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.OrderCt">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_noncar_order_ct
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="clauseCode != null">
+        clause_code,
+      </if>
+      <if test="kindCode != null">
+        kind_code,
+      </if>
+      <if test="duePremium != null">
+        due_premium,
+      </if>
+      <if test="insured != null">
+        insured,
+      </if>
+      <if test="beforeVatPremium != null">
+        before_vat_premium,
+      </if>
+      <if test="vat != null">
+        vat,
+      </if>
+      <if test="insuredItemName != null">
+        insured_item_name,
+      </if>
+      <if test="clauseName != null">
+        clause_name,
+      </if>
+      <if test="coverageName != null">
+        coverage_name,
+      </if>
+      <if test="relationId != null">
+        relation_id,
+      </if>
+      <if test="relationType != null">
+        relation_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="clauseCode != null">
+        #{clauseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="kindCode != null">
+        #{kindCode,jdbcType=VARCHAR},
+      </if>
+      <if test="duePremium != null">
+        #{duePremium,jdbcType=DECIMAL},
+      </if>
+      <if test="insured != null">
+        #{insured,jdbcType=DECIMAL},
+      </if>
+      <if test="beforeVatPremium != null">
+        #{beforeVatPremium,jdbcType=DECIMAL},
+      </if>
+      <if test="vat != null">
+        #{vat,jdbcType=DECIMAL},
+      </if>
+      <if test="insuredItemName != null">
+        #{insuredItemName,jdbcType=VARCHAR},
+      </if>
+      <if test="clauseName != null">
+        #{clauseName,jdbcType=VARCHAR},
+      </if>
+      <if test="coverageName != null">
+        #{coverageName,jdbcType=VARCHAR},
+      </if>
+      <if test="relationId != null">
+        #{relationId,jdbcType=INTEGER},
+      </if>
+      <if test="relationType != null">
+        #{relationType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.OrderCt">
+    update t_noncar_order_ct
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="clauseCode != null">
+        clause_code = #{clauseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="kindCode != null">
+        kind_code = #{kindCode,jdbcType=VARCHAR},
+      </if>
+      <if test="duePremium != null">
+        due_premium = #{duePremium,jdbcType=DECIMAL},
+      </if>
+      <if test="insured != null">
+        insured = #{insured,jdbcType=DECIMAL},
+      </if>
+      <if test="beforeVatPremium != null">
+        before_vat_premium = #{beforeVatPremium,jdbcType=DECIMAL},
+      </if>
+      <if test="vat != null">
+        vat = #{vat,jdbcType=DECIMAL},
+      </if>
+      <if test="insuredItemName != null">
+        insured_item_name = #{insuredItemName,jdbcType=VARCHAR},
+      </if>
+      <if test="clauseName != null">
+        clause_name = #{clauseName,jdbcType=VARCHAR},
+      </if>
+      <if test="coverageName != null">
+        coverage_name = #{coverageName,jdbcType=VARCHAR},
+      </if>
+      <if test="relationId != null">
+        relation_id = #{relationId,jdbcType=INTEGER},
+      </if>
+      <if test="relationType != null">
+        relation_type = #{relationType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.OrderCt">
+    update t_noncar_order_ct
+    set order_id = #{orderId,jdbcType=BIGINT},
+      clause_code = #{clauseCode,jdbcType=VARCHAR},
+      kind_code = #{kindCode,jdbcType=VARCHAR},
+      due_premium = #{duePremium,jdbcType=DECIMAL},
+      insured = #{insured,jdbcType=DECIMAL},
+      before_vat_premium = #{beforeVatPremium,jdbcType=DECIMAL},
+      vat = #{vat,jdbcType=DECIMAL},
+      insured_item_name = #{insuredItemName,jdbcType=VARCHAR},
+      clause_name = #{clauseName,jdbcType=VARCHAR},
+      coverage_name = #{coverageName,jdbcType=VARCHAR},
+      relation_id = #{relationId,jdbcType=INTEGER},
+      relation_type = #{relationType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <update id="updateByOrderIdKindCode" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.OrderCt">
+    update t_noncar_order_ct
+    <set>
+      <if test="clauseCode != null">
+        clause_code = #{clauseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="kindCode != null">
+        kind_code = #{kindCode,jdbcType=VARCHAR},
+      </if>
+      <if test="duePremium != null">
+        due_premium = #{duePremium,jdbcType=DECIMAL},
+      </if>
+      <if test="insured != null">
+        insured = #{insured,jdbcType=DECIMAL},
+      </if>
+      <if test="coverageName != null">
+        coverage_name = #{coverageName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=BIGINT} and kind_code = #{kindCode,jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="deleteByOrderId" parameterType="java.lang.Long">
+  	delete from t_noncar_order_ct
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </delete>
+  
+  <select id="selectByOrderId"  parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    oc.clause_code,oc.kind_code,oc.order_id
+		,oc.coverage_name coverage_name,
+		oc.clause_name product_name,
+		if(oc.insured is not null ,oc.insured ,
+		(select sum_insured_default from (
+		select DISTINCT d.clause_code,pc.product_element_code , sum_insured_default  from t_noncar_plan_ct_detail d
+	  left join t_noncar_plan_ct pc on d.plan_coverage_id = pc.plan_coverage_id and d.plan_id = pc.plan_id
+		where d.plan_id =(
+			select plan_id from t_noncar_order where id = #{orderId,jdbcType=BIGINT}
+		) ) u where u.product_element_code = oc.kind_code and u.clause_code = oc.clause_code limit 1)
+		) insured ,
+		oc.due_premium due_premium,
+		(select insure_unit from (
+		select DISTINCT d.clause_code,pc.product_element_code ,(case d.insure_unit when 1 then '元'
+			when 2 then '元/座' when 3 then '元/家庭' when 4 then '元/天' else '元' end) insure_unit  from t_noncar_plan_ct_detail d
+	  left join t_noncar_plan_ct pc on d.plan_coverage_id = pc.plan_coverage_id and d.plan_id = pc.plan_id
+		where d.plan_id =(
+			select plan_id from t_noncar_order where id = #{orderId,jdbcType=BIGINT}
+		) ) u where u.product_element_code = oc.kind_code and u.clause_code = oc.clause_code limit 1) insure_unit		
+    from t_noncar_order_ct oc
+		left join t_noncar_order o on o.id = oc.order_id	 
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectByOrderId2"  parameterType="java.lang.Long" resultType="com.ccic.salesapp.noncar.dto.order.Clause">
+  	 select 
+    oc.clause_code clauseCode,oc.kind_code kindCode,oc.order_id
+		,oc.coverage_name kindName,
+		oc.clause_name product_name,
+		if(oc.insured is not null ,oc.insured ,
+		(select sum_insured_default from (
+		select DISTINCT d.clause_code,pc.product_element_code , sum_insured_default  from t_noncar_plan_ct_detail d
+	  left join t_noncar_plan_ct pc on d.plan_coverage_id = pc.plan_coverage_id and d.plan_id = pc.plan_id
+		where d.plan_id =(
+			select plan_id from t_noncar_order where id = #{orderId,jdbcType=BIGINT}
+		) ) u where u.product_element_code = oc.kind_code and u.clause_code = oc.clause_code limit 1)
+		) sumInsured ,
+		oc.due_premium due_premium,
+		(select insure_unit from (
+		select DISTINCT d.clause_code,pc.product_element_code ,(case d.insure_unit when 1 then '元'
+			when 2 then '元/座' when 3 then '元/家庭' when 4 then '元/天' else '元' end) insure_unit  from t_noncar_plan_ct_detail d
+	  left join t_noncar_plan_ct pc on d.plan_coverage_id = pc.plan_coverage_id and d.plan_id = pc.plan_id
+		where d.plan_id =(
+			select plan_id from t_noncar_order where id = #{orderId,jdbcType=BIGINT}
+		) ) u where u.product_element_code = oc.kind_code and u.clause_code = oc.clause_code limit 1) unit		
+    from t_noncar_order_ct oc
+		left join t_noncar_order o on o.id = oc.order_id	 
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectOrderCtGroupType"  parameterType="java.util.Map" resultType="java.lang.String">
+	  select distinct shared_group_type from t_noncar_plan_ct
+	where plan_id = #{planId,jdbcType=BIGINT}
+	and product_element_code in ( 'A',
+		<foreach collection="cList" item="item" open="" separator="," close="">
+			#{item}
+			</foreach> )
+  </select>
+  
+  <select id="selectCtName" parameterType="java.util.Map" resultType="java.lang.String">
+  	select DISTINCT plan_coverage_name from t_noncar_plan_ct
+		where product_element_code = #{clauseCode} and plan_id = #{planId}
+  </select>
+  
+  
+  <select id="selectByOrderIdCoverageId" parameterType="java.util.Map"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+     from t_noncar_order_ct where order_id = #{orderId} and relation_id = #{coverageId}
+	and relation_type = #{relationType}
+  </select>
+  
+  
+<!--   <select id="selectOrderCtInsured"  parameterType="java.util.Map" resultType="java.math.BigDecimal">
+  select sum_insured_default from (
+		select DISTINCT d.clause_code,pc.product_element_code , sum_insured_default  from t_noncar_plan_ct_detail d
+	  left join t_noncar_plan_ct pc on d.plan_coverage_id = pc.plan_coverage_id and d.plan_id = pc.plan_id
+		where d.plan_id =#{planId,jdbcType=BIGINT} ) u where u.product_element_code = #{kindCode,jdbcType=VARCHAR} and u.clause_code = #{clauseCode,jdbcType=VARCHAR} limit 1)
+		) t
+  </select> -->
+  
+</mapper>

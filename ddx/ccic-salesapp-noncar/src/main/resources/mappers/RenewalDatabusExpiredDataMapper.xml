@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.RenewalDatabusExpiredDataMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.basedb.po.RenewalDatabusExpiredData">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="policy_no" jdbcType="VARCHAR" property="policyNo" />
+    <result column="app_name" jdbcType="VARCHAR" property="appName" />
+    <result column="app_cust_no" jdbcType="VARCHAR" property="appCustNo" />
+    <result column="plan_name" jdbcType="VARCHAR" property="planName" />
+    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="premium" jdbcType="DECIMAL" property="premium" />
+    <result column="claim_status" jdbcType="VARCHAR" property="claimStatus" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="product_cate" jdbcType="VARCHAR" property="productCate" />
+    <result column="insert_time" jdbcType="TIMESTAMP" property="insertTime" />
+    <result column="staff_code" jdbcType="VARCHAR" property="staffCode" />
+    <result column="is_Issued" jdbcType="VARCHAR" property="isIssued" />
+    <result column="new_policy_no" jdbcType="VARCHAR" property="newPolicyNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, policy_no, app_name, app_cust_no, plan_name, end_date, premium, claim_status, 
+    createtime, product_cate, insert_time, staff_code, is_Issued, new_policy_no
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_renewal_databus_expired_data
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_renewal_databus_expired_data
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.RenewalDatabusExpiredData">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_renewal_databus_expired_data (policy_no, app_name, app_cust_no, 
+      plan_name, end_date, premium, 
+      claim_status, createtime, product_cate, 
+      insert_time, staff_code, is_Issued, 
+      new_policy_no)
+    values (#{policyNo,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, #{appCustNo,jdbcType=VARCHAR}, 
+      #{planName,jdbcType=VARCHAR}, #{endDate,jdbcType=TIMESTAMP}, #{premium,jdbcType=DECIMAL}, 
+      #{claimStatus,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{productCate,jdbcType=VARCHAR}, 
+      #{insertTime,jdbcType=TIMESTAMP}, #{staffCode,jdbcType=VARCHAR}, #{isIssued,jdbcType=VARCHAR}, 
+      #{newPolicyNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.RenewalDatabusExpiredData">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_renewal_databus_expired_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="policyNo != null">
+        policy_no,
+      </if>
+      <if test="appName != null">
+        app_name,
+      </if>
+      <if test="appCustNo != null">
+        app_cust_no,
+      </if>
+      <if test="planName != null">
+        plan_name,
+      </if>
+      <if test="endDate != null">
+        end_date,
+      </if>
+      <if test="premium != null">
+        premium,
+      </if>
+      <if test="claimStatus != null">
+        claim_status,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="productCate != null">
+        product_cate,
+      </if>
+      <if test="insertTime != null">
+        insert_time,
+      </if>
+      <if test="staffCode != null">
+        staff_code,
+      </if>
+      <if test="isIssued != null">
+        is_Issued,
+      </if>
+      <if test="newPolicyNo != null">
+        new_policy_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="policyNo != null">
+        #{policyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null">
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appCustNo != null">
+        #{appCustNo,jdbcType=VARCHAR},
+      </if>
+      <if test="planName != null">
+        #{planName,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="premium != null">
+        #{premium,jdbcType=DECIMAL},
+      </if>
+      <if test="claimStatus != null">
+        #{claimStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productCate != null">
+        #{productCate,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null">
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="staffCode != null">
+        #{staffCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isIssued != null">
+        #{isIssued,jdbcType=VARCHAR},
+      </if>
+      <if test="newPolicyNo != null">
+        #{newPolicyNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.RenewalDatabusExpiredData">
+    update t_renewal_databus_expired_data
+    <set>
+      <if test="policyNo != null">
+        policy_no = #{policyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null">
+        app_name = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appCustNo != null">
+        app_cust_no = #{appCustNo,jdbcType=VARCHAR},
+      </if>
+      <if test="planName != null">
+        plan_name = #{planName,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="premium != null">
+        premium = #{premium,jdbcType=DECIMAL},
+      </if>
+      <if test="claimStatus != null">
+        claim_status = #{claimStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productCate != null">
+        product_cate = #{productCate,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null">
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="staffCode != null">
+        staff_code = #{staffCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isIssued != null">
+        is_Issued = #{isIssued,jdbcType=VARCHAR},
+      </if>
+      <if test="newPolicyNo != null">
+        new_policy_no = #{newPolicyNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.RenewalDatabusExpiredData">
+    update t_renewal_databus_expired_data
+    set policy_no = #{policyNo,jdbcType=VARCHAR},
+      app_name = #{appName,jdbcType=VARCHAR},
+      app_cust_no = #{appCustNo,jdbcType=VARCHAR},
+      plan_name = #{planName,jdbcType=VARCHAR},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      premium = #{premium,jdbcType=DECIMAL},
+      claim_status = #{claimStatus,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      product_cate = #{productCate,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      staff_code = #{staffCode,jdbcType=VARCHAR},
+      is_Issued = #{isIssued,jdbcType=VARCHAR},
+      new_policy_no = #{newPolicyNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <update id="updateNewPolicyNoByPolicyNo" parameterType="java.util.Map">
+    update t_renewal_databus_expired_data
+    set 
+      is_Issued = 1,
+      new_policy_no = #{newPolicyNo,jdbcType=VARCHAR}
+    where policy_no = #{policyNo,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.StoreFormulasMapper">
+
+	<resultMap
+		type="com.ccic.salesapp.noncar.repository.databusdb.po.StoreFormulas"
+		id="BaseResultMap">
+		<result column="FORMULA_CODE" property="formulaCode" />
+		<result column="FORMULA_NAME" property="formulaName" />
+		<result column="AMOUNT" property="amount" />
+		<result column="PREMIUM" property="premium" />
+		<result column="LIM_QUANTITY" property="limQuantity" />
+		<result column="RISKCODE" property="riskCode" />
+		<result column="COMCODE" property="comCode" />
+		<result column="PRODUCT_NAME" property="productName" />
+		<result column="PRODUCT_CODE" property="productCode" />
+		<result column="TIME_LIMIT" property="timeLimit" />
+		<result column="AMOUNTS_JSON" property="amountsJson" />
+		<result column="PREMIUMS_JSON" property="premiumsJson" />
+		<result column="EXTENSION_JSON" property="extensionJson" />
+		<result column="AMOUNTINFO_JSON" property="amountInfoJson" />
+		<result column="NEW_CORE" property="newCore" />
+		<result column="USER_CODE" property="userCode" />
+		<result column="ISHAVESHEBAO" property="isHaveSheBao" />
+		<result column="ADDRISKAMOUNT_JSON" property="addRiskAmountJson" />
+		<result column="ADDRISKPREMIUMS_JSON" property="addRiskPremiumsJson" />
+		<result column="is_issue_after_pay" property="isIssueAfterPay" />
+	</resultMap>
+
+
+	<select id="searchByProductCode" resultMap="BaseResultMap"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.StoreFormulas">
+		select * FROM t_noncar_formulas where PRODUCT_CODE
+		= #{productCode} and FORMULA_CODE=#{formulaCode} and NEW_CORE= 1
+	</select>
+
+	<select id="toList" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+		select * FROM t_noncar_formulas a where a.PRODUCT_CODE = #{productCode} and a.NEW_CORE =#{newCore}
+		
+		 and (a.comcode is null or exists (
+		            select 1 from (
+			            select up_org_code comcode from t_support_org_branch where org_code = #{comCode}
+						union 
+						select concat('',#{comCode},'')
+		            ) C
+                    where a.comcode like concat('%',c.comcode,'%'))
+		)
+		and (a.user_code is null or a.user_code like concat('%',#{userCode},'%'))
+		ORDER BY a.FORMULA_CODE
+
+	</select>
+
+	<select id="queryFormulasInfo" resultMap="BaseResultMap"
+		parameterType="java.util.HashMap">
+		select B.PRODUCT_NAME,A.* FROM t_noncar_formulas A
+		,t_noncar_product B
+		where A.PRODUCT_CODE=B.PRODUCT_CODE
+		AND
+		(A.FORMULA_CODE=#{formulaCode}
+
+		<if test="formulaCode2!= null  ">
+			OR A.FORMULA_CODE=#{formulaCode2}
+		</if>
+		)
+		AND A.PRODUCT_CODE=#{productCode}
+		AND A.NEW_CORE =#{newCore}
+		AND
+		B.NEW_CORE =#{newCore}
+
+	</select>
+
+	<!-- select * FROM T_APP_S_STORE_FORMULAS a where a.PRODUCT_CODE = #{productCode} 
+		and a.NEW_CORE =#{newCore} and (a.comcode is null or exists ( select 1 from 
+		(SELECT TC.UPPERCOMCODE COMCODE,ROWNUM RN FROM T_PRPDCOMPANY TC START WITH 
+		TC.COMCODE = #comCode# CONNECT BY PRIOR TC.UPPERCOMCODE = TC.COMCODE AND 
+		TC.COMCODE != TC.UPPERCOMCODE UNION SELECT #{comCode},0 FROM DUAL) C where 
+		a.comcode like concat( '%',c.comcode,'%') ) and (a.user_code is null or a.user_code 
+		like concat('%',#{userCode},'%') ORDER BY a.FORMULA_CODE -->
+
+	<select id="queryFormulasInfoLBU" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT * FROM t_noncar_formulas
+		WHERE FORMULA_CODE=#{formulaCode}
+	</select>
+</mapper>

@@ -1,0 +1,96 @@
+server:
+  tomcat:
+    basedir: /opt/api/tomcat/temp/${spring.application.name}
+## 注册中心的配置，等注册中心完成后开启
+eureka:
+  instance:
+      prefer-ip-address: true
+      instance-id: ${spring.cloud.client.ip-address}:${server.port}
+      lease-expiration-duration-in-seconds: 15
+      lease-renewal-interval-in-seconds: 5
+  client:
+    fetch-registry: true
+    registry-fetch-interval-seconds: 5 # 默认为30秒
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL}
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+ribbon:
+  ConnectTimeout:  60000
+  ReadTimeout:  60000
+  OkToRetryOnAllOperations: false # 允许所有该服务的所有操作都可以重试 true
+  MaxAutoRetriesNextServer: 0  # 参与重试的服务个数（不包含第一个服务） 1
+  MaxAutoRetries: 0
+spring:
+  profiles:
+    active: dev
+  servlet:
+      multipart:
+        max-request-size: 20MB
+        max-file-size: 10MB
+  thymeleaf:
+    cache: false
+    check-template-location: false
+  freemarker:
+    check-template-location: false
+
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: CCIC-SALESAPP-PERFORMANCE
+sonic:
+  platform:
+    api:
+      title: 业绩服务
+      description: 业绩服务文档
+      version: 1.0.0
+      headers:
+        X-Access-Id: 请求头AccessId
+---
+EUREKA_SERVER_URL: http://eureka-supsale-test.caas.ccic-test.com.cn/eureka/
+spring:
+  profiles: dev
+sonic:
+  platform:
+    mybatis:
+      mapper-locations: classpath:/mappers/*Mapper.xml
+    datasource:
+      jdbc-url: jdbc:mysql://10.1.11.127:3306/salesapp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+      username: salesbusi
+      password: ccic_1865
+      driver-class: com.mysql.cj.jdbc.Driver
+      max-pool-size: 10
+      initial-pool-size: 5
+      check-time-out: 6000
+      min-pool-size: 5
+    api:
+      enabled: true
+esb:
+  address:
+    saleslawevaluationqueryservicerest: http://10.1.11.115:8080/daditestgroup/ccicsit/saleslawevaluationqueryservicerest/Restful
+    salesLawSalaryListQuery: http://10.1.11.115:8080/daditestgroup/ccicsit/saleslawsalarylistqueryservicerest/Restful
+    planFeeInquiryServiceURL: http://10.1.11.115:8080/daditestgroup/ccicsit/PlanFeeInquiryService
+    withdrawalsServiceURL: http://10.1.11.115:8080/daditestgroup/ccicsit/WithdrawalsService
+    sendSmsServiceURL: http://10.1.11.115:8080/daditestgroup/ccicsit/SendSmsService
+    paymentNoApplyServiceURL: http://10.1.11.115:8080/daditestgroup/ccicsit/PaymentNoApplyService
+
+logging:
+  level:
+    com.ccic.salesapp.performance: debug
+server:
+  port: 8084
+
+---
+spring:
+  profiles: sit
+
+---
+spring:
+  profiles: prd
+
+  

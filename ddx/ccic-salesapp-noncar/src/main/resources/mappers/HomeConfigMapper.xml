@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="homeConfig">
+  <!-- <resultMap type="com.estar.app.chinare.sell.domain.HomeConfig" id="HomeConfigRs">
+    <result column="ID"   property="id" />
+    <result column="TYPE"   property="type" />
+    <result column="IMGURL"         property="imgUrl" />
+    <result column="LINKURL"        property="linkUrl" />
+    <result column="TITLE"   property="title" />
+    <result column="ARRSEQUENCE"       property="arrsequence" />
+    <result column="STATE"        property="state" />
+    <result column="PRICE"        property="price" />
+    <result column="EXTENDS"        property="extend" />
+    <result column="EXTENDSJSON" property="extendsJson"/>
+    <result column="DESCRIPTIONS" property="descriptions"/>
+    <result column="PRICEAFTER" property="priceAfter"/>
+    <result column="ATTRIBUTION_CITY" property="attributionCity"/>
+  </resultMap>
+ 
+    <select id = "selectAll" resultMap="HomeConfigRs"  parameterType="java.util.HashMap">
+	SELECT T.* FROM  T_APP_S_HOME_CONFIG T WHERE T.STATE=1  AND (ATTRIBUTION_CITY LIKE '%' || #comCode# || '%'   OR ATTRIBUTION_CITY IS NULL)     ORDER BY   T.ARRSEQUENCE
+    </select> -->
+</mapper>

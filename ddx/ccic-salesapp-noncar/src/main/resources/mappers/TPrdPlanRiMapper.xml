@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanRiMapper">
+	<resultMap id="BaseResultMap"
+		type="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanRi">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="plan_Ri_Id" property="planRiId" jdbcType="BIGINT" />
+		<result column="plan_Def_Id" property="planDefId" jdbcType="BIGINT" />
+		<result column="Ct_Code" property="ctCode" jdbcType="VARCHAR" />
+		<result column="ri_Reinsurer" property="riReinsurer" jdbcType="VARCHAR" />
+		<result column="treaty_Id" property="treatyId" jdbcType="BIGINT" />
+		<result column="treaty_Code" property="treatyCode" jdbcType="VARCHAR" />
+		<result column="treaty_Name" property="treatyName" jdbcType="VARCHAR" />
+		<result column="commision_Name" property="commisionName"
+			jdbcType="VARCHAR" />
+		<result column="commision_ID" property="commisionId"
+			jdbcType="BIGINT" />
+		<result column="commision_Rate" property="commisionRate"
+			jdbcType="DECIMAL" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, plan_Ri_Id, plan_Def_Id, Ct_Code, ri_Reinsurer, treaty_Id,
+		treaty_Code, treaty_Name,
+		commision_Name, commision_ID, commision_Rate
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_prd_plan_ri
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_prd_plan_ri
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanRi">
+		insert into t_prd_plan_ri (id, plan_Ri_Id, plan_Def_Id,
+		Ct_Code, ri_Reinsurer, treaty_Id,
+		treaty_Code, treaty_Name, commision_Name,
+		commision_ID, commision_Rate)
+		values (#{id,jdbcType=BIGINT}, #{planRiId,jdbcType=BIGINT},
+		#{planDefId,jdbcType=BIGINT},
+		#{ctCode,jdbcType=VARCHAR}, #{riReinsurer,jdbcType=VARCHAR}, #{treatyId,jdbcType=BIGINT},
+		#{treatyCode,jdbcType=VARCHAR}, #{treatyName,jdbcType=BIGINT},
+		#{commisionName,jdbcType=VARCHAR},
+		#{commisionId,jdbcType=BIGINT}, #{commisionRate,jdbcType=DECIMAL})
+		ON DUPLICATE KEY UPDATE
+		plan_Ri_Id=VALUES(plan_Ri_Id),
+		plan_Def_Id=VALUES(plan_Def_Id),
+		Ct_Code=VALUES(Ct_Code),
+		ri_Reinsurer=VALUES(ri_Reinsurer),
+		treaty_Id=VALUES(treaty_Id),
+		treaty_Code=VALUES(treaty_Code),
+		treaty_Name=VALUES(treaty_Name),
+		commision_Name=VALUES(commision_Name),
+		commision_ID=VALUES(commision_ID),
+		commision_Rate=VALUES(commision_Rate)
+	</insert>
+	
+	<delete id="deleteByPlanRiId"	parameterType="java.lang.Long">
+		delete from t_prd_plan_ri where PLAN_DEF_ID =#{delPlanDefId}
+	</delete>
+	
+	<insert id="insertSelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanRi">
+		insert into t_prd_plan_ri
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="planRiId != null">
+				plan_Ri_Id,
+			</if>
+			<if test="planDefId != null">
+				plan_Def_Id,
+			</if>
+			<if test="ctCode != null">
+				Ct_Code,
+			</if>
+			<if test="riReinsurer != null">
+				ri_Reinsurer,
+			</if>
+			<if test="treatyId != null">
+				treaty_Id,
+			</if>
+			<if test="treatyCode != null">
+				treaty_Code,
+			</if>
+			<if test="treatyName != null">
+				treaty_Name,
+			</if>
+			<if test="commisionName != null">
+				commision_Name,
+			</if>
+			<if test="commisionId != null">
+				commision_ID,
+			</if>
+			<if test="commisionRate != null">
+				commision_Rate,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="planRiId != null">
+				#{planRiId,jdbcType=BIGINT},
+			</if>
+			<if test="planDefId != null">
+				#{planDefId,jdbcType=BIGINT},
+			</if>
+			<if test="ctCode != null">
+				#{ctCode,jdbcType=VARCHAR},
+			</if>
+			<if test="riReinsurer != null">
+				#{riReinsurer,jdbcType=VARCHAR},
+			</if>
+			<if test="treatyId != null">
+				#{treatyId,jdbcType=BIGINT},
+			</if>
+			<if test="treatyCode != null">
+				#{treatyCode,jdbcType=VARCHAR},
+			</if>
+			<if test="treatyName != null">
+				#{treatyName,jdbcType=BIGINT},
+			</if>
+			<if test="commisionName != null">
+				#{commisionName,jdbcType=VARCHAR},
+			</if>
+			<if test="commisionId != null">
+				#{commisionId,jdbcType=BIGINT},
+			</if>
+			<if test="commisionRate != null">
+				#{commisionRate,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanRi">
+		update t_prd_plan_ri
+		<set>
+			<if test="planRiId != null">
+				plan_Ri_Id = #{planRiId,jdbcType=BIGINT},
+			</if>
+			<if test="planDefId != null">
+				plan_Def_Id = #{planDefId,jdbcType=BIGINT},
+			</if>
+			<if test="ctCode != null">
+				Ct_Code = #{ctCode,jdbcType=VARCHAR},
+			</if>
+			<if test="riReinsurer != null">
+				ri_Reinsurer = #{riReinsurer,jdbcType=VARCHAR},
+			</if>
+			<if test="treatyId != null">
+				treaty_Id = #{treatyId,jdbcType=BIGINT},
+			</if>
+			<if test="treatyCode != null">
+				treaty_Code = #{treatyCode,jdbcType=VARCHAR},
+			</if>
+			<if test="treatyName != null">
+				treaty_Name = #{treatyName,jdbcType=BIGINT},
+			</if>
+			<if test="commisionName != null">
+				commision_Name = #{commisionName,jdbcType=VARCHAR},
+			</if>
+			<if test="commisionId != null">
+				commision_ID = #{commisionId,jdbcType=BIGINT},
+			</if>
+			<if test="commisionRate != null">
+				commision_Rate = #{commisionRate,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanRi">
+		update t_prd_plan_ri
+		set plan_Ri_Id = #{planRiId,jdbcType=BIGINT},
+		plan_Def_Id = #{planDefId,jdbcType=BIGINT},
+		Ct_Code = #{ctCode,jdbcType=VARCHAR},
+		ri_Reinsurer = #{riReinsurer,jdbcType=VARCHAR},
+		treaty_Id = #{treatyId,jdbcType=BIGINT},
+		treaty_Code = #{treatyCode,jdbcType=VARCHAR},
+		treaty_Name = #{treatyName,jdbcType=BIGINT},
+		commision_Name = #{commisionName,jdbcType=VARCHAR},
+		commision_ID = #{commisionId,jdbcType=BIGINT},
+		commision_Rate = #{commisionRate,jdbcType=DECIMAL}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

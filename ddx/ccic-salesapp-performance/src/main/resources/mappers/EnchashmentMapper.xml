@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ccic.salesapp.performance.repository.basedb.mapper.EnchashmentMapper">
+	<resultMap
+		type="com.ccic.salesapp.performance.domain.vo.dto.EnchashmentConfig"
+		id="BaseResultMap">
+		<result column="ID" property="id" />
+		<result column="AGENTCODE" property="agentCode" />
+		<result column="ISAUTOMATIC" property="isAutomatic" />
+		<result column="FREQUENCY" property="frequency" />
+	</resultMap>
+
+	<select id="selectConfigByAgentCode" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+
+		select * from T_PERFORMANCE_ENCHASHMENT_CONFIG WHERE AGENTCODE=#{agentCode}
+
+	</select>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="ID"
+		parameterType="com.ccic.salesapp.performance.domain.vo.dto.EnchashmentConfig">
+		insert into T_PERFORMANCE_ENCHASHMENT_CONFIG (AGENTCODE,ISAUTOMATIC,FREQUENCY)
+		values(#{agentCode},#{isAutomatic},#{frequency})
+
+	</insert>
+
+	<update id="update"
+		parameterType="com.ccic.salesapp.performance.domain.vo.dto.EnchashmentConfig">
+		update T_PERFORMANCE_ENCHASHMENT_CONFIG set ISAUTOMATIC = #{isAutomatic},
+		FREQUENCY = #{frequency} WHERE AGENTCODE=#{agentCode}
+	</update>
+
+
+</mapper>

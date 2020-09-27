@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.AgentMapper">
+  <resultMap type="com.ccic.salesapp.noncar.repository.basedb.po.Agent" id="BaseResultMap">
+    <result column="id" property="id" />
+    <result column="business_source" property="businessSource" />
+    <result column="agent_code" property="agentCode" />
+    <result column="agent_name" property="agentName" />
+    <result column="staff_code" property="staffCode" />
+  </resultMap>
+
+  <select id="selectAgentInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from t_app_agent
+    where AGENT_CODE = #{agentCode}  limit 1
+  </select>
+  
+  
+</mapper>

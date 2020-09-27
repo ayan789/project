@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanOrgChgMapper" >
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanOrgChg" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="PLAN_ORG_CHG_ID" property="planOrgChgId" jdbcType="BIGINT" />
+    <result column="PLAN_CHG_ID" property="planChgId" jdbcType="BIGINT" />
+    <result column="ORG_CODE" property="orgCode" jdbcType="VARCHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, PLAN_ORG_CHG_ID, PLAN_CHG_ID, ORG_CODE, ORG_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_prd_plan_org_chg
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_prd_plan_org_chg
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanOrgChg" >
+    insert into t_prd_plan_org_chg (id, PLAN_ORG_CHG_ID, PLAN_CHG_ID, 
+      ORG_CODE, ORG_ID)
+    values (#{id,jdbcType=BIGINT}, #{planOrgChgId,jdbcType=BIGINT}, #{planChgId,jdbcType=BIGINT}, 
+      #{orgCode,jdbcType=VARCHAR}, #{orgId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanOrgChg" >
+    insert into t_prd_plan_org_chg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="planOrgChgId != null" >
+        PLAN_ORG_CHG_ID,
+      </if>
+      <if test="planChgId != null" >
+        PLAN_CHG_ID,
+      </if>
+      <if test="orgCode != null" >
+        ORG_CODE,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="planOrgChgId != null" >
+        #{planOrgChgId,jdbcType=BIGINT},
+      </if>
+      <if test="planChgId != null" >
+        #{planChgId,jdbcType=BIGINT},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanOrgChg" >
+    update t_prd_plan_org_chg
+    <set >
+      <if test="planOrgChgId != null" >
+        PLAN_ORG_CHG_ID = #{planOrgChgId,jdbcType=BIGINT},
+      </if>
+      <if test="planChgId != null" >
+        PLAN_CHG_ID = #{planChgId,jdbcType=BIGINT},
+      </if>
+      <if test="orgCode != null" >
+        ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanOrgChg" >
+    update t_prd_plan_org_chg
+    set PLAN_ORG_CHG_ID = #{planOrgChgId,jdbcType=BIGINT},
+      PLAN_CHG_ID = #{planChgId,jdbcType=BIGINT},
+      ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+      ORG_ID = #{orgId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

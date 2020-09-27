@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanCtDetailMapper">
+	<resultMap id="BaseResultMap"
+		type="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCtDetail">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="plan_CtDetail_Id" property="planCtdetailId"
+			jdbcType="BIGINT" />
+		<result column="plan_Coverage_Id" property="planCoverageId"
+			jdbcType="BIGINT" />
+		<result column="clause_Code" property="clauseCode" jdbcType="VARCHAR" />
+		<result column="clause_Property" property="clauseProperty"
+			jdbcType="VARCHAR" />
+		<result column="if_CalTotal_Sum" property="ifCaltotalSum"
+			jdbcType="VARCHAR" />
+		<result column="ct_Necessary" property="ctNecessary" jdbcType="VARCHAR" />
+		<result column="if_Change_Desc" property="ifChangeDesc"
+			jdbcType="VARCHAR" />
+		<result column="ct_Desc" property="ctDesc" jdbcType="VARCHAR" />
+		<result column="ct_Desc_En" property="ctDescEn" jdbcType="VARCHAR" />
+		<result column="disability_Standard" property="disabilityStandard"
+			jdbcType="VARCHAR" />
+		<result column="sum_Insured_Max" property="sumInsuredMax"
+			jdbcType="DECIMAL" />
+		<result column="sum_Insured_Min" property="sumInsuredMin"
+			jdbcType="DECIMAL" />
+		<result column="sum_Insured_Default" property="sumInsuredDefualt"
+			jdbcType="DECIMAL" />
+		<result column="premium_OrRate" property="premiumOrrate"
+			jdbcType="VARCHAR" />
+		<result column="premium_Max" property="premiumMax" jdbcType="DECIMAL" />
+		<result column="premium_Min" property="premiumMin" jdbcType="DECIMAL" />
+		<result column="premium_Default" property="premiumDefault"
+			jdbcType="DECIMAL" />
+		<result column="if_SuInsured" property="ifSuinsured" jdbcType="VARCHAR" />
+		<result column="insured_Limit" property="insuredLimit"
+			jdbcType="BIGINT" />
+		<result column="increaseX_day" property="increasexDay"
+			jdbcType="BIGINT" />
+		<result column="increaseY_prem" property="increaseyPrem"
+			jdbcType="DECIMAL" />
+		<result column="premium_UseType" property="premiumUsetype"
+			jdbcType="VARCHAR" />
+		<result column="discount_Percent" property="discountPercent"
+			jdbcType="VARCHAR" />
+		<result column="related_Ct_Id" property="relatedCtId" jdbcType="BIGINT" />
+		<result column="rate_Types" property="rateTypes" jdbcType="VARCHAR" />
+		<result column="period_Types" property="periodTypes" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, plan_CtDetail_Id, plan_Coverage_Id, clause_Code, clause_Property,
+		if_CalTotal_Sum,
+		ct_Necessary, if_Change_Desc, ct_Desc, ct_Desc_En, disability_Standard,
+		sum_Insured_Max,
+		sum_Insured_Min, sum_Insured_Default, premium_OrRate, premium_Max, premium_Min,
+		premium_Default,
+		if_SuInsured, insured_Limit, increaseX_day, increaseY_prem, premium_UseType,
+		discount_Percent,
+		related_Ct_Id, rate_Types, period_Types
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_prd_plan_ct_detail
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_prd_plan_ct_detail
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCtDetail">
+		insert into t_prd_plan_ct_detail (id, plan_CtDetail_Id,
+		plan_Coverage_Id,
+		clause_Code, clause_Property, if_CalTotal_Sum,
+		ct_Necessary, if_Change_Desc, ct_Desc,
+		ct_Desc_En, disability_Standard, sum_Insured_Max,
+		sum_Insured_Min, sum_Insured_Default, premium_OrRate,
+		premium_Max, premium_Min, premium_Default,
+		if_SuInsured, insured_Limit, increaseX_day,
+		increaseY_prem, premium_UseType, discount_Percent,
+		related_Ct_Id, rate_Types, period_Types
+		)
+		values (#{id,jdbcType=BIGINT}, #{planCtdetailId,jdbcType=BIGINT},
+		#{planCoverageId,jdbcType=BIGINT},
+		#{clauseCode,jdbcType=VARCHAR}, #{clauseProperty,jdbcType=VARCHAR},
+		#{ifCaltotalSum,jdbcType=VARCHAR},
+		#{ctNecessary,jdbcType=VARCHAR}, #{ifChangeDesc,jdbcType=VARCHAR}, #{ctDesc,jdbcType=VARCHAR},
+		#{ctDescEn,jdbcType=VARCHAR}, #{disabilityStandard,jdbcType=VARCHAR},
+		#{sumInsuredMax,jdbcType=DECIMAL},
+		#{sumInsuredMin,jdbcType=DECIMAL}, #{sumInsuredDefualt,jdbcType=DECIMAL},
+		#{premiumOrrate,jdbcType=VARCHAR},
+		#{premiumMax,jdbcType=DECIMAL}, #{premiumMin,jdbcType=DECIMAL}, #{premiumDefualt,jdbcType=DECIMAL},
+		#{ifSuinsured,jdbcType=VARCHAR}, #{insuredLimit,jdbcType=BIGINT},
+		#{increasexDay,jdbcType=BIGINT},
+		#{increaseyPrem,jdbcType=DECIMAL}, #{premiumUsetype,jdbcType=VARCHAR},
+		#{discountPercent,jdbcType=VARCHAR},
+		#{relatedCtId,jdbcType=BIGINT}, #{rateTypes,jdbcType=VARCHAR}, #{periodTypes,jdbcType=VARCHAR}
+		)
+		ON DUPLICATE KEY UPDATE
+		plan_CtDetail_Id=VALUES(plan_CtDetail_Id),
+		plan_Coverage_Id=VALUES(plan_Coverage_Id),
+		clause_Code=VALUES(clause_Code),
+		clause_Property=VALUES(clause_Property),
+		if_CalTotal_Sum=VALUES(if_CalTotal_Sum),
+		ct_Necessary=VALUES(ct_Necessary),
+		if_Change_Desc=VALUES(if_Change_Desc),
+		ct_Desc=VALUES(ct_Desc),
+		ct_Desc_En=VALUES(ct_Desc_En),
+		disability_Standard=VALUES(disability_Standard),
+		sum_Insured_Max=VALUES(sum_Insured_Max),
+		sum_Insured_Min=VALUES(sum_Insured_Min),
+		sum_Insured_Default=VALUES(sum_Insured_Default),
+		premium_OrRate=VALUES(premium_OrRate),
+		premium_Max=VALUES(premium_Max),
+		premium_Min=VALUES(premium_Min),
+		premium_Default=VALUES(premium_Default),
+		if_SuInsured=VALUES(if_SuInsured),
+		insured_Limit=VALUES(insured_Limit),
+		increaseX_day=VALUES(increaseX_day),
+		increaseY_prem=VALUES(increaseY_prem),
+		premium_UseType=VALUES(premium_UseType),
+		discount_Percent=VALUES(discount_Percent),
+		related_Ct_Id=VALUES(related_Ct_Id),
+		rate_Types=VALUES(rate_Types),
+		period_Types=VALUES(period_Types)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCtDetail">
+		insert into t_prd_plan_ct_detail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="planCtdetailId != null">
+				plan_CtDetail_Id,
+			</if>
+			<if test="planCoverageId != null">
+				plan_Coverage_Id,
+			</if>
+			<if test="clauseCode != null">
+				clause_Code,
+			</if>
+			<if test="clauseProperty != null">
+				clause_Property,
+			</if>
+			<if test="ifCaltotalSum != null">
+				if_CalTotal_Sum,
+			</if>
+			<if test="ctNecessary != null">
+				ct_Necessary,
+			</if>
+			<if test="ifChangeDesc != null">
+				if_Change_Desc,
+			</if>
+			<if test="ctDesc != null">
+				ct_Desc,
+			</if>
+			<if test="ctDescEn != null">
+				ct_Desc_En,
+			</if>
+			<if test="disabilityStandard != null">
+				disability_Standard,
+			</if>
+			<if test="sumInsuredMax != null">
+				sum_Insured_Max,
+			</if>
+			<if test="sumInsuredMin != null">
+				sum_Insured_Min,
+			</if>
+			<if test="sumInsuredDefualt != null">
+				sum_Insured_Default,
+			</if>
+			<if test="premiumOrrate != null">
+				premium_OrRate,
+			</if>
+			<if test="premiumMax != null">
+				premium_Max,
+			</if>
+			<if test="premiumMin != null">
+				premium_Min,
+			</if>
+			<if test="premiumDefault != null">
+				premium_Default,
+			</if>
+			<if test="ifSuinsured != null">
+				if_SuInsured,
+			</if>
+			<if test="insuredLimit != null">
+				insured_Limit,
+			</if>
+			<if test="increasexDay != null">
+				increaseX_day,
+			</if>
+			<if test="increaseyPrem != null">
+				increaseY_prem,
+			</if>
+			<if test="premiumUsetype != null">
+				premium_UseType,
+			</if>
+			<if test="discountPercent != null">
+				discount_Percent,
+			</if>
+			<if test="relatedCtId != null">
+				related_Ct_Id,
+			</if>
+			<if test="rateTypes != null">
+				rate_Types,
+			</if>
+			<if test="periodTypes != null">
+				period_Types,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="planCtdetailId != null">
+				#{planCtdetailId,jdbcType=BIGINT},
+			</if>
+			<if test="planCoverageId != null">
+				#{planCoverageId,jdbcType=BIGINT},
+			</if>
+			<if test="clauseCode != null">
+				#{clauseCode,jdbcType=VARCHAR},
+			</if>
+			<if test="clauseProperty != null">
+				#{clauseProperty,jdbcType=VARCHAR},
+			</if>
+			<if test="ifCaltotalSum != null">
+				#{ifCaltotalSum,jdbcType=VARCHAR},
+			</if>
+			<if test="ctNecessary != null">
+				#{ctNecessary,jdbcType=VARCHAR},
+			</if>
+			<if test="ifChangeDesc != null">
+				#{ifChangeDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="ctDesc != null">
+				#{ctDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="ctDescEn != null">
+				#{ctDescEn,jdbcType=VARCHAR},
+			</if>
+			<if test="disabilityStandard != null">
+				#{disabilityStandard,jdbcType=VARCHAR},
+			</if>
+			<if test="sumInsuredMax != null">
+				#{sumInsuredMax,jdbcType=DECIMAL},
+			</if>
+			<if test="sumInsuredMin != null">
+				#{sumInsuredMin,jdbcType=DECIMAL},
+			</if>
+			<if test="sumInsuredDefualt != null">
+				#{sumInsuredDefualt,jdbcType=DECIMAL},
+			</if>
+			<if test="premiumOrrate != null">
+				#{premiumOrrate,jdbcType=VARCHAR},
+			</if>
+			<if test="premiumMax != null">
+				#{premiumMax,jdbcType=DECIMAL},
+			</if>
+			<if test="premiumMin != null">
+				#{premiumMin,jdbcType=DECIMAL},
+			</if>
+			<if test="premiumDefault != null">
+				#{premiumDefault,jdbcType=DECIMAL},
+			</if>
+			<if test="ifSuinsured != null">
+				#{ifSuinsured,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredLimit != null">
+				#{insuredLimit,jdbcType=BIGINT},
+			</if>
+			<if test="increasexDay != null">
+				#{increasexDay,jdbcType=BIGINT},
+			</if>
+			<if test="increaseyPrem != null">
+				#{increaseyPrem,jdbcType=DECIMAL},
+			</if>
+			<if test="premiumUsetype != null">
+				#{premiumUsetype,jdbcType=VARCHAR},
+			</if>
+			<if test="discountPercent != null">
+				#{discountPercent,jdbcType=VARCHAR},
+			</if>
+			<if test="relatedCtId != null">
+				#{relatedCtId,jdbcType=BIGINT},
+			</if>
+			<if test="rateTypes != null">
+				#{rateTypes,jdbcType=VARCHAR},
+			</if>
+			<if test="periodTypes != null">
+				#{periodTypes,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCtDetail">
+		update t_prd_plan_ct_detail
+		<set>
+			<if test="planCtdetailId != null">
+				plan_CtDetail_Id = #{planCtdetailId,jdbcType=BIGINT},
+			</if>
+			<if test="planCoverageId != null">
+				plan_Coverage_Id = #{planCoverageId,jdbcType=BIGINT},
+			</if>
+			<if test="clauseCode != null">
+				clause_Code = #{clauseCode,jdbcType=VARCHAR},
+			</if>
+			<if test="clauseProperty != null">
+				clause_Property = #{clauseProperty,jdbcType=VARCHAR},
+			</if>
+			<if test="ifCaltotalSum != null">
+				if_CalTotal_Sum = #{ifCaltotalSum,jdbcType=VARCHAR},
+			</if>
+			<if test="ctNecessary != null">
+				ct_Necessary = #{ctNecessary,jdbcType=VARCHAR},
+			</if>
+			<if test="ifChangeDesc != null">
+				if_Change_Desc = #{ifChangeDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="ctDesc != null">
+				ct_Desc = #{ctDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="ctDescEn != null">
+				ct_Desc_En = #{ctDescEn,jdbcType=VARCHAR},
+			</if>
+			<if test="disabilityStandard != null">
+				disability_Standard = #{disabilityStandard,jdbcType=VARCHAR},
+			</if>
+			<if test="sumInsuredMax != null">
+				sum_Insured_Max = #{sumInsuredMax,jdbcType=DECIMAL},
+			</if>
+			<if test="sumInsuredMin != null">
+				sum_Insured_Min = #{sumInsuredMin,jdbcType=DECIMAL},
+			</if>
+			<if test="sumInsuredDefualt != null">
+				sum_Insured_Default = #{sumInsuredDefualt,jdbcType=DECIMAL},
+			</if>
+			<if test="premiumOrrate != null">
+				premium_OrRate = #{premiumOrrate,jdbcType=VARCHAR},
+			</if>
+			<if test="premiumMax != null">
+				premium_Max = #{premiumMax,jdbcType=DECIMAL},
+			</if>
+			<if test="premiumMin != null">
+				premium_Min = #{premiumMin,jdbcType=DECIMAL},
+			</if>
+			<if test="premiumDefault != null">
+				premium_Default = #{premiumDefault,jdbcType=DECIMAL},
+			</if>
+			<if test="ifSuinsured != null">
+				if_SuInsured = #{ifSuinsured,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredLimit != null">
+				insured_Limit = #{insuredLimit,jdbcType=BIGINT},
+			</if>
+			<if test="increasexDay != null">
+				increaseX_day = #{increasexDay,jdbcType=BIGINT},
+			</if>
+			<if test="increaseyPrem != null">
+				increaseY_prem = #{increaseyPrem,jdbcType=DECIMAL},
+			</if>
+			<if test="premiumUsetype != null">
+				premium_UseType = #{premiumUsetype,jdbcType=VARCHAR},
+			</if>
+			<if test="discountPercent != null">
+				discount_Percent = #{discountPercent,jdbcType=VARCHAR},
+			</if>
+			<if test="relatedCtId != null">
+				related_Ct_Id = #{relatedCtId,jdbcType=BIGINT},
+			</if>
+			<if test="rateTypes != null">
+				rate_Types = #{rateTypes,jdbcType=VARCHAR},
+			</if>
+			<if test="periodTypes != null">
+				period_Types = #{periodTypes,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCtDetail">
+		update t_prd_plan_ct_detail
+		set plan_CtDetail_Id = #{planCtdetailId,jdbcType=BIGINT},
+		plan_Coverage_Id = #{planCoverageId,jdbcType=BIGINT},
+		clause_Code = #{clauseCode,jdbcType=VARCHAR},
+		clause_Property = #{clauseProperty,jdbcType=VARCHAR},
+		if_CalTotal_Sum = #{ifCaltotalSum,jdbcType=VARCHAR},
+		ct_Necessary = #{ctNecessary,jdbcType=VARCHAR},
+		if_Change_Desc = #{ifChangeDesc,jdbcType=VARCHAR},
+		ct_Desc = #{ctDesc,jdbcType=VARCHAR},
+		ct_Desc_En = #{ctDescEn,jdbcType=VARCHAR},
+		disability_Standard = #{disabilityStandard,jdbcType=VARCHAR},
+		sum_Insured_Max = #{sumInsuredMax,jdbcType=DECIMAL},
+		sum_Insured_Min = #{sumInsuredMin,jdbcType=DECIMAL},
+		sum_Insured_Default = #{sumInsuredDefualt,jdbcType=DECIMAL},
+		premium_OrRate = #{premiumOrrate,jdbcType=VARCHAR},
+		premium_Max = #{premiumMax,jdbcType=DECIMAL},
+		premium_Min = #{premiumMin,jdbcType=DECIMAL},
+		premium_Default = #{premiumDefault,jdbcType=DECIMAL},
+		if_SuInsured = #{ifSuinsured,jdbcType=VARCHAR},
+		insured_Limit = #{insuredLimit,jdbcType=BIGINT},
+		increaseX_day = #{increasexDay,jdbcType=BIGINT},
+		increaseY_prem = #{increaseyPrem,jdbcType=DECIMAL},
+		premium_UseType = #{premiumUsetype,jdbcType=VARCHAR},
+		discount_Percent = #{discountPercent,jdbcType=VARCHAR},
+		related_Ct_Id = #{relatedCtId,jdbcType=BIGINT},
+		rate_Types = #{rateTypes,jdbcType=VARCHAR},
+		period_Types = #{periodTypes,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<insert id="insertTPrdPlanCtDetail"
+		parameterType="com.ccic.salesapp.noncar.dto.request.noncar.PolicyRiskOrderCar">
+		insert into t_prd_plan_ct_detail (id, plan_CtDetail_Id,
+		plan_Coverage_Id,
+		clause_Code, clause_Property, if_CalTotal_Sum,
+		ct_Necessary, if_Change_Desc, ct_Desc,
+		ct_Desc_En, disability_Standard, sum_Insured_Max,
+		sum_Insured_Min, sum_Insured_Default, premium_OrRate,
+		premium_Max, premium_Min, premium_Default,
+		if_SuInsured, insured_Limit, increaseX_day,
+		increaseY_prem, premium_UseType, discount_Percent,
+		related_Ct_Id, rate_Types, period_Types
+		)
+		values (#{id,jdbcType=BIGINT}, #{planCtdetailId,jdbcType=BIGINT},
+		#{planCoverageId,jdbcType=BIGINT},
+		#{clauseCode,jdbcType=VARCHAR}, #{clauseProperty,jdbcType=VARCHAR},
+		#{ifCaltotalSum,jdbcType=VARCHAR},
+		#{ctNecessary,jdbcType=VARCHAR}, #{ifChangeDesc,jdbcType=VARCHAR}, #{ctDesc,jdbcType=VARCHAR},
+		#{ctDescEn,jdbcType=VARCHAR}, #{disabilityStandard,jdbcType=VARCHAR},
+		#{sumInsuredMax,jdbcType=DECIMAL},
+		#{sumInsuredMin,jdbcType=DECIMAL}, #{sumInsuredDefualt,jdbcType=DECIMAL},
+		#{premiumOrrate,jdbcType=VARCHAR},
+		#{premiumMax,jdbcType=DECIMAL}, #{premiumMin,jdbcType=DECIMAL}, #{premiumDefault,jdbcType=DECIMAL},
+		#{ifSuinsured,jdbcType=VARCHAR}, #{insuredLimit,jdbcType=BIGINT},
+		#{increasexDay,jdbcType=BIGINT},
+		#{increaseyPrem,jdbcType=DECIMAL}, #{premiumUsetype,jdbcType=VARCHAR},
+		#{discountPercent,jdbcType=VARCHAR},
+		#{relatedCtId,jdbcType=BIGINT}, #{rateTypes,jdbcType=VARCHAR}, #{periodTypes,jdbcType=VARCHAR}
+		)
+		ON DUPLICATE KEY UPDATE
+		plan_CtDetail_Id=VALUES(plan_CtDetail_Id),
+		plan_Coverage_Id=VALUES(plan_Coverage_Id),
+		clause_Code=VALUES(clause_Code),
+		clause_Property=VALUES(clause_Property),
+		if_CalTotal_Sum=VALUES(if_CalTotal_Sum),
+		ct_Necessary=VALUES(ct_Necessary),
+		if_Change_Desc=VALUES(if_Change_Desc),
+		ct_Desc=VALUES(ct_Desc),
+		ct_Desc_En=VALUES(ct_Desc_En),
+		disability_Standard=VALUES(disability_Standard),
+		sum_Insured_Max=VALUES(sum_Insured_Max),
+		sum_Insured_Min=VALUES(sum_Insured_Min),
+		sum_Insured_Default=VALUES(sum_Insured_Default),
+		premium_OrRate=VALUES(premium_OrRate),
+		premium_Max=VALUES(premium_Max),
+		premium_Min=VALUES(premium_Min),
+		premium_Default=VALUES(premium_Default),
+		if_SuInsured=VALUES(if_SuInsured),
+		insured_Limit=VALUES(insured_Limit),
+		increaseX_day=VALUES(increaseX_day),
+		increaseY_prem=VALUES(increaseY_prem),
+		premium_UseType=VALUES(premium_UseType),
+		discount_Percent=VALUES(discount_Percent),
+		related_Ct_Id=VALUES(related_Ct_Id),
+		rate_Types=VALUES(rate_Types),
+		period_Types=VALUES(period_Types)
+	</insert>
+</mapper>

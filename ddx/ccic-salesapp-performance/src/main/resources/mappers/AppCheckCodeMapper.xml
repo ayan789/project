@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.performance.domain.mapper.AppCheckCodeMapper">
+  <resultMap type="com.ccic.salesapp.performance.domain.vo.dto.AppCheckCode" id="AppCheckCodeRs">
+    <result column="ID"   property="id" />
+    <result column="USERCODE"   property="userCode" />
+    <result column="CHECKCODE"         property="checkCode" />
+    <result column="LONGTIME"        property="longTime" />
+    <result column="CREATE_DATE"   property="create_date" />
+    <result column="UPDATE_DATE"       property="update_date" />
+    <result column="MOBILE"        property="mobile" />
+  </resultMap>
+  
+  <update id="upCheckCode"  parameterType="java.util.Map">
+ 	update T_USER_CHECKCODE set  LONGTIME=#{longTime}, UPDATE_DATE = now() ,CHECKCODE = #{checkCode} ,MOBILE = #{mobile} where  USERCODE=#{userCode}
+ </update>
+ <insert id="insert" parameterType="com.ccic.salesapp.performance.domain.vo.dto.AppCheckCode">
+    insert into T_USER_CHECKCODE (USERCODE,CHECKCODE,LONGTIME,CREATE_DATE,UPDATE_DATE,MOBILE)
+    values ( #{userCode}, #{checkCode}, #{longTime}, 
+    now(),now(),#{mobile})
+  </insert>
+   <select id="selectCodeByUser" resultMap="AppCheckCodeRs"  parameterType="java.util.Map">
+   	select t.* from T_USER_CHECKCODE t where USERCODE= #{userCode}
+   </select>
+   <select id="selectCodeByMoblieAndUser" resultMap="AppCheckCodeRs"  parameterType="java.util.Map">
+   	select t.* from T_USER_CHECKCODE t where mobile=#{mobile} and USERCODE= #{userCode}
+   </select>
+   <select id="checkDoubleClickByMobile" resultType="java.lang.Integer"  parameterType="java.lang.String">
+   	select count(1) from T_USER_CHECKCODE t where mobile=#mobile:VARCHAR# and update_date>(SYSDATE-1/24/60)
+   </select>
+   <select id="checkDoubleClickByUserCode" resultType="java.lang.Integer"  parameterType="java.lang.String">
+   	select count(1) from T_USER_CHECKCODE t where USERCODE=#userCode:VARCHAR# and update_date>(SYSDATE-1/24/60)
+   </select>
+</mapper>

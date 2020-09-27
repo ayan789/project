@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://service.ccic.com/sms/sendSms/intf" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:intf="http://service.ccic.com/sms/sendSms/intf" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:bean="http://service.ccic.com/sms/sendSms/bean" name="SendSmsService">
+        <wsdl:types>
+            <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://service.ccic.com/common/bean" targetNamespace="http://service.ccic.com/common/bean" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="RequestHeadDTO">
+        <xs:annotation>
+        	<xs:documentation><name>请求消息头</name></xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+			<xs:element name="seqNo" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><name>流水号</name><description>ESB生成的服务标识号，仅在ESB调用服务提供方时有效，通常为32+4位GUID(xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)</description></xs:documentation>
+				</xs:annotation></xs:element>
+			<xs:element name="consumerSeqNo" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><name>消费方流水号</name><description>服务消费方用于唯一标识一次服务交互，建议使用GUID</description></xs:documentation>
+				</xs:annotation></xs:element>
+			<xs:element name="consumerID" type="xs:string">
+				<xs:annotation>
+					<xs:documentation><name>服务消费方ID</name></xs:documentation>
+				</xs:annotation></xs:element>
+			<xs:element name="providerID" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><name>服务提供方ID</name><description>仅当消费方在路由服务中显式指定提供方时使用，ESB不会传给服务提供方</description></xs:documentation>
+				</xs:annotation></xs:element>
+			<xs:element name="classCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><name>险类</name></xs:documentation>
+				</xs:annotation></xs:element>
+			<xs:element name="riskCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><name>险种</name></xs:documentation>
+				</xs:annotation></xs:element>
+			<xs:element name="regionCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><name>地区</name></xs:documentation>
+				</xs:annotation></xs:element>
+			<xs:element name="version" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><name>服务版本</name><description>用于同一服务有多个版本时消费方标识用，缺省为空，ESB不会传给服务提供方</description></xs:documentation>
+				</xs:annotation></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResponseHeadDTO">
+        <xs:annotation>
+        	<xs:documentation><name>响应消息头</name></xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+			<xs:element name="seqNo" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><name>流水号</name><description>ESB生成的服务标识号，服务提供方不需要返回，ESB在返回给服务消费方时根据请求消息自动填充，通常为32+4位GUID(xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)</description></xs:documentation>
+				</xs:annotation></xs:element>
+			<xs:element name="consumerSeqNo" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><name>消费方流水号</name><description>服务消费方用于唯一标识一次服务交互，ESB在返回给服务消费方时根据请求消息自动填充</description></xs:documentation>
+				</xs:annotation></xs:element>
+			<xs:element name="providerSeqNo" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><name>提供方流水号</name><description>服务提供方用于唯一标识一次服务交互，建议使用GUID</description></xs:documentation>
+				</xs:annotation></xs:element>
+			<xs:element name="status" type="xs:int">
+				<xs:annotation>
+					<xs:documentation><name>响应状态</name><description>0 - 成功, 1 - ESB失败, 2 - 应用失败</description></xs:documentation>
+				</xs:annotation></xs:element>
+			<xs:element name="esbCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><name>ESB响应代码</name><description>返回ESB失败的描述性代码</description></xs:documentation>
+				</xs:annotation></xs:element>
+			<xs:element name="esbMessage" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><name>ESB响应信息</name><description>返回ESB失败的描述性信息</description></xs:documentation>
+				</xs:annotation></xs:element>
+			<xs:element name="appCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><name>应用响应代码</name><description>返回应用响应的描述性代码</description></xs:documentation>
+				</xs:annotation></xs:element>
+			<xs:element name="appMessage" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><name>应用响应信息</name><description>返回应用响应的描述性信息</description></xs:documentation>
+				</xs:annotation></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>    
+                <xs:schema targetNamespace="http://service.ccic.com/sms/sendSms/bean" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://service.ccic.com/sms/sendSms/bean" xmlns:common="http://service.ccic.com/common/bean" elementFormDefault="qualified" attributeFormDefault="unqualified">
+                        
+                        <xs:complexType name="SendSmsRequestDTO">
+                                <xs:annotation>
+                                        <xs:documentation><name>请求消息体</name></xs:documentation>
+                                </xs:annotation>
+                                <xs:sequence>
+                                        <xs:element name="comcode" type="xs:string">
+                                                <xs:annotation>
+                                                        <xs:documentation>
+                                                                <name>发送机构</name>
+                                                        </xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="channelId" type="xs:string" minOccurs="0">
+                                                <xs:annotation>
+                                                        <xs:documentation>
+                                                                <name>发送通道ID</name>
+                                                                <description>根据通道可决定发送号码，缺省根据consumerID判断</description>
+                                                        </xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="srcNumber" type="xs:string" minOccurs="0">
+                                                <xs:annotation>
+                                                        <xs:documentation>
+                                                                <name>发送子号码</name>
+                                                                <description>用户交互式应用，无子号码不需填</description>
+                                                        </xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="messageType" type="xs:string" minOccurs="0">
+                                                <xs:annotation>
+                                                        <xs:documentation>
+                                                                <name>短信种类</name>
+                                                                <description>用于区分不同的短信种类，如营销、通知等，短信平台可根据此字段决定发送的通道。此字段取值由业务系统自行定义，并告知短信平台。</description>
+                                                        </xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="messageFormat" type="xs:integer" minOccurs="0">
+                                                <xs:annotation>
+                                                        <xs:documentation>
+                                                                <name>消息的编码格式</name>
+                                                                <description>15 普通短信 32 长短信</description>
+                                                        </xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="destMobile" type="xs:string">
+                                                <xs:annotation>
+                                                        <xs:documentation>
+                                                                <name>目的手机号</name>
+                                                                <description/>
+                                                        </xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="messageContent" type="xs:string">
+                                                <xs:annotation>
+                                                        <xs:documentation>
+                                                                <name>消息的内容</name>
+                                                                <description>如采用消息模板，则填写模板字段值“1”分隔，如：字段1|字段2</description>
+                                                        </xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="messageTemplate" type="xs:string" minOccurs="0">
+                                                <xs:annotation>
+                                                        <xs:documentation>
+                                                                <name>消息模板名</name>
+                                                                <description>非模板方式则为空</description>
+                                                        </xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="messagePriority" type="xs:integer" minOccurs="0">
+                                                <xs:annotation>
+                                                        <xs:documentation>
+                                                                <name>消息的优先级</name>
+                                                                <description>0 最低 --- 3 最高，缺省为2</description>
+                                                        </xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="sendTime" type="xs:dateTime" minOccurs="0">
+                                                <xs:annotation>
+                                                        <xs:documentation>
+                                                                <name>指定时间</name>
+                                                                <description>定时发送，避免在夜间打扰客户，默认当前时间</description>
+                                                        </xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="exprireTime" type="xs:dateTime" minOccurs="0">
+                                                <xs:annotation>
+                                                        <xs:documentation>
+                                                                <name>失效时间</name>
+                                                                <description>避免消息过期，默认为当前时间+1天</description>
+                                                        </xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="expireTime" type="xs:dateTime" minOccurs="0">
+                                                <xs:annotation>
+                                                        <xs:documentation>
+                                                                <name>失效时间</name>
+                                                                <description>避免消息过期，默认为当前时间+1天</description>
+                                                        </xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="reportType" type="xs:integer" minOccurs="0">
+                                                <xs:annotation>
+                                                        <xs:documentation>
+                                                                <name>是否需要状态报告</name>
+                                                                <description>0 不需要 1 需要</description>
+                                                        </xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                </xs:sequence>
+                        </xs:complexType>
+                        <xs:complexType name="SendSmsResponseDTO">
+                                <xs:annotation>
+                                        <xs:documentation><name>响应消息体</name></xs:documentation>
+                                </xs:annotation>
+                                <xs:sequence>
+                                        <xs:element name="srcSeqeunceId" type="xs:long" minOccurs="0">
+                                                <xs:annotation>
+                                                        <xs:documentation>
+                                                                <name>唯一序列号</name>
+                                                                <description>利信通系统生成,用来匹配tandard_Submit,Standard_Submit_MMS,Standard_Report,Standard_Deliver</description>
+                                                        </xs:documentation>
+                                                </xs:annotation>
+                                        </xs:element>
+                                </xs:sequence>
+                        </xs:complexType>
+                        <xs:element name="SendSmsRequest">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element ref="requestHead"/>
+                                <xs:element ref="requestBody"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                        </xs:element>
+                        <xs:element name="SendSmsResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element ref="responseHead"/>
+                                <xs:element ref="responseBody" minOccurs="0"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                        </xs:element>
+                        <xs:element name="requestBody" type="SendSmsRequestDTO"/>
+                        <xs:element name="requestHead" type="common:RequestHeadDTO"/>
+                        <xs:element name="responseBody" type="SendSmsResponseDTO"/>
+                        <xs:element name="responseHead" type="common:ResponseHeadDTO"/>
+                </xs:schema>
+        </wsdl:types>
+        <wsdl:service name="SendSmsService">
+                <wsdl:documentation><name>短信发送</name><version>1.0</version></wsdl:documentation>
+                <wsdl:port name="SendSmsEndpoint" binding="intf:SendSmsEndpointBinding">
+                        <soap:address location="https://10.1.11.115/daditestgroup/ccicsit/SendSmsService"/>
+                </wsdl:port>
+        </wsdl:service>
+        <wsdl:portType name="SendSms">
+                <wsdl:operation name="sendSms">
+                        <wsdl:input name="sendSmsInput" message="intf:SendSmsRequest"/>
+                        <wsdl:output name="sendSmsOutput" message="intf:SendSmsResponse"/>
+                </wsdl:operation>
+        </wsdl:portType>
+        <wsdl:binding name="SendSmsEndpointBinding" type="intf:SendSms">
+                <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+                <wsdl:operation name="sendSms">
+                    <soap:operation style="document" soapAction="/sms/sendSms"/>
+                    <wsdl:input>
+                        <soap:body use="literal" parts="SendSmsRequest"/>
+                    </wsdl:input>
+                    <wsdl:output>
+                        <soap:body use="literal" parts="SendSmsResponse"/>
+                    </wsdl:output>
+                </wsdl:operation>
+        </wsdl:binding>
+        <wsdl:message name="SendSmsRequest">
+                <wsdl:part name="SendSmsRequest" element="bean:SendSmsRequest"/>
+        </wsdl:message>
+        <wsdl:message name="SendSmsResponse">
+                <wsdl:part name="SendSmsResponse" element="bean:SendSmsResponse"/>
+        </wsdl:message>
+</wsdl:definitions>

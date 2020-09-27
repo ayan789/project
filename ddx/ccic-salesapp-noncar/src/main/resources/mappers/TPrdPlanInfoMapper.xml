@@ -1,0 +1,1349 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanInfo">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="PLAN_INFO_ID" property="planInfoId" jdbcType="BIGINT" />
+		<result column="PLAN_DEF_ID" property="planDefId" jdbcType="BIGINT" />
+		<result column="POLICY_NATURE" property="policyNature"
+			jdbcType="VARCHAR" />
+		<result column="BACK_DATING_DAYS" property="backDatingDays"
+			jdbcType="BIGINT" />
+		<result column="PLAN_LIST_TYPE" property="planListType"
+			jdbcType="VARCHAR" />
+		<result column="INSURED_LIST_TYPE" property="insuredListType"
+			jdbcType="VARCHAR" />
+		<result column="PLAN_EXPENSE_TYPE" property="planExpenseType"
+			jdbcType="VARCHAR" />
+		<result column="INSURED_AGE_UPPERLIMIT" property="insuredAgeUpperlimit"
+			jdbcType="BIGINT" />
+		<result column="INSURED_AGE_UPPERTYPE" property="insuredAgeUppertype"
+			jdbcType="VARCHAR" />
+		<result column="INSURED_AGE_LOWERLIMIT" property="insuredAgeLowerlimit"
+			jdbcType="BIGINT" />
+		<result column="INSURED_AGE_LOWERTYPE" property="insuredAgeLowertype"
+			jdbcType="VARCHAR" />
+		<result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+		<result column="IS_CHECK_COVERAGE_RELA" property="isCheckCoverageRela"
+			jdbcType="VARCHAR" />
+		<result column="IF_UNIFY_ISSUE_PLAN" property="ifUnifyIssuePlan"
+			jdbcType="VARCHAR" />
+		<result column="IF_SUB_INSURED" property="ifSubInsured"
+			jdbcType="VARCHAR" />
+		<result column="SERVICE_PROVIDER_ID" property="serviceProviderId"
+			jdbcType="BIGINT" />
+		<result column="SERVICE_CONTRACT_ID" property="serviceContractId"
+			jdbcType="BIGINT" />
+		<result column="SERVICE_FEE_RATE" property="serviceFeeRate"
+			jdbcType="DECIMAL" />
+		<result column="TEAM_NO" property="teamNo" jdbcType="VARCHAR" />
+		<result column="SERVICE_TYPE" property="serviceType" jdbcType="VARCHAR" />
+		<result column="HEALTH_SPECIAL_BUSINESS_TYPE" property="healthSpecialBusinessType"
+			jdbcType="VARCHAR" />
+		<result column="VEHICLE_USE_NATURE" property="vehicleUseNature"
+			jdbcType="VARCHAR" />
+		<result column="APPROVAL_SEAT_COUNT" property="approvalSeatCount"
+			jdbcType="BIGINT" />
+		<result column="SCHOOL_TYPE" property="schoolType" jdbcType="VARCHAR" />
+		<result column="SCHOOL_NATURE" property="schoolNature"
+			jdbcType="VARCHAR" />
+		<result column="INSURED_LIMIT" property="insuredLimit"
+			jdbcType="BIGINT" />
+		<result column="CO_INSURED_NUMBER" property="coInsuredNumber"
+			jdbcType="BIGINT" />
+		<result column="IS_SMALL_AMOUNT" property="isSmallAmount"
+			jdbcType="VARCHAR" />
+		<result column="RESCUE_COMPANY_CODE" property="rescueCompanyCode"
+			jdbcType="VARCHAR" />
+		<result column="RESCUE_MODEL_CODE" property="rescueModelCode"
+			jdbcType="VARCHAR" />
+		<result column="RESCUE_PHONE" property="rescuePhone" jdbcType="VARCHAR" />
+		<result column="RESCUE_TYPE" property="rescueType" jdbcType="BIGINT" />
+		<result column="IF_PERIOD_FIXED" property="ifPeriodFixed"
+			jdbcType="VARCHAR" />
+		<result column="FIX_COVERAGE_PERIOD" property="fixCoveragePeriod"
+			jdbcType="VARCHAR" />
+		<result column="FIX_COVERAGE_YEAR" property="fixCoverageYear"
+			jdbcType="BIGINT" />
+		<result column="COVERAGE_PERIOD" property="coveragePeriod"
+			jdbcType="VARCHAR" />
+		<result column="COVERAGE_YEAR" property="coverageYear"
+			jdbcType="BIGINT" />
+		<result column="IF_SUM_FIXED" property="ifSumFixed" jdbcType="VARCHAR" />
+		<result column="IF_CT_FIXED" property="ifCtFixed" jdbcType="VARCHAR" />
+		<result column="DRIVING_METHOD" property="drivingMethod"
+			jdbcType="VARCHAR" />
+		<result column="GROUP_DESCRIPTION" property="groupDescription"
+			jdbcType="VARCHAR" />
+		<result column="GUARANTEE_TYPE" property="guaranteeType"
+			jdbcType="VARCHAR" />
+		<result column="APPLICATION_TYPE" property="applicationType"
+			jdbcType="VARCHAR" />
+		<result column="AUTO_CATEGORY" property="autoCategory"
+			jdbcType="VARCHAR" />
+		<result column="CUSTOM_CATEGORY" property="customCategory"
+			jdbcType="VARCHAR" />
+		<result column="PLAN_CATEGORY" property="planCategory"
+			jdbcType="VARCHAR" />
+		<result column="MANUAL_CODE" property="manualCode" jdbcType="VARCHAR" />
+		<result column="IS_HAVE_COMPULSORY_INS" property="isHaveCompulsoryIns"
+			jdbcType="VARCHAR" />
+		<result column="PREMIUM_RATE" property="premiumRate" jdbcType="VARCHAR" />
+		<result column="UW_PARAM" property="uwParam" jdbcType="VARCHAR" />
+		<result column="CHANNEL_PARAM" property="channelParam"
+			jdbcType="VARCHAR" />
+		<result column="UNDERWRITING_TYPE" property="underwritingType"
+			jdbcType="VARCHAR" />
+		<result column="COPY_MIN" property="copyMin" jdbcType="BIGINT" />
+		<result column="COPY_MAX" property="copyMax" jdbcType="BIGINT" />
+		<result column="IS_ELEC_SUBMISSION" property="isElecSubmission"
+			jdbcType="VARCHAR" />
+		<result column="IS_RENEW" property="isRenew" jdbcType="VARCHAR" />
+		<result column="RENEW_PLAN_CODE" property="renewPlanCode"
+			jdbcType="VARCHAR" />
+		<result column="ACTIVE_FLAG" property="activeFlag" jdbcType="VARCHAR" />
+		<result column="ACTIVE_TYPE" property="activeType" jdbcType="VARCHAR" />
+		<result column="ACTIVE_DAYS" property="activeDays" jdbcType="BIGINT" />
+		<result column="HEALTH_DECLARE_CHECK" property="healthDeclareCheck"
+			jdbcType="VARCHAR" />
+		<result column="IS_SEND_SMS" property="isSendSms" jdbcType="VARCHAR" />
+		<result column="SMS_SEND_CUST_ROLE_CODE" property="smsSendCustRoleCode"
+			jdbcType="VARCHAR" />
+		<result column="SMS_TEMPLATE_ID" property="smsTemplateId"
+			jdbcType="VARCHAR" />
+		<result column="DOC_VERSION" property="docVersion" jdbcType="VARCHAR" />
+		<result column="GI_PERIOD_TYPE" property="giPeriodType"
+			jdbcType="VARCHAR" />
+		<result column="GI_COVERAGE_PERIOD" property="giCoveragePeriod"
+			jdbcType="VARCHAR" />
+		<result column="GI_START_DATE" property="giStartDate" jdbcType="VARCHAR" />
+		<result column="BUIZ_PRODUCT_ID" property="buizProductId"
+			jdbcType="VARCHAR" />
+		<result column="INSURED_SEX" property="insuredSex" jdbcType="VARCHAR" />
+		<result column="MAX_NEW_VEHICLE_PRICE" property="maxNewVehiclePrice"
+			jdbcType="DECIMAL" />
+		<result column="MIN_NEW_VEHICLE_PRICE" property="minNewVehiclePrice"
+			jdbcType="DECIMAL" />
+		<result column="REAL_VALUE" property="realValue" jdbcType="DECIMAL" />
+		<result column="MAX_REAL_VALUE" property="maxRealValue"
+			jdbcType="DECIMAL" />
+		<result column="MIN_REAL_VALUE" property="minRealValue"
+			jdbcType="DECIMAL" />
+		<result column="MODEL_CATE_CODE" property="modelCateCode"
+			jdbcType="VARCHAR" />
+		<result column="RENEW_FLAG" property="renewFlag" jdbcType="VARCHAR" />
+		<result column="HEALTH_STATUS" property="healthStatus"
+			jdbcType="VARCHAR" />
+		<result column="CUSTOMER_LEVEL" property="customerLevel"
+			jdbcType="VARCHAR" />
+		<result column="APPROVAL_SEAT_MAX" property="approvalSeatMax"
+			jdbcType="BIGINT" />
+		<result column="ARPROVAL_SEAT_MIN" property="arprovalSeatMin"
+			jdbcType="BIGINT" />
+		<result column="buiz_Product_Code" property="buizProductCode"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, PLAN_INFO_ID, PLAN_DEF_ID, POLICY_NATURE,
+		BACK_DATING_DAYS,
+		PLAN_LIST_TYPE, INSURED_LIST_TYPE,
+		PLAN_EXPENSE_TYPE,
+		INSURED_AGE_UPPERLIMIT, INSURED_AGE_UPPERTYPE,
+		INSURED_AGE_LOWERLIMIT,
+		INSURED_AGE_LOWERTYPE, PROJECT_NAME, IS_CHECK_COVERAGE_RELA,
+		IF_UNIFY_ISSUE_PLAN,
+		IF_SUB_INSURED, SERVICE_PROVIDER_ID,
+		SERVICE_CONTRACT_ID,
+		SERVICE_FEE_RATE, TEAM_NO,
+		SERVICE_TYPE,
+		HEALTH_SPECIAL_BUSINESS_TYPE, VEHICLE_USE_NATURE,
+		APPROVAL_SEAT_COUNT,
+		SCHOOL_TYPE, SCHOOL_NATURE, INSURED_LIMIT, CO_INSURED_NUMBER,
+		IS_SMALL_AMOUNT,
+		RESCUE_COMPANY_CODE,
+		RESCUE_MODEL_CODE, RESCUE_PHONE,
+		RESCUE_TYPE, IF_PERIOD_FIXED, FIX_COVERAGE_PERIOD,
+		FIX_COVERAGE_YEAR,
+		COVERAGE_PERIOD, COVERAGE_YEAR, IF_SUM_FIXED,
+		IF_CT_FIXED,
+		DRIVING_METHOD,
+		GROUP_DESCRIPTION, GUARANTEE_TYPE, APPLICATION_TYPE,
+		AUTO_CATEGORY, CUSTOM_CATEGORY,
+		PLAN_CATEGORY, MANUAL_CODE,
+		IS_HAVE_COMPULSORY_INS, PREMIUM_RATE,
+		UW_PARAM, CHANNEL_PARAM,
+		UNDERWRITING_TYPE, COPY_MIN, COPY_MAX, IS_ELEC_SUBMISSION, IS_RENEW,
+		RENEW_PLAN_CODE,
+		ACTIVE_FLAG, ACTIVE_TYPE, ACTIVE_DAYS,
+		HEALTH_DECLARE_CHECK,
+		IS_SEND_SMS, SMS_SEND_CUST_ROLE_CODE,
+		SMS_TEMPLATE_ID, DOC_VERSION, GI_PERIOD_TYPE, GI_COVERAGE_PERIOD,
+		GI_START_DATE,
+		BUIZ_PRODUCT_ID, INSURED_SEX, MAX_NEW_VEHICLE_PRICE,
+		MIN_NEW_VEHICLE_PRICE, REAL_VALUE,
+		MAX_REAL_VALUE, MIN_REAL_VALUE,
+		MODEL_CATE_CODE, RENEW_FLAG, HEALTH_STATUS,
+		CUSTOMER_LEVEL,
+		APPROVAL_SEAT_MAX, ARPROVAL_SEAT_MIN,
+		buiz_Product_Code
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_prd_plan_info
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		t_prd_plan_info
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanInfo">
+		insert into t_prd_plan_info (id, PLAN_INFO_ID,
+		PLAN_DEF_ID,
+		POLICY_NATURE, BACK_DATING_DAYS, PLAN_LIST_TYPE,
+		INSURED_LIST_TYPE, PLAN_EXPENSE_TYPE, INSURED_AGE_UPPERLIMIT,
+		INSURED_AGE_UPPERTYPE, INSURED_AGE_LOWERLIMIT,
+		INSURED_AGE_LOWERTYPE,
+		PROJECT_NAME, IS_CHECK_COVERAGE_RELA,
+		IF_UNIFY_ISSUE_PLAN,
+		IF_SUB_INSURED, SERVICE_PROVIDER_ID,
+		SERVICE_CONTRACT_ID,
+		SERVICE_FEE_RATE, TEAM_NO,
+		SERVICE_TYPE, HEALTH_SPECIAL_BUSINESS_TYPE,
+		VEHICLE_USE_NATURE, APPROVAL_SEAT_COUNT, SCHOOL_TYPE,
+		SCHOOL_NATURE,
+		INSURED_LIMIT, CO_INSURED_NUMBER,
+		IS_SMALL_AMOUNT, RESCUE_COMPANY_CODE,
+		RESCUE_MODEL_CODE,
+		RESCUE_PHONE, RESCUE_TYPE, IF_PERIOD_FIXED,
+		FIX_COVERAGE_PERIOD, FIX_COVERAGE_YEAR, COVERAGE_PERIOD,
+		COVERAGE_YEAR, IF_SUM_FIXED, IF_CT_FIXED,
+		DRIVING_METHOD,
+		GROUP_DESCRIPTION, GUARANTEE_TYPE,
+		APPLICATION_TYPE, AUTO_CATEGORY,
+		CUSTOM_CATEGORY,
+		PLAN_CATEGORY, MANUAL_CODE, IS_HAVE_COMPULSORY_INS,
+		PREMIUM_RATE, UW_PARAM, CHANNEL_PARAM,
+		UNDERWRITING_TYPE, COPY_MIN,
+		COPY_MAX,
+		IS_ELEC_SUBMISSION, IS_RENEW, RENEW_PLAN_CODE,
+		ACTIVE_FLAG,
+		ACTIVE_TYPE, ACTIVE_DAYS,
+		HEALTH_DECLARE_CHECK, IS_SEND_SMS,
+		SMS_SEND_CUST_ROLE_CODE,
+		SMS_TEMPLATE_ID, DOC_VERSION, GI_PERIOD_TYPE,
+		GI_COVERAGE_PERIOD, GI_START_DATE, BUIZ_PRODUCT_ID,
+		INSURED_SEX,
+		MAX_NEW_VEHICLE_PRICE, MIN_NEW_VEHICLE_PRICE,
+		REAL_VALUE,
+		MAX_REAL_VALUE, MIN_REAL_VALUE,
+		MODEL_CATE_CODE, RENEW_FLAG,
+		HEALTH_STATUS,
+		CUSTOMER_LEVEL, APPROVAL_SEAT_MAX, ARPROVAL_SEAT_MIN,
+		buiz_Product_Code,FAMILY_INSURED_COUNT_LIMIT
+		)
+		values (#{id,jdbcType=BIGINT},
+		#{planInfoId,jdbcType=BIGINT},
+		#{planDefId,jdbcType=BIGINT},
+		#{policyNature,jdbcType=VARCHAR}, #{backDatingDays,jdbcType=BIGINT},
+		#{planListType,jdbcType=VARCHAR},
+		#{insuredListType,jdbcType=VARCHAR},
+		#{planExpenseType,jdbcType=VARCHAR},
+		#{insuredAgeUpperlimit,jdbcType=BIGINT},
+		#{insuredAgeUppertype,jdbcType=VARCHAR},
+		#{insuredAgeLowerlimit,jdbcType=BIGINT},
+		#{insuredAgeLowertype,jdbcType=VARCHAR},
+		#{projectName,jdbcType=VARCHAR},
+		#{isCheckCoverageRela,jdbcType=VARCHAR},
+		#{ifUnifyIssuePlan,jdbcType=VARCHAR},
+		#{ifSubInsured,jdbcType=VARCHAR},
+		#{serviceProviderId,jdbcType=BIGINT},
+		#{serviceContractId,jdbcType=BIGINT},
+		#{serviceFeeRate,jdbcType=DECIMAL}, #{teamNo,jdbcType=VARCHAR},
+		#{serviceType,jdbcType=VARCHAR},
+		#{healthSpecialBusinessType,jdbcType=VARCHAR},
+		#{vehicleUseNature,jdbcType=VARCHAR},
+		#{approvalSeatCount,jdbcType=BIGINT}, #{schoolType,jdbcType=VARCHAR},
+		#{schoolNature,jdbcType=VARCHAR}, #{insuredLimit,jdbcType=BIGINT},
+		#{coInsuredNumber,jdbcType=BIGINT},
+		#{isSmallAmount,jdbcType=VARCHAR},
+		#{rescueCompanyCode,jdbcType=VARCHAR},
+		#{rescueModelCode,jdbcType=VARCHAR},
+		#{rescuePhone,jdbcType=VARCHAR},
+		#{rescueType,jdbcType=BIGINT}, #{ifPeriodFixed,jdbcType=VARCHAR},
+		#{fixCoveragePeriod,jdbcType=VARCHAR},
+		#{fixCoverageYear,jdbcType=BIGINT},
+		#{coveragePeriod,jdbcType=VARCHAR},
+		#{coverageYear,jdbcType=BIGINT},
+		#{ifSumFixed,jdbcType=VARCHAR}, #{ifCtFixed,jdbcType=VARCHAR},
+		#{drivingMethod,jdbcType=VARCHAR},
+		#{groupDescription,jdbcType=VARCHAR},
+		#{guaranteeType,jdbcType=VARCHAR},
+		#{applicationType,jdbcType=VARCHAR}, #{autoCategory,jdbcType=VARCHAR},
+		#{customCategory,jdbcType=VARCHAR},
+		#{planCategory,jdbcType=VARCHAR},
+		#{manualCode,jdbcType=VARCHAR},
+		#{isHaveCompulsoryIns,jdbcType=VARCHAR},
+		#{premiumRate,jdbcType=VARCHAR}, #{uwParam,jdbcType=VARCHAR},
+		#{channelParam,jdbcType=VARCHAR},
+		#{underwritingType,jdbcType=VARCHAR}, #{copyMin,jdbcType=BIGINT},
+		#{copyMax,jdbcType=BIGINT},
+		#{isElecSubmission,jdbcType=VARCHAR},
+		#{isRenew,jdbcType=VARCHAR}, #{renewPlanCode,jdbcType=VARCHAR},
+		#{activeFlag,jdbcType=VARCHAR}, #{activeType,jdbcType=VARCHAR},
+		#{activeDays,jdbcType=BIGINT},
+		#{healthDeclareCheck,jdbcType=VARCHAR},
+		#{isSendSms,jdbcType=VARCHAR},
+		#{smsSendCustRoleCode,jdbcType=VARCHAR},
+		#{smsTemplateId,jdbcType=VARCHAR}, #{docVersion,jdbcType=VARCHAR},
+		#{giPeriodType,jdbcType=VARCHAR},
+		#{giCoveragePeriod,jdbcType=VARCHAR}, #{giStartDate,jdbcType=VARCHAR},
+		#{buizProductId,jdbcType=VARCHAR},
+		#{insuredSex,jdbcType=VARCHAR},
+		#{maxNewVehiclePrice,jdbcType=DECIMAL},
+		#{minNewVehiclePrice,jdbcType=DECIMAL},
+		#{realValue,jdbcType=DECIMAL},
+		#{maxRealValue,jdbcType=DECIMAL}, #{minRealValue,jdbcType=DECIMAL},
+		#{modelCateCode,jdbcType=VARCHAR}, #{renewFlag,jdbcType=VARCHAR},
+		#{healthStatus,jdbcType=VARCHAR},
+		#{customerLevel,jdbcType=VARCHAR},
+		#{approvalSeatMax,jdbcType=BIGINT},
+		#{approvalSeatMin,jdbcType=BIGINT},
+		#{buizProductCode},#{familyInsuredCountLimit}
+		)
+		ON DUPLICATE KEY UPDATE
+		PLAN_INFO_ID=VALUES(PLAN_INFO_ID),
+		PLAN_DEF_ID=VALUES(PLAN_DEF_ID),
+		POLICY_NATURE=VALUES(POLICY_NATURE),
+		BACK_DATING_DAYS=VALUES(BACK_DATING_DAYS),
+		PLAN_LIST_TYPE=VALUES(PLAN_LIST_TYPE),
+		INSURED_LIST_TYPE=VALUES(INSURED_LIST_TYPE),
+		PLAN_EXPENSE_TYPE=VALUES(PLAN_EXPENSE_TYPE),
+		INSURED_AGE_UPPERLIMIT=VALUES(INSURED_AGE_UPPERLIMIT),
+		INSURED_AGE_UPPERTYPE=VALUES(INSURED_AGE_UPPERTYPE),
+		INSURED_AGE_LOWERLIMIT=VALUES(INSURED_AGE_LOWERLIMIT),
+		INSURED_AGE_LOWERTYPE=VALUES(INSURED_AGE_LOWERTYPE),
+		PROJECT_NAME=VALUES(PROJECT_NAME),
+		IS_CHECK_COVERAGE_RELA=VALUES(IS_CHECK_COVERAGE_RELA),
+		IF_UNIFY_ISSUE_PLAN=VALUES(IF_UNIFY_ISSUE_PLAN),
+		IF_SUB_INSURED=VALUES(IF_SUB_INSURED),
+		SERVICE_PROVIDER_ID=VALUES(SERVICE_PROVIDER_ID),
+		SERVICE_CONTRACT_ID=VALUES(SERVICE_CONTRACT_ID),
+		SERVICE_FEE_RATE=VALUES(SERVICE_FEE_RATE),
+		TEAM_NO=VALUES(TEAM_NO),
+		SERVICE_TYPE=VALUES(SERVICE_TYPE),
+		HEALTH_SPECIAL_BUSINESS_TYPE=VALUES(HEALTH_SPECIAL_BUSINESS_TYPE),
+		VEHICLE_USE_NATURE=VALUES(VEHICLE_USE_NATURE),
+		APPROVAL_SEAT_COUNT=VALUES(APPROVAL_SEAT_COUNT),
+		SCHOOL_TYPE=VALUES(SCHOOL_TYPE),
+		SCHOOL_NATURE=VALUES(SCHOOL_NATURE),
+		INSURED_LIMIT=VALUES(INSURED_LIMIT),
+		CO_INSURED_NUMBER=VALUES(CO_INSURED_NUMBER),
+		IS_SMALL_AMOUNT=VALUES(IS_SMALL_AMOUNT),
+		RESCUE_COMPANY_CODE=VALUES(RESCUE_COMPANY_CODE),
+		RESCUE_MODEL_CODE=VALUES(RESCUE_MODEL_CODE),
+		RESCUE_PHONE=VALUES(RESCUE_PHONE),
+		RESCUE_TYPE=VALUES(RESCUE_TYPE),
+		IF_PERIOD_FIXED=VALUES(IF_PERIOD_FIXED),
+		FIX_COVERAGE_PERIOD=VALUES(FIX_COVERAGE_PERIOD),
+		FIX_COVERAGE_YEAR=VALUES(FIX_COVERAGE_YEAR),
+		COVERAGE_PERIOD=VALUES(COVERAGE_PERIOD),
+		COVERAGE_YEAR=VALUES(COVERAGE_YEAR),
+		IF_SUM_FIXED=VALUES(IF_SUM_FIXED),
+		IF_CT_FIXED=VALUES(IF_CT_FIXED),
+		DRIVING_METHOD=VALUES(DRIVING_METHOD),
+		GROUP_DESCRIPTION=VALUES(GROUP_DESCRIPTION),
+		GUARANTEE_TYPE=VALUES(GUARANTEE_TYPE),
+		APPLICATION_TYPE=VALUES(APPLICATION_TYPE),
+		AUTO_CATEGORY=VALUES(AUTO_CATEGORY),
+		CUSTOM_CATEGORY=VALUES(CUSTOM_CATEGORY),
+		PLAN_CATEGORY=VALUES(PLAN_CATEGORY),
+		MANUAL_CODE=VALUES(MANUAL_CODE),
+		IS_HAVE_COMPULSORY_INS=VALUES(IS_HAVE_COMPULSORY_INS),
+		PREMIUM_RATE=VALUES(PREMIUM_RATE),
+		UW_PARAM=VALUES(UW_PARAM),
+		CHANNEL_PARAM=VALUES(CHANNEL_PARAM),
+		UNDERWRITING_TYPE=VALUES(UNDERWRITING_TYPE),
+		COPY_MIN=VALUES(COPY_MIN),
+		COPY_MAX=VALUES(COPY_MAX),
+		IS_ELEC_SUBMISSION=VALUES(IS_ELEC_SUBMISSION),
+		IS_RENEW=VALUES(IS_RENEW),
+		RENEW_PLAN_CODE=VALUES(RENEW_PLAN_CODE),
+		ACTIVE_FLAG=VALUES(ACTIVE_FLAG),
+		ACTIVE_TYPE=VALUES(ACTIVE_TYPE),
+		ACTIVE_DAYS=VALUES(ACTIVE_DAYS),
+		HEALTH_DECLARE_CHECK=VALUES(HEALTH_DECLARE_CHECK),
+		IS_SEND_SMS=VALUES(IS_SEND_SMS),
+		SMS_SEND_CUST_ROLE_CODE=VALUES(SMS_SEND_CUST_ROLE_CODE),
+		SMS_TEMPLATE_ID=VALUES(SMS_TEMPLATE_ID),
+		DOC_VERSION=VALUES(DOC_VERSION),
+		GI_PERIOD_TYPE=VALUES(GI_PERIOD_TYPE),
+		GI_COVERAGE_PERIOD=VALUES(GI_COVERAGE_PERIOD),
+		GI_START_DATE=VALUES(GI_START_DATE),
+		BUIZ_PRODUCT_ID=VALUES(BUIZ_PRODUCT_ID),
+		INSURED_SEX=VALUES(INSURED_SEX),
+		MAX_NEW_VEHICLE_PRICE=VALUES(MAX_NEW_VEHICLE_PRICE),
+		MIN_NEW_VEHICLE_PRICE=VALUES(MIN_NEW_VEHICLE_PRICE),
+		REAL_VALUE=VALUES(REAL_VALUE),
+		MAX_REAL_VALUE=VALUES(MAX_REAL_VALUE),
+		MIN_REAL_VALUE=VALUES(MIN_REAL_VALUE),
+		MODEL_CATE_CODE=VALUES(MODEL_CATE_CODE),
+		RENEW_FLAG=VALUES(RENEW_FLAG),
+		HEALTH_STATUS=VALUES(HEALTH_STATUS),
+		CUSTOMER_LEVEL=VALUES(CUSTOMER_LEVEL),
+		APPROVAL_SEAT_MAX=VALUES(APPROVAL_SEAT_MAX),
+		ARPROVAL_SEAT_MIN=VALUES(ARPROVAL_SEAT_MIN),
+		buiz_Product_Code=VALUES(buiz_Product_Code),
+		FAMILY_INSURED_COUNT_LIMIT=VALUES(FAMILY_INSURED_COUNT_LIMIT)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanInfo">
+		insert into t_prd_plan_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="planInfoId != null">
+				PLAN_INFO_ID,
+			</if>
+			<if test="planDefId != null">
+				PLAN_DEF_ID,
+			</if>
+			<if test="policyNature != null">
+				POLICY_NATURE,
+			</if>
+			<if test="backDatingDays != null">
+				BACK_DATING_DAYS,
+			</if>
+			<if test="planListType != null">
+				PLAN_LIST_TYPE,
+			</if>
+			<if test="insuredListType != null">
+				INSURED_LIST_TYPE,
+			</if>
+			<if test="planExpenseType != null">
+				PLAN_EXPENSE_TYPE,
+			</if>
+			<if test="insuredAgeUpperlimit != null">
+				INSURED_AGE_UPPERLIMIT,
+			</if>
+			<if test="insuredAgeUppertype != null">
+				INSURED_AGE_UPPERTYPE,
+			</if>
+			<if test="insuredAgeLowerlimit != null">
+				INSURED_AGE_LOWERLIMIT,
+			</if>
+			<if test="insuredAgeLowertype != null">
+				INSURED_AGE_LOWERTYPE,
+			</if>
+			<if test="projectName != null">
+				PROJECT_NAME,
+			</if>
+			<if test="isCheckCoverageRela != null">
+				IS_CHECK_COVERAGE_RELA,
+			</if>
+			<if test="ifUnifyIssuePlan != null">
+				IF_UNIFY_ISSUE_PLAN,
+			</if>
+			<if test="ifSubInsured != null">
+				IF_SUB_INSURED,
+			</if>
+			<if test="serviceProviderId != null">
+				SERVICE_PROVIDER_ID,
+			</if>
+			<if test="serviceContractId != null">
+				SERVICE_CONTRACT_ID,
+			</if>
+			<if test="serviceFeeRate != null">
+				SERVICE_FEE_RATE,
+			</if>
+			<if test="teamNo != null">
+				TEAM_NO,
+			</if>
+			<if test="serviceType != null">
+				SERVICE_TYPE,
+			</if>
+			<if test="healthSpecialBusinessType != null">
+				HEALTH_SPECIAL_BUSINESS_TYPE,
+			</if>
+			<if test="vehicleUseNature != null">
+				VEHICLE_USE_NATURE,
+			</if>
+			<if test="approvalSeatCount != null">
+				APPROVAL_SEAT_COUNT,
+			</if>
+			<if test="schoolType != null">
+				SCHOOL_TYPE,
+			</if>
+			<if test="schoolNature != null">
+				SCHOOL_NATURE,
+			</if>
+			<if test="insuredLimit != null">
+				INSURED_LIMIT,
+			</if>
+			<if test="coInsuredNumber != null">
+				CO_INSURED_NUMBER,
+			</if>
+			<if test="isSmallAmount != null">
+				IS_SMALL_AMOUNT,
+			</if>
+			<if test="rescueCompanyCode != null">
+				RESCUE_COMPANY_CODE,
+			</if>
+			<if test="rescueModelCode != null">
+				RESCUE_MODEL_CODE,
+			</if>
+			<if test="rescuePhone != null">
+				RESCUE_PHONE,
+			</if>
+			<if test="rescueType != null">
+				RESCUE_TYPE,
+			</if>
+			<if test="ifPeriodFixed != null">
+				IF_PERIOD_FIXED,
+			</if>
+			<if test="fixCoveragePeriod != null">
+				FIX_COVERAGE_PERIOD,
+			</if>
+			<if test="fixCoverageYear != null">
+				FIX_COVERAGE_YEAR,
+			</if>
+			<if test="coveragePeriod != null">
+				COVERAGE_PERIOD,
+			</if>
+			<if test="coverageYear != null">
+				COVERAGE_YEAR,
+			</if>
+			<if test="ifSumFixed != null">
+				IF_SUM_FIXED,
+			</if>
+			<if test="ifCtFixed != null">
+				IF_CT_FIXED,
+			</if>
+			<if test="drivingMethod != null">
+				DRIVING_METHOD,
+			</if>
+			<if test="groupDescription != null">
+				GROUP_DESCRIPTION,
+			</if>
+			<if test="guaranteeType != null">
+				GUARANTEE_TYPE,
+			</if>
+			<if test="applicationType != null">
+				APPLICATION_TYPE,
+			</if>
+			<if test="autoCategory != null">
+				AUTO_CATEGORY,
+			</if>
+			<if test="customCategory != null">
+				CUSTOM_CATEGORY,
+			</if>
+			<if test="planCategory != null">
+				PLAN_CATEGORY,
+			</if>
+			<if test="manualCode != null">
+				MANUAL_CODE,
+			</if>
+			<if test="isHaveCompulsoryIns != null">
+				IS_HAVE_COMPULSORY_INS,
+			</if>
+			<if test="premiumRate != null">
+				PREMIUM_RATE,
+			</if>
+			<if test="uwParam != null">
+				UW_PARAM,
+			</if>
+			<if test="channelParam != null">
+				CHANNEL_PARAM,
+			</if>
+			<if test="underwritingType != null">
+				UNDERWRITING_TYPE,
+			</if>
+			<if test="copyMin != null">
+				COPY_MIN,
+			</if>
+			<if test="copyMax != null">
+				COPY_MAX,
+			</if>
+			<if test="isElecSubmission != null">
+				IS_ELEC_SUBMISSION,
+			</if>
+			<if test="isRenew != null">
+				IS_RENEW,
+			</if>
+			<if test="renewPlanCode != null">
+				RENEW_PLAN_CODE,
+			</if>
+			<if test="activeFlag != null">
+				ACTIVE_FLAG,
+			</if>
+			<if test="activeType != null">
+				ACTIVE_TYPE,
+			</if>
+			<if test="activeDays != null">
+				ACTIVE_DAYS,
+			</if>
+			<if test="healthDeclareCheck != null">
+				HEALTH_DECLARE_CHECK,
+			</if>
+			<if test="isSendSms != null">
+				IS_SEND_SMS,
+			</if>
+			<if test="smsSendCustRoleCode != null">
+				SMS_SEND_CUST_ROLE_CODE,
+			</if>
+			<if test="smsTemplateId != null">
+				SMS_TEMPLATE_ID,
+			</if>
+			<if test="docVersion != null">
+				DOC_VERSION,
+			</if>
+			<if test="giPeriodType != null">
+				GI_PERIOD_TYPE,
+			</if>
+			<if test="giCoveragePeriod != null">
+				GI_COVERAGE_PERIOD,
+			</if>
+			<if test="giStartDate != null">
+				GI_START_DATE,
+			</if>
+			<if test="buizProductId != null">
+				BUIZ_PRODUCT_ID,
+			</if>
+			<if test="insuredSex != null">
+				INSURED_SEX,
+			</if>
+			<if test="maxNewVehiclePrice != null">
+				MAX_NEW_VEHICLE_PRICE,
+			</if>
+			<if test="minNewVehiclePrice != null">
+				MIN_NEW_VEHICLE_PRICE,
+			</if>
+			<if test="realValue != null">
+				REAL_VALUE,
+			</if>
+			<if test="maxRealValue != null">
+				MAX_REAL_VALUE,
+			</if>
+			<if test="minRealValue != null">
+				MIN_REAL_VALUE,
+			</if>
+			<if test="modelCateCode != null">
+				MODEL_CATE_CODE,
+			</if>
+			<if test="renewFlag != null">
+				RENEW_FLAG,
+			</if>
+			<if test="healthStatus != null">
+				HEALTH_STATUS,
+			</if>
+			<if test="customerLevel != null">
+				CUSTOMER_LEVEL,
+			</if>
+			<if test="approvalSeatMax != null">
+				APPROVAL_SEAT_MAX,
+			</if>
+			<if test="arprovalSeatMin != null">
+				ARPROVAL_SEAT_MIN,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="planInfoId != null">
+				#{planInfoId,jdbcType=BIGINT},
+			</if>
+			<if test="planDefId != null">
+				#{planDefId,jdbcType=BIGINT},
+			</if>
+			<if test="policyNature != null">
+				#{policyNature,jdbcType=VARCHAR},
+			</if>
+			<if test="backDatingDays != null">
+				#{backDatingDays,jdbcType=BIGINT},
+			</if>
+			<if test="planListType != null">
+				#{planListType,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredListType != null">
+				#{insuredListType,jdbcType=VARCHAR},
+			</if>
+			<if test="planExpenseType != null">
+				#{planExpenseType,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredAgeUpperlimit != null">
+				#{insuredAgeUpperlimit,jdbcType=BIGINT},
+			</if>
+			<if test="insuredAgeUppertype != null">
+				#{insuredAgeUppertype,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredAgeLowerlimit != null">
+				#{insuredAgeLowerlimit,jdbcType=BIGINT},
+			</if>
+			<if test="insuredAgeLowertype != null">
+				#{insuredAgeLowertype,jdbcType=VARCHAR},
+			</if>
+			<if test="projectName != null">
+				#{projectName,jdbcType=VARCHAR},
+			</if>
+			<if test="isCheckCoverageRela != null">
+				#{isCheckCoverageRela,jdbcType=VARCHAR},
+			</if>
+			<if test="ifUnifyIssuePlan != null">
+				#{ifUnifyIssuePlan,jdbcType=VARCHAR},
+			</if>
+			<if test="ifSubInsured != null">
+				#{ifSubInsured,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceProviderId != null">
+				#{serviceProviderId,jdbcType=BIGINT},
+			</if>
+			<if test="serviceContractId != null">
+				#{serviceContractId,jdbcType=BIGINT},
+			</if>
+			<if test="serviceFeeRate != null">
+				#{serviceFeeRate,jdbcType=DECIMAL},
+			</if>
+			<if test="teamNo != null">
+				#{teamNo,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceType != null">
+				#{serviceType,jdbcType=VARCHAR},
+			</if>
+			<if test="healthSpecialBusinessType != null">
+				#{healthSpecialBusinessType,jdbcType=VARCHAR},
+			</if>
+			<if test="vehicleUseNature != null">
+				#{vehicleUseNature,jdbcType=VARCHAR},
+			</if>
+			<if test="approvalSeatCount != null">
+				#{approvalSeatCount,jdbcType=BIGINT},
+			</if>
+			<if test="schoolType != null">
+				#{schoolType,jdbcType=VARCHAR},
+			</if>
+			<if test="schoolNature != null">
+				#{schoolNature,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredLimit != null">
+				#{insuredLimit,jdbcType=BIGINT},
+			</if>
+			<if test="coInsuredNumber != null">
+				#{coInsuredNumber,jdbcType=BIGINT},
+			</if>
+			<if test="isSmallAmount != null">
+				#{isSmallAmount,jdbcType=VARCHAR},
+			</if>
+			<if test="rescueCompanyCode != null">
+				#{rescueCompanyCode,jdbcType=VARCHAR},
+			</if>
+			<if test="rescueModelCode != null">
+				#{rescueModelCode,jdbcType=VARCHAR},
+			</if>
+			<if test="rescuePhone != null">
+				#{rescuePhone,jdbcType=VARCHAR},
+			</if>
+			<if test="rescueType != null">
+				#{rescueType,jdbcType=BIGINT},
+			</if>
+			<if test="ifPeriodFixed != null">
+				#{ifPeriodFixed,jdbcType=VARCHAR},
+			</if>
+			<if test="fixCoveragePeriod != null">
+				#{fixCoveragePeriod,jdbcType=VARCHAR},
+			</if>
+			<if test="fixCoverageYear != null">
+				#{fixCoverageYear,jdbcType=BIGINT},
+			</if>
+			<if test="coveragePeriod != null">
+				#{coveragePeriod,jdbcType=VARCHAR},
+			</if>
+			<if test="coverageYear != null">
+				#{coverageYear,jdbcType=BIGINT},
+			</if>
+			<if test="ifSumFixed != null">
+				#{ifSumFixed,jdbcType=VARCHAR},
+			</if>
+			<if test="ifCtFixed != null">
+				#{ifCtFixed,jdbcType=VARCHAR},
+			</if>
+			<if test="drivingMethod != null">
+				#{drivingMethod,jdbcType=VARCHAR},
+			</if>
+			<if test="groupDescription != null">
+				#{groupDescription,jdbcType=VARCHAR},
+			</if>
+			<if test="guaranteeType != null">
+				#{guaranteeType,jdbcType=VARCHAR},
+			</if>
+			<if test="applicationType != null">
+				#{applicationType,jdbcType=VARCHAR},
+			</if>
+			<if test="autoCategory != null">
+				#{autoCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="customCategory != null">
+				#{customCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="planCategory != null">
+				#{planCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="manualCode != null">
+				#{manualCode,jdbcType=VARCHAR},
+			</if>
+			<if test="isHaveCompulsoryIns != null">
+				#{isHaveCompulsoryIns,jdbcType=VARCHAR},
+			</if>
+			<if test="premiumRate != null">
+				#{premiumRate,jdbcType=VARCHAR},
+			</if>
+			<if test="uwParam != null">
+				#{uwParam,jdbcType=VARCHAR},
+			</if>
+			<if test="channelParam != null">
+				#{channelParam,jdbcType=VARCHAR},
+			</if>
+			<if test="underwritingType != null">
+				#{underwritingType,jdbcType=VARCHAR},
+			</if>
+			<if test="copyMin != null">
+				#{copyMin,jdbcType=BIGINT},
+			</if>
+			<if test="copyMax != null">
+				#{copyMax,jdbcType=BIGINT},
+			</if>
+			<if test="isElecSubmission != null">
+				#{isElecSubmission,jdbcType=VARCHAR},
+			</if>
+			<if test="isRenew != null">
+				#{isRenew,jdbcType=VARCHAR},
+			</if>
+			<if test="renewPlanCode != null">
+				#{renewPlanCode,jdbcType=VARCHAR},
+			</if>
+			<if test="activeFlag != null">
+				#{activeFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="activeType != null">
+				#{activeType,jdbcType=VARCHAR},
+			</if>
+			<if test="activeDays != null">
+				#{activeDays,jdbcType=BIGINT},
+			</if>
+			<if test="healthDeclareCheck != null">
+				#{healthDeclareCheck,jdbcType=VARCHAR},
+			</if>
+			<if test="isSendSms != null">
+				#{isSendSms,jdbcType=VARCHAR},
+			</if>
+			<if test="smsSendCustRoleCode != null">
+				#{smsSendCustRoleCode,jdbcType=VARCHAR},
+			</if>
+			<if test="smsTemplateId != null">
+				#{smsTemplateId,jdbcType=VARCHAR},
+			</if>
+			<if test="docVersion != null">
+				#{docVersion,jdbcType=VARCHAR},
+			</if>
+			<if test="giPeriodType != null">
+				#{giPeriodType,jdbcType=VARCHAR},
+			</if>
+			<if test="giCoveragePeriod != null">
+				#{giCoveragePeriod,jdbcType=VARCHAR},
+			</if>
+			<if test="giStartDate != null">
+				#{giStartDate,jdbcType=VARCHAR},
+			</if>
+			<if test="buizProductId != null">
+				#{buizProductId,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredSex != null">
+				#{insuredSex,jdbcType=VARCHAR},
+			</if>
+			<if test="maxNewVehiclePrice != null">
+				#{maxNewVehiclePrice,jdbcType=DECIMAL},
+			</if>
+			<if test="minNewVehiclePrice != null">
+				#{minNewVehiclePrice,jdbcType=DECIMAL},
+			</if>
+			<if test="realValue != null">
+				#{realValue,jdbcType=DECIMAL},
+			</if>
+			<if test="maxRealValue != null">
+				#{maxRealValue,jdbcType=DECIMAL},
+			</if>
+			<if test="minRealValue != null">
+				#{minRealValue,jdbcType=DECIMAL},
+			</if>
+			<if test="modelCateCode != null">
+				#{modelCateCode,jdbcType=VARCHAR},
+			</if>
+			<if test="renewFlag != null">
+				#{renewFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="healthStatus != null">
+				#{healthStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="customerLevel != null">
+				#{customerLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="approvalSeatMax != null">
+				#{approvalSeatMax,jdbcType=BIGINT},
+			</if>
+			<if test="arprovalSeatMin != null">
+				#{arprovalSeatMin,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanInfo">
+		update t_prd_plan_info
+		<set>
+			<if test="planInfoId != null">
+				PLAN_INFO_ID = #{planInfoId,jdbcType=BIGINT},
+			</if>
+			<if test="planDefId != null">
+				PLAN_DEF_ID = #{planDefId,jdbcType=BIGINT},
+			</if>
+			<if test="policyNature != null">
+				POLICY_NATURE = #{policyNature,jdbcType=VARCHAR},
+			</if>
+			<if test="backDatingDays != null">
+				BACK_DATING_DAYS = #{backDatingDays,jdbcType=BIGINT},
+			</if>
+			<if test="planListType != null">
+				PLAN_LIST_TYPE = #{planListType,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredListType != null">
+				INSURED_LIST_TYPE = #{insuredListType,jdbcType=VARCHAR},
+			</if>
+			<if test="planExpenseType != null">
+				PLAN_EXPENSE_TYPE = #{planExpenseType,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredAgeUpperlimit != null">
+				INSURED_AGE_UPPERLIMIT =
+				#{insuredAgeUpperlimit,jdbcType=BIGINT},
+			</if>
+			<if test="insuredAgeUppertype != null">
+				INSURED_AGE_UPPERTYPE =
+				#{insuredAgeUppertype,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredAgeLowerlimit != null">
+				INSURED_AGE_LOWERLIMIT =
+				#{insuredAgeLowerlimit,jdbcType=BIGINT},
+			</if>
+			<if test="insuredAgeLowertype != null">
+				INSURED_AGE_LOWERTYPE =
+				#{insuredAgeLowertype,jdbcType=VARCHAR},
+			</if>
+			<if test="projectName != null">
+				PROJECT_NAME = #{projectName,jdbcType=VARCHAR},
+			</if>
+			<if test="isCheckCoverageRela != null">
+				IS_CHECK_COVERAGE_RELA =
+				#{isCheckCoverageRela,jdbcType=VARCHAR},
+			</if>
+			<if test="ifUnifyIssuePlan != null">
+				IF_UNIFY_ISSUE_PLAN =
+				#{ifUnifyIssuePlan,jdbcType=VARCHAR},
+			</if>
+			<if test="ifSubInsured != null">
+				IF_SUB_INSURED = #{ifSubInsured,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceProviderId != null">
+				SERVICE_PROVIDER_ID =
+				#{serviceProviderId,jdbcType=BIGINT},
+			</if>
+			<if test="serviceContractId != null">
+				SERVICE_CONTRACT_ID =
+				#{serviceContractId,jdbcType=BIGINT},
+			</if>
+			<if test="serviceFeeRate != null">
+				SERVICE_FEE_RATE = #{serviceFeeRate,jdbcType=DECIMAL},
+			</if>
+			<if test="teamNo != null">
+				TEAM_NO = #{teamNo,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceType != null">
+				SERVICE_TYPE = #{serviceType,jdbcType=VARCHAR},
+			</if>
+			<if test="healthSpecialBusinessType != null">
+				HEALTH_SPECIAL_BUSINESS_TYPE =
+				#{healthSpecialBusinessType,jdbcType=VARCHAR},
+			</if>
+			<if test="vehicleUseNature != null">
+				VEHICLE_USE_NATURE =
+				#{vehicleUseNature,jdbcType=VARCHAR},
+			</if>
+			<if test="approvalSeatCount != null">
+				APPROVAL_SEAT_COUNT =
+				#{approvalSeatCount,jdbcType=BIGINT},
+			</if>
+			<if test="schoolType != null">
+				SCHOOL_TYPE = #{schoolType,jdbcType=VARCHAR},
+			</if>
+			<if test="schoolNature != null">
+				SCHOOL_NATURE = #{schoolNature,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredLimit != null">
+				INSURED_LIMIT = #{insuredLimit,jdbcType=BIGINT},
+			</if>
+			<if test="coInsuredNumber != null">
+				CO_INSURED_NUMBER = #{coInsuredNumber,jdbcType=BIGINT},
+			</if>
+			<if test="isSmallAmount != null">
+				IS_SMALL_AMOUNT = #{isSmallAmount,jdbcType=VARCHAR},
+			</if>
+			<if test="rescueCompanyCode != null">
+				RESCUE_COMPANY_CODE =
+				#{rescueCompanyCode,jdbcType=VARCHAR},
+			</if>
+			<if test="rescueModelCode != null">
+				RESCUE_MODEL_CODE = #{rescueModelCode,jdbcType=VARCHAR},
+			</if>
+			<if test="rescuePhone != null">
+				RESCUE_PHONE = #{rescuePhone,jdbcType=VARCHAR},
+			</if>
+			<if test="rescueType != null">
+				RESCUE_TYPE = #{rescueType,jdbcType=BIGINT},
+			</if>
+			<if test="ifPeriodFixed != null">
+				IF_PERIOD_FIXED = #{ifPeriodFixed,jdbcType=VARCHAR},
+			</if>
+			<if test="fixCoveragePeriod != null">
+				FIX_COVERAGE_PERIOD =
+				#{fixCoveragePeriod,jdbcType=VARCHAR},
+			</if>
+			<if test="fixCoverageYear != null">
+				FIX_COVERAGE_YEAR = #{fixCoverageYear,jdbcType=BIGINT},
+			</if>
+			<if test="coveragePeriod != null">
+				COVERAGE_PERIOD = #{coveragePeriod,jdbcType=VARCHAR},
+			</if>
+			<if test="coverageYear != null">
+				COVERAGE_YEAR = #{coverageYear,jdbcType=BIGINT},
+			</if>
+			<if test="ifSumFixed != null">
+				IF_SUM_FIXED = #{ifSumFixed,jdbcType=VARCHAR},
+			</if>
+			<if test="ifCtFixed != null">
+				IF_CT_FIXED = #{ifCtFixed,jdbcType=VARCHAR},
+			</if>
+			<if test="drivingMethod != null">
+				DRIVING_METHOD = #{drivingMethod,jdbcType=VARCHAR},
+			</if>
+			<if test="groupDescription != null">
+				GROUP_DESCRIPTION = #{groupDescription,jdbcType=VARCHAR},
+			</if>
+			<if test="guaranteeType != null">
+				GUARANTEE_TYPE = #{guaranteeType,jdbcType=VARCHAR},
+			</if>
+			<if test="applicationType != null">
+				APPLICATION_TYPE = #{applicationType,jdbcType=VARCHAR},
+			</if>
+			<if test="autoCategory != null">
+				AUTO_CATEGORY = #{autoCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="customCategory != null">
+				CUSTOM_CATEGORY = #{customCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="planCategory != null">
+				PLAN_CATEGORY = #{planCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="manualCode != null">
+				MANUAL_CODE = #{manualCode,jdbcType=VARCHAR},
+			</if>
+			<if test="isHaveCompulsoryIns != null">
+				IS_HAVE_COMPULSORY_INS =
+				#{isHaveCompulsoryIns,jdbcType=VARCHAR},
+			</if>
+			<if test="premiumRate != null">
+				PREMIUM_RATE = #{premiumRate,jdbcType=VARCHAR},
+			</if>
+			<if test="uwParam != null">
+				UW_PARAM = #{uwParam,jdbcType=VARCHAR},
+			</if>
+			<if test="channelParam != null">
+				CHANNEL_PARAM = #{channelParam,jdbcType=VARCHAR},
+			</if>
+			<if test="underwritingType != null">
+				UNDERWRITING_TYPE = #{underwritingType,jdbcType=VARCHAR},
+			</if>
+			<if test="copyMin != null">
+				COPY_MIN = #{copyMin,jdbcType=BIGINT},
+			</if>
+			<if test="copyMax != null">
+				COPY_MAX = #{copyMax,jdbcType=BIGINT},
+			</if>
+			<if test="isElecSubmission != null">
+				IS_ELEC_SUBMISSION =
+				#{isElecSubmission,jdbcType=VARCHAR},
+			</if>
+			<if test="isRenew != null">
+				IS_RENEW = #{isRenew,jdbcType=VARCHAR},
+			</if>
+			<if test="renewPlanCode != null">
+				RENEW_PLAN_CODE = #{renewPlanCode,jdbcType=VARCHAR},
+			</if>
+			<if test="activeFlag != null">
+				ACTIVE_FLAG = #{activeFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="activeType != null">
+				ACTIVE_TYPE = #{activeType,jdbcType=VARCHAR},
+			</if>
+			<if test="activeDays != null">
+				ACTIVE_DAYS = #{activeDays,jdbcType=BIGINT},
+			</if>
+			<if test="healthDeclareCheck != null">
+				HEALTH_DECLARE_CHECK =
+				#{healthDeclareCheck,jdbcType=VARCHAR},
+			</if>
+			<if test="isSendSms != null">
+				IS_SEND_SMS = #{isSendSms,jdbcType=VARCHAR},
+			</if>
+			<if test="smsSendCustRoleCode != null">
+				SMS_SEND_CUST_ROLE_CODE =
+				#{smsSendCustRoleCode,jdbcType=VARCHAR},
+			</if>
+			<if test="smsTemplateId != null">
+				SMS_TEMPLATE_ID = #{smsTemplateId,jdbcType=VARCHAR},
+			</if>
+			<if test="docVersion != null">
+				DOC_VERSION = #{docVersion,jdbcType=VARCHAR},
+			</if>
+			<if test="giPeriodType != null">
+				GI_PERIOD_TYPE = #{giPeriodType,jdbcType=VARCHAR},
+			</if>
+			<if test="giCoveragePeriod != null">
+				GI_COVERAGE_PERIOD =
+				#{giCoveragePeriod,jdbcType=VARCHAR},
+			</if>
+			<if test="giStartDate != null">
+				GI_START_DATE = #{giStartDate,jdbcType=VARCHAR},
+			</if>
+			<if test="buizProductId != null">
+				BUIZ_PRODUCT_ID = #{buizProductId,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredSex != null">
+				INSURED_SEX = #{insuredSex,jdbcType=VARCHAR},
+			</if>
+			<if test="maxNewVehiclePrice != null">
+				MAX_NEW_VEHICLE_PRICE =
+				#{maxNewVehiclePrice,jdbcType=DECIMAL},
+			</if>
+			<if test="minNewVehiclePrice != null">
+				MIN_NEW_VEHICLE_PRICE =
+				#{minNewVehiclePrice,jdbcType=DECIMAL},
+			</if>
+			<if test="realValue != null">
+				REAL_VALUE = #{realValue,jdbcType=DECIMAL},
+			</if>
+			<if test="maxRealValue != null">
+				MAX_REAL_VALUE = #{maxRealValue,jdbcType=DECIMAL},
+			</if>
+			<if test="minRealValue != null">
+				MIN_REAL_VALUE = #{minRealValue,jdbcType=DECIMAL},
+			</if>
+			<if test="modelCateCode != null">
+				MODEL_CATE_CODE = #{modelCateCode,jdbcType=VARCHAR},
+			</if>
+			<if test="renewFlag != null">
+				RENEW_FLAG = #{renewFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="healthStatus != null">
+				HEALTH_STATUS = #{healthStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="customerLevel != null">
+				CUSTOMER_LEVEL = #{customerLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="approvalSeatMax != null">
+				APPROVAL_SEAT_MAX = #{approvalSeatMax,jdbcType=BIGINT},
+			</if>
+			<if test="arprovalSeatMin != null">
+				ARPROVAL_SEAT_MIN = #{arprovalSeatMin,jdbcType=BIGINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanInfo">
+		update t_prd_plan_info
+		set PLAN_INFO_ID =
+		#{planInfoId,jdbcType=BIGINT},
+		PLAN_DEF_ID =
+		#{planDefId,jdbcType=BIGINT},
+		POLICY_NATURE =
+		#{policyNature,jdbcType=VARCHAR},
+		BACK_DATING_DAYS =
+		#{backDatingDays,jdbcType=BIGINT},
+		PLAN_LIST_TYPE =
+		#{planListType,jdbcType=VARCHAR},
+		INSURED_LIST_TYPE =
+		#{insuredListType,jdbcType=VARCHAR},
+		PLAN_EXPENSE_TYPE =
+		#{planExpenseType,jdbcType=VARCHAR},
+		INSURED_AGE_UPPERLIMIT =
+		#{insuredAgeUpperlimit,jdbcType=BIGINT},
+		INSURED_AGE_UPPERTYPE =
+		#{insuredAgeUppertype,jdbcType=VARCHAR},
+		INSURED_AGE_LOWERLIMIT =
+		#{insuredAgeLowerlimit,jdbcType=BIGINT},
+		INSURED_AGE_LOWERTYPE =
+		#{insuredAgeLowertype,jdbcType=VARCHAR},
+		PROJECT_NAME =
+		#{projectName,jdbcType=VARCHAR},
+		IS_CHECK_COVERAGE_RELA =
+		#{isCheckCoverageRela,jdbcType=VARCHAR},
+		IF_UNIFY_ISSUE_PLAN =
+		#{ifUnifyIssuePlan,jdbcType=VARCHAR},
+		IF_SUB_INSURED =
+		#{ifSubInsured,jdbcType=VARCHAR},
+		SERVICE_PROVIDER_ID =
+		#{serviceProviderId,jdbcType=BIGINT},
+		SERVICE_CONTRACT_ID =
+		#{serviceContractId,jdbcType=BIGINT},
+		SERVICE_FEE_RATE =
+		#{serviceFeeRate,jdbcType=DECIMAL},
+		TEAM_NO =
+		#{teamNo,jdbcType=VARCHAR},
+		SERVICE_TYPE =
+		#{serviceType,jdbcType=VARCHAR},
+		HEALTH_SPECIAL_BUSINESS_TYPE =
+		#{healthSpecialBusinessType,jdbcType=VARCHAR},
+		VEHICLE_USE_NATURE =
+		#{vehicleUseNature,jdbcType=VARCHAR},
+		APPROVAL_SEAT_COUNT =
+		#{approvalSeatCount,jdbcType=BIGINT},
+		SCHOOL_TYPE =
+		#{schoolType,jdbcType=VARCHAR},
+		SCHOOL_NATURE =
+		#{schoolNature,jdbcType=VARCHAR},
+		INSURED_LIMIT =
+		#{insuredLimit,jdbcType=BIGINT},
+		CO_INSURED_NUMBER =
+		#{coInsuredNumber,jdbcType=BIGINT},
+		IS_SMALL_AMOUNT =
+		#{isSmallAmount,jdbcType=VARCHAR},
+		RESCUE_COMPANY_CODE =
+		#{rescueCompanyCode,jdbcType=VARCHAR},
+		RESCUE_MODEL_CODE =
+		#{rescueModelCode,jdbcType=VARCHAR},
+		RESCUE_PHONE =
+		#{rescuePhone,jdbcType=VARCHAR},
+		RESCUE_TYPE =
+		#{rescueType,jdbcType=BIGINT},
+		IF_PERIOD_FIXED =
+		#{ifPeriodFixed,jdbcType=VARCHAR},
+		FIX_COVERAGE_PERIOD =
+		#{fixCoveragePeriod,jdbcType=VARCHAR},
+		FIX_COVERAGE_YEAR =
+		#{fixCoverageYear,jdbcType=BIGINT},
+		COVERAGE_PERIOD =
+		#{coveragePeriod,jdbcType=VARCHAR},
+		COVERAGE_YEAR =
+		#{coverageYear,jdbcType=BIGINT},
+		IF_SUM_FIXED =
+		#{ifSumFixed,jdbcType=VARCHAR},
+		IF_CT_FIXED =
+		#{ifCtFixed,jdbcType=VARCHAR},
+		DRIVING_METHOD =
+		#{drivingMethod,jdbcType=VARCHAR},
+		GROUP_DESCRIPTION =
+		#{groupDescription,jdbcType=VARCHAR},
+		GUARANTEE_TYPE =
+		#{guaranteeType,jdbcType=VARCHAR},
+		APPLICATION_TYPE =
+		#{applicationType,jdbcType=VARCHAR},
+		AUTO_CATEGORY =
+		#{autoCategory,jdbcType=VARCHAR},
+		CUSTOM_CATEGORY =
+		#{customCategory,jdbcType=VARCHAR},
+		PLAN_CATEGORY =
+		#{planCategory,jdbcType=VARCHAR},
+		MANUAL_CODE =
+		#{manualCode,jdbcType=VARCHAR},
+		IS_HAVE_COMPULSORY_INS =
+		#{isHaveCompulsoryIns,jdbcType=VARCHAR},
+		PREMIUM_RATE =
+		#{premiumRate,jdbcType=VARCHAR},
+		UW_PARAM =
+		#{uwParam,jdbcType=VARCHAR},
+		CHANNEL_PARAM =
+		#{channelParam,jdbcType=VARCHAR},
+		UNDERWRITING_TYPE =
+		#{underwritingType,jdbcType=VARCHAR},
+		COPY_MIN =
+		#{copyMin,jdbcType=BIGINT},
+		COPY_MAX = #{copyMax,jdbcType=BIGINT},
+		IS_ELEC_SUBMISSION = #{isElecSubmission,jdbcType=VARCHAR},
+		IS_RENEW =
+		#{isRenew,jdbcType=VARCHAR},
+		RENEW_PLAN_CODE =
+		#{renewPlanCode,jdbcType=VARCHAR},
+		ACTIVE_FLAG =
+		#{activeFlag,jdbcType=VARCHAR},
+		ACTIVE_TYPE =
+		#{activeType,jdbcType=VARCHAR},
+		ACTIVE_DAYS =
+		#{activeDays,jdbcType=BIGINT},
+		HEALTH_DECLARE_CHECK =
+		#{healthDeclareCheck,jdbcType=VARCHAR},
+		IS_SEND_SMS =
+		#{isSendSms,jdbcType=VARCHAR},
+		SMS_SEND_CUST_ROLE_CODE =
+		#{smsSendCustRoleCode,jdbcType=VARCHAR},
+		SMS_TEMPLATE_ID =
+		#{smsTemplateId,jdbcType=VARCHAR},
+		DOC_VERSION =
+		#{docVersion,jdbcType=VARCHAR},
+		GI_PERIOD_TYPE =
+		#{giPeriodType,jdbcType=VARCHAR},
+		GI_COVERAGE_PERIOD =
+		#{giCoveragePeriod,jdbcType=VARCHAR},
+		GI_START_DATE =
+		#{giStartDate,jdbcType=VARCHAR},
+		BUIZ_PRODUCT_ID =
+		#{buizProductId,jdbcType=VARCHAR},
+		INSURED_SEX =
+		#{insuredSex,jdbcType=VARCHAR},
+		MAX_NEW_VEHICLE_PRICE =
+		#{maxNewVehiclePrice,jdbcType=DECIMAL},
+		MIN_NEW_VEHICLE_PRICE =
+		#{minNewVehiclePrice,jdbcType=DECIMAL},
+		REAL_VALUE =
+		#{realValue,jdbcType=DECIMAL},
+		MAX_REAL_VALUE =
+		#{maxRealValue,jdbcType=DECIMAL},
+		MIN_REAL_VALUE =
+		#{minRealValue,jdbcType=DECIMAL},
+		MODEL_CATE_CODE =
+		#{modelCateCode,jdbcType=VARCHAR},
+		RENEW_FLAG =
+		#{renewFlag,jdbcType=VARCHAR},
+		HEALTH_STATUS =
+		#{healthStatus,jdbcType=VARCHAR},
+		CUSTOMER_LEVEL =
+		#{customerLevel,jdbcType=VARCHAR},
+		APPROVAL_SEAT_MAX =
+		#{approvalSeatMax,jdbcType=BIGINT},
+		ARPROVAL_SEAT_MIN =
+		#{arprovalSeatMin,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<delete id="deleteByPlanDefId"	parameterType="java.lang.Long">
+	delete from t_prd_plan_ct where PLAN_DEF_ID =#{planDefId}
+	</delete>
+	
+	<delete id="deleteByPlanCtDetialDefId"	parameterType="java.lang.Long">
+		delete from t_prd_plan_ct_detail where plan_coverage_id in(
+	select plan_coverage_id from t_prd_plan_ct where plan_def_id = #{planDefId} and parent_plan_coverage_id is NOT NULL)
+	</delete>
+	
+</mapper>

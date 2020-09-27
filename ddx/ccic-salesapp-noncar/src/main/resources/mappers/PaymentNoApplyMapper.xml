@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.PaymentNoApplyMapper">
+	<resultMap
+		type="com.ccic.salesapp.noncar.dto.StoreInsureInfo" id="BaseResultMap">
+		<result column="ID" property="id" />
+		<result column="INSURE_NO" property="insureNo" />
+		<result column="POLICY_NO" property="policyNo" />
+		<result column="INSURANCE_CODE" property="insuranceCode" />
+		<result column="INSURANCE_NAME" property="insuranceName" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="START_DATE" property="startDate" />
+		<result column="END_DATE" property="endDate" />
+		<result column="START_TIME" property="startTime" />
+		<result column="END_TIME" property="endTime" />
+		<result column="INSURANCE_PERIOD" property="insurancePeriod" />
+		<result column="UNDERWRITE_DATE" property="underwriteDate" />
+		<result column="SUMPREMIUM" property="sumPremium" />
+		<result column="SUMAMOUNT" property="sumAmount" />
+		<result column="BUSINESS_TYPE" property="businessType" />
+		<result column="STATUS" property="status" />
+		<result column="USER_ID" property="userId" />
+		<result column="INSURANCE_COUNT" property="insuranceCount" />
+		<result column="LICENSE_PLATE_NO" property="licensePlateNo" />
+		<result column="COM_CODE" property="comCode" />
+		<result column="HANDLER_CODE" property="handlerCode" />
+		<result column="OPERATOR_CODE" property="operatorCode" />
+		<result column="OPERATOR_NAME" property="operatorName" />
+		<result column="PAYAPPLY_NO" property="payApplyNo" />
+		<result column="IDENTITY_CODE" property="identityCode" />
+		<result column="APPLICANT_NAME" property="applicantName" />
+		<result column="APPLI_IDENTIFY" property="appliIdentify" />
+		<result column="APPLIIDENTIFY_TYPE"
+			property="appliIdentifyType" />
+		<result column="INSURED_NAME" property="insuredName" />
+		<result column="INSURED_IDENTIFY" property="insuredIdentify" />
+		<result column="INSUREDIDENTIFY_TYPE"
+			property="insuredIdentifyType" />
+		<result column="BIRTH_DATE" property="birthDate" />
+		<result column="MOBILE_NO" property="mobileNo" />
+		<result column="ADDRESS" property="address" />
+		<result column="EMAIL" property="email" />
+		<result column="FORMULA_CODE" property="formulaCode" />
+		<result column="FORMULA_NAME" property="formulaName" />
+		<result column="RELATE_INSURED" property="relateInsured" />
+		<result column="IMEI" property="imei" />
+		<result column="AGENT_CODE" property="agentCode" />
+		<result column="AGREEMENT_NO" property="agreementNo" />
+		<result column="AGREEMENT_NAME" property="agreementName" />
+		<result column="INSURANCE_TYPE" property="insuranceType" />
+		<result column="HANDLER_CODE2" property="handlerCode2" />
+		<result column="ISRUNAPP" property="isRunApp" />
+		<result column="PRODUCT_CODE" property="productCode" />
+		<result column="IS_OPENAIR" property="isOpenair" />
+		<result column="SHOW_NO" property="showNo" />
+		<result column="SHOW_NAME" property="showName" />
+		<result column="PROVINCE_CODE" property="provinceCode" />
+		<result column="PREFECTURE_CODE" property="prefectureCode" />
+		<result column="COUNTY_CODE" property="countyCode" />
+		<result column="SIGNSTATUS" property="signStatus" />
+		<result column="IMGID" property="imgId" />
+		<result column="ADDITIONALCODE" property="additionalCode" />
+		<result column="PLATFORM_FLAG" property="platformFlag" />
+		<result column="NCL_USER_CODE" property="nclUserCode" />
+		<result column="PRODUCT_NAME" property="productName" />
+		<result column="EXHIBITION_AREA" property="exhibitionArea" />
+		<result column="INSURED_MOBILE" property="insuredMobile" />
+		<result column="ASSOCIATED_INSURE_ID"
+			property="associatedInsureID" />
+	</resultMap>
+
+	<select id="selectBySureInfoNo" resultMap="BaseResultMap"
+		parameterType="com.ccic.salesapp.noncar.dto.request.ApplyPayVo">
+		select s.*,
+		(select p.product_name from t_noncar_product p where
+		p.product_code=s.product_code limit 1) product_name
+		from t_noncar_insureinfo s where insure_no=#{insureNo}
+	</select>
+
+	<update id="doUpdate"
+		parameterType="com.ccic.salesapp.noncar.dto.StoreInsureInfo">
+		update t_noncar_insureinfo
+		set insure_no=#{insureNo},
+		policy_no=#{policyNo},
+		insurance_code=#{insuranceCode},
+		insurance_name=#{insuranceName},
+		create_date=#{createDate},
+		start_date=#{startDate},
+		end_date=#{endDate},
+		start_time=#{startTime},
+		end_time=#{endTime},
+		insurance_period=#{insurancePeriod},
+		underwrite_date=#{underwriteDate},
+		sumpremium=#{sumPremium},
+		sumamount=#{sumAmount},
+		business_type=#{businessType},
+		status=#{status},
+		user_id=#{userId},
+		insurance_count=#{insuranceCount},
+		license_plate_no=#{licensePlateNo},
+		com_code=#{comCode},
+		handler_code=#{handlerCode},
+		operator_code=#{operatorCode},
+		operator_name=#{operatorName},
+		payapply_no=#{payApplyNo},
+		identity_code=#{identityCode},
+		applicant_name=#{applicantName},
+		appli_identify=#{appliIdentify},
+		insured_name=#{insuredName},
+		insured_identify=#{insuredIdentify},
+		birth_date=#{birthDate},
+		mobile_no=#{mobileNo},
+		address=#{address},
+		email=#{email},
+		formula_code=#{formulaCode},
+		formula_name=#{formulaName},
+		relate_insured=#{relateInsured},
+		imei=#{imei},
+		agent_code=#{agentCode},
+		agreement_no=#{agreementNo},
+		agreement_name=#{agreementName},
+		insurance_type=#{insuranceType},
+		handler_code2=#{handlerCode2},
+		isrunapp=#{isRunApp}
+		where insure_no = #{insureNo}
+	</update>
+
+	<update id="doUpdateTwo"
+		parameterType="com.ccic.salesapp.noncar.dto.NoncarOrder">
+		 
+update t_noncar_order
+		set 
+		order_no=#{orderNo},
+		order_status=#{orderStatus},
+		is_delete=#{isDelete},
+		product_code=#{productCode},
+		insure_no=#{insureNo},
+		policy_no=#{policyNo},
+		product_name=#{productName},
+		user_code=#{userCode},
+		identity_code=#{identityCode},
+		pay_apply_no=#{payApplyNo},
+		plan_id = #{planId},
+		applicant_name=#{applicantName},
+		com_code=#{comCode},
+		sign_status = #{signStatus},
+		sum_premium=#{sumPremium},
+		handler_code=#{handlerCode},
+		strategy_id = #{strategyId},
+		operator_code=#{operatorCode},
+		operator_name=#{operatorName},
+		mobile = #{mobile},
+		is_issue_after_pay = #{isIssueAfterPay},
+		is_need_sign = #{isNeedSign},
+		handler_code2=#{handlerCode2}
+		where insure_no = #{insureNo}
+	</update>
+</mapper>

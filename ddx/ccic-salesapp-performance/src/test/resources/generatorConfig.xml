@@ -1,0 +1,31 @@
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="mysql" targetRuntime="MyBatis3Simple">
+
+        <commentGenerator type="mybatis.generator.SwaggerCommentGenerator">
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/salesapp20200318?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=UTC"
+                        userId="root"
+                        password="123456">
+            <property name="useInformationSchema" value="true" />
+        </jdbcConnection>
+
+
+        <javaModelGenerator targetPackage="com.ccic.salesapp.performance.domain.vo.dto" targetProject="src/main/java">
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mappers"  targetProject="src/main/resources">
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.ccic.salesapp.performance.domain.mapper"  targetProject="src/main/java">
+        </javaClientGenerator>
+
+        <table tableName="t_performance_responsibility_detail" domainObjectName="PerfResponsibilityDetail" mapperName="PerfResponsibilityDetailMapper">
+
+        </table>
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PolicyMessage">
+  <resultMap id="PolicyMessageRs" type="com.estar.app.chinare.sell.domain.PolicyMessageVO">
+    <result property="id" column="ID"/>
+    <result property="userCode" column="USERCODE"/>
+    <result property="policyNo" column="PLOICYNO"/>
+    <result property="create_date" column="CREATE_DATE"/>
+    <result property="content" column="CONTENT"/>
+  </resultMap>
+
+  <insert id="insert" parameterType="com.estar.app.chinare.sell.domain.PolicyMessageVO">
+    insert into T_APP_S_POLICY_MESSAGE (ID,USERCODE,PLOICYNO,CREATE_DATE,CONTENT)
+    values (S_APP_S_POLICY_MESSAGE_ID.NEXTVAL, #userCode#, #policyNo#, SYSDATE, #content#)
+  </insert>
+
+  <select id="selectCodeByPolicyNoAndUser" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select COUNT(1) from T_APP_S_POLICY_MESSAGE t where PLOICYNO=#policyNo:VARCHAR# and USERCODE=#userCode:VARCHAR#
+  </select>
+
+</mapper>

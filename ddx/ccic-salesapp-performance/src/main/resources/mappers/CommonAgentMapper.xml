@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ccic.salesapp.performance.repository.basedb.mapper.CommonAgentMapper">
+	<resultMap id="BaseResultMap"
+		type="com.ccic.salesapp.performance.domain.vo.dto.CommonAgent">
+		<result property="id" column="ID" />
+		<result property="businessSource" column="BUSINESS_SOURCE" />
+		<result property="agentCode" column="AGENT_CODE" />
+		<result property="agentName" column="AGENT_NAME" />
+		<result property="staffCode" column="STAFF_CODE" />
+		<result property="createDate" column="CREATE_DATE" />
+		<result property="updateDate" column="UPDATE_DATE" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID,
+		BUSINESS_SOURCE,AGENT_CODE,AGENT_NAME,STAFF_CODE,CREATE_DATE,UPDATE_DATE
+	</sql>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="ID" parameterType="com.ccic.salesapp.performance.domain.vo.dto.CommonAgent">
+		insert into t_app_agent
+		(BUSINESS_SOURCE,AGENT_CODE,AGENT_NAME,STAFF_CODE,CREATE_DATE,UPDATE_DATE)
+		values ( #{businessSource}, #{agentCode}, #{agentName},
+		#{staffCode},now(),now())
+	</insert>
+
+	<update id="update"
+		parameterType="com.ccic.salesapp.performance.domain.vo.dto.CommonAgent">
+		update t_app_agent
+		set BUSINESS_SOURCE = #{businessSource},
+		AGENT_CODE = #{agentCode},
+		AGENT_NAME = #{agentName},
+		UPDATE_DATE = now()
+		where ID = #{id}
+		and STAFF_CODE=#{staffCode}
+	</update>
+	<select id="searchByStaffCode" parameterType="string" resultMap="BaseResultMap">
+		select * FROM t_app_agent where STAFF_CODE=#{staffCode} and
+		BUSINESS_SOURCE&lt;&gt;'2401' ORDER BY CREATE_DATE DESC
+	</select>
+	<select id="searchByAgentCode"
+		parameterType="com.ccic.salesapp.performance.domain.vo.dto.CommonAgent"
+		resultMap="BaseResultMap">
+		select * FROM t_app_agent where AGENT_CODE = #{agentCode}
+		and BUSINESS_SOURCE=#{businessSource} and STAFF_CODE=#{staffCode}
+	</select>
+	<delete id="delete"
+		parameterType="com.ccic.salesapp.performance.domain.vo.dto.CommonAgent">
+		delete from t_app_agent WHERE ID=#{id} and STAFF_CODE=#{staffCode}
+	</delete>
+
+	<update id="updateDefaultAgent"
+		parameterType="com.ccic.salesapp.performance.domain.vo.dto.CommonAgent">
+		update t_app_agent
+		set IS_DEFAULT = #{isDefault}
+		where ID = #{id}
+	</update>
+</mapper>

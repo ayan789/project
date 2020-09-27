@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ccic.salesapp.performance.repository.basedb.mapper.InviteUserMapper" >
+   <resultMap id="BaseResultMap" type="com.ccic.salesapp.performance.domain.vo.dto.InviteUserVO" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USERCODE" property="usercode" jdbcType="VARCHAR" />
+    <result column="PCODE" property="pcode" jdbcType="VARCHAR" />
+    <result column="QUALIFICATIONS_CODE" property="qualificationsCode" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="CARDID" property="cardid" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="PROVINCECODE" property="provincecode" jdbcType="VARCHAR" />
+    <result column="PREFECTURECODE" property="prefecturecode" jdbcType="VARCHAR" />
+    <result column="COUNTYCODE" property="countycode" jdbcType="VARCHAR" />
+    <result column="COMCODE" property="comcode" jdbcType="VARCHAR" />
+    <result column="ADDRESSNAME" property="addressname" jdbcType="VARCHAR" />
+    <result column="EXAM_SCORE" property="examScore" jdbcType="VARCHAR" />
+    <result column="EXAM_DATE" property="examDate" jdbcType="TIMESTAMP" />
+    <result column="EXAM_STATE" property="examState" jdbcType="VARCHAR" />
+    <result column="EXAMINE_STATE" property="examineState" jdbcType="VARCHAR" />
+    <result column="EXAMINE_RESULT" property="examineResult" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USERCODE, PCODE, QUALIFICATIONS_CODE, USER_NAME, CARDID, MOBILE, 
+    PROVINCECODE, PREFECTURECODE, COUNTYCODE, COMCODE, ADDRESSNAME, EXAM_SCORE, EXAM_DATE, 
+    EXAM_STATE, EXAMINE_STATE, EXAMINE_RESULT, CREATE_DATE, UPDATE_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.ccic.salesapp.performance.domain.vo.dto.InviteUserVO" >
+    select 
+    <include refid="com.ccic.salesapp.performance.repository.basedb.mapper.InviteUserMapper.Base_Column_List" />
+    from t_app_invite_agent
+    where ID = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.ccic.salesapp.performance.domain.vo.dto.InviteUserVO" >
+    delete from t_app_invite_agent
+    where ID = #{id:VARCHAR#
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="ID" parameterType="com.ccic.salesapp.performance.domain.vo.dto.InviteUserVO" >
+    insert into t_app_invite_agent ( USERCODE,  PCODE, 
+      QUALIFICATIONS_CODE, USER_NAME, CARDID, MOBILE, 
+      PROVINCECODE, PREFECTURECODE, COUNTYCODE, COMCODE, 
+      ADDRESSNAME, EXAM_SCORE, EXAM_DATE, EXAM_STATE, 
+      EXAMINE_STATE, EXAMINE_RESULT, CREATE_DATE, UPDATE_DATE
+      )
+    values ( #{usercode} , #{pcode}, 
+      #{qualificationsCode} , #{userName} , #{cardid} , #{mobile}, 
+      #{provincecode} , #{prefecturecode} , #{countycode} , #{comcode}, 
+      #{addressname} , #{examScore} , #{examDate}, #{examState}, 
+      #{examineState} , #{examineResult} , #{createDate}, {updateDate}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" keyColumn="ID" parameterType="com.ccic.salesapp.performance.domain.vo.dto.InviteUserVO" >
+    insert into t_app_invite_agent
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="usercode != null " >
+        USERCODE
+       ,</if>
+      <if test="pcode != null " >
+        PCODE
+       ,</if>
+      <if test="qualificationsCode != null " >
+        QUALIFICATIONS_CODE
+       ,</if>
+      <if test="userName != null " >
+        USER_NAME
+       ,</if>
+      <if test="cardid != null " >
+        CARDID
+       ,</if>
+      <if test="mobile != null " >
+        MOBILE
+       ,</if>
+      <if test="provincecode != null " >
+        PROVINCECODE
+       ,</if>
+      <if test="prefecturecode != null " >
+        PREFECTURECODE
+       ,</if>
+      <if test="countycode != null " >
+        COUNTYCODE
+       ,</if>
+      <if test="comcode != null " >
+        COMCODE
+       ,</if>
+      <if test="addressname != null " >
+        ADDRESSNAME
+       ,</if>
+      <if test="examScore != null " >
+        EXAM_SCORE
+       ,</if>
+      <if test="examDate != null " >
+        EXAM_DATE
+       ,</if>
+      <if test="examState != null " >
+        EXAM_STATE
+       ,</if>
+      <if test="examineState != null " >
+        EXAMINE_STATE
+       ,</if>
+      <if test="examineResult != null " >
+        EXAMINE_RESULT
+       ,</if>
+      <if test="createDate != null " >
+        CREATE_DATE
+       ,</if>
+      <if test="updateDate != null " >
+        UPDATE_DATE
+       ,</if>
+      )
+   </trim>
+   <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="usercode != null " >
+        #{usercode,jdbcType=VARCHAR}
+       ,</if>
+      <if test="inviteUsercode != null " >
+        #{inviteUsercode,jdbcType=VARCHAR}
+       ,</if>
+      <if test="pcode != null " >
+        #{pcode,jdbcType=VARCHAR}
+       ,</if>
+      <if test="qualificationsCode != null " >
+        #{qualificationsCode,jdbcType=VARCHAR}
+       ,</if>
+      <if test="userName != null " >
+        #{userName,jdbcType=VARCHAR}
+       ,</if>
+      <if test="cardid != null " >
+        #{cardid,jdbcType=VARCHAR}
+       ,</if>
+      <if test="mobile != null " >
+        #{mobile,jdbcType=VARCHAR}
+       ,</if>
+      <if test="provincecode != null " >
+        #{provincecode,jdbcType=VARCHAR}
+       ,</if>
+      <if test="prefecturecode != null " >
+        #{prefecturecode,jdbcType=VARCHAR}
+       ,</if>
+      <if test="countycode != null " >
+        #{countycode,jdbcType=VARCHAR}
+       ,</if>
+      <if test="comcode != null " >
+        #{comcode,jdbcType=VARCHAR}
+       ,</if>
+      <if test="addressname != null " >
+        #{addressname,jdbcType=VARCHAR}
+       ,</if>
+      <if test="examScore != null " >
+        #{examScore,jdbcType=VARCHAR}
+       ,</if>
+      <if test="examDate != null " >
+        #{examDate}
+       ,</if>
+      <if test="examState != null " >
+        #{examState,jdbcType=VARCHAR}
+       ,</if>
+      <if test="examineState != null " >
+        #{examineState,jdbcType=VARCHAR}
+       ,</if>
+      <if test="examineResult != null " >
+        #{examineResult,jdbcType=VARCHAR}
+       ,</if>
+      <if test="createDate != null " >
+        #{createDate}
+       ,</if>
+      <if test="updateDate != null " >
+        #{updateDate}
+       </if>
+      )
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccic.salesapp.performance.domain.vo.dto.InviteUserVO">
+    update t_app_invite_agent
+    <trim prefix="set " suffix="" suffixOverrides="," >
+      <if test="usercode != null " >
+        USERCODE = #{usercode},
+       </if>
+      <if test="pcode != null " >
+        PCODE = #{pcode},
+      </if>
+      <if test="qualificationsCode != null " >
+        QUALIFICATIONS_CODE = #{qualificationsCode},
+      </if>
+      <if test="userName != null " >
+        USER_NAME = #{userName},
+      </if>
+      <if test="cardid != null " >
+        CARDID = #{cardid},
+      </if>
+      <if test="mobile != null " >
+        MOBILE = #{mobile},
+      </if>
+      <if test="provincecode != null " >
+        PROVINCECODE = #{provincecode},
+      </if>
+      <if test="prefecturecode != null " >
+        PREFECTURECODE = #{prefecturecode},
+      </if>
+      <if test="countycode != null " >
+        COUNTYCODE = #{countycode},
+      </if>
+      <if test="comcode != null " >
+        COMCODE = #{comcode},
+      </if>
+      <if test="addressname != null " >
+        ADDRESSNAME = #{addressname},
+      </if>
+      <if test="examScore != null " >
+        EXAM_SCORE = #{examScore},
+      </if>
+      <if test="examDate != null " >
+        EXAM_DATE = #{examDate:TIMESTAMP#
+      </if>
+      <if test="examState != null " >
+        EXAM_STATE = #{examState},
+      </if>
+      <if test="examineState != null " >
+        EXAMINE_STATE = #{examineState},
+      </if>
+      <if test="examineResult != null " >
+        EXAMINE_RESULT = #{examineResult},
+      </if>
+      <if test="createDate != null " >
+        CREATE_DATE = #{createDate},
+      </if>
+      <if test="updateDate != null " >
+        UPDATE_DATE = #{updateDate}
+      </if>
+    </trim>
+    where ID = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.performance.domain.vo.dto.InviteUserVO" >
+    update t_app_invite_agent
+    set USERCODE = #{usercode},
+      PCODE = #{pcode},
+      QUALIFICATIONS_CODE = #{qualificationsCode},
+      USER_NAME = #{userName},
+      CARDID = #{cardid},
+      MOBILE = #{mobile},
+      PROVINCECODE = #{provincecode},
+      PREFECTURECODE = #{prefecturecode},
+      COUNTYCODE = #{countycode},
+      COMCODE = #{comcode},
+      ADDRESSNAME = #{addressname},
+      EXAM_SCORE = #{examScore},
+      EXAM_DATE = #{examDate},
+      EXAM_STATE = #{examState},
+      EXAMINE_STATE = #{examineState},
+      EXAMINE_RESULT = #{examineResult},
+      CREATE_DATE = #{createDate},
+      UPDATE_DATE = #{updateDate}
+    where ID = #{id}
+  </update>
+  <select id="selectBycardId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="com.ccic.salesapp.performance.repository.basedb.mapper.InviteUserMapper.Base_Column_List" />
+    from t_app_invite_agent
+    where cardid = #{cardid}
+  </select>
+  <select id="selectByInviteUsercode" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+<!-- 	SELECT <include refid="InviteUserVO.Base_Column_List" /> FROM   -->
+<!-- 	(   -->
+<!-- 	SELECT A.<include refid="InviteUserVO.Base_Column_List" />, ROWNUM RN   -->
+<!-- 	FROM (SELECT * FROM t_app_invite_agent ) A   -->
+<!-- 	WHERE ROWNUM <![CDATA[<=]]> #pageSize#   -->
+<!-- 	)   -->
+<!-- 	WHERE RN <![CDATA[>=]]> #page#  -->
+    select 
+    <include refid="com.ccic.salesapp.performance.repository.basedb.mapper.InviteUserMapper.Base_Column_List" />
+    from t_app_invite_agent
+    where userCode = #{userCode} order by CREATE_DATE desc
+    <if test="offset != null and limit != null">
+		limit #{offset}, #{limit}
+	</if>
+  </select>
+  
+    <select id="selectByInviteUsercodeNum" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+    select 
+    count(*)
+    from t_app_invite_agent
+    where userCode = #{userCode}
+  </select>
+  
+</mapper>

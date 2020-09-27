@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generalConfig">
+
+	<resultMap id="QueryComCodeMap" type="com.estar.app.chinare.sell.domain.QueryComCodeConfigValueVO">
+		<result property="comCode" column="COM_CODE"/>
+		<result property="configValue" column="CONFIG_VALUE"/>
+	</resultMap>
+
+	<!--
+		此条注释下面元素不能自动转换，请手动转换mybatis3语法：
+	--><cacheModel id="oneDayUrgerType" type="LRU" readOnly="true">
+	<flushInterval hours="24"/>
+</cacheModel>
+
+
+	<select id="getConfigValue" parameterType="java.util.HashMap" resultType="java.lang.String">
+		SELECT C.CONFIG_VALUE FROM T_APP_S_GENERAL_CONFIG C
+		WHERE C.VALID_STATUS='1'
+		<if test="comCode != null and comCode != ''">AND
+			C.COM_CODE=#comCode#
+		</if>
+		<if test="riskCode != null and riskCode != ''">AND
+			C.RISK_CODE=#riskCode#
+		</if>
+		AND C.CONFIG_TYPE=#configType#
+	</select>
+
+	<select id="getConfigValueNoCache" parameterType="java.util.HashMap" resultType="java.lang.String">
+		SELECT C.CONFIG_VALUE FROM T_APP_S_GENERAL_CONFIG C
+		WHERE C.VALID_STATUS='1'
+		<if test="comCode != null and comCode != ''">AND
+			C.COM_CODE=#comCode#
+		</if>
+		<if test="riskCode != null and riskCode != ''">AND
+			C.RISK_CODE=#riskCode#
+		</if>
+		AND C.CONFIG_TYPE=#configType#
+	</select>
+	<!-- 续保提醒查询comcode和configvalue -->
+	<select id="getComCodeConfigValue" parameterType="java.util.HashMap" resultMap="QueryComCodeMap">
+		SELECT CONFIG_VALUE,COM_CODE FROM T_APP_S_GENERAL_CONFIG
+		WHERE VALID_STATUS='1' AND CONFIG_TYPE=#configType#
+	</select>
+
+	<select id="getAppVersion" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT C.VERSION FROM T_APP_S_VERSION C
+		WHERE C.APPCODE=#appCode#
+	</select>
+
+</mapper>

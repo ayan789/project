@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.performance.domain.mapper.PerfResponsibilityMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.performance.domain.vo.dto.PerfResponsibility">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="responsibility_type" jdbcType="VARCHAR" property="responsibilityType" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="team_code" jdbcType="VARCHAR" property="teamCode" />
+    <result column="responsibility_name" jdbcType="VARCHAR" property="responsibilityName" />
+    <result column="responsibility_note" jdbcType="VARCHAR" property="responsibilityNote" />
+    <result column="insure_premium" jdbcType="DECIMAL" property="insurePremium" />
+    <result column="car_insure_premium" jdbcType="DECIMAL" property="carInsurePremium" />
+    <result column="acc_insure_premium" jdbcType="DECIMAL" property="accInsurePremium" />
+    <result column="hea_insure_premium" jdbcType="DECIMAL" property="heaInsurePremium" />
+    <result column="prop_insure_premium" jdbcType="DECIMAL" property="propInsurePremium" />
+    <result column="multiple" jdbcType="INTEGER" property="multiple" />
+    <result column="sign_status" jdbcType="VARCHAR" property="signStatus" />
+    <result column="sign_time" jdbcType="TIMESTAMP" property="signTime" />
+    <result column="change_status" jdbcType="VARCHAR" property="changeStatus" />
+    <result column="is_year" jdbcType="VARCHAR" property="isYear" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="leader_sign" jdbcType="LONGVARCHAR" property="leaderSign" />
+    <result column="user_sign" jdbcType="LONGVARCHAR" property="userSign" />
+    <result column="automatic_flag" jdbcType="VARCHAR" property="automaticFlag" />
+  </resultMap>
+  <resultMap id="BaseResultMap2" type="com.ccic.salesapp.performance.domain.vo.request.SalesResponsibilityRequestVo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="responsibility_type" jdbcType="VARCHAR" property="responsibilityType" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="team_code" jdbcType="VARCHAR" property="teamCode" />
+    <result column="responsibility_name" jdbcType="VARCHAR" property="responsibilityName" />
+    <result column="responsibility_note" jdbcType="VARCHAR" property="responsibilityNote" />
+    <result column="insure_premium" jdbcType="DECIMAL" property="insurePremium" />
+    <result column="car_insure_premium" jdbcType="DECIMAL" property="carInsurePremium" />
+    <result column="acc_insure_premium" jdbcType="DECIMAL" property="accInsurePremium" />
+    <result column="hea_insure_premium" jdbcType="DECIMAL" property="heaInsurePremium" />
+    <result column="prop_insure_premium" jdbcType="DECIMAL" property="propInsurePremium" />
+    <result column="multiple" jdbcType="INTEGER" property="multiple" />
+    <result column="sign_status" jdbcType="VARCHAR" property="signStatus" />
+    <result column="sign_time" jdbcType="TIMESTAMP" property="signTime" />
+    <result column="change_status" jdbcType="VARCHAR" property="changeStatus" />
+    <result column="is_year" jdbcType="VARCHAR" property="isYear" />
+    <result column="user_sign" jdbcType="VARCHAR" property="userSign" />
+    <result column="automatic_flag" jdbcType="VARCHAR" property="automaticFlag" />
+    <result column="change_status" jdbcType="VARCHAR" property="changeStatus" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_performance_responsibility
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="com.ccic.salesapp.performance.domain.vo.dto.PerfResponsibility">
+    insert into t_performance_responsibility (id, responsibility_type, user_code, 
+      team_code, responsibility_name, responsibility_note, 
+      insure_premium, car_insure_premium, acc_insure_premium, 
+      hea_insure_premium, prop_insure_premium, multiple, 
+      sign_status, sign_time, change_status, 
+      is_year, create_user, create_time, 
+      update_user, update_time, leader_sign, 
+      user_sign)
+    values (#{id,jdbcType=BIGINT}, #{responsibilityType,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR}, 
+      #{teamCode,jdbcType=VARCHAR}, #{responsibilityName,jdbcType=VARCHAR}, #{responsibilityNote,jdbcType=VARCHAR}, 
+      #{insurePremium,jdbcType=DECIMAL}, #{carInsurePremium,jdbcType=DECIMAL}, #{accInsurePremium,jdbcType=DECIMAL}, 
+      #{heaInsurePremium,jdbcType=DECIMAL}, #{propInsurePremium,jdbcType=DECIMAL}, #{multiple,jdbcType=INTEGER}, 
+      #{signStatus,jdbcType=VARCHAR}, #{signTime,jdbcType=TIMESTAMP}, #{changeStatus,jdbcType=VARCHAR}, 
+      #{isYear,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{leaderSign,jdbcType=LONGVARCHAR}, 
+      #{userSign,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.performance.domain.vo.dto.PerfResponsibility">
+    update t_performance_responsibility
+    set responsibility_type = #{responsibilityType,jdbcType=VARCHAR},
+      user_code = #{userCode,jdbcType=VARCHAR},
+      team_code = #{teamCode,jdbcType=VARCHAR},
+      responsibility_name = #{responsibilityName,jdbcType=VARCHAR},
+      responsibility_note = #{responsibilityNote,jdbcType=VARCHAR},
+      insure_premium = #{insurePremium,jdbcType=DECIMAL},
+      car_insure_premium = #{carInsurePremium,jdbcType=DECIMAL},
+      acc_insure_premium = #{accInsurePremium,jdbcType=DECIMAL},
+      hea_insure_premium = #{heaInsurePremium,jdbcType=DECIMAL},
+      prop_insure_premium = #{propInsurePremium,jdbcType=DECIMAL},
+      multiple = #{multiple,jdbcType=INTEGER},
+      sign_status = #{signStatus,jdbcType=VARCHAR},
+      sign_time = #{signTime,jdbcType=TIMESTAMP},
+      change_status = #{changeStatus,jdbcType=VARCHAR},
+      is_year = #{isYear,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      leader_sign = #{leaderSign,jdbcType=LONGVARCHAR},
+      user_sign = #{userSign,jdbcType=LONGVARCHAR},
+      automatic_flag = #{automaticFlag,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, responsibility_type, user_code, team_code, responsibility_name, responsibility_note, 
+    insure_premium, car_insure_premium, acc_insure_premium, hea_insure_premium, prop_insure_premium, 
+    multiple, sign_status, sign_time, change_status, is_year, create_user, create_time, 
+    update_user, update_time, leader_sign, user_sign
+    from t_performance_responsibility
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, responsibility_type, user_code, team_code, responsibility_name, responsibility_note, 
+    insure_premium, car_insure_premium, acc_insure_premium, hea_insure_premium, prop_insure_premium, 
+    multiple, sign_status, sign_time, change_status, is_year, create_user, create_time, 
+    update_user, update_time, leader_sign, user_sign
+    from t_performance_responsibility
+  </select>
+  
+  
+  <select id="selectPerfResponsibility" resultMap="BaseResultMap2" parameterType="hashMap">
+    select id, responsibility_type, user_code, team_code, responsibility_name, responsibility_note, 
+    insure_premium, car_insure_premium, acc_insure_premium, hea_insure_premium, prop_insure_premium, 
+    multiple, sign_status, sign_time, change_status, is_year, create_user, create_time, 
+    update_user, update_time, leader_sign, user_sign,automatic_flag,change_status
+    from t_performance_responsibility where 1=1
+    <if test="userCode != null">
+    and user_code=#{userCode}
+	</if>
+    <if test="id != null">
+	  and id=#{id}
+    </if>
+    <if test="isYear != null">
+	  and is_year=#{isYear}
+    </if>
+    <if test="responsibilityType != null">
+	  and responsibility_type=#{responsibilityType}
+    </if>
+    order by id desc
+	<if test="offset != null and limit != null">
+		limit #{offset}, #{limit}
+	</if>
+  </select>
+  
+  <select id="selectPerfResponsibilityNum" resultType="java.lang.Integer" parameterType="hashMap">
+    select count(*)
+    from t_performance_responsibility where  1=1
+     <if test="userCode != null">
+    	and user_code=#{userCode}
+	 </if>
+	 <if test="id != null">
+		 and id=#{id}
+	  </if>
+	  <if test="isYear != null">
+	  and is_year=#{isYear}
+    </if>
+  </select>
+   <select id="getPersMonthlyQuarterlyProgress" resultType="java.util.LinkedHashMap" parameterType="com.ccic.salesapp.performance.domain.vo.request.ProgressRequestVo">
+	SELECT b.month_step,a.* from (
+	SELECT DISTINCT
+		( any_value ( DATE_FORMAT( realpaydate, '%c'))) month_,
+		any_value ( usercode ) userCode,
+		any_value ( max( PAYREFFEE_M_S ) ) MZ,
+		any_value ( max( PAYREFFEE ) ) MI,
+		any_value ( max( PAYREFFEE_M_S_C ) ) MC,
+		any_value ( max( PAYREFFEE_M_S_A ) ) MA,
+		any_value ( max( PAYREFFEE_M_S_H ) ) MH,
+		any_value ( max( PAYREFFEE_M_S_NC ) ) MNC,
+		any_value ( max( PAYREFFEE_Y_S ) ) YZ,
+		any_value ( max( PAYREFFEE_Y_S_C ) ) YC,
+		any_value ( max( PAYREFFEE_Y_S_A ) ) YA,
+		any_value ( max( PAYREFFEE_Y_S_H ) ) YH,
+		any_value ( max( PAYREFFEE_Y_S_NC ) ) YNC,
+		any_value ( max( PAYREFFEE_Q_S ) ) QZ,
+		any_value ( max( PAYREFFEE_Q_S_C ) ) QC,
+		any_value ( max( PAYREFFEE_Q_S_A ) ) QA,
+		any_value ( max( PAYREFFEE_Q_S_H ) ) QH,
+		any_value ( max( PAYREFFEE_Q_S_NC ) ) QNC 
+	FROM
+		t_performance_databus_planfee_day 
+	WHERE
+		usercode =#{userCode}
+	GROUP BY
+		DATE_FORMAT( realpaydate,'%Y%m')
+		) a right join (
+		SELECT * from t_performance_responsibility_detail where responsibility_id = (SELECT id  from t_performance_responsibility where user_code=#{userCode} and responsibility_type='P') ORDER BY month_step
+		) b on a.month_=b.month_step ORDER BY (b.month_step+0)
+	</select>
+	
+	<select id="getPersMonthlyTarget" resultType="java.util.LinkedHashMap" parameterType="com.ccic.salesapp.performance.domain.vo.request.ProgressRequestVo">
+	SELECT t1.MONTH_step monthStep,t1.insure_premium insurePremium,
+	t1.car_insure_premium carInsurePremium,
+	t1.acc_insure_premium accInsurePremium,
+	t1.hea_insure_premium heaInsurePremium,
+	t1.prop_insure_premium propInsurePremium
+	from t_performance_responsibility_detail t1 inner join t_performance_responsibility t2 on t1.responsibility_id=t2.id
+	and t2.USER_CODE=#{userCode} and t2.is_year=#{isYear}
+	and t2.responsibility_type=#{responsibilityType}
+	ORDER BY  (t1.month_step+0)
+	</select>
+	
+	<select id="getPersQuarterTarget" resultType="java.util.LinkedHashMap" parameterType="com.ccic.salesapp.performance.domain.vo.request.ProgressRequestVo">
+	SELECT DISTINCT(t1.quarter_step) quarterStep,sum(t1.insure_premium) insurePremium,
+	sum(t1.car_insure_premium) carInsurePremium,
+	sum(t1.acc_insure_premium) accInsurePremium,
+	sum(t1.hea_insure_premium) heaInsurePremium,
+	sum(t1.prop_insure_premium) propInsurePremium
+	from t_performance_responsibility_detail t1 inner join t_performance_responsibility t2 on t1.responsibility_id=t2.id
+	and t2.USER_CODE=#{userCode}
+	and t2.responsibility_type=#{responsibilityType}
+	GROUP BY t1.quarter_step ORDER BY (t1.quarter_step+0)
+	</select>
+	
+	<select id="getTeamsMonthlyQuarterlyProgress" resultType="java.util.LinkedHashMap" parameterType="com.ccic.salesapp.performance.domain.vo.request.ProgressRequestVo">
+	SELECT b.month_step,a.* from (
+	SELECT DISTINCT
+		( any_value ( DATE_FORMAT( realpaydate, '%c'))) month_,
+		any_value ( teamcode ) teamCode,
+		any_value ( max( PAYREFFEE_M_S ) ) MZ,
+		any_value ( max( PAYREFFEE ) ) MI,
+		any_value ( max( PAYREFFEE_M_S_C ) ) MC,
+		any_value ( max( PAYREFFEE_M_S_A ) ) MA,
+		any_value ( max( PAYREFFEE_M_S_H ) ) MH,
+		any_value ( max( PAYREFFEE_M_S_PRO ) ) MNC,
+		any_value ( max( PAYREFFEE_Y_S ) ) YZ,
+		any_value ( max( PAYREFFEE_Y_S_C ) ) YC,
+		any_value ( max( PAYREFFEE_Y_S_A ) ) YA,
+		any_value ( max( PAYREFFEE_Y_S_H ) ) YH,
+		any_value ( max( PAYREFFEE_Y_S_PRO ) ) YNC,
+		any_value ( max( PAYREFFEE_Q_S ) ) QZ,
+		any_value ( max( PAYREFFEE_Q_S_C ) ) QC,
+		any_value ( max( PAYREFFEE_Q_S_A ) ) QA,
+		any_value ( max( PAYREFFEE_Q_S_H ) ) QH,
+		any_value ( max( PAYREFFEE_Q_S_PRO ) ) QNC 
+	FROM
+		t_performance_databus_team_planfee_day 
+	WHERE
+		teamcode=#{teamCode}
+	GROUP BY
+		DATE_FORMAT( realpaydate,'%Y%m')
+		) a right join (
+		SELECT * from t_performance_responsibility_detail where responsibility_id = (SELECT id  from t_performance_responsibility where team_code=#{teamCode} and responsibility_type='T') ORDER BY month_step
+		) b on a.month_=b.month_step ORDER BY (b.month_step+0)
+	</select>
+	
+	<select id="getTeamsMonthlyTarget" resultType="java.util.LinkedHashMap" parameterType="com.ccic.salesapp.performance.domain.vo.request.ProgressRequestVo">
+	SELECT t1.MONTH_step monthStep,t1.insure_premium insurePremium,
+	t1.car_insure_premium carInsurePremium,
+	t1.acc_insure_premium accInsurePremium,
+	t1.hea_insure_premium heaInsurePremium,
+	t1.prop_insure_premium propInsurePremium
+	from t_performance_responsibility_detail t1 inner join t_performance_responsibility t2 on t1.responsibility_id=t2.id
+	and t2.team_CODE=#{teamCode}
+	and t2.responsibility_type=#{responsibilityType}
+	ORDER BY (t1.month_step+0)
+	</select>
+	
+	<select id="getTeamsQuarterTarget" resultType="java.util.LinkedHashMap" parameterType="com.ccic.salesapp.performance.domain.vo.request.ProgressRequestVo">
+	SELECT  DISTINCT(t1.quarter_step) quarterStep,sum(t1.insure_premium) insurePremium,
+	sum(t1.car_insure_premium) carInsurePremium,
+	sum(t1.acc_insure_premium) accInsurePremium,
+	sum(t1.hea_insure_premium) heaInsurePremium,
+	sum(t1.prop_insure_premium) propInsurePremium
+	from t_performance_responsibility_detail t1 inner join t_performance_responsibility t2 on t1.responsibility_id=t2.id
+	and t2.team_CODE=#{teamCode}
+	and t2.responsibility_type=#{responsibilityType}
+	GROUP BY t1.quarter_step ORDER BY (t1.quarter_step+0)
+	</select>
+	
+	<select id="getPersYear" resultType="com.ccic.salesapp.performance.domain.vo.response.ProgressYearResponseVo" parameterType="com.ccic.salesapp.performance.domain.vo.request.ProgressRequestVo">
+	SELECT IFNULL(t1.monthActualPremium,0) monthActualPremium,t2.insurePremium monthTotalPremium,IFNULL(t1.monthActualPremium/t2.insurePremium,0) rate from
+	(
+	select max(any_value(PAYREFFEE_M_S)) monthActualPremium, DATE_FORMAT(any_value(REALPAYDATE),'%c') curMonth from t_performance_databus_planfee_day where 1=1
+	and USERCODE=#{userCode}
+	GROUP BY DATE_FORMAT(REALPAYDATE,'%Y-%m')
+	) t1
+	right join
+	 (
+	 SELECT t1.MONTH_step monthStep,t1.insure_premium insurePremium
+	from t_performance_responsibility_detail t1 inner join t_performance_responsibility t2 on t1.responsibility_id=t2.id where 1=1
+	and t2.USER_CODE=#{userCode} and is_year=#{isYear}
+	and t2.responsibility_type=#{responsibilityType}
+	ORDER BY  (t1.month_step+0)
+	 ) t2 on t1.curMonth=t2.monthStep ORDER BY (t2.monthStep+0)
+	</select>
+	
+	<select id="getTeamYear" resultType="com.ccic.salesapp.performance.domain.vo.response.ProgressYearResponseVo" parameterType="com.ccic.salesapp.performance.domain.vo.request.ProgressRequestVo">
+	SELECT IFNULL(t1.monthActualPremium,0) monthActualPremium,t2.insurePremium monthTotalPremium,IFNULL(t1.monthActualPremium/t2.insurePremium,0) rate from
+	(
+	select max(any_value(PAYREFFEE_M_S)) monthActualPremium, DATE_FORMAT(any_value(REALPAYDATE),'%c') curMonth from t_performance_databus_team_planfee_day where 1=1
+	and teamcode=#{teamCode}
+	GROUP BY DATE_FORMAT(REALPAYDATE,'%Y-%m')
+	) t1
+	right join
+	 (
+	 SELECT t1.MONTH_step monthStep,t1.insure_premium insurePremium
+	from t_performance_responsibility_detail t1 inner join t_performance_responsibility t2 on t1.responsibility_id=t2.id where 1=1
+	and t2.team_code=#{teamCode} and is_year=#{isYear}
+	and t2.responsibility_type=#{responsibilityType}
+	ORDER BY  (t1.month_step+0)
+	 ) t2 on t1.curMonth=t2.monthStep ORDER BY (t2.monthStep+0)
+	 </select>
+	 
+	<select id="rankingIndividualTeam" resultType="com.ccic.salesapp.performance.domain.vo.response.RankResponseVo" parameterType="com.ccic.salesapp.performance.domain.vo.request.RankVo">
+		
+		SELECT t1.jr jrpm,t1.username,t2.zr-t1.jr pm from (
+		SELECT t.*,(@jr := @jr + 1) AS jr from
+		(SELECT t1.USERCODE,t1.USERNAME,t2.TEAM_NAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_salelaw_person t1 inner join t_performance_databus_team_info t2 on t1.TEAMCODE=t2.  TEAM_CODE inner join t_performance_databus_planfee_day t3 on  t1.USERCODE=t3.USERCODE where t3.REALPAYDATE=#{isNowFormatStr}
+		and t1.TEAMCODE in (
+		SELECT TEAMCODE from t_performance_databus_salelaw_person where USERCODE=#{userCode}
+		)
+		and t1.CHANNELCODE=#{channelCode}
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,t1.USERCODE DESC</if>
+		) t,(SELECT @jr := 0) AS rn
+		) t1
+		inner join (
+		SELECT t.*,(@zr := @zr + 1) AS zr from
+		(SELECT t1.USERCODE,t1.USERNAME,t2.TEAM_NAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_salelaw_person t1 inner join t_performance_databus_team_info t2 on t1.TEAMCODE=t2.  TEAM_CODE inner join t_performance_databus_planfee_day t3 on  t1.USERCODE=t3.USERCODE where t3.REALPAYDATE=#{isYestFormatStr}
+		and t1.TEAMCODE in (
+		SELECT TEAMCODE from t_performance_databus_salelaw_person where USERCODE=#{userCode}
+		)
+		and t1.CHANNELCODE=#{channelCode}
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,t1.USERCODE DESC</if>
+		) t,(SELECT @zr := 0) AS rn
+		) t2 on t1.USERCODE=t2.USERCODE where t1.USERCODE=#{userCode}
+	</select>
+	
+	<select id="rankingIndividualTeamList" resultType="com.ccic.salesapp.performance.domain.vo.response.RankRes" parameterType="com.ccic.salesapp.performance.domain.vo.request.RankVo">
+		SELECT t1.jr jrpm,t1.username,t2.zr-t1.jr pm from (
+		SELECT t.*,(@jr := @jr + 1) AS jr from
+		(SELECT t1.USERCODE,t1.USERNAME,t2.TEAM_NAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_salelaw_person t1 inner join t_performance_databus_team_info t2 on t1.TEAMCODE=t2.  TEAM_CODE inner join t_performance_databus_planfee_day t3 on  t1.USERCODE=t3.USERCODE where t3.REALPAYDATE=#{isNowFormatStr}
+		and t1.TEAMCODE in (
+		SELECT TEAMCODE from t_performance_databus_salelaw_person where USERCODE=#{userCode}
+		)
+		and t1.CHANNELCODE=#{channelCode}
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,t1.USERCODE DESC</if>
+		) t,(SELECT @jr := 0) AS rn
+		) t1
+		inner join (
+		SELECT t.*,(@zr := @zr + 1) AS zr from
+		(SELECT t1.USERCODE,t1.USERNAME,t2.TEAM_NAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_salelaw_person t1 inner join t_performance_databus_team_info t2 on t1.TEAMCODE=t2.  TEAM_CODE inner join t_performance_databus_planfee_day t3 on  t1.USERCODE=t3.USERCODE where t3.REALPAYDATE=#{isYestFormatStr}
+		and t1.TEAMCODE in (
+		SELECT TEAMCODE from t_performance_databus_salelaw_person where USERCODE=#{userCode}
+		)
+		and t1.CHANNELCODE=#{channelCode}
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,t1.USERCODE DESC</if>
+		) t,(SELECT @zr := 0) AS rn
+		) t2 on t1.USERCODE=t2.USERCODE  where 1=1
+		order by jrpm
+	</select>
+	
+	<select id="rankingIndividualTeamNum" resultType="java.lang.Integer" parameterType="com.ccic.salesapp.performance.domain.vo.request.RankVo">
+		select count(*) from (
+		SELECT t1.username,t2.zr-t1.jr pm from (
+		SELECT t.*,(@jr := @jr + 1) AS jr from
+		(SELECT t1.USERCODE,t1.USERNAME,t2.TEAM_NAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_salelaw_person t1 inner join t_performance_databus_team_info t2 on t1.TEAMCODE=t2.  TEAM_CODE inner join t_performance_databus_planfee_day t3 on  t1.USERCODE=t3.USERCODE where t3.REALPAYDATE=#{isNowFormatStr}
+		and t1.TEAMCODE in (
+		SELECT TEAMCODE from t_performance_databus_salelaw_person where USERCODE=#{userCode}
+		)
+		and t1.CHANNELCODE=#{channelCode}
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,t1.USERCODE DESC</if>
+		) t,(SELECT @jr := 0) AS rn
+		) t1
+		inner join (
+		SELECT t.*,(@zr := @zr + 1) AS zr from
+		(SELECT t1.USERCODE,t1.USERNAME,t2.TEAM_NAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_salelaw_person t1 inner join t_performance_databus_team_info t2 on t1.TEAMCODE=t2.  TEAM_CODE inner join t_performance_databus_planfee_day t3 on  t1.USERCODE=t3.USERCODE where t3.REALPAYDATE=#{isYestFormatStr}
+		and t1.TEAMCODE in (
+		SELECT TEAMCODE from t_performance_databus_salelaw_person where USERCODE=#{userCode}
+		)
+		and t1.CHANNELCODE=#{channelCode}
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,t1.USERCODE DESC</if>
+		) t,(SELECT @zr := 0) AS rn
+		) t2 on t1.USERCODE=t2.USERCODE where t1.USERCODE!=#{userCode}
+		) t
+	</select>
+	
+	<select id="rankingIndividualBranchCom" resultType="com.ccic.salesapp.performance.domain.vo.response.RankResponseVo" parameterType="com.ccic.salesapp.performance.domain.vo.request.RankVo">
+		SELECT t1.jr jrpm,t1.username,t2.zr-t1.jr pm from (
+		SELECT t.*,(@jr := @jr + 1) AS jr from
+		(SELECT t1.USERCODE,t1.USERNAME,t2.COMCNAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_salelaw_person t1 inner join t_prpdcompany t2 on t1.COMCODE=t2.COMCODE inner join t_performance_databus_planfee_day t3 on  t1.USERCODE=t3.USERCODE where t3.REALPAYDATE=#{isNowFormatStr}
+		and CONCAT(left(t1.COMCODE, 4),'0000') in (
+		SELECT CONCAT(left(comcode, 4),'0000') from t_performance_databus_salelaw_person where USERCODE=#{userCode}
+		) and t1.CHANNELCODE=#{channelCode}
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,t1.USERCODE DESC</if>
+		) t,(SELECT @jr := 0) AS rn
+		) t1
+		inner join (
+		SELECT t.*,(@zr := @zr + 1) AS zr from
+		(SELECT t1.USERCODE,t1.USERNAME,t2.COMCNAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_salelaw_person t1 inner join t_prpdcompany t2 on t1.COMCODE=t2.COMCODE inner join t_performance_databus_planfee_day t3 on  t1.USERCODE=t3.USERCODE where t3.REALPAYDATE=#{isYestFormatStr}
+		and CONCAT(left(t1.COMCODE, 4),'0000') in (
+		SELECT CONCAT(left(comcode, 4),'0000') from t_performance_databus_salelaw_person where USERCODE=#{userCode}
+		) and t1.CHANNELCODE=#{channelCode}
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,t1.USERCODE DESC</if>
+		) t,(SELECT @zr := 0) AS rn
+		) t2 on t1.USERCODE=t2.USERCODE where t1.USERCODE=#{userCode}
+	</select>
+	
+	<select id="rankingIndividualBranchComList" resultType="com.ccic.salesapp.performance.domain.vo.response.RankRes" parameterType="com.ccic.salesapp.performance.domain.vo.request.RankVo">
+		SELECT t1.jr jrpm,t1.username,t2.zr-t1.jr pm from (
+		SELECT t.*,(@jr := @jr + 1) AS jr from
+		(SELECT t1.USERCODE,t1.USERNAME,t2.COMCNAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_salelaw_person t1 inner join  t_prpdcompany t2 on t1.COMCODE=t2.COMCODE inner join t_performance_databus_planfee_day t3 on  t1.USERCODE=t3.USERCODE where t3.REALPAYDATE=#{isNowFormatStr}
+		and CONCAT(left(t1.COMCODE, 4),'0000') in (
+		SELECT CONCAT(left(comcode, 4),'0000') from t_performance_databus_salelaw_person where USERCODE=#{userCode}
+		) and t1.CHANNELCODE=#{channelCode}
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,t1.USERCODE DESC</if>
+		) t,(SELECT @jr := 0) AS rn
+		) t1
+		inner join (
+		SELECT t.*,(@zr := @zr + 1) AS zr from
+		(SELECT t1.USERCODE,t1.USERNAME,t2.COMCNAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_salelaw_person t1 inner join t_prpdcompany t2 on t1.COMCODE=t2.COMCODE  inner join t_performance_databus_planfee_day t3 on  t1.USERCODE=t3.USERCODE where t3.REALPAYDATE=#{isYestFormatStr}
+		and CONCAT(left(t1.COMCODE, 4),'0000') in (
+		SELECT CONCAT(left(comcode, 4),'0000') from t_performance_databus_salelaw_person where USERCODE=#{userCode}
+		) and t1.CHANNELCODE=#{channelCode}
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,t1.USERCODE DESC</if>
+		) t,(SELECT @zr := 0) AS rn
+		) t2 on t1.USERCODE=t2.USERCODE  where 1=1
+		order by jrpm
+	</select>
+	
+	<select id="rankingIndividualBranchComNum" resultType="java.lang.Integer" parameterType="com.ccic.salesapp.performance.domain.vo.request.RankVo">
+		select count(*) from (
+		SELECT t1.username,t2.zr-t1.jr pm from (
+		SELECT t.*,(@jr := @jr + 1) AS jr from
+		(SELECT t1.USERCODE,t1.USERNAME,t2.TEAM_NAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_salelaw_person t1 inner join t_performance_databus_team_info t2 on t1.TEAMCODE=t2.  TEAM_CODE inner join t_performance_databus_planfee_day t3 on  t1.USERCODE=t3.USERCODE where t3.REALPAYDATE=#{isNowFormatStr}
+		and t1.COMCODE in (
+		SELECT COMCODE from t_performance_databus_salelaw_person where USERCODE=#{userCode}
+		) and t1.CHANNELCODE=#{channelCode}
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,t1.USERCODE DESC</if>
+		) t,(SELECT @jr := 0) AS rn
+		) t1
+		inner join (
+		SELECT t.*,(@zr := @zr + 1) AS zr from
+		(SELECT t1.USERCODE,t1.USERNAME,t2.TEAM_NAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_salelaw_person t1 inner join t_performance_databus_team_info t2 on t1.TEAMCODE=t2.  TEAM_CODE inner join t_performance_databus_planfee_day t3 on  t1.USERCODE=t3.USERCODE where t3.REALPAYDATE=#{isYestFormatStr}
+		and t1.COMCODE in (
+		SELECT COMCODE from t_performance_databus_salelaw_person where USERCODE=#{userCode}
+		) and t1.CHANNELCODE=#{channelCode}
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,t1.USERCODE DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,t1.USERCODE DESC</if>
+		) t,(SELECT @zr := 0) AS rn
+		) t2 on t1.USERCODE=t2.USERCODE where t1.USERCODE!=#{userCode}
+		) t 
+	</select>
+	
+	<select id="rankingTeamBranchCom" resultType="com.ccic.salesapp.performance.domain.vo.response.RankResponseVo"  parameterType="com.ccic.salesapp.performance.domain.vo.request.RankVo">
+		SELECT t1.jr jrpm, t1.TEAM_NAME teamName,t2.zr-t1.jr pm from (
+		SELECT t.*,(@jr := @jr + 1) AS jr from
+		(SELECT t1.TEAM_CODE,t1.TEAM_NAME,t2.COMCNAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_team_info t1 inner join t_prpdcompany t2 on t1.VEST_ORGCD=t2.COMCODE inner join t_performance_databus_team_planfee_day t3 on  t1.TEAM_CODE=t3.TEAMCODE  where t3.REALPAYDATE=#{isNowFormatStr}  and CONCAT(left(t1.VEST_ORGCD, 4),'0000') in(
+		SELECT CONCAT(left(VEST_ORGCD, 4),'0000') from t_performance_databus_team_info where TEAM_CODE=#{teamCode}
+		)
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		) t,(SELECT @jr := 0) AS rn
+		) t1
+		left join
+		(
+		SELECT t.*,(@zr := @zr + 1) AS zr from
+		(SELECT t1.TEAM_CODE,t1.TEAM_NAME,t2.COMCNAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_team_info t1 inner join t_prpdcompany t2 on t1.VEST_ORGCD=t2.COMCODE inner join t_performance_databus_team_planfee_day t3 on  t1.TEAM_CODE=t3.TEAMCODE  where t3.REALPAYDATE=#{isYestFormatStr}  and CONCAT(left(t1.VEST_ORGCD, 4),'0000') in(
+		SELECT CONCAT(left(VEST_ORGCD, 4),'0000') from t_performance_databus_team_info where TEAM_CODE=#{teamCode}
+		)
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		) t,(SELECT @zr := 0) AS rn
+		) t2 on t1.TEAM_CODE=t2.TEAM_CODE where t1.TEAM_CODE=#{teamCode}
+	</select>
+	
+	<select id="rankingTeamBranchComList" resultType="com.ccic.salesapp.performance.domain.vo.response.RankRes"  parameterType="com.ccic.salesapp.performance.domain.vo.request.RankVo">
+		SELECT t1.jr jrpm,t1.TEAM_NAME teamName,t2.zr-t1.jr pm from (
+		SELECT t.*,(@jr := @jr + 1) AS jr from
+		(SELECT t1.TEAM_CODE,t1.TEAM_NAME,t2.COMCNAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_team_info t1 inner join t_prpdcompany t2 on t1.VEST_ORGCD=t2.COMCODE inner join t_performance_databus_team_planfee_day t3 on  t1.TEAM_CODE=t3.TEAMCODE  where t3.REALPAYDATE=#{isNowFormatStr}  and CONCAT(left(t1.VEST_ORGCD, 4),'0000') in(
+		SELECT CONCAT(left(VEST_ORGCD, 4),'0000') from t_performance_databus_team_info where TEAM_CODE=#{teamCode}
+		)
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		) t,(SELECT @jr := 0) AS rn
+		) t1
+		left join
+		(
+		SELECT t.*,(@zr := @zr + 1) AS zr from
+		(SELECT t1.TEAM_CODE,t1.TEAM_NAME,t2.COMCNAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_team_info t1 inner join t_prpdcompany t2 on t1.VEST_ORGCD=t2.COMCODE inner join t_performance_databus_team_planfee_day t3 on  t1.TEAM_CODE=t3.TEAMCODE  where t3.REALPAYDATE=#{isYestFormatStr}  and CONCAT(left(t1.VEST_ORGCD, 4),'0000') in(
+		SELECT CONCAT(left(VEST_ORGCD, 4),'0000') from t_performance_databus_team_info where TEAM_CODE=#{teamCode}
+		)
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		) t,(SELECT @zr := 0) AS rn
+		) t2 on t1.TEAM_CODE=t2.TEAM_CODE where 1=1
+		order by jrpm
+	</select>
+	
+	<select id="rankingTeamBranchComNum" resultType="java.lang.Integer"  parameterType="com.ccic.salesapp.performance.domain.vo.request.RankVo">
+		select count(*) from (
+		SELECT t1.TEAM_NAME teamName,t2.zr-t1.jr pm from (
+		SELECT t.*,(@jr := @jr + 1) AS jr from
+		(SELECT t1.TEAM_CODE,t1.TEAM_NAME,t2.COMCNAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_team_info t1 inner join t_prpdcompany t2 on t1.VEST_ORGCD=t2.COMCODE inner join t_performance_databus_team_planfee_day t3 on  t1.TEAM_CODE=t3.TEAMCODE  where t3.REALPAYDATE=#{isNowFormatStr}  and t1.VEST_ORGCD in(
+		SELECT VEST_ORGCD from t_performance_databus_team_info where TEAM_CODE=#{teamCode}
+		)
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		) t,(SELECT @jr := 0) AS rn
+		) t1
+		left join
+		(
+		SELECT t.*,(@zr := @zr + 1) AS zr from
+		(SELECT t1.TEAM_CODE,t1.TEAM_NAME,t2.COMCNAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_team_info t1 inner join t_prpdcompany t2 on t1.VEST_ORGCD=t2.COMCODE inner join t_performance_databus_team_planfee_day t3 on  t1.TEAM_CODE=t3.TEAMCODE  where t3.REALPAYDATE=#{isYestFormatStr}  and t1.VEST_ORGCD in(
+		SELECT VEST_ORGCD from t_performance_databus_team_info where TEAM_CODE=#{teamCode}
+		)
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		) t,(SELECT @zr := 0) AS rn
+		) t2 on t1.TEAM_CODE=t2.TEAM_CODE where t1.TEAM_CODE!=#{teamCode}
+		) t
+	</select>
+	
+	<select id="rankingTeamZComCom" resultType="com.ccic.salesapp.performance.domain.vo.response.RankResponseVo"  parameterType="com.ccic.salesapp.performance.domain.vo.request.RankVo">
+		SELECT t1.jr jrpm,t1.TEAM_NAME teamName,t2.zr-t1.jr pm from (
+		SELECT t.*,(@jr := @jr + 1) AS jr from
+		(SELECT t1.TEAM_CODE,t1.TEAM_NAME,t2.COMCNAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_team_info t1 inner join t_prpdcompany t2 on t1.VEST_ORGCD=t2.COMCODE inner join t_performance_databus_team_planfee_day t3 on  t1.TEAM_CODE=t3.TEAMCODE  where t3.REALPAYDATE=#{isNowFormatStr}
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		 ) t,(SELECT @jr := 0) AS rn
+		) t1
+		left join
+		(
+		SELECT t.*,(@zr := @zr + 1) AS zr from
+		(SELECT t1.TEAM_CODE,t1.TEAM_NAME,t2.COMCNAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_team_info t1 inner join t_prpdcompany t2 on t1.VEST_ORGCD=t2.COMCODE inner join t_performance_databus_team_planfee_day t3 on  t1.TEAM_CODE=t3.TEAMCODE  where t3.REALPAYDATE=#{isYestFormatStr}
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		) t,(SELECT @zr := 0) AS rn
+		) t2 on t1.TEAM_CODE=t2.TEAM_CODE where t1.TEAM_CODE=#{teamCode}
+		
+	</select>
+	
+	<select id="rankingTeamZComComList" resultType="com.ccic.salesapp.performance.domain.vo.response.RankRes"  parameterType="com.ccic.salesapp.performance.domain.vo.request.RankVo">
+		SELECT t1.jr jrpm,t1.TEAM_NAME teamName,t2.zr-t1.jr pm from (
+		SELECT t.*,(@jr := @jr + 1) AS jr from
+		(SELECT t1.TEAM_CODE,t1.TEAM_NAME,t2.COMCNAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_team_info t1 inner join t_prpdcompany t2 on t1.VEST_ORGCD=t2.COMCODE inner join t_performance_databus_team_planfee_day t3 on  t1.TEAM_CODE=t3.TEAMCODE  where t3.REALPAYDATE=#{isNowFormatStr}
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		 ) t,(SELECT @jr := 0) AS rn
+		) t1
+		left join
+		(
+		SELECT t.*,(@zr := @zr + 1) AS zr from
+		(SELECT t1.TEAM_CODE,t1.TEAM_NAME,t2.COMCNAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_team_info t1 inner join t_prpdcompany t2 on t1.VEST_ORGCD=t2.COMCODE inner join t_performance_databus_team_planfee_day t3 on  t1.TEAM_CODE=t3.TEAMCODE  where t3.REALPAYDATE=#{isYestFormatStr}
+		<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+		) t,(SELECT @zr := 0) AS rn
+		) t2 on t1.TEAM_CODE=t2.TEAM_CODE  where 1=1
+		order by jrpm
+	</select>
+	
+	<select id="rankingTeamZComComNum" resultType="java.lang.Integer"  parameterType="com.ccic.salesapp.performance.domain.vo.request.RankVo">
+		SELECT count(*) from (
+			SELECT t1.TEAM_NAME teamName,t2.zr-t1.jr pm from (
+			SELECT t.*,(@jr := @jr + 1) AS jr from
+			(SELECT t1.TEAM_CODE,t1.TEAM_NAME,t2.COMCNAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_team_info t1 inner join t_prpdcompany t2 on t1.VEST_ORGCD=t2.COMCODE inner join t_performance_databus_team_planfee_day t3 on  t1.TEAM_CODE=t3.TEAMCODE  where t3.REALPAYDATE=#{isNowFormatStr}
+			<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+			<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+			<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+			 ) t,(SELECT @jr := 0) AS rn
+			) t1
+			left join
+			(
+			SELECT t.*,(@zr := @zr + 1) AS zr from
+			(SELECT t1.TEAM_CODE,t1.TEAM_NAME,t2.COMCNAME,t3.PAYREFFEE,t3.PAYREFFEE_M_S,t3.PAYREFFEE_Y_S,t3.PAYREFFEE_Q_S from t_performance_databus_team_info t1 inner join t_prpdcompany t2 on t1.VEST_ORGCD=t2.COMCODE inner join t_performance_databus_team_planfee_day t3 on  t1.TEAM_CODE=t3.TEAMCODE  where t3.REALPAYDATE=#{isYestFormatStr}
+			<if test="timeFlag == 'M'.toString()">order by t3.PAYREFFEE_M_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+			<if test="timeFlag == 'Y'.toString()">order by t3.PAYREFFEE_Y_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+			<if test="timeFlag == 'Q'.toString()">order by t3.PAYREFFEE_Q_S desc,substring(t1.TEAM_CODE, 2) DESC</if>
+			) t,(SELECT @zr := 0) AS rn
+			) t2 on t1.TEAM_CODE=t2.TEAM_CODE where t1.TEAM_CODE!=#{teamCode}
+		) t
+	</select>
+	
+	<select id="getM2YPremium" resultType="com.ccic.salesapp.performance.domain.vo.response.RankingM2YPremiumResponseVo"  parameterType="com.ccic.salesapp.performance.domain.vo.request.RankVo">
+	SELECT payreffee_m_s mPremium,payreffee_y_s yPremium from t_performance_databus_planfee_day where usercode=#{userCode} ORDER BY REALPAYDATE DESC limit 1
+	</select>
+	
+	<select id="hasResponsibility" resultType="java.lang.Integer">
+	SELECT count(1) from t_performance_responsibility where is_year=#{isYear} and user_Code=#{userCode}
+	</select>
+
+	<select id="getChannelCode" resultType="java.lang.String" parameterType="java.lang.String" >
+		SELECT CHANNELCODE channelCode from t_performance_databus_salelaw_person where usercode=#{userCode}
+	</select>
+	
+	<select id="getResponsibilityDetail" resultType="java.lang.Long" parameterType="java.util.HashMap" >
+	SELECT t1.id from t_performance_responsibility_detail t1 inner join t_performance_responsibility t2 on t1.responsibility_id=t2.id where t1.month_step=#{monthStep} and t2.user_code=#{userCode} and t2.is_year=#{isYear} and t2.responsibility_type=#{responsibilityType}
+	</select>
+	
+	<select id="hasResponsibilityStatus" resultMap="BaseResultMap" parameterType="com.ccic.salesapp.performance.domain.vo.request.HasResponsibilityVo" >
+	SELECT
+	id, responsibility_type, user_code, team_code, responsibility_name, responsibility_note, 
+    insure_premium, car_insure_premium, acc_insure_premium, hea_insure_premium, prop_insure_premium, 
+    multiple, sign_status, sign_time, change_status, is_year, create_user, create_time, 
+    update_user, update_time, leader_sign, user_sign
+	from t_performance_responsibility where user_code=#{userCode} and is_year=#{isYear} and responsibility_type=#{responsibilityType}
+	</select>
+	
+	<select id="getResponsibilityInit" resultType="com.ccic.salesapp.performance.domain.vo.request.SalesResponsibilityRequestVo" parameterType="com.ccic.salesapp.performance.domain.vo.request.SalesResponsibilityRequestVo" >
+	SELECT id,user_code userCode,responsibility_type responsibilityType,responsibility_name responsibilityName,is_year isYear from t_performance_responsibility where user_code=#{userCode} and is_year=#{isYear}
+	</select>
+	
+	<select id="hasResponsibilityMsgStatus" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
+	SELECT count(*) from t_support_message where USER_CODE=#{userCode} and  date_format(CREATE_DATE, '%Y-%m-%d')=date_format(NOW(), '%Y-%m-%d' )
+	</select>
+	
+	<select id="isTeamleader" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
+	SELECT count(1) from t_performance_databus_team_info where teamlader_code=#{userCode} and team_code in (
+		SELECT teamcode from t_performance_databus_salelaw_person where usercode=#{userCode}
+	)
+	</select>
+	
+	<select id="teamInfo" resultType="java.util.HashMap">
+		SELECT id,
+		team_code teamCode,
+		teamlader_code teamladerCode,
+		last_day_teamlader_code lastDayTeamladerCode
+		from t_performance_databus_team_info where teamlader_code!=last_day_teamlader_code 
+	</select>
+	
+	<update id="updateTeamerResponsibility" parameterType="java.util.HashMap">
+		update t_performance_responsibility set user_code=#{teamladerCode},change_status=1,multiple=0 where team_code=#{teamCode} and responsibility_type='T'
+	</update>
+	
+	<update id="updatePserResponsibility" parameterType="java.util.HashMap">
+		update t_performance_responsibility set change_status=1,multiple=0 where user_code=#{lastDayTeamladerCode} and responsibility_type='P'
+	</update>
+	
+	<update id="updateTeamer" parameterType="java.util.HashMap">
+		update t_performance_databus_team_info set last_day_teamlader_code = teamlader_code where id = #{id}
+	</update>
+	
+	<update id="updateCustomerStandardCapacity">
+		update t_performance_customer_standard a, t_performance_salesman_portrait b
+		set a.capacity = b.capacity
+		where  a.user_code = b.handler_code
+	</update>
+	
+	<update id="updateCustomerTotalStandard">
+		update t_performance_customer_standard a, (SELECT DISTINCT(business_no) business_no,count(1) num from t_cust_customer GROUP BY business_no) b
+		set a.customer_total = b.num
+		where  a.user_code = b.business_no
+	</update>
+	
+	<update id="updateCustomerStandardChannel">
+		update t_performance_customer_standard a, t_performance_databus_salelaw_person b
+		set a.channel = b.channelcode
+		where a.user_code = b.usercode
+	</update>
+	
+	<select id="salesmanPortraitInfo" resultType="java.util.HashMap">
+	SELECT handler_code handlerCode from t_performance_salesman_portrait where handler_code is not null
+	</select>
+
+	<update id="updatePerformanceSalesmanPortrait" parameterType="java.util.HashMap">
+	update t_performance_salesman_portrait a,(SELECT id from t_performance_salesman_portrait where handler_code=#{userCode} ORDER BY stat_date desc limit 1) b
+	set a.customer_total_standard = #{num}
+	where  a.id = b.id
+	</update>
+	
+	<insert id="noExistsCustomer">
+	INSERT INTO t_performance_customer_standard
+	(user_code)
+	SELECT handler_code
+	FROM t_performance_salesman_portrait
+	WHERE not exists (select * from t_performance_customer_standard
+	where t_performance_customer_standard.user_code = t_performance_salesman_portrait.handler_code)
+	</insert>
+	
+</mapper>

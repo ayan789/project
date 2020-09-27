@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 2019-03-27
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Built-By: SSQ
+Created-By: Apache Maven 3.3.9
+Build-Jdk: 1.8.0_181
+Bundle-Description: Platform Core Libraries for Java
+Bundle-Name: platform-springfox: Platform Core Libraries for Java
+Bundle-SymbolicName: com.ssq.platform-springfox
+Bundle-Version: 1.2.0
+Tool: IDEA

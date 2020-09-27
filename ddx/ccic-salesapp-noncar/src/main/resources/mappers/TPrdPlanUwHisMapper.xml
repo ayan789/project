@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanUwHisMapper" >
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanUwHis" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="PLAN_UW_HIS_ID" property="planUwHisId" jdbcType="BIGINT" />
+    <result column="PLAN_CHG_ID" property="planChgId" jdbcType="BIGINT" />
+    <result column="PLAN_DEF_ID" property="planDefId" jdbcType="BIGINT" />
+    <result column="UW_STATUS" property="uwStatus" jdbcType="VARCHAR" />
+    <result column="UW_LEVEL" property="uwLevel" jdbcType="VARCHAR" />
+    <result column="UW_OPERATOR" property="uwOperator" jdbcType="VARCHAR" />
+    <result column="UW_TIME" property="uwTime" jdbcType="TIMESTAMP" />
+    <result column="UW_ORG" property="uwOrg" jdbcType="BIGINT" />
+    <result column="UW_DECISION" property="uwDecision" jdbcType="VARCHAR" />
+    <result column="UW_DESC" property="uwDesc" jdbcType="VARCHAR" />
+    <result column="UW_CUR_LEVEL" property="uwCurLevel" jdbcType="VARCHAR" />
+    <result column="UW_MAX_LEVEL" property="uwMaxLevel" jdbcType="VARCHAR" />
+    <result column="UW_POSITION" property="uwPosition" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, PLAN_UW_HIS_ID, PLAN_CHG_ID, PLAN_DEF_ID, UW_STATUS, UW_LEVEL, UW_OPERATOR, UW_TIME, 
+    UW_ORG, UW_DECISION, UW_DESC, UW_CUR_LEVEL, UW_MAX_LEVEL, UW_POSITION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_prd_plan_uw_his
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_prd_plan_uw_his
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanUwHis" >
+    insert into t_prd_plan_uw_his (id, PLAN_UW_HIS_ID, PLAN_CHG_ID, 
+      PLAN_DEF_ID, UW_STATUS, UW_LEVEL, 
+      UW_OPERATOR, UW_TIME, UW_ORG, 
+      UW_DECISION, UW_DESC, UW_CUR_LEVEL, 
+      UW_MAX_LEVEL, UW_POSITION)
+    values (#{id,jdbcType=BIGINT}, #{planUwHisId,jdbcType=BIGINT}, #{planChgId,jdbcType=BIGINT}, 
+      #{planDefId,jdbcType=BIGINT}, #{uwStatus,jdbcType=VARCHAR}, #{uwLevel,jdbcType=VARCHAR}, 
+      #{uwOperator,jdbcType=VARCHAR}, #{uwTime,jdbcType=TIMESTAMP}, #{uwOrg,jdbcType=BIGINT}, 
+      #{uwDecision,jdbcType=VARCHAR}, #{uwDesc,jdbcType=VARCHAR}, #{uwCurLevel,jdbcType=VARCHAR}, 
+      #{uwMaxLevel,jdbcType=VARCHAR}, #{uwPosition,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanUwHis" >
+    insert into t_prd_plan_uw_his
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="planUwHisId != null" >
+        PLAN_UW_HIS_ID,
+      </if>
+      <if test="planChgId != null" >
+        PLAN_CHG_ID,
+      </if>
+      <if test="planDefId != null" >
+        PLAN_DEF_ID,
+      </if>
+      <if test="uwStatus != null" >
+        UW_STATUS,
+      </if>
+      <if test="uwLevel != null" >
+        UW_LEVEL,
+      </if>
+      <if test="uwOperator != null" >
+        UW_OPERATOR,
+      </if>
+      <if test="uwTime != null" >
+        UW_TIME,
+      </if>
+      <if test="uwOrg != null" >
+        UW_ORG,
+      </if>
+      <if test="uwDecision != null" >
+        UW_DECISION,
+      </if>
+      <if test="uwDesc != null" >
+        UW_DESC,
+      </if>
+      <if test="uwCurLevel != null" >
+        UW_CUR_LEVEL,
+      </if>
+      <if test="uwMaxLevel != null" >
+        UW_MAX_LEVEL,
+      </if>
+      <if test="uwPosition != null" >
+        UW_POSITION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="planUwHisId != null" >
+        #{planUwHisId,jdbcType=BIGINT},
+      </if>
+      <if test="planChgId != null" >
+        #{planChgId,jdbcType=BIGINT},
+      </if>
+      <if test="planDefId != null" >
+        #{planDefId,jdbcType=BIGINT},
+      </if>
+      <if test="uwStatus != null" >
+        #{uwStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="uwLevel != null" >
+        #{uwLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="uwOperator != null" >
+        #{uwOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="uwTime != null" >
+        #{uwTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uwOrg != null" >
+        #{uwOrg,jdbcType=BIGINT},
+      </if>
+      <if test="uwDecision != null" >
+        #{uwDecision,jdbcType=VARCHAR},
+      </if>
+      <if test="uwDesc != null" >
+        #{uwDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="uwCurLevel != null" >
+        #{uwCurLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="uwMaxLevel != null" >
+        #{uwMaxLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="uwPosition != null" >
+        #{uwPosition,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanUwHis" >
+    update t_prd_plan_uw_his
+    <set >
+      <if test="planUwHisId != null" >
+        PLAN_UW_HIS_ID = #{planUwHisId,jdbcType=BIGINT},
+      </if>
+      <if test="planChgId != null" >
+        PLAN_CHG_ID = #{planChgId,jdbcType=BIGINT},
+      </if>
+      <if test="planDefId != null" >
+        PLAN_DEF_ID = #{planDefId,jdbcType=BIGINT},
+      </if>
+      <if test="uwStatus != null" >
+        UW_STATUS = #{uwStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="uwLevel != null" >
+        UW_LEVEL = #{uwLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="uwOperator != null" >
+        UW_OPERATOR = #{uwOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="uwTime != null" >
+        UW_TIME = #{uwTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uwOrg != null" >
+        UW_ORG = #{uwOrg,jdbcType=BIGINT},
+      </if>
+      <if test="uwDecision != null" >
+        UW_DECISION = #{uwDecision,jdbcType=VARCHAR},
+      </if>
+      <if test="uwDesc != null" >
+        UW_DESC = #{uwDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="uwCurLevel != null" >
+        UW_CUR_LEVEL = #{uwCurLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="uwMaxLevel != null" >
+        UW_MAX_LEVEL = #{uwMaxLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="uwPosition != null" >
+        UW_POSITION = #{uwPosition,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanUwHis" >
+    update t_prd_plan_uw_his
+    set PLAN_UW_HIS_ID = #{planUwHisId,jdbcType=BIGINT},
+      PLAN_CHG_ID = #{planChgId,jdbcType=BIGINT},
+      PLAN_DEF_ID = #{planDefId,jdbcType=BIGINT},
+      UW_STATUS = #{uwStatus,jdbcType=VARCHAR},
+      UW_LEVEL = #{uwLevel,jdbcType=VARCHAR},
+      UW_OPERATOR = #{uwOperator,jdbcType=VARCHAR},
+      UW_TIME = #{uwTime,jdbcType=TIMESTAMP},
+      UW_ORG = #{uwOrg,jdbcType=BIGINT},
+      UW_DECISION = #{uwDecision,jdbcType=VARCHAR},
+      UW_DESC = #{uwDesc,jdbcType=VARCHAR},
+      UW_CUR_LEVEL = #{uwCurLevel,jdbcType=VARCHAR},
+      UW_MAX_LEVEL = #{uwMaxLevel,jdbcType=VARCHAR},
+      UW_POSITION = #{uwPosition,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

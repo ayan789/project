@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.performance.domain.mapper.PerfResponsibilityDetailMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.performance.domain.vo.dto.PerfResponsibilityDetail">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="responsibility_id" jdbcType="BIGINT" property="responsibilityId" />
+    <result column="insure_premium" jdbcType="DECIMAL" property="insurePremium" />
+    <result column="car_insure_premium" jdbcType="DECIMAL" property="carInsurePremium" />
+    <result column="acc_insure_premium" jdbcType="DECIMAL" property="accInsurePremium" />
+    <result column="hea_insure_premium" jdbcType="DECIMAL" property="heaInsurePremium" />
+    <result column="prop_insure_premium" jdbcType="DECIMAL" property="propInsurePremium" />
+    <result column="month_step" jdbcType="VARCHAR" property="monthStep" />
+    <result column="quarter_step" jdbcType="VARCHAR" property="quarterStep" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_performance_responsibility_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.performance.domain.vo.dto.PerfResponsibilityDetail">
+    insert into t_performance_responsibility_detail (id, responsibility_id, insure_premium, 
+      car_insure_premium, acc_insure_premium, hea_insure_premium, 
+      prop_insure_premium, month_step, quarter_step, 
+      create_user, create_time, update_user, 
+      update_time)
+    values (#{id,jdbcType=BIGINT}, #{responsibilityId,jdbcType=BIGINT}, #{insurePremium,jdbcType=DECIMAL}, 
+      #{carInsurePremium,jdbcType=DECIMAL}, #{accInsurePremium,jdbcType=DECIMAL}, #{heaInsurePremium,jdbcType=DECIMAL}, 
+      #{propInsurePremium,jdbcType=DECIMAL}, #{monthStep,jdbcType=VARCHAR}, #{quarterStep,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.performance.domain.vo.dto.PerfResponsibilityDetail">
+    update t_performance_responsibility_detail
+    set responsibility_id = #{responsibilityId,jdbcType=BIGINT},
+      insure_premium = #{insurePremium,jdbcType=DECIMAL},
+      car_insure_premium = #{carInsurePremium,jdbcType=DECIMAL},
+      acc_insure_premium = #{accInsurePremium,jdbcType=DECIMAL},
+      hea_insure_premium = #{heaInsurePremium,jdbcType=DECIMAL},
+      prop_insure_premium = #{propInsurePremium,jdbcType=DECIMAL},
+      month_step = #{monthStep,jdbcType=VARCHAR},
+      quarter_step = #{quarterStep,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, responsibility_id, insure_premium, car_insure_premium, acc_insure_premium, 
+    hea_insure_premium, prop_insure_premium, month_step, quarter_step, create_user, create_time, 
+    update_user, update_time
+    from t_performance_responsibility_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, responsibility_id, insure_premium, car_insure_premium, acc_insure_premium, 
+    hea_insure_premium, prop_insure_premium, month_step, quarter_step, create_user, create_time, 
+    update_user, update_time
+    from t_performance_responsibility_detail
+  </select>
+  <select id="selectByPerfResponsibilityId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select id, responsibility_id, insure_premium, car_insure_premium, acc_insure_premium, 
+    hea_insure_premium, prop_insure_premium, month_step, quarter_step, create_user, create_time, 
+    update_user, update_time
+    from t_performance_responsibility_detail where responsibility_id=#{responsibilityId}
+  </select>
+  
+</mapper>

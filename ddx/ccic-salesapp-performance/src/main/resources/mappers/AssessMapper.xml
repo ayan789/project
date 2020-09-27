@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.performance.domain.mapper.AssessMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+	<resultMap
+		type="com.ccic.salesapp.performance.domain.vo.response.AssessResponse"
+		id="result">
+		<result column="capacity" property="capaCity" />
+		<result column="customer_total" property="customerTotal" />
+		<result column="total_zero_premium_day" property="totalZeroPremiumDay" />
+		<result column="loss_ratio" property="lossRatio" />
+		<result column="renewal_ratio" property="renewalRatio" />
+		<result column="noncar_premium_ratio" property="noncarPremiumRatio" />
+		<result column="capacity_standard" property="capacityStandard" />
+		<result column="customer_total_standard" property="customerTotalStandard" />
+		<result column="total_zero_premium_day_standard" property="totalZeroPremiumDayStandard" />
+		<result column="loss_ratio_standard" property="lossRatioStandard" />
+		<result column="renewal_ratio_standard" property="renewalRatioStandard" />
+		<result column="nocar_premium_ratio_standard" property="nocarPremiumRatioStandard" />
+	</resultMap>
+
+	<select id="getAssessItemsByUserCode" resultMap="result"
+		parameterType="java.lang.String">
+		select 
+		capacity,
+		customer_total,
+		total_zero_premium_day,
+		concat(round(loss_ratio,2), '') loss_ratio,
+		concat(round(renewal_ratio,2), '') renewal_ratio,
+		concat(round(noncar_premium_ratio,2), '') noncar_premium_ratio,
+		capacity_standard,
+		customer_total_standard,
+		total_zero_premium_day_standard,
+		concat(round(loss_ratio_standard,2), '') loss_ratio_standard,
+		concat(round(renewal_ratio_standard,2), '') renewal_ratio_standard,
+		concat(round(nocar_premium_ratio_standard,2), '') nocar_premium_ratio_standard,
+		ABS( NOW( ) - stat_date ) AS diffTime
+		FROM
+		t_performance_salesman_portrait
+		WHERE
+		handler_code = #{userCode}
+		ORDER BY
+		diffTime ASC
+		LIMIT 0,
+		1
+	</select>
+</mapper>

@@ -1,0 +1,108 @@
+ENV: test
+SERVER_PORT: 8085
+#服务调用超时时间,熔断时间
+TIMEOUT.IN.MILLISECONDS: 120000
+# 注册中心地址
+#EUREKA_SERVER_URL: http://eureka-supsale-uat.caas.ccic-test.com.cn/eureka/
+EUREKA_SERVER_URL: http://127.0.0.1:8099/eureka/
+
+# redis相关配置
+REDIS.PASSWORD: RedisDadi
+REDIS.MASTER: mymaster
+REDIS.NODES: 10.100.61.26:26379,10.100.61.26:26380
+REDIS.MAXACTIVE: 8
+REDIS.MAXIDLE: 8
+REDIS.MINIDLE: 0
+
+#REDIS.PASSWORD: RedisDadi
+#REDIS.MASTER: mymaster
+#REDIS.NODES: 10.100.172.11:26379,10.100.172.11:26380
+#REDIS.MAXACTIVE: 8
+#REDIS.MAXIDLE: 8
+#REDIS.MINIDLE: 0
+
+# 日志级别配置
+logging:
+  level:
+    com.ccic.salesapp.noncar: debug
+
+#数据库相关配置
+# DB.URL: jdbc:mysql://127.0.0.1:3306/salesapp2?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+# DB.USERNAME: root
+# DB.PASSWORD: 12345678
+#DB.URL: jdbc:mysql://10.1.11.127:3306/salesapp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+#DB.USERNAME: salesbusi
+#DB.PASSWORD: ccic_1865
+#DB.URL: jdbc:mysql://10.100.172.11:3306/salesapp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+#DB.USERNAME: salesapp
+#DB.PASSWORD: Salesapp123!
+# # SIT
+DB.URL: jdbc:mysql://10.1.11.128:3306/supsaledb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+DB.USERNAME: supsalebusi
+DB.PASSWORD: egvv_38824
+# UAT
+# DB.URL: jdbc:mysql://10.1.11.127:3306/salesapp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+# DB.USERNAME: salesbusi
+# DB.PASSWORD: ccic_1865
+DB.MINIDLE: 5
+DB.MAXACTIVE: 10
+DB.INITIALSIZE: 5
+
+# 过滤器相关配置
+# 请求解密开关
+DECRYPT.SWITCH: false
+# 登录拦截器开关
+LOGIN.SWITCH: false
+# 返回加密开关
+ENCRYPT.SWITCH: false
+# 不解密URI
+NOT.DECRYPT.URI: 
+# 不加密URI
+NOT.ENCRYPT.URI: 
+# 不登录拦截URI
+NOT.LOGIN.URI: 
+
+API.ENABLED: true
+
+
+ESB_HOST: http://10.1.11.116:8080/daditestgroup/ccicsit
+ESB_CONSUMERID: supsale
+#支付地址
+MOBILE.QUICK.PAY.URL: https://test.95590.cn/ebiz-pay/mobile/mobileQuickPay.htm
+FORWARDPAY: 365e1f9pay
+
+SYSTEM.SOURCE.CODE: "0018"
+DES.PASSWORD: 94fe34fa139403ca
+
+SYSTEM.SIGNFORWARD: 365fsdnkfj
+  #投保确认书和签名图片存放地址
+SYSTEM.SIGN_CONFIRMATIONOFINSURANCE: /deployments/file/sign
+  #影像上传地址
+SYSTEM.UPLOADURL: http://10.98.14.52:5212/h5img-wsc
+SYSTEM.DESPASSWORD: 94fe34fa139403ca
+SYSTEM.FORWARDPAY: 94fe34fa139403ca
+  #电子保单临时保存地址
+SYSTEM.ELTRIC_POLICY: /deployments/file/email
+  #电子保单下载地址
+SYSTEM.ELECTRONICPOLICY_DOWNLOADURL: https://test.95590.cn/mobileplat/electronicPolicyServlet
+  #电子保单短信密钥
+SYSTEM.EPOLICYPASSWORD: 26te1c95fv
+  #短链接配置
+SYSTEM.SHORT_URL_CONFIG: http://mobilesales-supsale-test.caas.ccic-test.com.cn/api/csn/redirect?r=
+  #货运无忧 见费出单机构代码
+SYSTEM.NEEDPAYCOMCODE:  = '34011900'
+  
+ 
+#  mobileQuickPayUrl: https://test.95590.cn/ebw-pay/mobile/mobileQuickPay.htm
+SYSTEM.MOBILEQUICKPAYURL: https://test.95590.cn/ebiz-pay/mobile/mobileQuickPay.htm
+
+
+ESB.FILE.UPLOADURL: http://fimage.ccic-test.com.cn:5212/h5img-wsc
+ESB.NETTYPE.ELECTRONICPOLICY: http.outter
+ESB.ELECTRONICPOLICYIMPL: http.inner
+
+MAIL_SEND_HOST: 10.1.22.166
+MAIL_SEND_PORT: 25
+
+
+

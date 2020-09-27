@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanCtMapper">
+	<resultMap id="BaseResultMap"
+		type="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCt">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="plan_Coverage_Id" property="planCoverageId"
+			jdbcType="BIGINT" />
+		<result column="plan_Def_Id" property="planDefId" jdbcType="BIGINT" />
+		<result column="plan_Shared_Id" property="planSharedId"
+			jdbcType="BIGINT" />
+		<result column="plan_Coverage_Name" property="planCoverageName"
+			jdbcType="VARCHAR" />
+		<result column="is_NonDeductible" property="isNondeductible"
+			jdbcType="VARCHAR" />
+		<result column="parent_Plan_Coverage_Id" property="parentPlanCoverageId"
+			jdbcType="BIGINT" />
+		<result column="is_Optional" property="isOptional" jdbcType="VARCHAR" />
+
+		<result column="product_element_code" property="productElementCode" />
+		<result column="Coverage_Type" property="CoverageType" />
+		<result column="Product_Element_Name" property="productElementName" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, plan_Coverage_Id, plan_Def_Id, plan_Shared_Id,
+		plan_Coverage_Name,
+		is_NonDeductible,
+		parent_Plan_Coverage_Id,
+		is_Optional
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_prd_plan_ct
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		t_prd_plan_ct
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	
+	<insert id="insertChildPlanCoverage" parameterType="com.ccic.salesapp.noncar.dto.request.noncar.PolicyRiskOrderCar">
+		insert into t_prd_plan_ct (id, plan_Coverage_Id,
+		plan_Def_Id,
+		plan_Shared_Id, plan_Coverage_Name, is_NonDeductible,
+		parent_Plan_Coverage_Id, is_Optional,
+		product_element_code,
+		Coverage_Type,
+		Shared_Group_Type,
+		Product_Element_Name
+		)
+		values
+		(#{id,jdbcType=BIGINT},
+		#{planCoverageId,jdbcType=BIGINT},
+		#{planDefId,jdbcType=BIGINT},
+		#{planSharedId,jdbcType=BIGINT},
+		#{planCoverageName,jdbcType=VARCHAR},
+		#{isNondeductible,jdbcType=VARCHAR},
+		#{parentPlanCoverageId,jdbcType=BIGINT},
+		#{isOptional,jdbcType=VARCHAR},
+		#{productElementCode,jdbcType=VARCHAR},
+		#{CoverageType},
+		#{SharedGroupType},
+		#{productElementName}
+		)
+		ON DUPLICATE KEY UPDATE
+		plan_Coverage_Id=VALUES(plan_Coverage_Id),
+		plan_Def_Id=VALUES(plan_Def_Id),
+		plan_Shared_Id=VALUES(plan_Shared_Id),
+		plan_Coverage_Name=VALUES(plan_Coverage_Name),
+		is_NonDeductible=VALUES(is_NonDeductible),
+		parent_Plan_Coverage_Id=VALUES(parent_Plan_Coverage_Id),
+		is_Optional=VALUES(is_Optional),
+		product_element_code=VALUES(product_element_code),
+		Coverage_Type=VALUES(Coverage_Type),
+		Shared_Group_Type=VALUES(Shared_Group_Type),
+		Product_Element_Name=VALUES(Product_Element_Name)
+	</insert>
+	
+	
+	<insert id="insert"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCt">
+		insert into t_prd_plan_ct (id, plan_Coverage_Id,
+		plan_Def_Id,
+		plan_Shared_Id, plan_Coverage_Name, is_NonDeductible,
+		parent_Plan_Coverage_Id, is_Optional,
+		product_element_code,
+		Coverage_Type,
+		Shared_Group_Type,
+		Product_Element_Name
+		)
+		values
+		(#{id,jdbcType=BIGINT},
+		#{planCoverageId,jdbcType=BIGINT},
+		#{planDefId,jdbcType=BIGINT},
+		#{planSharedId,jdbcType=BIGINT},
+		#{planCoverageName,jdbcType=VARCHAR},
+		#{isNondeductible,jdbcType=VARCHAR},
+		#{parentPlanCoverageId,jdbcType=BIGINT},
+		#{isOptional,jdbcType=VARCHAR},
+		#{productElementCode,jdbcType=VARCHAR},
+		#{CoverageType},
+		#{SharedGroupType},
+		#{productElementName}
+		)
+		ON DUPLICATE KEY UPDATE
+		plan_Coverage_Id=VALUES(plan_Coverage_Id),
+		plan_Def_Id=VALUES(plan_Def_Id),
+		plan_Shared_Id=VALUES(plan_Shared_Id),
+		plan_Coverage_Name=VALUES(plan_Coverage_Name),
+		is_NonDeductible=VALUES(is_NonDeductible),
+		parent_Plan_Coverage_Id=VALUES(parent_Plan_Coverage_Id),
+		is_Optional=VALUES(is_Optional),
+		product_element_code=VALUES(product_element_code),
+		Coverage_Type=VALUES(Coverage_Type),
+		Shared_Group_Type=VALUES(Shared_Group_Type),
+		Product_Element_Name=VALUES(Product_Element_Name)
+	</insert>
+
+	<insert id="insertChild"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCtChild">
+		insert into t_prd_plan_ct (id, plan_Coverage_Id,
+		plan_Def_Id,
+		plan_Shared_Id, plan_Coverage_Name, is_NonDeductible,
+		parent_Plan_Coverage_Id, is_Optional,
+		product_element_code)
+		values
+		(#{id,jdbcType=BIGINT},
+		#{planCoverageId,jdbcType=BIGINT},
+		#{planDefId,jdbcType=BIGINT},
+		#{planSharedId,jdbcType=BIGINT},
+		#{planCoverageName,jdbcType=VARCHAR},
+		#{isNondeductible,jdbcType=VARCHAR},
+		#{parentPlanCoverageId,jdbcType=BIGINT},
+		#{isOptional,jdbcType=VARCHAR},
+		#{productElementCode,jdbcType=VARCHAR}
+		)
+		ON DUPLICATE KEY UPDATE
+		plan_Coverage_Id=VALUES(plan_Coverage_Id),
+		plan_Def_Id=VALUES(plan_Def_Id),
+		plan_Shared_Id=VALUES(plan_Shared_Id),
+		plan_Coverage_Name=VALUES(plan_Coverage_Name),
+		is_NonDeductible=VALUES(is_NonDeductible),
+		parent_Plan_Coverage_Id=VALUES(parent_Plan_Coverage_Id),
+		is_Optional=VALUES(is_Optional),
+		product_element_code=VALUES(product_element_code)
+	</insert>
+
+	<insert id="insertSelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCt">
+		insert into t_prd_plan_ct
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="planCoverageId != null">
+				plan_Coverage_Id,
+			</if>
+			<if test="planDefId != null">
+				plan_Def_Id,
+			</if>
+			<if test="planSharedId != null">
+				plan_Shared_Id,
+			</if>
+			<if test="planCoverageName != null">
+				plan_Coverage_Name,
+			</if>
+			<if test="isNondeductible != null">
+				is_NonDeductible,
+			</if>
+			<if test="parentPlanCoverageId != null">
+				parent_Plan_Coverage_Id,
+			</if>
+			<if test="isOptional != null">
+				is_Optional,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="planCoverageId != null">
+				#{planCoverageId,jdbcType=BIGINT},
+			</if>
+			<if test="planDefId != null">
+				#{planDefId,jdbcType=BIGINT},
+			</if>
+			<if test="planSharedId != null">
+				#{planSharedId,jdbcType=BIGINT},
+			</if>
+			<if test="planCoverageName != null">
+				#{planCoverageName,jdbcType=VARCHAR},
+			</if>
+			<if test="isNondeductible != null">
+				#{isNondeductible,jdbcType=VARCHAR},
+			</if>
+			<if test="parentPlanCoverageId != null">
+				#{parentPlanCoverageId,jdbcType=BIGINT},
+			</if>
+			<if test="isOptional != null">
+				#{isOptional,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCt">
+		update t_prd_plan_ct
+		<set>
+			<if test="planCoverageId != null">
+				plan_Coverage_Id = #{planCoverageId,jdbcType=BIGINT},
+			</if>
+			<if test="planDefId != null">
+				plan_Def_Id = #{planDefId,jdbcType=BIGINT},
+			</if>
+			<if test="planSharedId != null">
+				plan_Shared_Id = #{planSharedId,jdbcType=BIGINT},
+			</if>
+			<if test="planCoverageName != null">
+				plan_Coverage_Name =
+				#{planCoverageName,jdbcType=VARCHAR},
+			</if>
+			<if test="isNondeductible != null">
+				is_NonDeductible = #{isNondeductible,jdbcType=VARCHAR},
+			</if>
+			<if test="parentPlanCoverageId != null">
+				parent_Plan_Coverage_Id =
+				#{parentPlanCoverageId,jdbcType=BIGINT},
+			</if>
+			<if test="isOptional != null">
+				is_Optional = #{isOptional,jdbcType=VARCHAR},
+			</if>
+			product_element_code=#{productElementCode,jdbcType=VARCHAR})
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCt">
+		update t_prd_plan_ct
+		set plan_Coverage_Id =
+		#{planCoverageId,jdbcType=BIGINT},
+		plan_Def_Id =
+		#{planDefId,jdbcType=BIGINT},
+		plan_Shared_Id =
+		#{planSharedId,jdbcType=BIGINT},
+		plan_Coverage_Name =
+		#{planCoverageName,jdbcType=VARCHAR},
+		is_NonDeductible =
+		#{isNondeductible,jdbcType=VARCHAR},
+		parent_Plan_Coverage_Id =
+		#{parentPlanCoverageId,jdbcType=BIGINT},
+		is_Optional =
+		#{isOptional,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<select id="findParentPlanCoverageId" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select * from t_prd_plan_ct where plan_coverage_id = #{planCoverageId}
+	</select>
+	
+	<select id="findParentPlanCoverageId1" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select * from t_prd_plan_ct where parent_plan_coverage_id =#{parentPlanCoverageId}
+	</select>
+	
+</mapper>

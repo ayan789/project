@@ -1,0 +1,1295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.basedb.po.Order">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="order_status" jdbcType="VARCHAR" property="orderStatus" />
+    <result column="is_delete" jdbcType="VARCHAR" property="isDelete" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="insure_no" jdbcType="VARCHAR" property="insureNo" />
+    <result column="policy_no" jdbcType="VARCHAR" property="policyNo" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="identity_code" jdbcType="VARCHAR" property="identityCode" />
+    <result column="pay_apply_no" jdbcType="VARCHAR" property="payApplyNo" />
+    <result column="plan_id" jdbcType="BIGINT" property="planId" />
+    <result column="com_code" jdbcType="VARCHAR" property="comCode" />
+    <result column="p_com_code" jdbcType="VARCHAR" property="pComCode" />
+    <result column="underwrite_date" jdbcType="TIMESTAMP" property="underwriteDate" />
+    <result column="sum_premium" jdbcType="DECIMAL" property="sumPremium" />
+    <result column="sum_amount" jdbcType="DECIMAL" property="sumAmount" />
+    <result column="number_of_copys" jdbcType="INTEGER" property="numberOfCopys" />
+    <result column="insurance_count" jdbcType="INTEGER" property="insuranceCount" />
+    <result column="handler_code" jdbcType="VARCHAR" property="handlerCode" />
+    <result column="operator_code" jdbcType="VARCHAR" property="operatorCode" />
+    <result column="operator_name" jdbcType="VARCHAR" property="operatorName" />
+    <result column="is_agent" jdbcType="INTEGER" property="isAgent" />
+    <result column="agent_code" jdbcType="VARCHAR" property="agentCode" />
+    <result column="agent_name" jdbcType="VARCHAR" property="agentName" />
+    <result column="agreement_no" jdbcType="VARCHAR" property="agreementNo" />
+    <result column="agreement_name" jdbcType="VARCHAR" property="agreementName" />
+    <result column="handler_code2" jdbcType="VARCHAR" property="handlerCode2" />
+    <result column="order_source" jdbcType="VARCHAR" property="orderSource" />
+    <result column="sign_status" jdbcType="VARCHAR" property="signStatus" />
+    <result column="platform_flag" jdbcType="VARCHAR" property="platformFlag" />
+    <result column="platform_user_code" jdbcType="VARCHAR" property="platformUserCode" />
+    <result column="policy_create_date" jdbcType="TIMESTAMP" property="policyCreateDate" />
+    <result column="relation_order_id" jdbcType="BIGINT" property="relationOrderId" />
+    <result column="pay_date" jdbcType="TIMESTAMP" property="payDate" />
+    <result column="is_issue_after_pay" jdbcType="VARCHAR" property="isIssueAfterPay" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="applicant_name" jdbcType="VARCHAR" property="applicantName" />
+    <result column="strategy_id" jdbcType="BIGINT" property="strategyId" />
+    <result column="handler_name" jdbcType="VARCHAR" property="handlerName" />
+    <result column="business_source_code" jdbcType="VARCHAR" property="businessSourceCode" />
+    <result column="business_source2_code" jdbcType="VARCHAR" property="businessSource2Code" />
+    <result column="business_ature_name" jdbcType="VARCHAR" property="businessAtureName" />
+    <result column="business_attribute" jdbcType="VARCHAR" property="businessAttribute" />
+    <result column="policy_nature" jdbcType="VARCHAR" property="policyNature" />
+    <result column="is_need_upload_img" jdbcType="VARCHAR" property="isNeedUploadImg" />
+    <result column="is_need_sign" jdbcType="VARCHAR" property="isNeedSign" />
+    <result column="vat" jdbcType="DOUBLE" property="vat" />
+    <result column="before_vat_premium" jdbcType="DOUBLE" property="beforeVatPremium" />
+    <result column="strategy_code" jdbcType="VARCHAR" property="strategyCode" />
+    <result column="plan_code" jdbcType="VARCHAR" property="planCode" />
+    <result column="insurance_category" jdbcType="VARCHAR" property="insuranceCategory" />
+    <result column="policy_s3_path" jdbcType="VARCHAR" property="policyS3Path" />
+    <result column="cust_no" jdbcType="VARCHAR" property="custNo" />
+    <result column="cust_source_type" jdbcType="VARCHAR" property="custSourceType" />
+    <result column="cust_type" jdbcType="VARCHAR" property="custType" />
+    <result column="invoice_flag" jdbcType="VARCHAR" property="invoiceFlag" />
+    <result column="relation_policy_no" jdbcType="VARCHAR" property="relationPolicyNo" />
+    <result column="third_party_handler_no" jdbcType="VARCHAR" property="thirdPartyHandlerNo" />
+    <result column="third_party_handler_name" jdbcType="VARCHAR" property="thirdPartyHandlerName" />
+    <result column="data_tag" jdbcType="VARCHAR" property="dataTag" />
+    <result column="is_group_plan" jdbcType="VARCHAR" property="isGroupPlan" />
+    <result column="product_line" jdbcType="VARCHAR" property="productLine" />
+    <result column="premium_before_discount" jdbcType="DECIMAL" property="premiumBeforeDiscount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="business_nature_name" jdbcType="VARCHAR" property="businessNatureName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_no, order_status, is_delete, product_code, insure_no, policy_no, product_name, 
+    user_code, start_date, end_date, identity_code, pay_apply_no, plan_id, com_code, 
+    p_com_code, underwrite_date, sum_premium, sum_amount, number_of_copys, insurance_count, 
+    handler_code, operator_code, operator_name, is_agent, agent_code, agent_name, agreement_no, 
+    agreement_name, handler_code2, order_source, sign_status, platform_flag, platform_user_code, 
+    policy_create_date, relation_order_id, pay_date, is_issue_after_pay, mobile, applicant_name, 
+    strategy_id, handler_name, business_source_code, business_source2_code, business_ature_name, 
+    business_attribute, policy_nature, is_need_upload_img, is_need_sign, vat, before_vat_premium, 
+    strategy_code, plan_code, insurance_category, policy_s3_path, cust_no, cust_source_type, 
+    cust_type, invoice_flag, relation_policy_no, third_party_handler_no, third_party_handler_name, 
+    data_tag, is_group_plan, product_line, premium_before_discount, create_time, create_user, 
+    update_time, update_user, business_nature_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_noncar_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectByRelationOrderId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_noncar_order
+    where relation_order_id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectByInsureNo" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_noncar_order
+    where insure_no = #{insureNo}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_noncar_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.Order">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_noncar_order (order_no, order_status, is_delete, 
+      product_code, insure_no, policy_no, 
+      product_name, user_code, start_date, 
+      end_date, identity_code, pay_apply_no, 
+      plan_id, com_code, p_com_code, 
+      underwrite_date, sum_premium, sum_amount, 
+      number_of_copys, insurance_count, handler_code, 
+      operator_code, operator_name, is_agent, 
+      agent_code, agent_name, agreement_no, 
+      agreement_name, handler_code2, order_source, 
+      sign_status, platform_flag, platform_user_code, 
+      policy_create_date, relation_order_id, pay_date, 
+      is_issue_after_pay, mobile, applicant_name, 
+      strategy_id, handler_name, business_source_code, 
+      business_source2_code, business_ature_name, 
+      business_attribute, policy_nature, is_need_upload_img, 
+      is_need_sign, vat, before_vat_premium, 
+      strategy_code, plan_code, insurance_category, 
+      policy_s3_path, cust_no, cust_source_type, 
+      cust_type, invoice_flag, relation_policy_no, 
+      third_party_handler_no, third_party_handler_name, 
+      data_tag, is_group_plan, product_line, 
+      premium_before_discount, create_time, create_user, 
+      update_time, update_user, business_nature_name
+      )
+    values (#{orderNo,jdbcType=VARCHAR}, #{orderStatus,jdbcType=VARCHAR}, #{isDelete,jdbcType=VARCHAR}, 
+      #{productCode,jdbcType=VARCHAR}, #{insureNo,jdbcType=VARCHAR}, #{policyNo,jdbcType=VARCHAR}, 
+      #{productName,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{identityCode,jdbcType=VARCHAR}, #{payApplyNo,jdbcType=VARCHAR}, 
+      #{planId,jdbcType=BIGINT}, #{comCode,jdbcType=VARCHAR}, #{pComCode,jdbcType=VARCHAR}, 
+      #{underwriteDate,jdbcType=TIMESTAMP}, #{sumPremium,jdbcType=DECIMAL}, #{sumAmount,jdbcType=DECIMAL}, 
+      #{numberOfCopys,jdbcType=INTEGER}, #{insuranceCount,jdbcType=INTEGER}, #{handlerCode,jdbcType=VARCHAR}, 
+      #{operatorCode,jdbcType=VARCHAR}, #{operatorName,jdbcType=VARCHAR}, #{isAgent,jdbcType=INTEGER}, 
+      #{agentCode,jdbcType=VARCHAR}, #{agentName,jdbcType=VARCHAR}, #{agreementNo,jdbcType=VARCHAR}, 
+      #{agreementName,jdbcType=VARCHAR}, #{handlerCode2,jdbcType=VARCHAR}, #{orderSource,jdbcType=VARCHAR}, 
+      #{signStatus,jdbcType=VARCHAR}, #{platformFlag,jdbcType=VARCHAR}, #{platformUserCode,jdbcType=VARCHAR}, 
+      #{policyCreateDate,jdbcType=TIMESTAMP}, #{relationOrderId,jdbcType=BIGINT}, #{payDate,jdbcType=TIMESTAMP}, 
+      #{isIssueAfterPay,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{applicantName,jdbcType=VARCHAR}, 
+      #{strategyId,jdbcType=BIGINT}, #{handlerName,jdbcType=VARCHAR}, #{businessSourceCode,jdbcType=VARCHAR}, 
+      #{businessSource2Code,jdbcType=VARCHAR}, #{businessAtureName,jdbcType=VARCHAR}, 
+      #{businessAttribute,jdbcType=VARCHAR}, #{policyNature,jdbcType=VARCHAR}, #{isNeedUploadImg,jdbcType=VARCHAR}, 
+      #{isNeedSign,jdbcType=VARCHAR}, #{vat,jdbcType=DOUBLE}, #{beforeVatPremium,jdbcType=DOUBLE}, 
+      #{strategyCode,jdbcType=VARCHAR}, #{planCode,jdbcType=VARCHAR}, #{insuranceCategory,jdbcType=VARCHAR}, 
+      #{policyS3Path,jdbcType=VARCHAR}, #{custNo,jdbcType=VARCHAR}, #{custSourceType,jdbcType=VARCHAR}, 
+      #{custType,jdbcType=VARCHAR}, #{invoiceFlag,jdbcType=VARCHAR}, #{relationPolicyNo,jdbcType=VARCHAR}, 
+      #{thirdPartyHandlerNo,jdbcType=VARCHAR}, #{thirdPartyHandlerName,jdbcType=VARCHAR}, 
+      #{dataTag,jdbcType=VARCHAR}, #{isGroupPlan,jdbcType=VARCHAR}, #{productLine,jdbcType=VARCHAR}, 
+      #{premiumBeforeDiscount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{businessNatureName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.Order">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_noncar_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="productCode != null">
+        product_code,
+      </if>
+      <if test="insureNo != null">
+        insure_no,
+      </if>
+      <if test="policyNo != null">
+        policy_no,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="userCode != null">
+        user_code,
+      </if>
+      <if test="startDate != null">
+        start_date,
+      </if>
+      <if test="endDate != null">
+        end_date,
+      </if>
+      <if test="identityCode != null">
+        identity_code,
+      </if>
+      <if test="payApplyNo != null">
+        pay_apply_no,
+      </if>
+      <if test="planId != null">
+        plan_id,
+      </if>
+      <if test="comCode != null">
+        com_code,
+      </if>
+      <if test="pComCode != null">
+        p_com_code,
+      </if>
+      <if test="underwriteDate != null">
+        underwrite_date,
+      </if>
+      <if test="sumPremium != null">
+        sum_premium,
+      </if>
+      <if test="sumAmount != null">
+        sum_amount,
+      </if>
+      <if test="numberOfCopys != null">
+        number_of_copys,
+      </if>
+      <if test="insuranceCount != null">
+        insurance_count,
+      </if>
+      <if test="handlerCode != null">
+        handler_code,
+      </if>
+      <if test="operatorCode != null">
+        operator_code,
+      </if>
+      <if test="operatorName != null">
+        operator_name,
+      </if>
+      <if test="isAgent != null">
+        is_agent,
+      </if>
+      <if test="agentCode != null">
+        agent_code,
+      </if>
+      <if test="agentName != null">
+        agent_name,
+      </if>
+      <if test="agreementNo != null">
+        agreement_no,
+      </if>
+      <if test="agreementName != null">
+        agreement_name,
+      </if>
+      <if test="handlerCode2 != null">
+        handler_code2,
+      </if>
+      <if test="orderSource != null">
+        order_source,
+      </if>
+      <if test="signStatus != null">
+        sign_status,
+      </if>
+      <if test="platformFlag != null">
+        platform_flag,
+      </if>
+      <if test="platformUserCode != null">
+        platform_user_code,
+      </if>
+      <if test="policyCreateDate != null">
+        policy_create_date,
+      </if>
+      <if test="relationOrderId != null">
+        relation_order_id,
+      </if>
+      <if test="payDate != null">
+        pay_date,
+      </if>
+      <if test="isIssueAfterPay != null">
+        is_issue_after_pay,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="applicantName != null">
+        applicant_name,
+      </if>
+      <if test="strategyId != null">
+        strategy_id,
+      </if>
+      <if test="handlerName != null">
+        handler_name,
+      </if>
+      <if test="businessSourceCode != null">
+        business_source_code,
+      </if>
+      <if test="businessSource2Code != null">
+        business_source2_code,
+      </if>
+      <if test="businessAtureName != null">
+        business_ature_name,
+      </if>
+      <if test="businessAttribute != null">
+        business_attribute,
+      </if>
+      <if test="policyNature != null">
+        policy_nature,
+      </if>
+      <if test="isNeedUploadImg != null">
+        is_need_upload_img,
+      </if>
+      <if test="isNeedSign != null">
+        is_need_sign,
+      </if>
+      <if test="vat != null">
+        vat,
+      </if>
+      <if test="beforeVatPremium != null">
+        before_vat_premium,
+      </if>
+      <if test="strategyCode != null">
+        strategy_code,
+      </if>
+      <if test="planCode != null">
+        plan_code,
+      </if>
+      <if test="insuranceCategory != null">
+        insurance_category,
+      </if>
+      <if test="policyS3Path != null">
+        policy_s3_path,
+      </if>
+      <if test="custNo != null">
+        cust_no,
+      </if>
+      <if test="custSourceType != null">
+        cust_source_type,
+      </if>
+      <if test="custType != null">
+        cust_type,
+      </if>
+      <if test="invoiceFlag != null">
+        invoice_flag,
+      </if>
+      <if test="relationPolicyNo != null">
+        relation_policy_no,
+      </if>
+      <if test="thirdPartyHandlerNo != null">
+        third_party_handler_no,
+      </if>
+      <if test="thirdPartyHandlerName != null">
+        third_party_handler_name,
+      </if>
+      <if test="dataTag != null">
+        data_tag,
+      </if>
+      <if test="isGroupPlan != null">
+        is_group_plan,
+      </if>
+      <if test="productLine != null">
+        product_line,
+      </if>
+      <if test="premiumBeforeDiscount != null">
+        premium_before_discount,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="businessNatureName != null">
+        business_nature_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null">
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="insureNo != null">
+        #{insureNo,jdbcType=VARCHAR},
+      </if>
+      <if test="policyNo != null">
+        #{policyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null">
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="identityCode != null">
+        #{identityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payApplyNo != null">
+        #{payApplyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="planId != null">
+        #{planId,jdbcType=BIGINT},
+      </if>
+      <if test="comCode != null">
+        #{comCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pComCode != null">
+        #{pComCode,jdbcType=VARCHAR},
+      </if>
+      <if test="underwriteDate != null">
+        #{underwriteDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sumPremium != null">
+        #{sumPremium,jdbcType=DECIMAL},
+      </if>
+      <if test="sumAmount != null">
+        #{sumAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="numberOfCopys != null">
+        #{numberOfCopys,jdbcType=INTEGER},
+      </if>
+      <if test="insuranceCount != null">
+        #{insuranceCount,jdbcType=INTEGER},
+      </if>
+      <if test="handlerCode != null">
+        #{handlerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorCode != null">
+        #{operatorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null">
+        #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="isAgent != null">
+        #{isAgent,jdbcType=INTEGER},
+      </if>
+      <if test="agentCode != null">
+        #{agentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="agentName != null">
+        #{agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementNo != null">
+        #{agreementNo,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementName != null">
+        #{agreementName,jdbcType=VARCHAR},
+      </if>
+      <if test="handlerCode2 != null">
+        #{handlerCode2,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSource != null">
+        #{orderSource,jdbcType=VARCHAR},
+      </if>
+      <if test="signStatus != null">
+        #{signStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="platformFlag != null">
+        #{platformFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="platformUserCode != null">
+        #{platformUserCode,jdbcType=VARCHAR},
+      </if>
+      <if test="policyCreateDate != null">
+        #{policyCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="relationOrderId != null">
+        #{relationOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="payDate != null">
+        #{payDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isIssueAfterPay != null">
+        #{isIssueAfterPay,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantName != null">
+        #{applicantName,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyId != null">
+        #{strategyId,jdbcType=BIGINT},
+      </if>
+      <if test="handlerName != null">
+        #{handlerName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessSourceCode != null">
+        #{businessSourceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="businessSource2Code != null">
+        #{businessSource2Code,jdbcType=VARCHAR},
+      </if>
+      <if test="businessAtureName != null">
+        #{businessAtureName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessAttribute != null">
+        #{businessAttribute,jdbcType=VARCHAR},
+      </if>
+      <if test="policyNature != null">
+        #{policyNature,jdbcType=VARCHAR},
+      </if>
+      <if test="isNeedUploadImg != null">
+        #{isNeedUploadImg,jdbcType=VARCHAR},
+      </if>
+      <if test="isNeedSign != null">
+        #{isNeedSign,jdbcType=VARCHAR},
+      </if>
+      <if test="vat != null">
+        #{vat,jdbcType=DOUBLE},
+      </if>
+      <if test="beforeVatPremium != null">
+        #{beforeVatPremium,jdbcType=DOUBLE},
+      </if>
+      <if test="strategyCode != null">
+        #{strategyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="planCode != null">
+        #{planCode,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceCategory != null">
+        #{insuranceCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="policyS3Path != null">
+        #{policyS3Path,jdbcType=VARCHAR},
+      </if>
+      <if test="custNo != null">
+        #{custNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custSourceType != null">
+        #{custSourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="custType != null">
+        #{custType,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceFlag != null">
+        #{invoiceFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="relationPolicyNo != null">
+        #{relationPolicyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdPartyHandlerNo != null">
+        #{thirdPartyHandlerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdPartyHandlerName != null">
+        #{thirdPartyHandlerName,jdbcType=VARCHAR},
+      </if>
+      <if test="dataTag != null">
+        #{dataTag,jdbcType=VARCHAR},
+      </if>
+      <if test="isGroupPlan != null">
+        #{isGroupPlan,jdbcType=VARCHAR},
+      </if>
+      <if test="productLine != null">
+        #{productLine,jdbcType=VARCHAR},
+      </if>
+      <if test="premiumBeforeDiscount != null">
+        #{premiumBeforeDiscount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="businessNatureName != null">
+        #{businessNatureName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.Order">
+    update t_noncar_order
+    <set>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null">
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="insureNo != null">
+        insure_no = #{insureNo,jdbcType=VARCHAR},
+      </if>
+      <if test="policyNo != null">
+        policy_no = #{policyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null">
+        user_code = #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        start_date = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="identityCode != null">
+        identity_code = #{identityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payApplyNo != null">
+        pay_apply_no = #{payApplyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="planId != null">
+        plan_id = #{planId,jdbcType=BIGINT},
+      </if>
+      <if test="comCode != null">
+        com_code = #{comCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pComCode != null">
+        p_com_code = #{pComCode,jdbcType=VARCHAR},
+      </if>
+      <if test="underwriteDate != null">
+        underwrite_date = #{underwriteDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sumPremium != null">
+        sum_premium = #{sumPremium,jdbcType=DECIMAL},
+      </if>
+      <if test="sumAmount != null">
+        sum_amount = #{sumAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="numberOfCopys != null">
+        number_of_copys = #{numberOfCopys,jdbcType=INTEGER},
+      </if>
+      <if test="insuranceCount != null">
+        insurance_count = #{insuranceCount,jdbcType=INTEGER},
+      </if>
+      <if test="handlerCode != null">
+        handler_code = #{handlerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorCode != null">
+        operator_code = #{operatorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null">
+        operator_name = #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="isAgent != null">
+        is_agent = #{isAgent,jdbcType=INTEGER},
+      </if>
+      <if test="agentCode != null">
+        agent_code = #{agentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="agentName != null">
+        agent_name = #{agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementNo != null">
+        agreement_no = #{agreementNo,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementName != null">
+        agreement_name = #{agreementName,jdbcType=VARCHAR},
+      </if>
+      <if test="handlerCode2 != null">
+        handler_code2 = #{handlerCode2,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSource != null">
+        order_source = #{orderSource,jdbcType=VARCHAR},
+      </if>
+      <if test="signStatus != null">
+        sign_status = #{signStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="platformFlag != null">
+        platform_flag = #{platformFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="platformUserCode != null">
+        platform_user_code = #{platformUserCode,jdbcType=VARCHAR},
+      </if>
+      <if test="policyCreateDate != null">
+        policy_create_date = #{policyCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="relationOrderId != null">
+        relation_order_id = #{relationOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="payDate != null">
+        pay_date = #{payDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isIssueAfterPay != null">
+        is_issue_after_pay = #{isIssueAfterPay,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantName != null">
+        applicant_name = #{applicantName,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyId != null">
+        strategy_id = #{strategyId,jdbcType=BIGINT},
+      </if>
+      <if test="handlerName != null">
+        handler_name = #{handlerName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessSourceCode != null">
+        business_source_code = #{businessSourceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="businessSource2Code != null">
+        business_source2_code = #{businessSource2Code,jdbcType=VARCHAR},
+      </if>
+      <if test="businessAtureName != null">
+        business_ature_name = #{businessAtureName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessAttribute != null">
+        business_attribute = #{businessAttribute,jdbcType=VARCHAR},
+      </if>
+      <if test="policyNature != null">
+        policy_nature = #{policyNature,jdbcType=VARCHAR},
+      </if>
+      <if test="isNeedUploadImg != null">
+        is_need_upload_img = #{isNeedUploadImg,jdbcType=VARCHAR},
+      </if>
+      <if test="isNeedSign != null">
+        is_need_sign = #{isNeedSign,jdbcType=VARCHAR},
+      </if>
+      <if test="vat != null">
+        vat = #{vat,jdbcType=DOUBLE},
+      </if>
+      <if test="beforeVatPremium != null">
+        before_vat_premium = #{beforeVatPremium,jdbcType=DOUBLE},
+      </if>
+      <if test="strategyCode != null">
+        strategy_code = #{strategyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="planCode != null">
+        plan_code = #{planCode,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceCategory != null">
+        insurance_category = #{insuranceCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="policyS3Path != null">
+        policy_s3_path = #{policyS3Path,jdbcType=VARCHAR},
+      </if>
+      <if test="custNo != null">
+        cust_no = #{custNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custSourceType != null">
+        cust_source_type = #{custSourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="custType != null">
+        cust_type = #{custType,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceFlag != null">
+        invoice_flag = #{invoiceFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="relationPolicyNo != null">
+        relation_policy_no = #{relationPolicyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdPartyHandlerNo != null">
+        third_party_handler_no = #{thirdPartyHandlerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdPartyHandlerName != null">
+        third_party_handler_name = #{thirdPartyHandlerName,jdbcType=VARCHAR},
+      </if>
+      <if test="dataTag != null">
+        data_tag = #{dataTag,jdbcType=VARCHAR},
+      </if>
+      <if test="isGroupPlan != null">
+        is_group_plan = #{isGroupPlan,jdbcType=VARCHAR},
+      </if>
+      <if test="productLine != null">
+        product_line = #{productLine,jdbcType=VARCHAR},
+      </if>
+      <if test="premiumBeforeDiscount != null">
+        premium_before_discount = #{premiumBeforeDiscount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="businessNatureName != null">
+        business_nature_name = #{businessNatureName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.Order">
+    update t_noncar_order
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=VARCHAR},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      insure_no = #{insureNo,jdbcType=VARCHAR},
+      policy_no = #{policyNo,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      user_code = #{userCode,jdbcType=VARCHAR},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      identity_code = #{identityCode,jdbcType=VARCHAR},
+      pay_apply_no = #{payApplyNo,jdbcType=VARCHAR},
+      plan_id = #{planId,jdbcType=BIGINT},
+      com_code = #{comCode,jdbcType=VARCHAR},
+      p_com_code = #{pComCode,jdbcType=VARCHAR},
+      underwrite_date = #{underwriteDate,jdbcType=TIMESTAMP},
+      sum_premium = #{sumPremium,jdbcType=DECIMAL},
+      sum_amount = #{sumAmount,jdbcType=DECIMAL},
+      number_of_copys = #{numberOfCopys,jdbcType=INTEGER},
+      insurance_count = #{insuranceCount,jdbcType=INTEGER},
+      handler_code = #{handlerCode,jdbcType=VARCHAR},
+      operator_code = #{operatorCode,jdbcType=VARCHAR},
+      operator_name = #{operatorName,jdbcType=VARCHAR},
+      is_agent = #{isAgent,jdbcType=INTEGER},
+      agent_code = #{agentCode,jdbcType=VARCHAR},
+      agent_name = #{agentName,jdbcType=VARCHAR},
+      agreement_no = #{agreementNo,jdbcType=VARCHAR},
+      agreement_name = #{agreementName,jdbcType=VARCHAR},
+      handler_code2 = #{handlerCode2,jdbcType=VARCHAR},
+      order_source = #{orderSource,jdbcType=VARCHAR},
+      sign_status = #{signStatus,jdbcType=VARCHAR},
+      platform_flag = #{platformFlag,jdbcType=VARCHAR},
+      platform_user_code = #{platformUserCode,jdbcType=VARCHAR},
+      policy_create_date = #{policyCreateDate,jdbcType=TIMESTAMP},
+      relation_order_id = #{relationOrderId,jdbcType=BIGINT},
+      pay_date = #{payDate,jdbcType=TIMESTAMP},
+      is_issue_after_pay = #{isIssueAfterPay,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      applicant_name = #{applicantName,jdbcType=VARCHAR},
+      strategy_id = #{strategyId,jdbcType=BIGINT},
+      handler_name = #{handlerName,jdbcType=VARCHAR},
+      business_source_code = #{businessSourceCode,jdbcType=VARCHAR},
+      business_source2_code = #{businessSource2Code,jdbcType=VARCHAR},
+      business_ature_name = #{businessAtureName,jdbcType=VARCHAR},
+      business_attribute = #{businessAttribute,jdbcType=VARCHAR},
+      policy_nature = #{policyNature,jdbcType=VARCHAR},
+      is_need_upload_img = #{isNeedUploadImg,jdbcType=VARCHAR},
+      is_need_sign = #{isNeedSign,jdbcType=VARCHAR},
+      vat = #{vat,jdbcType=DOUBLE},
+      before_vat_premium = #{beforeVatPremium,jdbcType=DOUBLE},
+      strategy_code = #{strategyCode,jdbcType=VARCHAR},
+      plan_code = #{planCode,jdbcType=VARCHAR},
+      insurance_category = #{insuranceCategory,jdbcType=VARCHAR},
+      policy_s3_path = #{policyS3Path,jdbcType=VARCHAR},
+      cust_no = #{custNo,jdbcType=VARCHAR},
+      cust_source_type = #{custSourceType,jdbcType=VARCHAR},
+      cust_type = #{custType,jdbcType=VARCHAR},
+      invoice_flag = #{invoiceFlag,jdbcType=VARCHAR},
+      relation_policy_no = #{relationPolicyNo,jdbcType=VARCHAR},
+      third_party_handler_no = #{thirdPartyHandlerNo,jdbcType=VARCHAR},
+      third_party_handler_name = #{thirdPartyHandlerName,jdbcType=VARCHAR},
+      data_tag = #{dataTag,jdbcType=VARCHAR},
+      is_group_plan = #{isGroupPlan,jdbcType=VARCHAR},
+      product_line = #{productLine,jdbcType=VARCHAR},
+      premium_before_discount = #{premiumBeforeDiscount,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      business_nature_name = #{businessNatureName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+     <select id="selectByOrderNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+   select 
+    <include refid="Base_Column_List" />
+    from t_noncar_order
+    where order_no = #{orderNo,jdbcType=VARCHAR}
+  </select>
+  
+  
+  
+  <resultMap type="com.ccic.salesapp.noncar.dto.StoreInsureInfo"
+		id="StoreInsureInfoMap">
+		<result column="ID" property="id" />
+		<result column="INSURE_NO" property="insureNo" />
+		<result column="POLICY_NO" property="policyNo" />
+		<result column="order_no" property="orderNo" />
+		<result column="INSURANCE_CODE" property="insuranceCode" />
+		<result column="INSURANCE_NAME" property="insuranceName" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="START_DATE" property="startDate" />
+		<result column="END_DATE" property="endDate" />
+		<result column="START_TIME" property="startTime" />
+		<result column="END_TIME" property="endTime" />
+		<result column="INSURANCE_PERIOD" property="insurancePeriod" />
+		<result column="UNDERWRITE_DATE" property="underwriteDate" />
+		<result column="SUMPREMIUM" property="sumPremium" />
+		<result column="SUMAMOUNT" property="sumAmount" />
+		<result column="BUSINESS_TYPE" property="businessType" />
+		<result column="STATUS" property="status" />
+		<result column="USER_ID" property="userId" />
+		<result column="INSURANCE_COUNT" property="insuranceCount" />
+		<result column="LICENSE_PLATE_NO" property="licensePlateNo" />
+		<result column="COM_CODE" property="comCode" />
+		<result column="HANDLER_CODE" property="handlerCode" />
+		<result column="OPERATOR_CODE" property="operatorCode" />
+		<result column="OPERATOR_NAME" property="operatorName" />
+		<result column="PAYAPPLY_NO" property="payApplyNo" />
+		<result column="IDENTITY_CODE" property="identityCode" />
+		<result column="APPLICANT_NAME" property="applicantName" />
+		<result column="APPLI_IDENTIFY" property="appliIdentify" />
+		<result column="APPLIIDENTIFY_TYPE" property="appliIdentifyType" />
+		<result column="INSURED_NAME" property="insuredName" />
+		<result column="INSURED_IDENTIFY" property="insuredIdentify" />
+		<result column="INSUREDIDENTIFY_TYPE" property="insuredIdentifyType" />
+		<result column="BIRTH_DATE" property="birthDate" />
+		<result column="MOBILE_NO" property="mobileNo" />
+		<result column="ADDRESS" property="address" />
+		<result column="EMAIL" property="email" />
+		<result column="FORMULA_CODE" property="formulaCode" />
+		<result column="FORMULA_NAME" property="formulaName" />
+		<result column="RELATE_INSURED" property="relateInsured" />
+		<result column="IMEI" property="imei" />
+		<result column="AGENT_CODE" property="agentCode" />
+		<result column="AGREEMENT_NO" property="agreementNo" />
+		<result column="AGREEMENT_NAME" property="agreementName" />
+		<result column="INSURANCE_TYPE" property="insuranceType" />
+		<result column="HANDLER_CODE2" property="handlerCode2" />
+		<result column="ISRUNAPP" property="isRunApp" />
+		<result column="PRODUCT_CODE" property="productCode" />
+		<result column="IS_OPENAIR" property="isOpenair" />
+		<result column="SHOW_NO" property="showNo" />
+		<result column="SHOW_NAME" property="showName" />
+		<result column="PROVINCE_CODE" property="provinceCode" />
+		<result column="PREFECTURE_CODE" property="prefectureCode" />
+		<result column="COUNTY_CODE" property="countyCode" />
+		<result column="SIGNSTATUS" property="signStatus" />
+		<result column="IMGID" property="imgId" />
+		<result column="ADDITIONALCODE" property="additionalCode" />
+		<result column="PLATFORM_FLAG" property="platformFlag" />
+		<result column="NCL_USER_CODE" property="nclUserCode" />
+		<result column="PRODUCT_NAME" property="productName" />
+		<result column="EXHIBITION_AREA" property="exhibitionArea" />
+		<result column="INSURED_MOBILE" property="insuredMobile" />
+		<result column="ASSOCIATED_INSURE_ID" property="associatedInsureID" />
+		<result column="jsonText" property="jsonText" />
+		<result column="is_seefee" property="isSeeFee" />
+		<result column="cust_no" property="custNo" />
+		<result column="cust_source_type" property="custSourceType" />
+		<result column="cust_type" property="custType" />
+		<result column="order_source" property="orderSource" />
+		<result column="is_need_sign" property="isNeedSign" />
+		<result column="is_need_upload_img" property="isNeedUploadImg" />
+		<result column="strategy_id" property="strategyId" />
+		<result column="strategy_code" property="strategyCode" />
+	</resultMap>
+  <select id="orderList" resultMap="StoreInsureInfoMap"
+		parameterType="com.ccic.salesapp.noncar.dto.request.StoreQueryListRequestVO">
+		select * from (
+			select insure_no INSURE_NO,t.policy_no POLICY_NO,t.id,order_no,product_code INSURANCE_CODE,product_name INSURANCE_NAME,t.create_time CREATE_DATE,
+			start_date START_DATE , end_date END_DATE,  sum_premium SUMPREMIUM,sum_amount SUMAMOUNT,order_status `STATUS`,user_code USER_ID,insurance_count INSURANCE_COUNT,null LICENSE_PLATE_NO, com_code COM_CODE, operator_code OPERATOR_CODE, operator_name  OPERATOR_NAME ,pay_apply_no PAYAPPLY_NO,identity_code IDENTITY_CODE,
+			 ifnull(tou.customer_name,t.APPLICANT_NAME) APPLICANT_NAME,tou.id_no APPLI_IDENTIFY,tou.id_type APPLIIDENTIFY_TYPE,null INSURED_NAME,null INSURED_IDENTIFY ,null  INSUREDIDENTIFY_TYPE,null BIRTH_DATE,tou.indi_mobile MOBILE_NO,tou.email EMAIL,plan_id FORMULA_CODE,null FORMULA_NAME,
+			null RELATE_INSURED, if(insurance_category= '2','1',if(insurance_category = '3',2,insurance_category)) INSURANCE_TYPE, order_source ISRUNAPP,null BE_GUARDIAN_BIRTHDATE,null BE_GUARDIAN_SEX,null PRODUCT_CODE,sign_status SIGNSTATUS,is_need_sign ,is_need_upload_img  ,null INSURED_MOBILE,is_issue_after_pay is_seefee,
+					if(pr.insured_cust_no is null ,t.cust_no, pr.insured_cust_no) cust_no,
+					if(t.cust_source_type is null ,2, t.cust_source_type) cust_source_type,
+					if(pr.insured_cust_no is null ,t.cust_type , if(left(pr.insured_cust_no,1) = 8 ,1,2 )) cust_type,			
+					1 order_source,
+					strategy_id,
+					strategy_code,
+					handler_code,
+					data_tag
+			 from t_noncar_order t
+			left join t_noncar_policy_customer tou on  tou.customer_role_code = 1 and tou.order_id is not null and t.id = tou.order_id 
+			left join t_middle_cust_role_relations  pr on t.policy_no = pr.policy_no 
+			where t.is_delete = 0 and t.data_tag != 'group_child'
+			and (t.user_code = #{userCode}  or  t.handler_code = #{userCode})
+			union all
+			select * from (
+					select 
+					ii.INSURE_NO,
+					ii.POLICY_NO,
+					if(ii.insure_no is null,concat('T',zc.id),ii.id ) id,
+					if(ii.order_no is null,zc.order_no,ii.order_no ) order_no,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.riskCode'),ii.INSURANCE_CODE ) INSURANCE_CODE,
+					p.PRODUCT_NAME INSURANCE_NAME,
+					if(ii.insure_no is null,zc.create_time,ii.CREATE_DATE )  CREATE_DATE,
+					if(ii.insure_no is null,REPLACE(JSON_UNQUOTE(zc.json_text->'$.startDate'),'T',' '),ii.START_DATE )  START_DATE,
+					if(ii.insure_no is null,REPLACE(JSON_UNQUOTE(zc.json_text->'$.endDate'),'T',' '),ii.END_DATE )  END_DATE,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.sumPremium'),ii.SUMPREMIUM )  SUMPREMIUM,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.sumAmount'),ii.SUMAMOUNT )  SUMAMOUNT,	
+					if(ii.insure_no is null,if(zc.status = '0' ,'8','0'),ii.STATUS )  `STATUS`,
+					if(ii.insure_no is null,ii.USER_ID , ii.USER_ID ) USER_ID,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.formulaSize'),ii.INSURANCE_COUNT )  INSURANCE_COUNT,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.licenseNo'),ii.LICENSE_PLATE_NO )  LICENSE_PLATE_NO,		
+					ii.COM_CODE  COM_CODE,
+					ii.OPERATOR_CODE  OPERATOR_CODE,
+					ii.OPERATOR_NAME  OPERATOR_NAME,
+					ii.PAYAPPLY_NO  ,
+					ii.IDENTITY_CODE ,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.appliName'),ii.APPLICANT_NAME )  APPLICANT_NAME,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.appliIdentifyNumber'),ii.APPLI_IDENTIFY )  APPLI_IDENTIFY,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.appliIdentifyType'),ii.APPLIIDENTIFY_TYPE )  APPLIIDENTIFY_TYPE,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.insuredName'),ii.INSURED_NAME )  INSURED_NAME,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.insuredIdentifyNumber'),ii.INSURED_IDENTIFY )  INSURED_IDENTIFY,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.insuredIdentifyType'),ii.INSUREDIDENTIFY_TYPE )  INSUREDIDENTIFY_TYPE,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.insuredBirthDate'),ii.BIRTH_DATE )  BIRTH_DATE,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.appliMobile'),ii.MOBILE_NO )  MOBILE_NO,		
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.appliEMail'),ii.EMAIL )  EMAIL,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.formulaCode'),ii.FORMULA_CODE )  FORMULA_CODE,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.formulaName'),ii.FORMULA_NAME )  FORMULA_NAME,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.appliIdentity'),ii.RELATE_INSURED )  RELATE_INSURED,		
+					if(ii.insure_no is null,p.product_risk - 1,ii.INSURANCE_TYPE )  INSURANCE_TYPE,		 
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.isRunApp'),ii.ISRUNAPP )  ISRUNAPP,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.insuredBirthDate'),ii.BE_GUARDIAN_BIRTHDATE )  BE_GUARDIAN_BIRTHDATE,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.beGuardianSex'),ii.BE_GUARDIAN_SEX )  BE_GUARDIAN_SEX,
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.productCode'),ii.PRODUCT_CODE )  PRODUCT_CODE,		
+					if(ii.insure_no is null,null,ii.SIGNSTATUS )  SIGNSTATUS,
+					if(ii.insurance_type > 0,0,1 )  is_need_sign,
+					if(ii.insurance_type > 0,1,0 )  is_need_upload_img,			
+					if(ii.insure_no is null,JSON_UNQUOTE(zc.json_text->'$.insuredMobile'),ii.INSURED_MOBILE )  INSURED_MOBILE,		
+					ii.is_seefee ,
+					if(pr.insured_cust_no is null ,JSON_UNQUOTE(zc.json_text->'$.custNo'), pr.insured_cust_no) cust_no,
+					if(JSON_UNQUOTE(zc.json_text->'$.custSourceType') is null ,2, JSON_UNQUOTE(zc.json_text->'$.custSourceType')) cust_source_type,
+					if(pr.insured_cust_no is null ,JSON_UNQUOTE(zc.json_text->'$.custType') , if(left(pr.insured_cust_no,1) = 8 ,1,2 )) cust_type,		
+					0 order_source,
+					-1 strategy_id,null strategy_code,
+					ii.handler_code,
+					null data_tag
+					from 
+					t_noncar_insureinfo_zc zc 
+					left join t_noncar_insureinfo ii on zc.order_no = ii.order_no
+					left join t_noncar_product p on p.PRODUCT_CODE = zc.product_code
+				  left join t_middle_cust_role_relations  pr on ii.policy_no = pr.policy_no 					
+					where   (ii.user_id = #{userCode} or ii.handler_code = #{userCode}) and  (zc.filter != '1' or zc.filter is null)
+					) ts
+		) ts
+		<where>
+			<!-- 根据订单状态查询 -->
+			<choose>
+				<when test="status==1 and (insuranceType==0 or insuranceType==2)">
+					TS.STATUS in('0','1','2') and (signstatus is null or
+					signstatus='0')
+				</when>
+
+				<when test="status==1 and insuranceType==1">
+					TS.STATUS in('0','1')
+				</when>
+
+				<when test="status==2">
+					TS.STATUS in('2','4') and ((is_need_sign = 1 and signstatus = 1) or (is_need_sign = 0))
+				</when>
+
+				<when test="status==3">
+					TS.STATUS in('6','7')
+				</when>
+
+				<when test="status==4">
+					TS.STATUS in('0','1','2','4','6','7','10')
+				</when>
+				<otherwise>
+				</otherwise>
+			</choose>
+
+			<!-- 根据日期范围查询 -->
+			<choose>
+				<when test="dateRange!=null and dateRange!='' and dateRange==1">
+					AND CREATE_DATE<![CDATA[>=]]>DATE_SUB(NOW(),
+					INTERVAL 7 DAY) AND CREATE_DATE<![CDATA[<=]]>NOW()
+				</when>
+
+				<when test="dateRange!=null and dateRange!='' and dateRange==2">
+					AND CREATE_DATE<![CDATA[>=]]>DATE_SUB(NOW(),
+					INTERVAL 1 MONTH) AND CREATE_DATE<![CDATA[<=]]>NOW()
+				</when>
+
+				<when test="dateRange!=null and dateRange!='' and dateRange==3">
+					AND CREATE_DATE<![CDATA[>=]]>DATE_SUB(NOW(),
+					INTERVAL 3 MONTH) AND CREATE_DATE<![CDATA[<=]]>NOW()
+				</when>
+
+				<when test="dateRange!=null and dateRange!='' and dateRange==4">
+					AND CREATE_DATE<![CDATA[>=]]>DATE_SUB(NOW(),
+					INTERVAL 6 MONTH) AND CREATE_DATE<![CDATA[<=]]>NOW()
+				</when>
+				<otherwise>
+				</otherwise>
+			</choose>
+
+			<!-- 根据起期和止期查询 -->
+			<if
+				test="orderStrtDate!= null and orderStrtDate!='' and orderEndDate!= null and orderEndDate!=''">
+				AND DATE(CREATE_DATE) BETWEEN #{orderStrtDate} and #{orderEndDate}
+
+			</if>
+
+			<!-- 根据保费金额查询 -->
+			<choose>
+				<when test="amountRange!=null and amountRange!='' and amountRange==1">
+					AND SUMPREMIUM BETWEEN '0' and '2000'
+				</when>
+
+				<when test="amountRange!=null and amountRange!='' and amountRange==2">
+					AND SUMPREMIUM BETWEEN '2000' and '5000'
+				</when>
+
+				<when test="amountRange!=null and amountRange!='' and amountRange==3">
+					AND SUMPREMIUM <![CDATA[>]]>'5000'
+				</when>
+				<otherwise>
+				</otherwise>
+			</choose>
+
+			<!-- 根据最低保费和最高保费查询 -->
+			<if
+				test="minPremium!= null and minPremium!='' and maxPremium!= null and maxPremium!=''">
+				AND SUMPREMIUM BETWEEN #{minPremium} and #{maxPremium}
+
+			</if>
+
+			<!-- 根据出单来源查询 -->
+			<choose>
+				<when test="runappID!=null and runappID!='' and runappID==1">
+					AND ISRUNAPP='0'
+				</when>
+
+				<when test="runappID!=null and runappID!='' and runappID==2">
+					AND ISRUNAPP not in ('0')
+				</when>
+
+				<otherwise>
+				</otherwise>
+			</choose>
+
+			<if test="keyword!= null and keyword!=''">
+				<bind name="name" value="'%'+keyword+'%'" />
+				and (APPLICANT_NAME like #{name} or license_plate_no like #{name} or
+				policy_no like #{name} or mobile_no like #{name})
+			</if>
+
+			<!-- 根据各入参条件查询 -->
+			<if test="userCode!= null and userCode!=''">
+				and (TS.USER_ID=#{userCode} or ts.handler_code = #{userCode})
+			</if>
+			<if test="insuranceType!= null and insuranceType!=''">
+				<if test="insuranceType ==2">
+					and TS.INSURANCE_TYPE=#{insuranceType} and TS.data_tag = 'group_main'
+				</if>
+				<if test="insuranceType !=2">
+					and TS.INSURANCE_TYPE=#{insuranceType} and TS.data_tag is null 
+				</if>
+			</if>
+
+			<if test="startDate!= null and startDate!=''">
+				and TS.CREATE_DATE <![CDATA[>=]]>
+				str_to_date(#{startDate}, 'yyyy-mm-dd')
+			</if>
+			<if test="endDate!= null and endDate!=''">
+				and TS.CREATE_DATE <![CDATA[<=]]>
+				str_to_date(#{endDate}, 'yyyy-mm-dd')+1
+			</if>
+			<if test="currentDate!= null and currentDate!=''">
+				and date_format(TS.CREATE_DATE,'yyyy-mm') =
+				#{currentDate}
+			</if>
+			<if test="insuranceCode!= null and insuranceCode!=''">
+				and TS.INSURANCE_CODE=#{insuranceCode}
+			</if>
+			<if test="insureNo!= null and insureNo!=''">
+				and
+				TS.INSURE_NO=#{insureNo}
+			</if>
+			<if test="applicantName!= null and applicantName!=''">
+				and TS.APPLICANT_NAME=#{applicantName}
+			</if>
+		</where>
+		order by TS.CREATE_DATE desc
+	</select>
+	
+	<select id="isBillAfterPay" parameterType="java.util.HashMap"  resultType="java.lang.Long">
+		 select if(ifnull(sum(bill_after_pay),0) > 0,1,0)  bill_after_pay from t_noncar_plan_org where if(under_org_code is null or length(under_org_code) = 0, org_code,under_org_code ) in (
+		select up_org_code from t_support_org_branch where org_code = #{comCode}
+		union all select  #{comCode}
+		)
+		and plan_id = #{planId}
+	</select>
+	
+	<select id="selectByOrderId"  parameterType="java.util.HashMap" resultType="com.ccic.salesapp.noncar.dto.order.Customer">
+	    SELECT
+			indi_age age,
+			CASE
+			indi_gender_code 
+			WHEN '2' THEN '0'
+			else indi_gender_code
+			END sex,
+			CASE
+			social_security_flag 
+			WHEN 'Y' THEN '1'
+			WHEN 'N' THEN '0'
+			END socialSecurityFlag,
+			customer_name customerName,
+			customer_role_code customerRoleCode,
+			indi_date_of_birth dateOfBirth,
+			indi_date_of_birth indiDateOfBirth,
+			id_type idType,
+			id_no idNo,
+			pol_holder_insured_rela_code polHolderInsuredRelaCode,
+			party_category partyCategory,
+			indi_mobile  indiMobile,
+			medical_insurance_code medicalInsuranceCode,
+			address,
+			full_address fullAddress
+		FROM
+			t_noncar_policy_customer 
+		WHERE
+			order_id = #{id}
+	</select>
+	
+	<select id="selectByOrderIdPaymentNoApply"  parameterType="java.lang.Long" resultType="java.util.HashMap">
+		SELECT
+			DISTINCT t1.id,
+			t1.order_no orderNo,
+			t1.policy_no policyNo,
+			t1.insure_no insureNo,
+			t1.plan_code planCode,
+			t2.product_name planName,
+			t1.sum_premium premium,
+			t1.com_code comCode,
+			t1.product_code productCode,
+			t1.start_date startDate
+		FROM
+			t_noncar_order t1 left join t_noncar_sales_plan_child t2 on t1.plan_code=t2.child_plan_code
+		WHERE
+			t1.relation_order_id = #{orderId}
+	</select>
+	
+	<select id="selectDataTagByOrderId"  parameterType="java.lang.Long" resultType="java.lang.String">
+		SELECT ifnull(data_tag,'') from t_noncar_order where id=#{id}
+	</select>
+	
+	<select id="selectSumPremiumByOrderId"  parameterType="java.lang.Long" resultType="java.util.HashMap">
+		SELECT sum_premium discountPremium,premium_before_discount duePremium from t_noncar_order where id = #{orderId}
+	</select>
+	
+	<select id="selectPremiumByOrderId"  parameterType="java.lang.Long" resultType="java.util.HashMap">
+		SELECT plan_code childPlanCode,PRODUCT_CODE `key`,sum_premium `value` from t_noncar_order where relation_order_id = #{order_id}
+	</select>
+	
+	 <update id="updateByRelationOrderId" parameterType="java.util.HashMap">
+	 	update t_noncar_order set order_status='6' where relation_order_id=#{id}
+	 </update>
+	
+	<update id="updateByInsureNo" parameterType="java.util.HashMap">
+		update t_noncar_order set order_status='6' where INSURE_NO=#{insureNo}
+	</update>
+	
+	<select id="selectPolicyList"  parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT * from t_noncar_order where is_group_plan=1
+		<if test="startDate != null">
+			and start_date>=#{startDate}
+		</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<select id="selectPolicyListCount"  parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		SELECT count(*) from t_noncar_order
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<select id="selectSaleNum"  parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		select count(1) from t_noncar_order where plan_code=#{planCode} and order_status=7
+	</select>
+		
+</mapper>

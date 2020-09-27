@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.SalesPlanChildMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.basedb.po.SalesPlanChild">
+    <id column="child_plan_id" jdbcType="INTEGER" property="childPlanId" />
+    <result column="child_plan_code" jdbcType="VARCHAR" property="childPlanCode" />
+    <result column="child_plan_name" jdbcType="VARCHAR" property="childPlanName" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="product_line" jdbcType="INTEGER" property="productLine" />
+    <result column="insurance_type" jdbcType="VARCHAR" property="insuranceType" />
+    <result column="master_product" jdbcType="VARCHAR" property="masterProduct" />
+    <result column="is_used" jdbcType="VARCHAR" property="isUsed" />
+    <result column="sales_plan_id" jdbcType="INTEGER" property="salesPlanId" />
+    <result column="policyform" jdbcType="VARCHAR" property="policyform" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMap2" type="com.ccic.salesapp.noncar.dto.salesplan.PlanChild">
+    <id column="child_plan_id" jdbcType="INTEGER" property="childPlanId" />
+    <result column="child_plan_code" jdbcType="VARCHAR" property="childPlanCode" />
+    <result column="child_plan_name" jdbcType="VARCHAR" property="childPlanName" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="product_line" jdbcType="INTEGER" property="productLine" />
+    <result column="insurance_type" jdbcType="VARCHAR" property="insuranceType" />
+    <result column="master_product" jdbcType="VARCHAR" property="masterProduct" />
+    <result column="is_used" jdbcType="VARCHAR" property="isUsed" />
+    <result column="sales_plan_id" jdbcType="INTEGER" property="salesPlanId" />
+    <result column="policyform" jdbcType="VARCHAR" property="policyform" />
+  </resultMap>
+  
+     
+  <sql id="Base_Column_List">
+    child_plan_id, child_plan_code, child_plan_name, product_code, product_name, product_line, insurance_type, 
+    master_product, is_used, sales_plan_id, policyform
+  </sql>
+  
+   <select id="selectByPrimaryKey2" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
+    select * from t_noncar_sales_plan_child where sales_plan_id = #{salesPlanId,jdbcType=INTEGER} ORDER BY sort
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_noncar_sales_plan_child
+    where child_plan_id = #{childPlanId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByChildPlanCode"  resultMap="BaseResultMap">
+    select 
+    c.child_plan_id, c.child_plan_code, c.child_plan_name, c.product_code, c.product_name, c.product_line, c.insurance_type, 
+    c.master_product, c.is_used, c.sales_plan_id, c.policyform
+    from 
+    t_noncar_sales_plan_child c
+	inner join t_noncar_sales_plan p on c.sales_plan_id = p.sales_plan_id 
+	where c.child_plan_code = #{childPlanCode}  and p.sales_plan_code = #{salesPlanCode} and p.group_plan_code = #{groupPlanCode}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_noncar_sales_plan_child
+    where child_plan_id = #{childPlanId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.SalesPlanChild">
+    insert into t_noncar_sales_plan_child (child_plan_id, child_plan_code, child_plan_name, 
+      product_code, product_name, product_line, 
+      insurance_type, master_product, is_used, 
+      sales_plan_id, policyform)
+    values (#{childPlanId,jdbcType=INTEGER}, #{childPlanCode,jdbcType=VARCHAR}, #{childPlanName,jdbcType=VARCHAR}, 
+      #{productCode,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, #{productLine,jdbcType=INTEGER}, 
+      #{insuranceType,jdbcType=VARCHAR}, #{masterProduct,jdbcType=VARCHAR}, #{isUsed,jdbcType=VARCHAR}, 
+      #{salesPlanId,jdbcType=INTEGER}, #{policyform,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insert2" parameterType="com.ccic.salesapp.noncar.dto.salesplan.PlanChild">
+    insert into t_noncar_sales_plan_child (child_plan_id, child_plan_code, child_plan_name, 
+      product_code, product_name, product_line, 
+      insurance_type, master_product, is_used, 
+      sales_plan_id, policyform)
+    values (#{childPlanId,jdbcType=INTEGER}, #{childPlanCode,jdbcType=VARCHAR}, #{childPlanName,jdbcType=VARCHAR}, 
+      #{productCode,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, #{productLine,jdbcType=INTEGER}, 
+      #{insuranceType,jdbcType=VARCHAR}, #{masterProduct,jdbcType=VARCHAR}, #{isUsed,jdbcType=VARCHAR}, 
+      #{salesPlanId,jdbcType=INTEGER}, #{policyform,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.SalesPlanChild">
+    insert into t_noncar_sales_plan_child
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="childPlanId != null">
+        child_plan_id,
+      </if>
+      <if test="childPlanCode != null">
+        child_plan_code,
+      </if>
+      <if test="childPlanName != null">
+        child_plan_name,
+      </if>
+      <if test="productCode != null">
+        product_code,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="productLine != null">
+        product_line,
+      </if>
+      <if test="insuranceType != null">
+        insurance_type,
+      </if>
+      <if test="masterProduct != null">
+        master_product,
+      </if>
+      <if test="isUsed != null">
+        is_used,
+      </if>
+      <if test="salesPlanId != null">
+        sales_plan_id,
+      </if>
+      <if test="policyform != null">
+        policyform,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="childPlanId != null">
+        #{childPlanId,jdbcType=INTEGER},
+      </if>
+      <if test="childPlanCode != null">
+        #{childPlanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="childPlanName != null">
+        #{childPlanName,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null">
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productLine != null">
+        #{productLine,jdbcType=INTEGER},
+      </if>
+      <if test="insuranceType != null">
+        #{insuranceType,jdbcType=VARCHAR},
+      </if>
+      <if test="masterProduct != null">
+        #{masterProduct,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null">
+        #{isUsed,jdbcType=VARCHAR},
+      </if>
+      <if test="salesPlanId != null">
+        #{salesPlanId,jdbcType=INTEGER},
+      </if>
+      <if test="policyform != null">
+        #{policyform,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.SalesPlanChild">
+    update t_noncar_sales_plan_child
+    <set>
+      <if test="childPlanCode != null">
+        child_plan_code = #{childPlanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="childPlanName != null">
+        child_plan_name = #{childPlanName,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null">
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productLine != null">
+        product_line = #{productLine,jdbcType=INTEGER},
+      </if>
+      <if test="insuranceType != null">
+        insurance_type = #{insuranceType,jdbcType=VARCHAR},
+      </if>
+      <if test="masterProduct != null">
+        master_product = #{masterProduct,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null">
+        is_used = #{isUsed,jdbcType=VARCHAR},
+      </if>
+      <if test="salesPlanId != null">
+        sales_plan_id = #{salesPlanId,jdbcType=INTEGER},
+      </if>
+      <if test="policyform != null">
+        policyform = #{policyform,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where child_Plan_Id = #{childPlanId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.SalesPlanChild">
+    update t_noncar_sales_plan_child
+    set child_plan_code = #{childPlanCode,jdbcType=VARCHAR},
+      child_plan_name = #{childPlanName,jdbcType=VARCHAR},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      product_line = #{productLine,jdbcType=INTEGER},
+      insurance_type = #{insuranceType,jdbcType=VARCHAR},
+      master_product = #{masterProduct,jdbcType=VARCHAR},
+      is_used = #{isUsed,jdbcType=VARCHAR},
+      sales_plan_id = #{salesPlanId,jdbcType=INTEGER},
+      policyform = #{policyform,jdbcType=VARCHAR}
+    where child_Plan_Id = #{childPlanId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="selectInsuredTypeListByChildPlanId" parameterType="java.lang.Integer" resultType="java.lang.String">
+	  select distinct co.insured_type from t_noncar_sales_plan_child ch
+	left join t_noncar_sales_coverage co on co.child_plan_id = ch.child_plan_id
+	where ch.child_plan_id =  #{childPlanId,jdbcType=INTEGER}
+  </select>
+</mapper>

@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.PlanStrategyMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.basedb.po.PlanStrategy">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="strategy_type" jdbcType="INTEGER" property="strategyType" />
+    <result column="is_main" jdbcType="INTEGER" property="isMain" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="has_element" jdbcType="INTEGER" property="hasElement" />
+    <result column="scene" jdbcType="VARCHAR" property="scene" />
+    <result column="crowd" jdbcType="VARCHAR" property="crowd" />
+    <result column="memo" jdbcType="VARCHAR" property="memo" />
+    <result column="publicity_info" jdbcType="VARCHAR" property="publicityInfo" />
+    <result column="plan_reverse" jdbcType="INTEGER" property="planReverse" />
+    <result column="plan_reverse_factor" jdbcType="VARCHAR" property="planReverseFactor" />
+    <result column="video_type" jdbcType="INTEGER" property="videoType" />
+    <result column="video_url" jdbcType="VARCHAR" property="videoUrl" />
+    <result column="share_able" jdbcType="INTEGER" property="shareAble" />
+    <result column="show_poster" jdbcType="INTEGER" property="showPoster" />
+    <result column="show_proposal" jdbcType="INTEGER" property="showProposal" />
+    <result column="need_sign" jdbcType="INTEGER" property="needSign" />
+    <result column="upload_photo" jdbcType="INTEGER" property="uploadPhoto" />
+    <result column="insure_type" jdbcType="VARCHAR" property="insureType" />
+    <result column="policy_start_type" jdbcType="INTEGER" property="policyStartType" />
+    <result column="policy_start_range" jdbcType="INTEGER" property="policyStartRange" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, strategy_type, is_main, code, name, has_element, scene, crowd,  memo, publicity_info, 
+    plan_reverse, plan_reverse_factor, video_type, video_url, share_able, show_poster, 
+    show_proposal, need_sign, upload_photo, insure_type, policy_start_type, 
+    policy_start_range, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_noncar_plan_strategy
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByStrategyCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_noncar_plan_strategy
+    where `code` = #{code,jdbcType=VARCHAR} and strategy_type = 1 and is_main = 1 and valid_status = 1 limit 1
+  </select>
+  
+  <select id="selectPlanIdsByStrategyIdUserCode" parameterType="java.util.HashMap" resultType="java.lang.Long">
+  	select id from t_noncar_plan_info where 
+  	(
+	  		(user_visible_range = 1 and id in
+	  			(
+			  	select c.plan_id from t_noncar_plan_channel c
+				 inner join (select plan_id from t_noncar_plan_org where if(under_org_code is null  or length(under_org_code) = 0,org_code,under_org_code) in (
+				select up_org_code from t_support_org_branch where org_code = #{comCode}
+				union all select  #{comCode}
+				)) o on c.plan_id = o.plan_id
+				 where channel_code = #{channelCode}
+				union all
+				select plan_id from t_noncar_plan_human where salesman_code = #{userCode}  and import_type = 1
+				)
+			)
+	or 
+		(
+		user_visible_range = 2 and id in (
+		select plan_id from t_noncar_plan_human where salesman_code = #{userCode} and import_type = 2
+	)
+		)
+	)
+	and strategy_id = #{strategyId} and `status` = 7 and record_status = 0 and put_on_method = 1
+  </select>
+  
+  <select id="planStrategyList" parameterType="com.ccic.salesapp.noncar.dto.product.request.ProductListRequest" resultType="com.ccic.salesapp.noncar.dto.StoreProduct" >
+  	<bind name="likeUserCode" value="'%'+userCode+'%'"></bind>
+  	select * from(
+		select s.id,s.code productCode,s.name productName,plan.premium_min productDesc, null productType, 'prIndex' productBuyUrl,
+		(select attach_url from t_noncar_plan_attach where record_status = '0' and biz_type = 'strategy' and biz_id = s.id  and attach_type = 'promotion_image' order by id asc limit 1) productImgUrl, null productExplain,null productRisk,null hotSale,null applicantAge ,null isHealinsurance ,'prIndex' path , null forPeopleStatus, 
+		s.memo `desc` , (select ifnull(sum(if(number_of_copys is null,1,number_of_copys)),0) from t_noncar_order where strategy_code = s.`code` and (order_status = 6 or order_status = 7)) saleSum  , null  isIssueAfterPay ,plan.publicity_info publicityInfo, plan.put_on_time,plan.strategy_id strategyId, 1 productSource
+	from (
+	select strategy_id ,min(put_on_time) put_on_time, min(premium_min) premium_min ,
+	concat('保障期间: ',
+	max((case gi_period_type when 1 then 365 when 2 then 30 when 3 then 1 else 1 end)* gi_coverage_period) /
+	(case min(gi_period_type) when 1 then 365 when 2 then 30 when 3 then 1 else 1 end) ,
+	(case min(gi_period_type) when 1 then '年' when 2 then '月' when 3 then '天' else '' end) ) publicity_info
+	from t_noncar_plan_info i 
+	left join t_noncar_plan_method me on  me.plan_id = i.id
+	where i.`status` = 7 and i.record_status = 0 and i.put_on_method = 1
+  	<if test='platformFlag!= null'>
+		and me.allow_partner_bill = 1
+	</if>
+	and ((i.user_visible_range = 1 and i.id in (
+	select c.plan_id from t_noncar_plan_channel c
+	 inner join (select plan_id from t_noncar_plan_org where if(under_org_code is null  or length(under_org_code) = 0,org_code,under_org_code) in (
+	select up_org_code from t_support_org_branch where org_code = #{comCode}
+	union all select  #{comCode}
+	)) o on c.plan_id = o.plan_id
+	 where channel_code = #{channelCode}
+	union all
+	select plan_id from t_noncar_plan_human where salesman_code = #{userCode} and import_type = 1
+	) )
+	<!-- 续保方案过滤 -->
+	and i.id not in ( select id from t_noncar_plan_info pi where pi.plan_code in (
+	select plan_code from  t_noncar_renewal_plan 
+	))
+	
+	or (
+	i.user_visible_range = 2 and i.id in (select plan_id from t_noncar_plan_human where salesman_code = #{userCode} and import_type = 2)
+	)
+	)
+	GROUP BY strategy_id
+	) plan 
+	left join t_noncar_plan_strategy s on s.id = plan.strategy_id
+	 where s.strategy_type = 1 and is_main = 1 and valid_status = 1
+	 
+	 	union all
+	 
+		SELECT a.id, a.product_code, product_name productName,product_desc,product_type,product_buy_url,product_img_url,
+		product_explain,product_risk,hot_sale,applicant_age,is_healinsurance,path,forPeople_status,`desc`
+		,(c.SALESUM + c.base_count) SALESUM, if(a.PRODUCT_CODE =
+		'YEF',if(ispay.isIssueAfterPay is null ,0,1),1) isIssueAfterPay,
+	null publicityInfo, a.create_time put_on_time,null strategyId, 0 productSource FROM
+		t_noncar_product a
+		left join (
+		select t.comcode isIssueAfterPay from (
+		select up_org_code comcode from t_support_org_branch where org_code =
+		#{comCode}
+		union
+		select #{comCode} ) t where t.comcode ${needPayComCode}
+		)
+		ispay on 1 = 1
+		left join
+		(select t.product_code, t.SALE_SUM base_count,
+		count(DISTINCT b.insure_no) SALESUM from
+		t_noncar_product t left join
+		T_NONCAR_INSUREINFO b on t.product_code = b.product_code
+		where
+		b.status
+		in(6,7) GROUP BY t.product_code ,t.SALE_SUM ) c on
+		c.product_code =
+		a.product_code
+		where a.state=1
+		
+		
+		and (a.com_code is null or exists (
+		select 1 from (
+		select up_org_code
+		comcode from t_support_org_branch where org_code =
+		#{comCode}
+		union
+		select concat('',#{comCode},'')
+		) C
+		where a.com_code like
+		concat('%',c.comcode,'%'))
+		)
+		and (a.user_code is null or a.user_code
+		like #{likeUserCode} )
+
+		) t
+		where 1= 1
+		<if test="keyWord!= null and keyWord!=''">
+			and t.productName like CONCAT(CONCAT('%',
+			#{keyWord}),'%')
+		</if>
+		
+		<if test="peopleList != null ">
+			and t.id in (
+			select strategy_id from t_noncar_strategy_range where range_type = 2  and `code`  in 
+			<foreach collection="peopleList" item="item" open="(" separator="," close=")">
+			#{item}
+			</foreach>
+			)
+		</if>
+		
+		<if test="productType != null ">
+			and (
+			(t.id in (
+			select strategy_id from t_noncar_strategy_range where range_type = 1  and code  = #{productType}
+			) and t.productSource = 1
+			)  
+			or (
+			 t.productSource = 0 
+			 <if test='productType!= null and productType=="01"'>
+				and t.productRisk = 1
+			</if>
+			<if test='productType!= null and productType=="02"'>
+				and t.productRisk = 2
+			</if>
+			<if test='productType!= null and productType!="01" and productType!="02" '>
+				and t.productRisk = #{productType}
+			</if>
+			)
+			)
+			
+		</if>
+		
+		<choose>
+			<when test="orderBy!= null and orderBy!='' and orderBy=='price' ">
+				order by (t.productDesc + 0)
+				<if test="asc != null and asc!=''  and asc=='desc' ">desc</if>
+			</when>
+
+			<when test="orderBy!= null and orderBy!='' and orderBy=='time' ">
+				order by t.put_on_time
+				<if test="asc != null and asc!=''  and asc=='desc' ">desc</if>
+			</when>
+			
+			<when test="orderBy!= null and orderBy!='' and orderBy=='salesnum' ">
+				order by t.SALESUM
+				<if test="asc != null and asc!=''  and asc=='desc' ">desc</if>
+			</when>
+			
+			<otherwise>
+				order by t.SALESUM DESC ,t.id DESC
+			</otherwise>
+		</choose>  
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_noncar_plan_strategy
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <select id="selectMustBeUploadImageTypesByStrategyId" parameterType="java.lang.Long" resultType="com.ccic.salesapp.noncar.feign.bean.ImageCheckResponse$ImageNodes">
+	  select code nodeId,name nodeName from t_noncar_strategy_range
+	  where strategy_id = #{strategyId,jdbcType=BIGINT} and range_type = 3
+  </select>
+  
+  
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.PlanStrategy">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_noncar_plan_strategy (strategy_type, is_main, code, 
+      name, has_element, scene, 
+      crowd,  memo, publicity_info, 
+      plan_reverse, plan_reverse_factor, video_type, 
+      video_url, share_able, show_poster, 
+      show_proposal, need_sign, upload_photo, 
+      insure_type, policy_start_type, 
+      policy_start_range, create_time, create_user, 
+      update_time, update_user)
+    values (#{strategyType,jdbcType=INTEGER}, #{isMain,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{hasElement,jdbcType=INTEGER}, #{scene,jdbcType=VARCHAR}, 
+      #{crowd,jdbcType=VARCHAR},  #{memo,jdbcType=VARCHAR}, #{publicityInfo,jdbcType=VARCHAR}, 
+      #{planReverse,jdbcType=INTEGER}, #{planReverseFactor,jdbcType=VARCHAR}, #{videoType,jdbcType=INTEGER}, 
+      #{videoUrl,jdbcType=VARCHAR}, #{shareAble,jdbcType=INTEGER}, #{showPoster,jdbcType=INTEGER}, 
+      #{showProposal,jdbcType=INTEGER}, #{needSign,jdbcType=INTEGER}, #{uploadPhoto,jdbcType=INTEGER}, 
+      #{insureType,jdbcType=VARCHAR}, #{policyStartType,jdbcType=INTEGER}, 
+      #{policyStartRange,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.PlanStrategy">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_noncar_plan_strategy
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="strategyType != null">
+        strategy_type,
+      </if>
+      <if test="isMain != null">
+        is_main,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="hasElement != null">
+        has_element,
+      </if>
+      <if test="scene != null">
+        scene,
+      </if>
+      <if test="crowd != null">
+        crowd,
+      </if>
+      <if test="memo != null">
+        memo,
+      </if>
+      <if test="publicityInfo != null">
+        publicity_info,
+      </if>
+      <if test="planReverse != null">
+        plan_reverse,
+      </if>
+      <if test="planReverseFactor != null">
+        plan_reverse_factor,
+      </if>
+      <if test="videoType != null">
+        video_type,
+      </if>
+      <if test="videoUrl != null">
+        video_url,
+      </if>
+      <if test="shareAble != null">
+        share_able,
+      </if>
+      <if test="showPoster != null">
+        show_poster,
+      </if>
+      <if test="showProposal != null">
+        show_proposal,
+      </if>
+      <if test="needSign != null">
+        need_sign,
+      </if>
+      <if test="uploadPhoto != null">
+        upload_photo,
+      </if>
+      <if test="insureType != null">
+        insure_type,
+      </if>
+      <if test="policyStartType != null">
+        policy_start_type,
+      </if>
+      <if test="policyStartRange != null">
+        policy_start_range,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="strategyType != null">
+        #{strategyType,jdbcType=INTEGER},
+      </if>
+      <if test="isMain != null">
+        #{isMain,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="hasElement != null">
+        #{hasElement,jdbcType=INTEGER},
+      </if>
+      <if test="scene != null">
+        #{scene,jdbcType=VARCHAR},
+      </if>
+      <if test="crowd != null">
+        #{crowd,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="publicityInfo != null">
+        #{publicityInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="planReverse != null">
+        #{planReverse,jdbcType=INTEGER},
+      </if>
+      <if test="planReverseFactor != null">
+        #{planReverseFactor,jdbcType=VARCHAR},
+      </if>
+      <if test="videoType != null">
+        #{videoType,jdbcType=INTEGER},
+      </if>
+      <if test="videoUrl != null">
+        #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="shareAble != null">
+        #{shareAble,jdbcType=INTEGER},
+      </if>
+      <if test="showPoster != null">
+        #{showPoster,jdbcType=INTEGER},
+      </if>
+      <if test="showProposal != null">
+        #{showProposal,jdbcType=INTEGER},
+      </if>
+      <if test="needSign != null">
+        #{needSign,jdbcType=INTEGER},
+      </if>
+      <if test="uploadPhoto != null">
+        #{uploadPhoto,jdbcType=INTEGER},
+      </if>
+      <if test="insureType != null">
+        #{insureType,jdbcType=VARCHAR},
+      </if>
+      <if test="policyStartType != null">
+        #{policyStartType,jdbcType=INTEGER},
+      </if>
+      <if test="policyStartRange != null">
+        #{policyStartRange,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.PlanStrategy">
+    update t_noncar_plan_strategy
+    <set>
+      <if test="strategyType != null">
+        strategy_type = #{strategyType,jdbcType=INTEGER},
+      </if>
+      <if test="isMain != null">
+        is_main = #{isMain,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="hasElement != null">
+        has_element = #{hasElement,jdbcType=INTEGER},
+      </if>
+      <if test="scene != null">
+        scene = #{scene,jdbcType=VARCHAR},
+      </if>
+      <if test="crowd != null">
+        crowd = #{crowd,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="publicityInfo != null">
+        publicity_info = #{publicityInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="planReverse != null">
+        plan_reverse = #{planReverse,jdbcType=INTEGER},
+      </if>
+      <if test="planReverseFactor != null">
+        plan_reverse_factor = #{planReverseFactor,jdbcType=VARCHAR},
+      </if>
+      <if test="videoType != null">
+        video_type = #{videoType,jdbcType=INTEGER},
+      </if>
+      <if test="videoUrl != null">
+        video_url = #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="shareAble != null">
+        share_able = #{shareAble,jdbcType=INTEGER},
+      </if>
+      <if test="showPoster != null">
+        show_poster = #{showPoster,jdbcType=INTEGER},
+      </if>
+      <if test="showProposal != null">
+        show_proposal = #{showProposal,jdbcType=INTEGER},
+      </if>
+      <if test="needSign != null">
+        need_sign = #{needSign,jdbcType=INTEGER},
+      </if>
+      <if test="uploadPhoto != null">
+        upload_photo = #{uploadPhoto,jdbcType=INTEGER},
+      </if>
+      <if test="insureType != null">
+        insure_type = #{insureType,jdbcType=VARCHAR},
+      </if>
+      <if test="policyStartType != null">
+        policy_start_type = #{policyStartType,jdbcType=INTEGER},
+      </if>
+      <if test="policyStartRange != null">
+        policy_start_range = #{policyStartRange,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.PlanStrategy">
+    update t_noncar_plan_strategy
+    set strategy_type = #{strategyType,jdbcType=INTEGER},
+      is_main = #{isMain,jdbcType=INTEGER},
+      code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      has_element = #{hasElement,jdbcType=INTEGER},
+      scene = #{scene,jdbcType=VARCHAR},
+      crowd = #{crowd,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      publicity_info = #{publicityInfo,jdbcType=VARCHAR},
+      plan_reverse = #{planReverse,jdbcType=INTEGER},
+      plan_reverse_factor = #{planReverseFactor,jdbcType=VARCHAR},
+      video_type = #{videoType,jdbcType=INTEGER},
+      video_url = #{videoUrl,jdbcType=VARCHAR},
+      share_able = #{shareAble,jdbcType=INTEGER},
+      show_poster = #{showPoster,jdbcType=INTEGER},
+      show_proposal = #{showProposal,jdbcType=INTEGER},
+      need_sign = #{needSign,jdbcType=INTEGER},
+      upload_photo = #{uploadPhoto,jdbcType=INTEGER},
+      insure_type = #{insureType,jdbcType=VARCHAR},
+      policy_start_type = #{policyStartType,jdbcType=INTEGER},
+      policy_start_range = #{policyStartRange,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

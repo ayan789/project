@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.performance.repository.basedb.mapper.StoreUserInfoMapper">
+
+
+    <resultMap type="com.ccic.salesapp.performance.domain.vo.dto.StoreUserInfo" id="StoreUserInfoRs">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="STORE_CODE"   property="storeCode" />
+    <result column="STORE_NAME"         property="storeName" />
+    <result column="STORE_REGION_CODE"        property="storeRegionCode" />
+    <result column="STORE_STATE"   property="storeState" />
+    <result column="USER_CODE"       property="userCode" />
+    <result column="USER_NAME"        property="userName" />
+    <result column="USER_COMCODE"   property="userComCode" />
+    <result column="USER_TYPE"   property="userType" />
+    <result column="CREATE_DATE"     property="createDate" />
+    <result column="USER_TEL"   property="userTel" />
+  </resultMap>
+
+   <update id="upUserTel"  parameterType="java.util.Map">
+ 	update t_nocar_store set  USER_TEL=#{userTel} where  USER_CODE=#{userCode}
+ </update>
+ 
+ 
+  <resultMap type="com.ccic.salesapp.performance.domain.vo.dto.UserInfo" id="userinfoRs">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="USER_CODE"       property="userCode" />
+    <result column="USER_NAME"        property="userName" />
+    <result column="USER_ENAME"   property="userEname" />
+    <result column="DEPT_NAME"   property="deptName" />
+    <result column="DEPT_CODE_MAKE"   property="deptCodeMake" />
+    <result column="DEPT_NAME_MAKE"   property="deptNameMake" />
+    <result column="USER_TEL"   property="userTel" />
+  </resultMap>
+ 
+<!--  <select id="selectByUser" resultMap="userinfoRs"  parameterType="java.util.Map"> -->
+<!--  select * from t_user_info where  USER_CODE=#{userCode} -->
+<!--  </select> -->
+</mapper>

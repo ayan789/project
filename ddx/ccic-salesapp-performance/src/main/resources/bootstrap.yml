@@ -1,0 +1,113 @@
+server:
+  tomcat:
+    basedir: /opt/app/tomcat/temp/${spring.application.name}
+  port: ${SERVER_PORT}
+eureka:
+  instance:
+      prefer-ip-address: true
+      instance-id: ${spring.application.name}:${server.port}
+      lease-expiration-duration-in-seconds: 180
+      lease-renewal-interval-in-seconds: 60
+  client:
+    fetch-registry: true
+    registry-fetch-interval-seconds: 5
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL}
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: ${TIMEOUT.IN.MILLISECONDS}
+ribbon:
+  ConnectTimeout: ${TIMEOUT.IN.MILLISECONDS}
+  ReadTimeout: ${TIMEOUT.IN.MILLISECONDS}
+  OkToRetryOnAllOperations: false
+  MaxAutoRetriesNextServer: 0
+  MaxAutoRetries: 0
+feign:
+  hystrix:
+    enabled: true
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+  redis:
+    password: ${REDIS.PASSWORD}
+    sentinel:
+      master: ${REDIS.MASTER}
+      nodes: ${REDIS.NODES}
+    lettuce:
+      pool:
+        max-active: ${REDIS.MAXACTIVE}
+        max-idle: ${REDIS.MAXIDLE}
+        max-wait: -1ms
+        min-idle: ${REDIS.MINIDLE}
+  profiles:
+    active: dev
+  servlet:
+      multipart:
+        max-request-size: 20MB
+        max-file-size: 10MB
+  thymeleaf:
+    cache: false
+    check-template-location: false
+  freemarker:
+    check-template-location: false
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: CCIC-SALESAPP-PERFORMANCE
+logging:
+  level:
+    com.ccic.salesapp.performance: debug
+esb:
+  address:
+    saleslawevaluationqueryservicerest: ${ESB_HOST}/saleslawevaluationqueryservicerest/Restful
+    salesLawSalaryListQuery: ${ESB_HOST}/saleslawsalarylistqueryservicerest/Restful
+    paymentNoApplyServiceURL: ${ESB_HOST}/PaymentNoApplyService
+    sendSmsServiceURL: ${ESB_HOST}/SendSmsService
+    planFeeInquiryServiceURL: ${ESB_HOST}/PlanFeeInquiryService
+    withdrawalsServiceURL: ${ESB_HOST}/WithdrawalsService
+    sendsimplemessageservicerest: ${ESB_HOST}/sendsimplemessageservicerest/Restful
+  consumerId:
+    performance: ${ESB_CONSUMERID_PERFORMANCE}
+sonic:
+  platform:
+    mybatis:
+      mapper-locations: classpath:/mappers/*Mapper.xml
+      configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    datasource:
+      jdbc-url: ${DB.URL}
+      username: ${DB.USERNAME}
+      password: ${DB.PASSWORD}
+      driver-class: com.mysql.cj.jdbc.Driver
+      min-idle: ${DB.MINIDLE}
+      max-active: ${DB.MAXACTIVE}
+      initial-size: ${DB.INITIALSIZE}
+    api:
+      title: 业绩服务文档
+      description: 业绩服务文档
+      version: 1.0.0
+      enabled: ${API.ENABLED}
+      headers:
+        X-Access-Id: AccessId
+        X-Access-Token: 用户Token
+    filter:
+      # 请求解密开关
+      decrypt-switch: ${DECRYPT.SWITCH}
+      # 登录拦截器开关
+      login-switch: ${LOGIN.SWITCH}
+      # 返回加密开关
+      encrypt-switch: ${ENCRYPT.SWITCH}
+      # 不解密URI
+      not-decrypt-uri: ${NOT.DECRYPT.URI}
+      # 不加密URI
+      not-encrypt-uri: ${NOT.ENCRYPT.URI}
+      # 不登录拦截URI
+      not-login-uri: ${NOT.LOGIN.URI}
+    interface:
+      consumer-id: ${ESB_CONSUMERID}

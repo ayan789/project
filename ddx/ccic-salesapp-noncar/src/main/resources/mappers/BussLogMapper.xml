@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.BussLogMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.basedb.po.BussLog">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="buss_no" jdbcType="VARCHAR" property="bussNo" />
+    <result column="log_cat" jdbcType="VARCHAR" property="logCat" />
+    <result column="log_info" jdbcType="VARCHAR" property="logInfo" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.BussLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_noncar_buss_log (buss_no, log_cat, log_info, 
+      create_user, create_time)
+    values (#{bussNo,jdbcType=VARCHAR}, #{logCat,jdbcType=VARCHAR}, #{logInfo,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.BussLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_noncar_buss_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bussNo != null">
+        buss_no,
+      </if>
+      <if test="logCat != null">
+        log_cat,
+      </if>
+      <if test="logInfo != null">
+        log_info,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bussNo != null">
+        #{bussNo,jdbcType=VARCHAR},
+      </if>
+      <if test="logCat != null">
+        #{logCat,jdbcType=VARCHAR},
+      </if>
+      <if test="logInfo != null">
+        #{logInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

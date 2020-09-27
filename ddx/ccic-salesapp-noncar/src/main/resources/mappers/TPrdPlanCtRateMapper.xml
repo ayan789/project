@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanCtRateMapper">
+	<resultMap id="BaseResultMap"
+		type="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCtRate">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="plan_Ct_Rate_Id" property="planCtRateId"
+			jdbcType="BIGINT" />
+		<result column="plan_Coverage_Id" property="planCoverageId"
+			jdbcType="BIGINT" />
+		<result column="rate_Type" property="rateType" jdbcType="VARCHAR" />
+		<result column="rate_Period" property="ratePeriod" jdbcType="VARCHAR" />
+		<result column="rate_Age_Max_Type" property="rateAgeMaxType"
+			jdbcType="VARCHAR" />
+		<result column="rate_Age_Max" property="rateAgeMax" jdbcType="VARCHAR" />
+		<result column="rate_Age_Min_Type" property="rateAgeMinType"
+			jdbcType="VARCHAR" />
+		<result column="rate_Age_Min" property="rateAgeMin" jdbcType="BIGINT" />
+		<result column="rate_Sex" property="rateSex" jdbcType="VARCHAR" />
+		<result column="rate_Occupation_Type" property="rateOccupationType"
+			jdbcType="VARCHAR" />
+		<result column="rate_Social_Security_Flag" property="rateSocialSecurityFlag"
+			jdbcType="VARCHAR" />
+		<result column="rate_Seat_Max" property="rateSeatMax" jdbcType="BIGINT" />
+		<result column="rate_Seat_Min" property="rateSeatMin" jdbcType="BIGINT" />
+		<result column="period_Max" property="periodMax" jdbcType="BIGINT" />
+		<result column="period_Min" property="periodMin" jdbcType="BIGINT" />
+		<result column="period_Premium_Rate" property="periodPremiumRate"
+			jdbcType="DECIMAL" />
+		<result column="period_Min_Rate" property="periodMinRate"
+			jdbcType="DECIMAL" />
+		<result column="period_Max_Rate" property="periodMaxRate"
+			jdbcType="DECIMAL" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, plan_Ct_Rate_Id, plan_Coverage_Id, rate_Type, rate_Period,
+		rate_Age_Max_Type,
+		rate_Age_Max, rate_Age_Min_Type, rate_Age_Min, rate_Sex, rate_Occupation_Type,
+		rate_Social_Security_Flag,
+		rate_Seat_Max, rate_Seat_Min, period_Max, period_Min, period_Premium_Rate,
+		period_Min_Rate,
+		period_Max_Rate
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_prd_plan_ct_rate
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_prd_plan_ct_rate
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCtRate">
+		insert into t_prd_plan_ct_rate (id, plan_Ct_Rate_Id, plan_Coverage_Id,
+		rate_Type, rate_Period, rate_Age_Max_Type,
+		rate_Age_Max, rate_Age_Min_Type, rate_Age_Min,
+		rate_Sex, rate_Occupation_Type, rate_Social_Security_Flag,
+		rate_Seat_Max, rate_Seat_Min, period_Max,
+		period_Min, period_Premium_Rate, period_Min_Rate,
+		period_Max_Rate)
+		values (#{id,jdbcType=BIGINT}, #{planCtRateId,jdbcType=BIGINT},
+		#{planCoverageId,jdbcType=BIGINT},
+		#{rateType,jdbcType=VARCHAR}, #{ratePeriod,jdbcType=VARCHAR}, #{rateAgeMaxType,jdbcType=VARCHAR},
+		#{rateAgeMax,jdbcType=VARCHAR}, #{rateAgeMinType,jdbcType=VARCHAR},
+		#{rateAgeMin,jdbcType=BIGINT},
+		#{rateSex,jdbcType=VARCHAR}, #{rateOccupationType,jdbcType=VARCHAR},
+		#{rateSocialSecurityFlag,jdbcType=VARCHAR},
+		#{rateSeatMax,jdbcType=BIGINT}, #{rateSeatMin,jdbcType=BIGINT},
+		#{periodMax,jdbcType=BIGINT},
+		#{periodMin,jdbcType=BIGINT}, #{periodPremiumRate,jdbcType=DECIMAL},
+		#{periodMinRate,jdbcType=DECIMAL},
+		#{periodMaxRate,jdbcType=DECIMAL})
+		ON DUPLICATE KEY UPDATE
+		plan_Ct_Rate_Id=VALUES(plan_Ct_Rate_Id),
+		plan_Coverage_Id=VALUES(plan_Coverage_Id),
+		rate_Type=VALUES(rate_Type),
+		rate_Period=VALUES(rate_Period),
+		rate_Age_Max_Type=VALUES(rate_Age_Max_Type),
+		rate_Age_Max=VALUES(rate_Age_Max),
+		rate_Age_Min_Type=VALUES(rate_Age_Min_Type),
+		rate_Age_Min=VALUES(rate_Age_Min),
+		rate_Sex=VALUES(rate_Sex),
+		rate_Occupation_Type=VALUES(rate_Occupation_Type),
+		rate_Social_Security_Flag=VALUES(rate_Social_Security_Flag),
+		rate_Seat_Max=VALUES(rate_Seat_Max),
+		rate_Seat_Min=VALUES(rate_Seat_Min),
+		period_Max=VALUES(period_Max),
+		period_Min=VALUES(period_Min),
+		period_Premium_Rate=VALUES(period_Premium_Rate),
+		period_Min_Rate=VALUES(period_Min_Rate),
+		period_Max_Rate=VALUES(period_Max_Rate)
+
+	</insert>
+	
+	<delete id="deletePlanCtRateById"	parameterType="java.lang.Long">
+		delete from t_prd_plan_ct_rate where plan_coverage_id =#{planCoverageId}
+	</delete>
+	
+	
+	<insert id="insertSelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCtRate">
+		insert into t_prd_plan_ct_rate
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="planCtRateId != null">
+				plan_Ct_Rate_Id,
+			</if>
+			<if test="planCoverageId != null">
+				plan_Coverage_Id,
+			</if>
+			<if test="rateType != null">
+				rate_Type,
+			</if>
+			<if test="ratePeriod != null">
+				rate_Period,
+			</if>
+			<if test="rateAgeMaxType != null">
+				rate_Age_Max_Type,
+			</if>
+			<if test="rateAgeMax != null">
+				rate_Age_Max,
+			</if>
+			<if test="rateAgeMinType != null">
+				rate_Age_Min_Type,
+			</if>
+			<if test="rateAgeMin != null">
+				rate_Age_Min,
+			</if>
+			<if test="rateSex != null">
+				rate_Sex,
+			</if>
+			<if test="rateOccupationType != null">
+				rate_Occupation_Type,
+			</if>
+			<if test="rateSocialSecurityFlag != null">
+				rate_Social_Security_Flag,
+			</if>
+			<if test="rateSeatMax != null">
+				rate_Seat_Max,
+			</if>
+			<if test="rateSeatMin != null">
+				rate_Seat_Min,
+			</if>
+			<if test="periodMax != null">
+				period_Max,
+			</if>
+			<if test="periodMin != null">
+				period_Min,
+			</if>
+			<if test="periodPremiumRate != null">
+				period_Premium_Rate,
+			</if>
+			<if test="periodMinRate != null">
+				period_Min_Rate,
+			</if>
+			<if test="periodMaxRate != null">
+				period_Max_Rate,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="planCtRateId != null">
+				#{planCtRateId,jdbcType=BIGINT},
+			</if>
+			<if test="planCoverageId != null">
+				#{planCoverageId,jdbcType=BIGINT},
+			</if>
+			<if test="rateType != null">
+				#{rateType,jdbcType=VARCHAR},
+			</if>
+			<if test="ratePeriod != null">
+				#{ratePeriod,jdbcType=VARCHAR},
+			</if>
+			<if test="rateAgeMaxType != null">
+				#{rateAgeMaxType,jdbcType=VARCHAR},
+			</if>
+			<if test="rateAgeMax != null">
+				#{rateAgeMax,jdbcType=VARCHAR},
+			</if>
+			<if test="rateAgeMinType != null">
+				#{rateAgeMinType,jdbcType=VARCHAR},
+			</if>
+			<if test="rateAgeMin != null">
+				#{rateAgeMin,jdbcType=BIGINT},
+			</if>
+			<if test="rateSex != null">
+				#{rateSex,jdbcType=VARCHAR},
+			</if>
+			<if test="rateOccupationType != null">
+				#{rateOccupationType,jdbcType=VARCHAR},
+			</if>
+			<if test="rateSocialSecurityFlag != null">
+				#{rateSocialSecurityFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="rateSeatMax != null">
+				#{rateSeatMax,jdbcType=BIGINT},
+			</if>
+			<if test="rateSeatMin != null">
+				#{rateSeatMin,jdbcType=BIGINT},
+			</if>
+			<if test="periodMax != null">
+				#{periodMax,jdbcType=BIGINT},
+			</if>
+			<if test="periodMin != null">
+				#{periodMin,jdbcType=BIGINT},
+			</if>
+			<if test="periodPremiumRate != null">
+				#{periodPremiumRate,jdbcType=DECIMAL},
+			</if>
+			<if test="periodMinRate != null">
+				#{periodMinRate,jdbcType=DECIMAL},
+			</if>
+			<if test="periodMaxRate != null">
+				#{periodMaxRate,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCtRate">
+		update t_prd_plan_ct_rate
+		<set>
+			<if test="planCtRateId != null">
+				plan_Ct_Rate_Id = #{planCtRateId,jdbcType=BIGINT},
+			</if>
+			<if test="planCoverageId != null">
+				plan_Coverage_Id = #{planCoverageId,jdbcType=BIGINT},
+			</if>
+			<if test="rateType != null">
+				rate_Type = #{rateType,jdbcType=VARCHAR},
+			</if>
+			<if test="ratePeriod != null">
+				rate_Period = #{ratePeriod,jdbcType=VARCHAR},
+			</if>
+			<if test="rateAgeMaxType != null">
+				rate_Age_Max_Type = #{rateAgeMaxType,jdbcType=VARCHAR},
+			</if>
+			<if test="rateAgeMax != null">
+				rate_Age_Max = #{rateAgeMax,jdbcType=VARCHAR},
+			</if>
+			<if test="rateAgeMinType != null">
+				rate_Age_Min_Type = #{rateAgeMinType,jdbcType=VARCHAR},
+			</if>
+			<if test="rateAgeMin != null">
+				rate_Age_Min = #{rateAgeMin,jdbcType=BIGINT},
+			</if>
+			<if test="rateSex != null">
+				rate_Sex = #{rateSex,jdbcType=VARCHAR},
+			</if>
+			<if test="rateOccupationType != null">
+				rate_Occupation_Type = #{rateOccupationType,jdbcType=VARCHAR},
+			</if>
+			<if test="rateSocialSecurityFlag != null">
+				rate_Social_Security_Flag =
+				#{rateSocialSecurityFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="rateSeatMax != null">
+				rate_Seat_Max = #{rateSeatMax,jdbcType=BIGINT},
+			</if>
+			<if test="rateSeatMin != null">
+				rate_Seat_Min = #{rateSeatMin,jdbcType=BIGINT},
+			</if>
+			<if test="periodMax != null">
+				period_Max = #{periodMax,jdbcType=BIGINT},
+			</if>
+			<if test="periodMin != null">
+				period_Min = #{periodMin,jdbcType=BIGINT},
+			</if>
+			<if test="periodPremiumRate != null">
+				period_Premium_Rate = #{periodPremiumRate,jdbcType=DECIMAL},
+			</if>
+			<if test="periodMinRate != null">
+				period_Min_Rate = #{periodMinRate,jdbcType=DECIMAL},
+			</if>
+			<if test="periodMaxRate != null">
+				period_Max_Rate = #{periodMaxRate,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCtRate">
+		update t_prd_plan_ct_rate
+		set plan_Ct_Rate_Id = #{planCtRateId,jdbcType=BIGINT},
+		plan_Coverage_Id = #{planCoverageId,jdbcType=BIGINT},
+		rate_Type = #{rateType,jdbcType=VARCHAR},
+		rate_Period = #{ratePeriod,jdbcType=VARCHAR},
+		rate_Age_Max_Type = #{rateAgeMaxType,jdbcType=VARCHAR},
+		rate_Age_Max = #{rateAgeMax,jdbcType=VARCHAR},
+		rate_Age_Min_Type = #{rateAgeMinType,jdbcType=VARCHAR},
+		rate_Age_Min = #{rateAgeMin,jdbcType=BIGINT},
+		rate_Sex = #{rateSex,jdbcType=VARCHAR},
+		rate_Occupation_Type = #{rateOccupationType,jdbcType=VARCHAR},
+		rate_Social_Security_Flag = #{rateSocialSecurityFlag,jdbcType=VARCHAR},
+		rate_Seat_Max = #{rateSeatMax,jdbcType=BIGINT},
+		rate_Seat_Min = #{rateSeatMin,jdbcType=BIGINT},
+		period_Max = #{periodMax,jdbcType=BIGINT},
+		period_Min = #{periodMin,jdbcType=BIGINT},
+		period_Premium_Rate = #{periodPremiumRate,jdbcType=DECIMAL},
+		period_Min_Rate = #{periodMinRate,jdbcType=DECIMAL},
+		period_Max_Rate = #{periodMaxRate,jdbcType=DECIMAL}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

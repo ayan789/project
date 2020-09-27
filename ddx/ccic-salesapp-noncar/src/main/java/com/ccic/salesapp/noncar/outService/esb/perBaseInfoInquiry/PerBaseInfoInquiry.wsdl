@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions name="PerBaseInfoInquiryService"
+                  targetNamespace="http://service.ccic.com/ecif/perbaseinfoinquiry/intf"
+                  xmlns:ns1="http://service.ccic.com/ecif/perbaseinfoinquiry/bean"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://service.ccic.com/ecif/perbaseinfoinquiry/intf"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://service.ccic.com/ecif/perbaseinfoinquiry/bean" xmlns:ns1="http://service.ccic.com/common/bean" xmlns:tns="http://service.ccic.com/ecif/perbaseinfoinquiry/bean" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:import namespace="http://service.ccic.com/common/bean"/>
+<xs:element name="PerBaseInfoInquiryRequest">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="requestHead" type="ns1:RequestHeadDTO"/>
+<xs:element name="requestBody" type="tns:PerBaseInfoInquiryRequestDTO"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="PerBaseInfoInquiryResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="responseHead" type="ns1:ResponseHeadDTO"/>
+<xs:element minOccurs="0" name="responseBody" type="tns:PerBaseInfoInquiryResponseDTO"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="requestBody" type="tns:PerBaseInfoInquiryRequestDTO"/>
+<xs:element name="requestHead" type="ns1:RequestHeadDTO"/>
+<xs:element name="responseBody" type="tns:PerBaseInfoInquiryResponseDTO"/>
+<xs:element name="responseHead" type="ns1:ResponseHeadDTO"/>
+<xs:complexType name="PerBaseInfoInquiryRequestDTO">
+<xs:sequence>
+<xs:element name="custNo" type="xs:long"/>
+<xs:element name="role" type="xs:string"/>
+<xs:element minOccurs="0" name="comCode" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="PerBaseInfoInquiryResponseDTO">
+<xs:sequence>
+<xs:element minOccurs="0" name="perCustBaseInfo" type="tns:PerCustBaseInfoDTO"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="PerCustBaseInfoDTO">
+<xs:sequence>
+<xs:element minOccurs="0" name="custNo" type="xs:long"/>
+<xs:element minOccurs="0" name="typeId" type="xs:int"/>
+<xs:element minOccurs="0" name="custName" type="xs:string"/>
+<xs:element minOccurs="0" name="identifyType" type="xs:string"/>
+<xs:element minOccurs="0" name="identifyNumber" type="xs:string"/>
+<xs:element minOccurs="0" name="birthday" type="xs:date"/>
+<xs:element minOccurs="0" name="nationality" type="xs:string"/>
+<xs:element minOccurs="0" name="language" type="xs:string"/>
+<xs:element minOccurs="0" name="ethnicGroup" type="xs:string"/>
+<xs:element minOccurs="0" name="sex" type="xs:string"/>
+<xs:element minOccurs="0" name="educationCode" type="xs:string"/>
+<xs:element minOccurs="0" name="unit" type="xs:string"/>
+<xs:element minOccurs="0" name="unitType" type="xs:string"/>
+<xs:element minOccurs="0" name="insuredStatus" type="xs:string"/>
+<xs:element minOccurs="0" name="insuredStatusChgDate" type="xs:date"/>
+<xs:element minOccurs="0" name="healthStatus" type="xs:string"/>
+<xs:element minOccurs="0" name="healthStatusChgDate" type="xs:date"/>
+<xs:element minOccurs="0" name="jobStatus" type="xs:string"/>
+<xs:element minOccurs="0" name="jobStatusChgDate" type="xs:date"/>
+<xs:element minOccurs="0" name="mobile" type="xs:string"/>
+<xs:element minOccurs="0" name="telephone" type="xs:string"/>
+<xs:element minOccurs="0" name="marriage" type="xs:string"/>
+<xs:element minOccurs="0" name="spouseName" type="xs:string"/>
+<xs:element minOccurs="0" name="spouseId" type="xs:string"/>
+<xs:element minOccurs="0" name="selfMonthIncome" type="xs:string"/>
+<xs:element minOccurs="0" name="custRecordDate" type="xs:date"/>
+<xs:element minOccurs="0" name="custEndDate" type="xs:date"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema><xs:schema elementFormDefault="qualified" targetNamespace="http://service.ccic.com/common/bean" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:complexType name="RequestHeadDTO">
+<xs:sequence>
+<xs:element minOccurs="0" name="seqNo" type="xs:string"/>
+<xs:element minOccurs="0" name="consumerSeqNo" type="xs:string"/>
+<xs:element name="consumerID" type="xs:string"/>
+<xs:element minOccurs="0" name="providerID" type="xs:string"/>
+<xs:element minOccurs="0" name="classCode" type="xs:string"/>
+<xs:element minOccurs="0" name="riskCode" type="xs:string"/>
+<xs:element minOccurs="0" name="regionCode" type="xs:string"/>
+<xs:element minOccurs="0" name="version" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ResponseHeadDTO">
+<xs:sequence>
+<xs:element minOccurs="0" name="seqNo" type="xs:string"/>
+<xs:element minOccurs="0" name="consumerSeqNo" type="xs:string"/>
+<xs:element minOccurs="0" name="providerSeqNo" type="xs:string"/>
+<xs:element name="status" type="xs:int"/>
+<xs:element minOccurs="0" name="esbCode" type="xs:string"/>
+<xs:element minOccurs="0" name="esbMessage" type="xs:string"/>
+<xs:element minOccurs="0" name="appCode" type="xs:string"/>
+<xs:element minOccurs="0" name="appMessage" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>  </wsdl:types>
+  <wsdl:message name="processResponse">
+    <wsdl:part element="ns1:PerBaseInfoInquiryResponse" name="PerBaseInfoInquiryResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="process">
+    <wsdl:part element="ns1:PerBaseInfoInquiryRequest" name="PerBaseInfoInquiryRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PerBaseInfoInquiry">
+    <wsdl:operation name="process">
+      <wsdl:input message="tns:process" name="process">
+    </wsdl:input>
+      <wsdl:output message="tns:processResponse" name="processResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PerBaseInfoInquiryServiceSoapBinding" type="tns:PerBaseInfoInquiry">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="process">
+      <soap:operation soapAction="/ecif/perbaseinfoinquiry" style="document"/>
+      <wsdl:input name="process">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="processResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PerBaseInfoInquiryService">
+    <wsdl:port binding="tns:PerBaseInfoInquiryServiceSoapBinding" name="PerBaseInfoInquiryEndpoint">
+      <soap:address location="http://10.1.13.183:7001/ecif/services/PerBaseInfoInquiry"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

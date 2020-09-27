@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanMethodMapper">
+	<resultMap id="BaseResultMap"
+		type="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanMethod">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="BUIZ_BUSINESS_LINE" property="buizBusinessLine"
+			jdbcType="BIGINT" />
+		<result column="BUIZ_PRODUCT_LINE" property="buizProductLine"
+			jdbcType="BIGINT" />
+		<result column="BUIZ_PRODUCT_ID" property="buizProductId"
+			jdbcType="BIGINT" />
+		<result column="VEHICLE_USE_NATURE_CODE" property="vehicleUseNatureCode"
+			jdbcType="VARCHAR" />
+		<result column="INSURED_AGE" property="insuredAge" jdbcType="VARCHAR" />
+		<result column="INSURED_AGE_UPPERTYPE" property="insuredAgeUppertype"
+			jdbcType="VARCHAR" />
+		<result column="INSURED_AGE_UPPERLIMIT" property="insuredAgeUpperlimit"
+			jdbcType="BIGINT" />
+		<result column="INSURED_AGE_LOWERTYPE" property="insuredAgeLowertype"
+			jdbcType="VARCHAR" />
+		<result column="INSURED_AGE_LOWERLIMIT" property="insuredAgeLowerlimit"
+			jdbcType="BIGINT" />
+		<result column="INSURED_SEX" property="insuredSex" jdbcType="VARCHAR" />
+		<result column="INSURED_OCCUPATION_TYPE" property="insuredOccupationType"
+			jdbcType="VARCHAR" />
+		<result column="ID_INFO" property="idInfo" jdbcType="VARCHAR" />
+		<result column="CHANNEL_INFO" property="channelInfo" jdbcType="VARCHAR" />
+		<result column="NEW_VEHICLE_PURCHASE_PRICE" property="newVehiclePurchasePrice"
+			jdbcType="VARCHAR" />
+		<result column="REAL_VALUE" property="realValue" jdbcType="VARCHAR" />
+		<result column="BRAND_CODE" property="brandCode" jdbcType="VARCHAR" />
+		<result column="MODEL_CATE_CODE" property="modelCateCode"
+			jdbcType="VARCHAR" />
+		<result column="RENEW_FLAG" property="renewFlag" jdbcType="VARCHAR" />
+		<result column="VEHICLE_PREMIUM" property="vehiclePremium"
+			jdbcType="VARCHAR" />
+		<result column="HEALTH_STATUS" property="healthStatus"
+			jdbcType="VARCHAR" />
+		<result column="CUSTOMER_LEVEL" property="customerLevel"
+			jdbcType="VARCHAR" />
+		<result column="PREMIUM_CAR" property="premiumCar" jdbcType="VARCHAR" />
+		<result column="RATE_SEAT_MAX" property="rateSeatMax" jdbcType="BIGINT" />
+		<result column="RATE_SEAT_MIN" property="rateSeatMin" jdbcType="BIGINT" />
+		<result column="PLAN_METHOD_ID" property="planMethodId"
+			jdbcType="BIGINT" />
+		<result column="PLAN_DEF_ID" property="planDefId" jdbcType="BIGINT" />
+		<result column="METHOD_CODE" property="methodCode" jdbcType="VARCHAR" />
+		<result column="METHOD_PARENT_CODE" property="methodParentCode"
+			jdbcType="VARCHAR" />
+		<result column="METHOD_NO" property="methodNo" jdbcType="VARCHAR" />
+		<result column="METHOD_CATEGORY" property="methodCategory"
+			jdbcType="VARCHAR" />
+		<result column="BUIZ_SOURCE" property="buizSource" jdbcType="VARCHAR" />
+		<result column="CHANNEL_GROUP_A" property="channelGroupA"
+			jdbcType="VARCHAR" />
+		<result column="CHANNEL_GROUP_B" property="channelGroupB"
+			jdbcType="VARCHAR" />
+		<result column="SPECIAL_NAME" property="specialName" jdbcType="VARCHAR" />
+		<result column="POLICY_TYPE" property="policyType" jdbcType="VARCHAR" />
+		<result column="ELECTRONIC_POLICY_TEMPLATE_ID" property="electronicPolicyTemplateId"
+			jdbcType="VARCHAR" />
+		<result column="SEND_CT" property="sendCt" jdbcType="VARCHAR" />
+		<result column="LOGO_FOR_PRINT_CODE" property="logoForPrintCode"
+			jdbcType="VARCHAR" />
+		<result column="IS_LOAD_VISA_LETTER" property="isLoadVisaLetter"
+			jdbcType="VARCHAR" />
+		<result column="SERVICE_INSTRUCTION" property="serviceInstruction"
+			jdbcType="VARCHAR" />
+		<result column="COVER_NOTICE" property="coverNotice" jdbcType="VARCHAR" />
+		<result column="CLAIM_NOTICE" property="claimNotice" jdbcType="VARCHAR" />
+		<result column="ICBC_NOTICE" property="icbcNotice" jdbcType="VARCHAR" />
+		<result column="IS_SEND_SMS" property="isSendSms" jdbcType="VARCHAR" />
+		<result column="SMS_SEND_CUST_ROLE_CODE" property="smsSendCustRoleCode"
+			jdbcType="VARCHAR" />
+		<result column="SMS_TEMPLATE_ID" property="smsTemplateId"
+			jdbcType="VARCHAR" />
+		<result column="DOC_VERSION" property="docVersion" jdbcType="VARCHAR" />
+		<result column="MOBILE_LINK" property="mobileLink" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, BUIZ_BUSINESS_LINE, BUIZ_PRODUCT_LINE, BUIZ_PRODUCT_ID,
+		VEHICLE_USE_NATURE_CODE,
+		INSURED_AGE, INSURED_AGE_UPPERTYPE, INSURED_AGE_UPPERLIMIT, INSURED_AGE_LOWERTYPE,
+		INSURED_AGE_LOWERLIMIT, INSURED_SEX, INSURED_OCCUPATION_TYPE, ID_INFO,
+		CHANNEL_INFO,
+		NEW_VEHICLE_PURCHASE_PRICE, REAL_VALUE, BRAND_CODE, MODEL_CATE_CODE, RENEW_FLAG,
+		VEHICLE_PREMIUM, HEALTH_STATUS, CUSTOMER_LEVEL, PREMIUM_CAR, RATE_SEAT_MAX,
+		RATE_SEAT_MIN,
+		PLAN_METHOD_ID, PLAN_DEF_ID, METHOD_CODE, METHOD_PARENT_CODE, METHOD_NO,
+		METHOD_CATEGORY,
+		BUIZ_SOURCE, CHANNEL_GROUP_A, CHANNEL_GROUP_B, SPECIAL_NAME, POLICY_TYPE,
+		ELECTRONIC_POLICY_TEMPLATE_ID,
+		SEND_CT, LOGO_FOR_PRINT_CODE, IS_LOAD_VISA_LETTER, SERVICE_INSTRUCTION,
+		COVER_NOTICE,
+		CLAIM_NOTICE, ICBC_NOTICE, IS_SEND_SMS, SMS_SEND_CUST_ROLE_CODE, SMS_TEMPLATE_ID,
+		DOC_VERSION, MOBILE_LINK
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_prd_plan_method
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_prd_plan_method
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanMethod">
+		insert into t_prd_plan_method (id, BUIZ_BUSINESS_LINE,
+		BUIZ_PRODUCT_LINE,
+		BUIZ_PRODUCT_ID, VEHICLE_USE_NATURE_CODE, INSURED_AGE,
+		INSURED_AGE_UPPERTYPE, INSURED_AGE_UPPERLIMIT,
+		INSURED_AGE_LOWERTYPE, INSURED_AGE_LOWERLIMIT,
+		INSURED_SEX, INSURED_OCCUPATION_TYPE, ID_INFO,
+		CHANNEL_INFO, NEW_VEHICLE_PURCHASE_PRICE, REAL_VALUE,
+		BRAND_CODE, MODEL_CATE_CODE, RENEW_FLAG,
+		VEHICLE_PREMIUM, HEALTH_STATUS, CUSTOMER_LEVEL,
+		PREMIUM_CAR, RATE_SEAT_MAX, RATE_SEAT_MIN,
+		PLAN_METHOD_ID, PLAN_DEF_ID, METHOD_CODE,
+		METHOD_PARENT_CODE, METHOD_NO, METHOD_CATEGORY,
+		BUIZ_SOURCE, CHANNEL_GROUP_A, CHANNEL_GROUP_B,
+		SPECIAL_NAME, POLICY_TYPE, ELECTRONIC_POLICY_TEMPLATE_ID,
+		SEND_CT, LOGO_FOR_PRINT_CODE, IS_LOAD_VISA_LETTER,
+		SERVICE_INSTRUCTION, COVER_NOTICE, CLAIM_NOTICE,
+		ICBC_NOTICE, IS_SEND_SMS, SMS_SEND_CUST_ROLE_CODE,
+		SMS_TEMPLATE_ID, DOC_VERSION, MOBILE_LINK
+		)
+		values (#{id,jdbcType=BIGINT}, #{buizBusinessLine,jdbcType=VARCHAR},
+		#{buizProductLine,jdbcType=VARCHAR},
+		#{buizProductId,jdbcType=BIGINT}, #{vehicleUseNatureCode,jdbcType=VARCHAR},
+		#{insuredAge,jdbcType=VARCHAR},
+		#{insuredAgeUppertype,jdbcType=VARCHAR},
+		#{insuredAgeUpperlimit,jdbcType=BIGINT},
+		#{insuredAgeLowertype,jdbcType=VARCHAR},
+		#{insuredAgeLowerlimit,jdbcType=BIGINT},
+		#{insuredSex,jdbcType=VARCHAR},
+		#{insuredOccupationType,jdbcType=VARCHAR}, #{idInfo,jdbcType=VARCHAR},
+		#{channelInfo,jdbcType=VARCHAR},
+		#{newVehiclePurchasePrice,jdbcType=VARCHAR},
+		#{realValue,jdbcType=VARCHAR},
+		#{brandCode,jdbcType=VARCHAR}, #{modelCateCode,jdbcType=VARCHAR}, #{renewFlag,jdbcType=VARCHAR},
+		#{vehiclePremium,jdbcType=VARCHAR}, #{healthStatus,jdbcType=VARCHAR},
+		#{customerLevel,jdbcType=VARCHAR},
+		#{premiumCar,jdbcType=VARCHAR}, #{rateSeatMax,jdbcType=BIGINT}, #{rateSeatMin,jdbcType=BIGINT},
+		#{planMethodId,jdbcType=BIGINT}, #{planDefId,jdbcType=BIGINT},
+		#{methodCode,jdbcType=VARCHAR},
+		#{methodParentCode,jdbcType=VARCHAR}, #{methodNo,jdbcType=VARCHAR}, #{methodCategory,jdbcType=VARCHAR},
+		#{buizSource,jdbcType=VARCHAR}, #{channelGroupA,jdbcType=VARCHAR},
+		#{channelGroupB,jdbcType=VARCHAR},
+		#{specialName,jdbcType=VARCHAR}, #{policyType,jdbcType=VARCHAR},
+		#{electronicPolicyTemplateId,jdbcType=VARCHAR},
+		#{sendCt,jdbcType=VARCHAR}, #{logoForPrintCode,jdbcType=VARCHAR},
+		#{isLoadVisaLetter,jdbcType=VARCHAR},
+		#{serviceInstruction,jdbcType=VARCHAR},
+		#{coverNotice,jdbcType=VARCHAR}, #{claimNotice,jdbcType=VARCHAR},
+		#{icbcNotice,jdbcType=VARCHAR}, #{isSendSms,jdbcType=VARCHAR},
+		#{smsSendCustRoleCode,jdbcType=VARCHAR},
+		#{smsTemplateId,jdbcType=VARCHAR}, #{docVersion,jdbcType=VARCHAR},
+		#{mobileLink,jdbcType=VARCHAR}
+		)
+		ON DUPLICATE KEY UPDATE
+		BUIZ_BUSINESS_LINE=VALUES(BUIZ_BUSINESS_LINE),
+		BUIZ_PRODUCT_LINE=VALUES(BUIZ_PRODUCT_LINE),
+		BUIZ_PRODUCT_ID=VALUES(BUIZ_PRODUCT_ID),
+		VEHICLE_USE_NATURE_CODE=VALUES(VEHICLE_USE_NATURE_CODE),
+		INSURED_AGE=VALUES(INSURED_AGE),
+		INSURED_AGE_UPPERTYPE=VALUES(INSURED_AGE_UPPERTYPE),
+		INSURED_AGE_UPPERLIMIT=VALUES(INSURED_AGE_UPPERLIMIT),
+		INSURED_AGE_LOWERTYPE=VALUES(INSURED_AGE_LOWERTYPE),
+		INSURED_AGE_LOWERLIMIT=VALUES(INSURED_AGE_LOWERLIMIT),
+		INSURED_SEX=VALUES(INSURED_SEX),
+		INSURED_OCCUPATION_TYPE=VALUES(INSURED_OCCUPATION_TYPE),
+		ID_INFO=VALUES(ID_INFO),
+		CHANNEL_INFO=VALUES(CHANNEL_INFO),
+		NEW_VEHICLE_PURCHASE_PRICE=VALUES(NEW_VEHICLE_PURCHASE_PRICE),
+		REAL_VALUE=VALUES(REAL_VALUE),
+		BRAND_CODE=VALUES(BRAND_CODE),
+		MODEL_CATE_CODE=VALUES(MODEL_CATE_CODE),
+		RENEW_FLAG=VALUES(RENEW_FLAG),
+		VEHICLE_PREMIUM=VALUES(VEHICLE_PREMIUM),
+		HEALTH_STATUS=VALUES(HEALTH_STATUS),
+		CUSTOMER_LEVEL=VALUES(CUSTOMER_LEVEL),
+		PREMIUM_CAR=VALUES(PREMIUM_CAR),
+		RATE_SEAT_MAX=VALUES(RATE_SEAT_MAX),
+		RATE_SEAT_MIN=VALUES(RATE_SEAT_MIN),
+		PLAN_METHOD_ID=VALUES(PLAN_METHOD_ID),
+		PLAN_DEF_ID=VALUES(PLAN_DEF_ID),
+		METHOD_CODE=VALUES(METHOD_CODE),
+		METHOD_PARENT_CODE=VALUES(METHOD_PARENT_CODE),
+		METHOD_NO=VALUES(METHOD_NO),
+		METHOD_CATEGORY=VALUES(METHOD_CATEGORY),
+		BUIZ_SOURCE=VALUES(BUIZ_SOURCE),
+		CHANNEL_GROUP_A=VALUES(CHANNEL_GROUP_A),
+		CHANNEL_GROUP_B=VALUES(CHANNEL_GROUP_B),
+		SPECIAL_NAME=VALUES(SPECIAL_NAME),
+		POLICY_TYPE=VALUES(POLICY_TYPE),
+		ELECTRONIC_POLICY_TEMPLATE_ID=VALUES(ELECTRONIC_POLICY_TEMPLATE_ID),
+		SEND_CT=VALUES(SEND_CT),
+		LOGO_FOR_PRINT_CODE=VALUES(LOGO_FOR_PRINT_CODE),
+		IS_LOAD_VISA_LETTER=VALUES(IS_LOAD_VISA_LETTER),
+		SERVICE_INSTRUCTION=VALUES(SERVICE_INSTRUCTION),
+		COVER_NOTICE=VALUES(COVER_NOTICE),
+		CLAIM_NOTICE=VALUES(CLAIM_NOTICE),
+		ICBC_NOTICE=VALUES(ICBC_NOTICE),
+		IS_SEND_SMS=VALUES(IS_SEND_SMS),
+		SMS_SEND_CUST_ROLE_CODE=VALUES(SMS_SEND_CUST_ROLE_CODE),
+		SMS_TEMPLATE_ID=VALUES(SMS_TEMPLATE_ID),
+		DOC_VERSION=VALUES(DOC_VERSION),
+		MOBILE_LINK=VALUES(MOBILE_LINK)
+	</insert>
+	
+	<delete id="deleteByPlanMethodId"	parameterType="java.lang.Long">
+		delete from t_prd_plan_method where PLAN_DEF_ID =#{delPlanDefId}
+	</delete>
+	
+	<insert id="insertSelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanMethod">
+		insert into t_prd_plan_method
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="buizBusinessLine != null">
+				BUIZ_BUSINESS_LINE,
+			</if>
+			<if test="buizProductLine != null">
+				BUIZ_PRODUCT_LINE,
+			</if>
+			<if test="buizProductId != null">
+				BUIZ_PRODUCT_ID,
+			</if>
+			<if test="vehicleUseNatureCode != null">
+				VEHICLE_USE_NATURE_CODE,
+			</if>
+			<if test="insuredAge != null">
+				INSURED_AGE,
+			</if>
+			<if test="insuredAgeUppertype != null">
+				INSURED_AGE_UPPERTYPE,
+			</if>
+			<if test="insuredAgeUpperlimit != null">
+				INSURED_AGE_UPPERLIMIT,
+			</if>
+			<if test="insuredAgeLowertype != null">
+				INSURED_AGE_LOWERTYPE,
+			</if>
+			<if test="insuredAgeLowerlimit != null">
+				INSURED_AGE_LOWERLIMIT,
+			</if>
+			<if test="insuredSex != null">
+				INSURED_SEX,
+			</if>
+			<if test="insuredOccupationType != null">
+				INSURED_OCCUPATION_TYPE,
+			</if>
+			<if test="idInfo != null">
+				ID_INFO,
+			</if>
+			<if test="channelInfo != null">
+				CHANNEL_INFO,
+			</if>
+			<if test="newVehiclePurchasePrice != null">
+				NEW_VEHICLE_PURCHASE_PRICE,
+			</if>
+			<if test="realValue != null">
+				REAL_VALUE,
+			</if>
+			<if test="brandCode != null">
+				BRAND_CODE,
+			</if>
+			<if test="modelCateCode != null">
+				MODEL_CATE_CODE,
+			</if>
+			<if test="renewFlag != null">
+				RENEW_FLAG,
+			</if>
+			<if test="vehiclePremium != null">
+				VEHICLE_PREMIUM,
+			</if>
+			<if test="healthStatus != null">
+				HEALTH_STATUS,
+			</if>
+			<if test="customerLevel != null">
+				CUSTOMER_LEVEL,
+			</if>
+			<if test="premiumCar != null">
+				PREMIUM_CAR,
+			</if>
+			<if test="rateSeatMax != null">
+				RATE_SEAT_MAX,
+			</if>
+			<if test="rateSeatMin != null">
+				RATE_SEAT_MIN,
+			</if>
+			<if test="planMethodId != null">
+				PLAN_METHOD_ID,
+			</if>
+			<if test="planDefId != null">
+				PLAN_DEF_ID,
+			</if>
+			<if test="methodCode != null">
+				METHOD_CODE,
+			</if>
+			<if test="methodParentCode != null">
+				METHOD_PARENT_CODE,
+			</if>
+			<if test="methodNo != null">
+				METHOD_NO,
+			</if>
+			<if test="methodCategory != null">
+				METHOD_CATEGORY,
+			</if>
+			<if test="buizSource != null">
+				BUIZ_SOURCE,
+			</if>
+			<if test="channelGroupA != null">
+				CHANNEL_GROUP_A,
+			</if>
+			<if test="channelGroupB != null">
+				CHANNEL_GROUP_B,
+			</if>
+			<if test="specialName != null">
+				SPECIAL_NAME,
+			</if>
+			<if test="policyType != null">
+				POLICY_TYPE,
+			</if>
+			<if test="electronicPolicyTemplateId != null">
+				ELECTRONIC_POLICY_TEMPLATE_ID,
+			</if>
+			<if test="sendCt != null">
+				SEND_CT,
+			</if>
+			<if test="logoForPrintCode != null">
+				LOGO_FOR_PRINT_CODE,
+			</if>
+			<if test="isLoadVisaLetter != null">
+				IS_LOAD_VISA_LETTER,
+			</if>
+			<if test="serviceInstruction != null">
+				SERVICE_INSTRUCTION,
+			</if>
+			<if test="coverNotice != null">
+				COVER_NOTICE,
+			</if>
+			<if test="claimNotice != null">
+				CLAIM_NOTICE,
+			</if>
+			<if test="icbcNotice != null">
+				ICBC_NOTICE,
+			</if>
+			<if test="isSendSms != null">
+				IS_SEND_SMS,
+			</if>
+			<if test="smsSendCustRoleCode != null">
+				SMS_SEND_CUST_ROLE_CODE,
+			</if>
+			<if test="smsTemplateId != null">
+				SMS_TEMPLATE_ID,
+			</if>
+			<if test="docVersion != null">
+				DOC_VERSION,
+			</if>
+			<if test="mobileLink != null">
+				MOBILE_LINK,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="buizBusinessLine != null">
+				#{buizBusinessLine,jdbcType=BIGINT},
+			</if>
+			<if test="buizProductLine != null">
+				#{buizProductLine,jdbcType=BIGINT},
+			</if>
+			<if test="buizProductId != null">
+				#{buizProductId,jdbcType=BIGINT},
+			</if>
+			<if test="vehicleUseNatureCode != null">
+				#{vehicleUseNatureCode,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredAge != null">
+				#{insuredAge,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredAgeUppertype != null">
+				#{insuredAgeUppertype,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredAgeUpperlimit != null">
+				#{insuredAgeUpperlimit,jdbcType=BIGINT},
+			</if>
+			<if test="insuredAgeLowertype != null">
+				#{insuredAgeLowertype,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredAgeLowerlimit != null">
+				#{insuredAgeLowerlimit,jdbcType=BIGINT},
+			</if>
+			<if test="insuredSex != null">
+				#{insuredSex,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredOccupationType != null">
+				#{insuredOccupationType,jdbcType=VARCHAR},
+			</if>
+			<if test="idInfo != null">
+				#{idInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="channelInfo != null">
+				#{channelInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="newVehiclePurchasePrice != null">
+				#{newVehiclePurchasePrice,jdbcType=VARCHAR},
+			</if>
+			<if test="realValue != null">
+				#{realValue,jdbcType=VARCHAR},
+			</if>
+			<if test="brandCode != null">
+				#{brandCode,jdbcType=VARCHAR},
+			</if>
+			<if test="modelCateCode != null">
+				#{modelCateCode,jdbcType=VARCHAR},
+			</if>
+			<if test="renewFlag != null">
+				#{renewFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="vehiclePremium != null">
+				#{vehiclePremium,jdbcType=VARCHAR},
+			</if>
+			<if test="healthStatus != null">
+				#{healthStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="customerLevel != null">
+				#{customerLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="premiumCar != null">
+				#{premiumCar,jdbcType=VARCHAR},
+			</if>
+			<if test="rateSeatMax != null">
+				#{rateSeatMax,jdbcType=BIGINT},
+			</if>
+			<if test="rateSeatMin != null">
+				#{rateSeatMin,jdbcType=BIGINT},
+			</if>
+			<if test="planMethodId != null">
+				#{planMethodId,jdbcType=BIGINT},
+			</if>
+			<if test="planDefId != null">
+				#{planDefId,jdbcType=BIGINT},
+			</if>
+			<if test="methodCode != null">
+				#{methodCode,jdbcType=VARCHAR},
+			</if>
+			<if test="methodParentCode != null">
+				#{methodParentCode,jdbcType=VARCHAR},
+			</if>
+			<if test="methodNo != null">
+				#{methodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="methodCategory != null">
+				#{methodCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="buizSource != null">
+				#{buizSource,jdbcType=VARCHAR},
+			</if>
+			<if test="channelGroupA != null">
+				#{channelGroupA,jdbcType=VARCHAR},
+			</if>
+			<if test="channelGroupB != null">
+				#{channelGroupB,jdbcType=VARCHAR},
+			</if>
+			<if test="specialName != null">
+				#{specialName,jdbcType=VARCHAR},
+			</if>
+			<if test="policyType != null">
+				#{policyType,jdbcType=VARCHAR},
+			</if>
+			<if test="electronicPolicyTemplateId != null">
+				#{electronicPolicyTemplateId,jdbcType=VARCHAR},
+			</if>
+			<if test="sendCt != null">
+				#{sendCt,jdbcType=VARCHAR},
+			</if>
+			<if test="logoForPrintCode != null">
+				#{logoForPrintCode,jdbcType=VARCHAR},
+			</if>
+			<if test="isLoadVisaLetter != null">
+				#{isLoadVisaLetter,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceInstruction != null">
+				#{serviceInstruction,jdbcType=VARCHAR},
+			</if>
+			<if test="coverNotice != null">
+				#{coverNotice,jdbcType=VARCHAR},
+			</if>
+			<if test="claimNotice != null">
+				#{claimNotice,jdbcType=VARCHAR},
+			</if>
+			<if test="icbcNotice != null">
+				#{icbcNotice,jdbcType=VARCHAR},
+			</if>
+			<if test="isSendSms != null">
+				#{isSendSms,jdbcType=VARCHAR},
+			</if>
+			<if test="smsSendCustRoleCode != null">
+				#{smsSendCustRoleCode,jdbcType=VARCHAR},
+			</if>
+			<if test="smsTemplateId != null">
+				#{smsTemplateId,jdbcType=VARCHAR},
+			</if>
+			<if test="docVersion != null">
+				#{docVersion,jdbcType=VARCHAR},
+			</if>
+			<if test="mobileLink != null">
+				#{mobileLink,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanMethod">
+		update t_prd_plan_method
+		<set>
+			<if test="buizBusinessLine != null">
+				BUIZ_BUSINESS_LINE = #{buizBusinessLine,jdbcType=BIGINT},
+			</if>
+			<if test="buizProductLine != null">
+				BUIZ_PRODUCT_LINE = #{buizProductLine,jdbcType=BIGINT},
+			</if>
+			<if test="buizProductId != null">
+				BUIZ_PRODUCT_ID = #{buizProductId,jdbcType=BIGINT},
+			</if>
+			<if test="vehicleUseNatureCode != null">
+				VEHICLE_USE_NATURE_CODE = #{vehicleUseNatureCode,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredAge != null">
+				INSURED_AGE = #{insuredAge,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredAgeUppertype != null">
+				INSURED_AGE_UPPERTYPE = #{insuredAgeUppertype,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredAgeUpperlimit != null">
+				INSURED_AGE_UPPERLIMIT = #{insuredAgeUpperlimit,jdbcType=BIGINT},
+			</if>
+			<if test="insuredAgeLowertype != null">
+				INSURED_AGE_LOWERTYPE = #{insuredAgeLowertype,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredAgeLowerlimit != null">
+				INSURED_AGE_LOWERLIMIT = #{insuredAgeLowerlimit,jdbcType=BIGINT},
+			</if>
+			<if test="insuredSex != null">
+				INSURED_SEX = #{insuredSex,jdbcType=VARCHAR},
+			</if>
+			<if test="insuredOccupationType != null">
+				INSURED_OCCUPATION_TYPE = #{insuredOccupationType,jdbcType=VARCHAR},
+			</if>
+			<if test="idInfo != null">
+				ID_INFO = #{idInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="channelInfo != null">
+				CHANNEL_INFO = #{channelInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="newVehiclePurchasePrice != null">
+				NEW_VEHICLE_PURCHASE_PRICE =
+				#{newVehiclePurchasePrice,jdbcType=VARCHAR},
+			</if>
+			<if test="realValue != null">
+				REAL_VALUE = #{realValue,jdbcType=VARCHAR},
+			</if>
+			<if test="brandCode != null">
+				BRAND_CODE = #{brandCode,jdbcType=VARCHAR},
+			</if>
+			<if test="modelCateCode != null">
+				MODEL_CATE_CODE = #{modelCateCode,jdbcType=VARCHAR},
+			</if>
+			<if test="renewFlag != null">
+				RENEW_FLAG = #{renewFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="vehiclePremium != null">
+				VEHICLE_PREMIUM = #{vehiclePremium,jdbcType=VARCHAR},
+			</if>
+			<if test="healthStatus != null">
+				HEALTH_STATUS = #{healthStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="customerLevel != null">
+				CUSTOMER_LEVEL = #{customerLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="premiumCar != null">
+				PREMIUM_CAR = #{premiumCar,jdbcType=VARCHAR},
+			</if>
+			<if test="rateSeatMax != null">
+				RATE_SEAT_MAX = #{rateSeatMax,jdbcType=BIGINT},
+			</if>
+			<if test="rateSeatMin != null">
+				RATE_SEAT_MIN = #{rateSeatMin,jdbcType=BIGINT},
+			</if>
+			<if test="planMethodId != null">
+				PLAN_METHOD_ID = #{planMethodId,jdbcType=BIGINT},
+			</if>
+			<if test="planDefId != null">
+				PLAN_DEF_ID = #{planDefId,jdbcType=BIGINT},
+			</if>
+			<if test="methodCode != null">
+				METHOD_CODE = #{methodCode,jdbcType=VARCHAR},
+			</if>
+			<if test="methodParentCode != null">
+				METHOD_PARENT_CODE = #{methodParentCode,jdbcType=VARCHAR},
+			</if>
+			<if test="methodNo != null">
+				METHOD_NO = #{methodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="methodCategory != null">
+				METHOD_CATEGORY = #{methodCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="buizSource != null">
+				BUIZ_SOURCE = #{buizSource,jdbcType=VARCHAR},
+			</if>
+			<if test="channelGroupA != null">
+				CHANNEL_GROUP_A = #{channelGroupA,jdbcType=VARCHAR},
+			</if>
+			<if test="channelGroupB != null">
+				CHANNEL_GROUP_B = #{channelGroupB,jdbcType=VARCHAR},
+			</if>
+			<if test="specialName != null">
+				SPECIAL_NAME = #{specialName,jdbcType=VARCHAR},
+			</if>
+			<if test="policyType != null">
+				POLICY_TYPE = #{policyType,jdbcType=VARCHAR},
+			</if>
+			<if test="electronicPolicyTemplateId != null">
+				ELECTRONIC_POLICY_TEMPLATE_ID =
+				#{electronicPolicyTemplateId,jdbcType=VARCHAR},
+			</if>
+			<if test="sendCt != null">
+				SEND_CT = #{sendCt,jdbcType=VARCHAR},
+			</if>
+			<if test="logoForPrintCode != null">
+				LOGO_FOR_PRINT_CODE = #{logoForPrintCode,jdbcType=VARCHAR},
+			</if>
+			<if test="isLoadVisaLetter != null">
+				IS_LOAD_VISA_LETTER = #{isLoadVisaLetter,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceInstruction != null">
+				SERVICE_INSTRUCTION = #{serviceInstruction,jdbcType=VARCHAR},
+			</if>
+			<if test="coverNotice != null">
+				COVER_NOTICE = #{coverNotice,jdbcType=VARCHAR},
+			</if>
+			<if test="claimNotice != null">
+				CLAIM_NOTICE = #{claimNotice,jdbcType=VARCHAR},
+			</if>
+			<if test="icbcNotice != null">
+				ICBC_NOTICE = #{icbcNotice,jdbcType=VARCHAR},
+			</if>
+			<if test="isSendSms != null">
+				IS_SEND_SMS = #{isSendSms,jdbcType=VARCHAR},
+			</if>
+			<if test="smsSendCustRoleCode != null">
+				SMS_SEND_CUST_ROLE_CODE = #{smsSendCustRoleCode,jdbcType=VARCHAR},
+			</if>
+			<if test="smsTemplateId != null">
+				SMS_TEMPLATE_ID = #{smsTemplateId,jdbcType=VARCHAR},
+			</if>
+			<if test="docVersion != null">
+				DOC_VERSION = #{docVersion,jdbcType=VARCHAR},
+			</if>
+			<if test="mobileLink != null">
+				MOBILE_LINK = #{mobileLink,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanMethod">
+		update t_prd_plan_method
+		set BUIZ_BUSINESS_LINE = #{buizBusinessLine,jdbcType=BIGINT},
+		BUIZ_PRODUCT_LINE = #{buizProductLine,jdbcType=BIGINT},
+		BUIZ_PRODUCT_ID = #{buizProductId,jdbcType=BIGINT},
+		VEHICLE_USE_NATURE_CODE = #{vehicleUseNatureCode,jdbcType=VARCHAR},
+		INSURED_AGE = #{insuredAge,jdbcType=VARCHAR},
+		INSURED_AGE_UPPERTYPE = #{insuredAgeUppertype,jdbcType=VARCHAR},
+		INSURED_AGE_UPPERLIMIT = #{insuredAgeUpperlimit,jdbcType=BIGINT},
+		INSURED_AGE_LOWERTYPE = #{insuredAgeLowertype,jdbcType=VARCHAR},
+		INSURED_AGE_LOWERLIMIT = #{insuredAgeLowerlimit,jdbcType=BIGINT},
+		INSURED_SEX = #{insuredSex,jdbcType=VARCHAR},
+		INSURED_OCCUPATION_TYPE = #{insuredOccupationType,jdbcType=VARCHAR},
+		ID_INFO = #{idInfo,jdbcType=VARCHAR},
+		CHANNEL_INFO = #{channelInfo,jdbcType=VARCHAR},
+		NEW_VEHICLE_PURCHASE_PRICE = #{newVehiclePurchasePrice,jdbcType=VARCHAR},
+		REAL_VALUE = #{realValue,jdbcType=VARCHAR},
+		BRAND_CODE = #{brandCode,jdbcType=VARCHAR},
+		MODEL_CATE_CODE = #{modelCateCode,jdbcType=VARCHAR},
+		RENEW_FLAG = #{renewFlag,jdbcType=VARCHAR},
+		VEHICLE_PREMIUM = #{vehiclePremium,jdbcType=VARCHAR},
+		HEALTH_STATUS = #{healthStatus,jdbcType=VARCHAR},
+		CUSTOMER_LEVEL = #{customerLevel,jdbcType=VARCHAR},
+		PREMIUM_CAR = #{premiumCar,jdbcType=VARCHAR},
+		RATE_SEAT_MAX = #{rateSeatMax,jdbcType=BIGINT},
+		RATE_SEAT_MIN = #{rateSeatMin,jdbcType=BIGINT},
+		PLAN_METHOD_ID = #{planMethodId,jdbcType=BIGINT},
+		PLAN_DEF_ID = #{planDefId,jdbcType=BIGINT},
+		METHOD_CODE = #{methodCode,jdbcType=VARCHAR},
+		METHOD_PARENT_CODE = #{methodParentCode,jdbcType=VARCHAR},
+		METHOD_NO = #{methodNo,jdbcType=VARCHAR},
+		METHOD_CATEGORY = #{methodCategory,jdbcType=VARCHAR},
+		BUIZ_SOURCE = #{buizSource,jdbcType=VARCHAR},
+		CHANNEL_GROUP_A = #{channelGroupA,jdbcType=VARCHAR},
+		CHANNEL_GROUP_B = #{channelGroupB,jdbcType=VARCHAR},
+		SPECIAL_NAME = #{specialName,jdbcType=VARCHAR},
+		POLICY_TYPE = #{policyType,jdbcType=VARCHAR},
+		ELECTRONIC_POLICY_TEMPLATE_ID = #{electronicPolicyTemplateId,jdbcType=VARCHAR},
+		SEND_CT = #{sendCt,jdbcType=VARCHAR},
+		LOGO_FOR_PRINT_CODE = #{logoForPrintCode,jdbcType=VARCHAR},
+		IS_LOAD_VISA_LETTER = #{isLoadVisaLetter,jdbcType=VARCHAR},
+		SERVICE_INSTRUCTION = #{serviceInstruction,jdbcType=VARCHAR},
+		COVER_NOTICE = #{coverNotice,jdbcType=VARCHAR},
+		CLAIM_NOTICE = #{claimNotice,jdbcType=VARCHAR},
+		ICBC_NOTICE = #{icbcNotice,jdbcType=VARCHAR},
+		IS_SEND_SMS = #{isSendSms,jdbcType=VARCHAR},
+		SMS_SEND_CUST_ROLE_CODE = #{smsSendCustRoleCode,jdbcType=VARCHAR},
+		SMS_TEMPLATE_ID = #{smsTemplateId,jdbcType=VARCHAR},
+		DOC_VERSION = #{docVersion,jdbcType=VARCHAR},
+		MOBILE_LINK = #{mobileLink,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

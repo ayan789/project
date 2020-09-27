@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.UrlMappingMapper">
+  <resultMap type="com.ccic.salesapp.noncar.repository.basedb.po.UrlMapping" id="BaseResultMap">
+    <result column="ID"  property="id" />
+    <result column="URL_CODE" property="urlCode" />
+    <result column="URL_MAPPING" property="urlMapping" />
+    <result column="CREATE_TIME" property="createDate" />
+  </resultMap>
+  
+   <insert id="toInsert" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.UrlMapping">
+       insert into T_URL_MAPPING (URL_CODE,URL_MAPPING,CREATE_TIME)  
+    values(#{urlCode},#{urlMapping},now())
+   </insert>   
+   
+   <select id="selectUrlMapping" resultType="java.lang.String" parameterType="java.lang.String">
+       select URL_MAPPING from T_URL_MAPPING T where T.URL_CODE=#{urlCode} 
+   </select>
+  </mapper>

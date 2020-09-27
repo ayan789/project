@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.performance.domain.mapper.PartnerAgentMapper">
+
+   
+    <select id="getPartnerAgentPremiumByAgentCode" parameterType="com.ccic.salesapp.performance.domain.vo.request.PartnerAgentPerformanceRequest" resultType="com.ccic.salesapp.performance.domain.vo.response.PartnerAgentPerformanceResponse">
+       	select * ,
+		ifnull(pro_day.dayAmountPro,0) + ifnull(car_day.dayAmountCar,0) dayAmountTotal,
+		ifnull(pro_day.dayNumPro,0) + ifnull(car_day.dayNumCar,0) dayNumTotal,
+		ifnull(pro_month.monthAmountPro,0) + ifnull(car_month.monthAmountCar,0) monthAmountTotal,
+		ifnull(pro_month.monthNumPro,0) + ifnull(car_month.monthNumCar,0) monthNumTotal,
+		ifnull(pro_q.quarterAmountPro,0) + ifnull(car_q.quarterAmountCar,0) quarterAmountTotal,
+		ifnull(pro_q.quarterNumPro,0) + ifnull(car_q.quarterNumCar,0) quarterNumTotal,
+		ifnull(pro_year.yearAmountPro,0) + ifnull(car_year.yearAmountCar,0) yearAmountTotal,
+		ifnull(pro_year.yearNumPro,0) + ifnull(car_year.yearNumCar,0) yearNumTotal
+		from (
+		select concat('',#{agentCode}) agent_code ) a		
+		left join (
+		select o.platform_user_code agent_code,  count(policy_no) dayNumPro,ROUND(sum(sum_premium/1.06)/10000,2) dayAmountPro from t_noncar_order o
+		where  o.policy_create_date  BETWEEN STR_TO_DATE(DATE_FORMAT(DATE_ADD(now(),INTERVAL -1 day),'%Y-%m-%d'),"%Y-%m-%d") 
+		and STR_TO_DATE(concat( DATE_FORMAT(DATE_ADD(now(),INTERVAL -1 day),'%Y-%m-%d')," 23:59:59"),"%Y-%m-%d %H:%i:%s")
+		and o.insurance_category =2
+		and o.platform_user_code = #{agentCode}
+		GROUP BY o.platform_user_code 
+		) pro_day on a.agent_code =  pro_day.agent_code
+		left join 
+		 (
+		select o.platform_user_code agent_code,  count(policy_no) monthNumPro,ROUND(sum(sum_premium/1.06)/10000,2) monthAmountPro from t_noncar_order o
+		where o.pay_date  BETWEEN str_to_date(DATE_FORMAT(CURDATE(), '%Y-%m-01 00:00:00'),'%Y-%m-%d %H:%i:%s')  and str_to_date(DATE_FORMAT(LAST_DAY(CURDATE()), '%Y-%m-%d 23:59:59'),'%Y-%m-%d %H:%i:%s')
+		and o.insurance_category =2
+		and o.platform_user_code = #{agentCode}
+		GROUP BY o.platform_user_code 
+		) pro_month on a.agent_code = pro_month.agent_code
+		
+		left join 
+		 (
+		select o.platform_user_code agent_code,  count(policy_no) quarterNumPro,ROUND(sum(sum_premium/1.06)/10000,2) quarterAmountPro from t_noncar_order o
+		where o.pay_date BETWEEN str_to_date(concat(date_format(LAST_DAY(MAKEDATE(EXTRACT(YEAR FROM CURDATE()),1) + interval QUARTER(CURDATE())*3-3 month),'%Y-%m-'),'01',' 00:00:00'),'%Y-%m-%d %H:%i:%s') 
+		and str_to_date(date_format(LAST_DAY(MAKEDATE(EXTRACT(YEAR FROM CURDATE()),1) + interval QUARTER(CURDATE())*3-1 month),'%Y-%m-%d 23:59:59'),'%Y-%m-%d %H:%i:%s')
+		and o.insurance_category =2
+		and o.platform_user_code = #{agentCode}
+		GROUP BY o.platform_user_code 
+		) pro_q on a.agent_code = pro_q.agent_code
+		
+		left join  (
+		select o.platform_user_code agent_code,  count(policy_no) yearNumPro,ROUND(sum(sum_premium/1.06)/10000,2) yearAmountPro from t_noncar_order o
+		where o.pay_date BETWEEN str_to_date(DATE_FORMAT(CURDATE(), '%Y-01-01 00:00:00'),'%Y-%m-%d %H:%i:%s')   
+		and str_to_date(DATE_FORMAT(LAST_DAY(CURDATE()), '%Y-12-31 23:59:59'),'%Y-%m-%d %H:%i:%s')
+		and o.insurance_category =2
+		and o.platform_user_code = #{agentCode}
+		GROUP BY o.platform_user_code 
+		) pro_year on a.agent_code = pro_year.agent_code
+		
+		left join (
+		select  o.create_user agent_code, ifnull(count(p.policy_no),0) dayNumCar,ROUND(ifnull(sum(ifnull(p.premium_excluding_tax,0)),0)/10000 ,2) dayAmountCar  from 
+		t_vehicle_policy p
+		left join t_vehicle_order o  on p.order_id = o.id 
+		where source = 2  and p.`status` != '31' and p.`status` != '33' and o.create_user = #{agentCode}
+		and  p.create_policy_time BETWEEN STR_TO_DATE(DATE_FORMAT(DATE_ADD(now(),INTERVAL -1 day),'%Y-%m-%d'),"%Y-%m-%d") 
+		and STR_TO_DATE(concat( DATE_FORMAT(DATE_ADD(now(),INTERVAL -1 day),'%Y-%m-%d')," 23:59:59"),"%Y-%m-%d %H:%i:%s")
+		group by  o.create_user
+		) car_day on a.agent_code = car_day.agent_code
+		
+		left join (
+		select  o.create_user agent_code, ifnull(count(p.policy_no),0) monthNumCar,ROUND(ifnull(sum(ifnull(p.premium_excluding_tax,0)),0)/10000,2) monthAmountCar  from 
+		t_vehicle_policy p
+		left join t_vehicle_order o  on p.order_id = o.id 
+		where source = 2  and p.`status` != '31' and p.`status` != '33' and o.create_user = #{agentCode}
+		and  p.create_policy_time BETWEEN str_to_date(DATE_FORMAT(CURDATE(), '%Y-%m-01 00:00:00'),'%Y-%m-%d %H:%i:%s')  and str_to_date(DATE_FORMAT(LAST_DAY(CURDATE()), '%Y-%m-%d 23:59:59'),'%Y-%m-%d %H:%i:%s')
+		group by  o.create_user
+		) car_month on a.agent_code = car_month.agent_code
+		
+		left join (
+		select  o.create_user agent_code, ifnull(count(p.policy_no),0) quarterNumCar,ROUND(ifnull(sum(ifnull(p.premium_excluding_tax,0)),0)/10000,2) quarterAmountCar  from 
+		t_vehicle_policy p
+		left join t_vehicle_order o  on p.order_id = o.id 
+		where source = 2  and p.`status` != '31' and p.`status` != '33' and o.create_user = #{agentCode}
+		and  p.create_policy_time BETWEEN str_to_date(concat(date_format(LAST_DAY(MAKEDATE(EXTRACT(YEAR FROM CURDATE()),1) + interval QUARTER(CURDATE())*3-3 month),'%Y-%m-'),'01',' 00:00:00'),'%Y-%m-%d %H:%i:%s') 
+		and str_to_date(date_format(LAST_DAY(MAKEDATE(EXTRACT(YEAR FROM CURDATE()),1) + interval QUARTER(CURDATE())*3-1 month),'%Y-%m-%d 23:59:59'),'%Y-%m-%d %H:%i:%s')
+		group by  o.create_user
+		) car_q on a.agent_code = car_q.agent_code
+		
+		left join (
+		select  o.create_user agent_code, ifnull(count(p.policy_no),0) yearNumCar,ROUND(ifnull(sum(ifnull(p.premium_excluding_tax,0)),0)/10000,2) yearAmountCar  from 
+		t_vehicle_policy p
+		left join t_vehicle_order o  on p.order_id = o.id 
+		where source = 2  and p.`status` != '31' and p.`status` != '33' and o.create_user = #{agentCode}
+		and  p.create_policy_time BETWEEN str_to_date(DATE_FORMAT(CURDATE(), '%Y-01-01 00:00:00'),'%Y-%m-%d %H:%i:%s')   
+		and str_to_date(DATE_FORMAT(LAST_DAY(CURDATE()), '%Y-12-31 23:59:59'),'%Y-%m-%d %H:%i:%s')
+		group by  o.create_user
+		) car_year on a.agent_code = car_year.agent_code
+    </select>
+
+	
+</mapper>

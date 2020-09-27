@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanOrgMapper">
+	<resultMap id="BaseResultMap"
+		type="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanOrg">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="PLAN_ORG_ID" property="planOrgId" jdbcType="BIGINT" />
+		<result column="PLAN_DEF_ID" property="planDefId" jdbcType="BIGINT" />
+		<result column="ORG_CODE" property="orgCode" jdbcType="VARCHAR" />
+		<result column="ORG_ID" property="orgId" jdbcType="BIGINT" />
+		<result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, PLAN_ORG_ID, PLAN_DEF_ID, ORG_CODE, ORG_ID, ORG_NAME
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_prd_plan_org
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_prd_plan_org
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanOrg">
+		insert into t_prd_plan_org (id, PLAN_ORG_ID, PLAN_DEF_ID,
+		ORG_CODE, ORG_ID, ORG_NAME
+		)
+		values (#{id,jdbcType=BIGINT}, #{planOrgId,jdbcType=BIGINT},
+		#{planDefId,jdbcType=BIGINT},
+		#{orgCode,jdbcType=VARCHAR}, #{orgId,jdbcType=BIGINT}, #{orgName,jdbcType=VARCHAR}
+		)
+		ON DUPLICATE KEY UPDATE
+		PLAN_ORG_ID=VALUES(PLAN_ORG_ID),
+		PLAN_DEF_ID=VALUES(PLAN_DEF_ID),
+		ORG_CODE=VALUES(ORG_CODE),
+		ORG_ID=VALUES(ORG_ID),
+		ORG_NAME=VALUES(ORG_NAME)
+
+	</insert>
+	
+	<delete id="deleteByPlanOrgId"	parameterType="java.lang.Long">
+		delete from t_prd_plan_org where PLAN_DEF_ID =#{delPlanDefId}
+	</delete>
+	
+	<insert id="insertSelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanOrg">
+		insert into t_prd_plan_org
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="planOrgId != null">
+				PLAN_ORG_ID,
+			</if>
+			<if test="planDefId != null">
+				PLAN_DEF_ID,
+			</if>
+			<if test="orgCode != null">
+				ORG_CODE,
+			</if>
+			<if test="orgId != null">
+				ORG_ID,
+			</if>
+			<if test="orgName != null">
+				ORG_NAME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="planOrgId != null">
+				#{planOrgId,jdbcType=BIGINT},
+			</if>
+			<if test="planDefId != null">
+				#{planDefId,jdbcType=BIGINT},
+			</if>
+			<if test="orgCode != null">
+				#{orgCode,jdbcType=VARCHAR},
+			</if>
+			<if test="orgId != null">
+				#{orgId,jdbcType=BIGINT},
+			</if>
+			<if test="orgName != null">
+				#{orgName,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanOrg">
+		update t_prd_plan_org
+		<set>
+			<if test="planOrgId != null">
+				PLAN_ORG_ID = #{planOrgId,jdbcType=BIGINT},
+			</if>
+			<if test="planDefId != null">
+				PLAN_DEF_ID = #{planDefId,jdbcType=BIGINT},
+			</if>
+			<if test="orgCode != null">
+				ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+			</if>
+			<if test="orgId != null">
+				ORG_ID = #{orgId,jdbcType=BIGINT},
+			</if>
+			<if test="orgName != null">
+				ORG_NAME = #{orgName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanOrg">
+		update t_prd_plan_org
+		set PLAN_ORG_ID = #{planOrgId,jdbcType=BIGINT},
+		PLAN_DEF_ID = #{planDefId,jdbcType=BIGINT},
+		ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+		ORG_ID = #{orgId,jdbcType=BIGINT},
+		ORG_NAME = #{orgName,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

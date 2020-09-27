@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanCtPeriodMapper" >
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCtPeriod" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="plan_Ct_Period_Id" property="planCtPeriodId" jdbcType="BIGINT" />
+    <result column="plan_Coverage_Id" property="planCoverageId" jdbcType="BIGINT" />
+    <result column="period_Category" property="periodCategory" jdbcType="VARCHAR" />
+    <result column="period_Max" property="periodMax" jdbcType="BIGINT" />
+    <result column="period_Min" property="periodMin" jdbcType="BIGINT" />
+    <result column="period_Premium_Rate" property="periodPremiumRate" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, plan_Ct_Period_Id, plan_Coverage_Id, period_Category, period_Max, period_Min, 
+    period_Premium_Rate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_prd_plan_ct_period
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_prd_plan_ct_period
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCtPeriod" >
+    insert into t_prd_plan_ct_period (id, plan_Ct_Period_Id, plan_Coverage_Id, 
+      period_Category, period_Max, period_Min, 
+      period_Premium_Rate)
+    values (#{id,jdbcType=BIGINT}, #{planCtPeriodId,jdbcType=BIGINT}, #{planCoverageId,jdbcType=BIGINT}, 
+      #{periodCategory,jdbcType=VARCHAR}, #{periodMax,jdbcType=BIGINT}, #{periodMin,jdbcType=BIGINT}, 
+      #{periodPremiumRate,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCtPeriod" >
+    insert into t_prd_plan_ct_period
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="planCtPeriodId != null" >
+        plan_Ct_Period_Id,
+      </if>
+      <if test="planCoverageId != null" >
+        plan_Coverage_Id,
+      </if>
+      <if test="periodCategory != null" >
+        period_Category,
+      </if>
+      <if test="periodMax != null" >
+        period_Max,
+      </if>
+      <if test="periodMin != null" >
+        period_Min,
+      </if>
+      <if test="periodPremiumRate != null" >
+        period_Premium_Rate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="planCtPeriodId != null" >
+        #{planCtPeriodId,jdbcType=BIGINT},
+      </if>
+      <if test="planCoverageId != null" >
+        #{planCoverageId,jdbcType=BIGINT},
+      </if>
+      <if test="periodCategory != null" >
+        #{periodCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="periodMax != null" >
+        #{periodMax,jdbcType=BIGINT},
+      </if>
+      <if test="periodMin != null" >
+        #{periodMin,jdbcType=BIGINT},
+      </if>
+      <if test="periodPremiumRate != null" >
+        #{periodPremiumRate,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCtPeriod" >
+    update t_prd_plan_ct_period
+    <set >
+      <if test="planCtPeriodId != null" >
+        plan_Ct_Period_Id = #{planCtPeriodId,jdbcType=BIGINT},
+      </if>
+      <if test="planCoverageId != null" >
+        plan_Coverage_Id = #{planCoverageId,jdbcType=BIGINT},
+      </if>
+      <if test="periodCategory != null" >
+        period_Category = #{periodCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="periodMax != null" >
+        period_Max = #{periodMax,jdbcType=BIGINT},
+      </if>
+      <if test="periodMin != null" >
+        period_Min = #{periodMin,jdbcType=BIGINT},
+      </if>
+      <if test="periodPremiumRate != null" >
+        period_Premium_Rate = #{periodPremiumRate,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCtPeriod" >
+    update t_prd_plan_ct_period
+    set plan_Ct_Period_Id = #{planCtPeriodId,jdbcType=BIGINT},
+      plan_Coverage_Id = #{planCoverageId,jdbcType=BIGINT},
+      period_Category = #{periodCategory,jdbcType=VARCHAR},
+      period_Max = #{periodMax,jdbcType=BIGINT},
+      period_Min = #{periodMin,jdbcType=BIGINT},
+      period_Premium_Rate = #{periodPremiumRate,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

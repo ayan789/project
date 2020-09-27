@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
+   <suppress>
+       <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-.*$</gav>
+       <cpe>cpe:/a:fasterxml:jackson-databind:2.8.10</cpe>
+       <cpe>cpe:/a:fasterxml:jackson:2.8.10</cpe>
+   </suppress> 
+	<suppress>
+	   <notes><![CDATA[
+	   file name: tomcat-embed-core-8.5.23.jar
+	   ]]></notes>
+	   <gav regex="true">^org\.apache\.tomcat\.embed:tomcat-embed-.*$</gav>
+	   <cpe>cpe:/a:apache_software_foundation:tomcat</cpe>
+	   <cpe>cpe:/a:apache_tomcat:apache_tomcat</cpe>
+	   <cpe>cpe:/a:apache:tomcat</cpe>
+	</suppress>
+	<suppress>
+	   <notes><![CDATA[
+	   file name: spring-web-4.3.13.RELEASE.jar
+	   ]]></notes>
+	   <gav regex="true">^org\.springframework:spring-.*$</gav>
+	   <cpe>cpe:/a:pivotal_software:spring_framework</cpe>
+	   <cpe>cpe:/a:pivotal:spring_framework</cpe>
+	</suppress>      
+</suppressions>

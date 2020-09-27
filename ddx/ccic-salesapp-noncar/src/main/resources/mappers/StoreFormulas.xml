@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="storeFormulas">
+    <resultMap id="BaseResultMap" type="com.estar.app.chinare.sell.domain.StoreFormulas">
+        <result property="formulaCode" column="FORMULA_CODE"/>
+        <result property="formulaName" column="FORMULA_NAME"/>
+        <result property="amount" column="AMOUNT"/>
+        <result property="premium" column="PREMIUM"/>
+        <result property="limQuantity" column="LIM_QUANTITY"/>
+        <result property="riskCode" column="RISKCODE"/>
+        <result property="comCode" column="COMCODE"/>
+        <result property="productName" column="PRODUCT_NAME"/>
+        <result property="productCode" column="PRODUCT_CODE"/>
+        <result property="timeLimit" column="TIME_LIMIT"/>
+        <result property="amountsJson" column="AMOUNTS_JSON"/>
+        <result property="premiumsJson" column="PREMIUMS_JSON"/>
+        <result property="extensionJson" column="EXTENSION_JSON"/>
+        <result property="amountInfoJson" column="AMOUNTINFO_JSON"/>
+        <result property="newCore" column="NEW_CORE"/>
+        <result property="userCode" column="USER_CODE"/>
+        <result property="isHaveSheBao" column="ISHAVESHEBAO"/>
+    </resultMap>
+    <select id="searchByProductCode" parameterType="com.estar.app.chinare.sell.domain.StoreFormulas" resultMap="BaseResultMap">
+        select * FROM t_noncar_formulas where PRODUCT_CODE = #productCode# and FORMULA_CODE=#formulaCode# and NEW_CORE=#newCore#
+    </select>
+
+    <select id="toList" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select * FROM t_noncar_formulas a where a.PRODUCT_CODE = #productCode# and a.NEW_CORE =#newCore#
+        and (a.comcode is null or exists (
+        select 1 from (SELECT TC.UPPERCOMCODE COMCODE,ROWNUM RN FROM T_PRPDCOMPANY TC
+        START WITH TC.COMCODE = #comCode#
+        CONNECT BY PRIOR TC.UPPERCOMCODE  = TC.COMCODE AND TC.COMCODE&lt;&gt;TC.UPPERCOMCODE
+        UNION SELECT #comCode#,0 FROM DUAL) C
+        where a.comcode like '%'||c.comcode||'%')
+        )
+        and (a.user_code is null or a.user_code like '%'||#userCode#||'%')
+        ORDER BY a.FORMULA_CODE
+    </select>
+
+    <select id="toListByComCode" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select * FROM t_noncar_formulas where PRODUCT_CODE = #productCode# and NEW_CORE =#newCore# and COMCODE LIKE '%'||#comCode#||'%'  ORDER BY FORMULA_CODE
+    </select>
+
+    <select id="queryFormulasInfo" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select B.PRODUCT_NAME,A.* FROM t_noncar_formulas A ,t_noncar_PRODUCT B
+        where A.PRODUCT_CODE=B.PRODUCT_CODE
+        AND (A.FORMULA_CODE=#formulaCode#
+        <if test="formulaCode2 != null and formulaCode2 != ''">OR
+            A.FORMULA_CODE=#formulaCode2#
+        </if>
+        )
+        AND A.PRODUCT_CODE=#productCode#
+        AND A.NEW_CORE =#newCore#
+        AND B.NEW_CORE =#newCore#
+
+    </select>
+
+    <select id="queryFormulasInfoLBU" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT  *  FROM t_noncar_formulas    WHERE  FORMULA_CODE=#formulaCode#
+    </select>
+</mapper>

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanLimitMapper">
+	<resultMap id="BaseResultMap"
+		type="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanLimit">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="plan_Limit_Id" property="planLimitId" jdbcType="BIGINT" />
+		<result column="plan_Coverage_Id" property="planCoverageId"
+			jdbcType="BIGINT" />
+		<result column="Category_Level_One" property="categoryLevelOne"
+			jdbcType="VARCHAR" />
+		<result column="Limit_Deductible_Name" property="limitDeductibleName"
+			jdbcType="VARCHAR" />
+		<result column="Category_Level_Two" property="categoryLevelTwo"
+			jdbcType="VARCHAR" />
+		<result column="Limit_Deductible_Unit" property="limitDeductibleUnit"
+			jdbcType="VARCHAR" />
+		<result column="Deductibe_Type" property="deductibeType"
+			jdbcType="VARCHAR" />
+		<result column="Limit_Currency" property="limitCurrency"
+			jdbcType="VARCHAR" />
+		<result column="plan_Limit_Name" property="planLimitName"
+			jdbcType="VARCHAR" />
+		<result column="limit_Deductible_Amount" property="limitDeductibleAmount"
+			jdbcType="VARCHAR" />
+		<result column="limit_Deductible_Max" property="limitDeductibleMax"
+			jdbcType="DECIMAL" />
+		<result column="limit_Deductible_Min" property="limitDeductibleMin"
+			jdbcType="DECIMAL" />
+		<result column="product_Element_Id" property="productElementId"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, plan_Limit_Id, plan_Coverage_Id, Category_Level_One,
+		Limit_Deductible_Name, Category_Level_Two,
+		Limit_Deductible_Unit, Deductibe_Type, Limit_Currency, plan_Limit_Name,
+		limit_Deductible_Amount,
+		limit_Deductible_Max, limit_Deductible_Min, product_Element_Id
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_prd_plan_limit
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_prd_plan_limit
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanLimit">
+		insert into t_prd_plan_limit (id, plan_Limit_Id, plan_Coverage_Id,
+		Category_Level_One, Limit_Deductible_Name,
+		Category_Level_Two, Limit_Deductible_Unit,
+		Deductibe_Type, Limit_Currency, plan_Limit_Name,
+		limit_Deductible_Amount, limit_Deductible_Max,
+		limit_Deductible_Min, product_Element_Id)
+		values (#{id,jdbcType=BIGINT}, #{planLimitId,jdbcType=BIGINT},
+		#{planCoverageId,jdbcType=BIGINT},
+		#{categoryLevelOne,jdbcType=VARCHAR},
+		#{limitDeductibleName,jdbcType=VARCHAR},
+		#{categoryLevelTwo,jdbcType=VARCHAR},
+		#{limitDeductibleUnit,jdbcType=VARCHAR},
+		#{deductibeType,jdbcType=VARCHAR}, #{limitCurrency,jdbcType=VARCHAR},
+		#{planLimitName,jdbcType=VARCHAR},
+		#{limitDeductibleAmount,jdbcType=VARCHAR},
+		#{limitDeductibleMax,jdbcType=DECIMAL},
+		#{limitDeductibleMin,jdbcType=DECIMAL},
+		#{productElementId,jdbcType=VARCHAR})
+		ON DUPLICATE KEY UPDATE
+		plan_Limit_Id=VALUES(plan_Limit_Id),
+		plan_Coverage_Id=VALUES(plan_Coverage_Id),
+		Category_Level_One=VALUES(Category_Level_One),
+		Limit_Deductible_Name=VALUES(Limit_Deductible_Name),
+		Category_Level_Two=VALUES(Category_Level_Two),
+		Limit_Deductible_Unit=VALUES(Limit_Deductible_Unit),
+		Deductibe_Type=VALUES(Deductibe_Type),
+		Limit_Currency=VALUES(Limit_Currency),
+		plan_Limit_Name=VALUES(plan_Limit_Name),
+		limit_Deductible_Amount=VALUES(limit_Deductible_Amount),
+		limit_Deductible_Max=VALUES(limit_Deductible_Max),
+		limit_Deductible_Min=VALUES(limit_Deductible_Min),
+		product_Element_Id=VALUES(product_Element_Id)
+
+	</insert>
+	
+	
+	<delete id="deletePlanLimitById"	parameterType="java.lang.Long">
+		delete from t_prd_plan_limit where plan_coverage_id =#{planCoverageId}
+	</delete>
+	
+	<insert id="insertSelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanLimit">
+		insert into t_prd_plan_limit
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="planLimitId != null">
+				plan_Limit_Id,
+			</if>
+			<if test="planCoverageId != null">
+				plan_Coverage_Id,
+			</if>
+			<if test="categoryLevelOne != null">
+				Category_Level_One,
+			</if>
+			<if test="limitDeductibleName != null">
+				Limit_Deductible_Name,
+			</if>
+			<if test="categoryLevelTwo != null">
+				Category_Level_Two,
+			</if>
+			<if test="limitDeductibleUnit != null">
+				Limit_Deductible_Unit,
+			</if>
+			<if test="deductibeType != null">
+				Deductibe_Type,
+			</if>
+			<if test="limitCurrency != null">
+				Limit_Currency,
+			</if>
+			<if test="planLimitName != null">
+				plan_Limit_Name,
+			</if>
+			<if test="limitDeductibleAmount != null">
+				limit_Deductible_Amount,
+			</if>
+			<if test="limitDeductibleMax != null">
+				limit_Deductible_Max,
+			</if>
+			<if test="limitDeductibleMin != null">
+				limit_Deductible_Min,
+			</if>
+			<if test="productElementId != null">
+				product_Element_Id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="planLimitId != null">
+				#{planLimitId,jdbcType=BIGINT},
+			</if>
+			<if test="planCoverageId != null">
+				#{planCoverageId,jdbcType=BIGINT},
+			</if>
+			<if test="categoryLevelOne != null">
+				#{categoryLevelOne,jdbcType=VARCHAR},
+			</if>
+			<if test="limitDeductibleName != null">
+				#{limitDeductibleName,jdbcType=VARCHAR},
+			</if>
+			<if test="categoryLevelTwo != null">
+				#{categoryLevelTwo,jdbcType=VARCHAR},
+			</if>
+			<if test="limitDeductibleUnit != null">
+				#{limitDeductibleUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="deductibeType != null">
+				#{deductibeType,jdbcType=VARCHAR},
+			</if>
+			<if test="limitCurrency != null">
+				#{limitCurrency,jdbcType=VARCHAR},
+			</if>
+			<if test="planLimitName != null">
+				#{planLimitName,jdbcType=VARCHAR},
+			</if>
+			<if test="limitDeductibleAmount != null">
+				#{limitDeductibleAmount,jdbcType=VARCHAR},
+			</if>
+			<if test="limitDeductibleMax != null">
+				#{limitDeductibleMax,jdbcType=DECIMAL},
+			</if>
+			<if test="limitDeductibleMin != null">
+				#{limitDeductibleMin,jdbcType=DECIMAL},
+			</if>
+			<if test="productElementId != null">
+				#{productElementId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanLimit">
+		update t_prd_plan_limit
+		<set>
+			<if test="planLimitId != null">
+				plan_Limit_Id = #{planLimitId,jdbcType=BIGINT},
+			</if>
+			<if test="planCoverageId != null">
+				plan_Coverage_Id = #{planCoverageId,jdbcType=BIGINT},
+			</if>
+			<if test="categoryLevelOne != null">
+				Category_Level_One = #{categoryLevelOne,jdbcType=VARCHAR},
+			</if>
+			<if test="limitDeductibleName != null">
+				Limit_Deductible_Name = #{limitDeductibleName,jdbcType=VARCHAR},
+			</if>
+			<if test="categoryLevelTwo != null">
+				Category_Level_Two = #{categoryLevelTwo,jdbcType=VARCHAR},
+			</if>
+			<if test="limitDeductibleUnit != null">
+				Limit_Deductible_Unit = #{limitDeductibleUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="deductibeType != null">
+				Deductibe_Type = #{deductibeType,jdbcType=VARCHAR},
+			</if>
+			<if test="limitCurrency != null">
+				Limit_Currency = #{limitCurrency,jdbcType=VARCHAR},
+			</if>
+			<if test="planLimitName != null">
+				plan_Limit_Name = #{planLimitName,jdbcType=VARCHAR},
+			</if>
+			<if test="limitDeductibleAmount != null">
+				limit_Deductible_Amount = #{limitDeductibleAmount,jdbcType=VARCHAR},
+			</if>
+			<if test="limitDeductibleMax != null">
+				limit_Deductible_Max = #{limitDeductibleMax,jdbcType=DECIMAL},
+			</if>
+			<if test="limitDeductibleMin != null">
+				limit_Deductible_Min = #{limitDeductibleMin,jdbcType=DECIMAL},
+			</if>
+			<if test="productElementId != null">
+				product_Element_Id = #{productElementId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanLimit">
+		update t_prd_plan_limit
+		set plan_Limit_Id = #{planLimitId,jdbcType=BIGINT},
+		plan_Coverage_Id = #{planCoverageId,jdbcType=BIGINT},
+		Category_Level_One = #{categoryLevelOne,jdbcType=VARCHAR},
+		Limit_Deductible_Name = #{limitDeductibleName,jdbcType=VARCHAR},
+		Category_Level_Two = #{categoryLevelTwo,jdbcType=VARCHAR},
+		Limit_Deductible_Unit = #{limitDeductibleUnit,jdbcType=VARCHAR},
+		Deductibe_Type = #{deductibeType,jdbcType=VARCHAR},
+		Limit_Currency = #{limitCurrency,jdbcType=VARCHAR},
+		plan_Limit_Name = #{planLimitName,jdbcType=VARCHAR},
+		limit_Deductible_Amount = #{limitDeductibleAmount,jdbcType=VARCHAR},
+		limit_Deductible_Max = #{limitDeductibleMax,jdbcType=DECIMAL},
+		limit_Deductible_Min = #{limitDeductibleMin,jdbcType=DECIMAL},
+		product_Element_Id = #{productElementId,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

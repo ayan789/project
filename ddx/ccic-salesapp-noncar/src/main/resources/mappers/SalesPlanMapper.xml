@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.SalesPlanMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.basedb.po.SalesPlan">
+    <id column="sales_plan_id" jdbcType="INTEGER" property="salesPlanId" />
+    <result column="sales_plan_code" jdbcType="VARCHAR" property="salesPlanCode" />
+    <result column="sales_plan_name" jdbcType="VARCHAR" property="salesPlanName" />
+    <result column="sales_type" jdbcType="VARCHAR" property="salesType" />
+    <result column="group_plan_code" jdbcType="VARCHAR" property="groupPlanCode" />
+    <result column="group_plan_name" jdbcType="VARCHAR" property="groupPlanName" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="org_code" jdbcType="VARCHAR" property="orgCode" />
+    <result column="channel_by_person" jdbcType="VARCHAR" property="channelByPerson" />
+    <result column="effective_date" jdbcType="TIMESTAMP" property="effectiveDate" />
+    <result column="expiry_date" jdbcType="TIMESTAMP" property="expiryDate" />
+  </resultMap>
+  
+  
+  <resultMap id="BaseResultMap2" type="com.ccic.salesapp.noncar.dto.salesplan.GroupSalesPlan">
+    <id column="sales_plan_id" jdbcType="INTEGER" property="salesPlanId" />
+    <result column="sales_plan_code" jdbcType="VARCHAR" property="salesPlanCode" />
+    <result column="sales_plan_name" jdbcType="VARCHAR" property="salesPlanName" />
+    <result column="sales_type" jdbcType="VARCHAR" property="salesType" />
+    <result column="group_plan_code" jdbcType="VARCHAR" property="groupPlanCode" />
+    <result column="group_plan_name" jdbcType="VARCHAR" property="groupPlanName" />
+    <result column="effective_date" jdbcType="TIMESTAMP" property="effectiveDate" />
+    <result column="expiry_date" jdbcType="TIMESTAMP" property="expiryDate" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List">
+    sales_plan_id, sales_plan_code, sales_plan_name, sales_type, group_plan_code, group_plan_name, 
+    status, org_code, channel_by_person, effective_date, expiry_date
+  </sql>
+  <select id="selectSalesPlanBygroupPlanCode" resultMap="BaseResultMap2">
+   SELECT * from t_noncar_sales_plan where group_plan_code=#{groupPlanCode} and group_plan_code in 
+    (SELECT DISTINCT(t1.group_plan_code) from 
+	(SELECT * from t_noncar_sales_plan_config where type='2' and code = #{channelCode}) t1 inner join 
+	(SELECT * from t_noncar_sales_plan_config where type='1' and code in (SELECT up_org_code from t_support_org_branch where org_code=#{comCode})) t2 on 
+	t1.group_plan_code=t2.group_plan_code) and status='2' and expiry_date>now() ORDER BY sort
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_noncar_sales_plan
+    where sales_plan_id = #{salesPlanId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_noncar_sales_plan
+    where sales_plan_id = #{salesPlanId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.SalesPlan">
+    insert into t_noncar_sales_plan (sales_plan_id, sales_plan_code, sales_plan_name, 
+      sales_type, group_plan_code, group_plan_name, 
+      status, org_code, channel_by_person, 
+      effective_date, expiry_date)
+    values (#{sales_plan_id,jdbcType=INTEGER}, #{salesPlanCode,jdbcType=VARCHAR}, #{salesPlanName,jdbcType=VARCHAR}, 
+      #{salesType,jdbcType=VARCHAR}, #{groupPlanCode,jdbcType=VARCHAR}, #{groupPlanName,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}, #{channelByPerson,jdbcType=VARCHAR}, 
+      #{effectiveDate,jdbcType=TIMESTAMP}, #{expiryDate,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insert2" parameterType="com.ccic.salesapp.noncar.dto.salesplan.GroupSalesPlan">
+  	INSERT INTO `t_noncar_sales_plan` (
+		`sales_plan_id`,
+		`sales_plan_code`,
+		`sales_plan_name`,
+		`sales_type`,
+		`group_plan_code`,
+		`group_plan_name`,
+		`status`,
+		`org_code`,
+		`channel_by_person`,
+		`effective_date`,
+		`expiry_date` 
+	)
+	VALUES
+		(
+		#{salesPlanId},
+		#{salesPlanCode},
+		#{salesPlanName},
+		#{salesType},
+		#{groupPlanCode},
+		#{groupPlanName},
+		#{status},
+		#{orgCode},
+		#{channelByPerson},
+		#{effectiveDate},
+		#{expiryDate}
+		)
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.SalesPlan">
+    insert into t_noncar_sales_plan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="salesPlanId != null">
+        sales_plan_id,
+      </if>
+      <if test="salesPlanCode != null">
+        sales_plan_code,
+      </if>
+      <if test="salesPlanName != null">
+        sales_plan_name,
+      </if>
+      <if test="salesType != null">
+        sales_type,
+      </if>
+      <if test="groupPlanCode != null">
+        group_plan_code,
+      </if>
+      <if test="groupPlanName != null">
+        group_plan_name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="orgCode != null">
+        org_code,
+      </if>
+      <if test="channelByPerson != null">
+        channel_by_person,
+      </if>
+      <if test="effectiveDate != null">
+        effective_date,
+      </if>
+      <if test="expiryDate != null">
+        expiry_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="salesPlanCode != null">
+        #{salesPlanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="salesPlanName != null">
+        #{salesPlanName,jdbcType=VARCHAR},
+      </if>
+      <if test="salesType != null">
+        #{salesType,jdbcType=VARCHAR},
+      </if>
+      <if test="groupPlanCode != null">
+        #{groupPlanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="groupPlanName != null">
+        #{groupPlanName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="channelByPerson != null">
+        #{channelByPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveDate != null">
+        #{effectiveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expiryDate != null">
+        #{expiryDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.SalesPlan">
+    update t_noncar_sales_plan
+    <set>
+      <if test="salesPlanCode != null">
+        sales_plan_code = #{salesPlanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="salesPlanName != null">
+        sales_plan_name = #{salesPlanName,jdbcType=VARCHAR},
+      </if>
+      <if test="salesType != null">
+        sales_type = #{salesType,jdbcType=VARCHAR},
+      </if>
+      <if test="groupPlanCode != null">
+        group_plan_code = #{groupPlanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="groupPlanName != null">
+        group_plan_name = #{groupPlanName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        org_code = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="channelByPerson != null">
+        channel_by_person = #{channelByPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveDate != null">
+        effective_date = #{effectiveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expiryDate != null">
+        expiry_date = #{expiryDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where sales_plan_id = #{salesPlanId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.SalesPlan">
+    update t_noncar_sales_plan
+    set sales_plan_code = #{salesPlanCode,jdbcType=VARCHAR},
+      sales_plan_name = #{salesPlanName,jdbcType=VARCHAR},
+      sales_type = #{salesType,jdbcType=VARCHAR},
+      group_plan_code = #{groupPlanCode,jdbcType=VARCHAR},
+      group_plan_name = #{groupPlanName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      org_code = #{orgCode,jdbcType=VARCHAR},
+      channel_by_person = #{channelByPerson,jdbcType=VARCHAR},
+      effective_date = #{effectiveDate,jdbcType=TIMESTAMP},
+      expiry_date = #{expiryDate,jdbcType=TIMESTAMP}
+    where sales_plan_id = #{salesPlanId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectGroupPlanByComChannel" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+  	SELECT DISTINCT group_plan_code groupPlanCode,group_plan_name groupPlanName from t_noncar_sales_plan where group_plan_code in 
+    (SELECT DISTINCT(t1.group_plan_code) from 
+	(SELECT * from t_noncar_sales_plan_config where type='2' and code = #{channelCode}) t1 inner join 
+	(SELECT * from t_noncar_sales_plan_config where type='1' and code in (SELECT up_org_code from t_support_org_branch where org_code=#{comCode})) t2 on 
+	t1.group_plan_code=t2.group_plan_code) and status='2'
+  </select>
+  
+  <delete id="deleteBySalesCoverage" parameterType="java.util.HashMap">
+    delete from t_noncar_sales_coverage where child_plan_id in (SELECT child_plan_id from t_noncar_sales_plan_child where sales_plan_id in (SELECT sales_plan_id from t_noncar_sales_plan where group_plan_code=#{groupPlanCode}))
+  </delete>
+  
+  <delete id="deleteBySalesPlanChild" parameterType="java.util.HashMap">
+    delete  from t_noncar_sales_plan_child where sales_plan_id in (SELECT sales_plan_id from t_noncar_sales_plan where group_plan_code=#{groupPlanCode})
+  </delete>
+  
+  <delete id="deleteBySalesPlan" parameterType="java.util.HashMap">
+    delete  from t_noncar_sales_plan where group_plan_code=#{groupPlanCode}
+  </delete>
+  
+  <delete id="deleteBySalesPlanConfig" parameterType="java.util.HashMap">
+    delete  from t_noncar_sales_plan_config where group_plan_code=#{groupPlanCode}
+  </delete>
+  
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PRPDCompany">
+	<!-- 递归查找当前机构的上级机构 -->
+	<select id="getUpperComCode" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT TC.UPPERCOMCODE FROM T_PRPDCOMPANY TC
+		START WITH TC.COMCODE = #comCode#
+		CONNECT BY PRIOR TC.UPPERCOMCODE  = TC.COMCODE AND TC.COMCODE&lt;&gt;TC.UPPERCOMCODE
+	</select>
+
+	<select id="getComAddress" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT TC.ADDRESSCNAME FROM T_PRPDCOMPANY TC
+		WHERE TC.COMCODE=#comCode#
+	</select>
+
+	<select id="getComName" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT TC.COMCNAME FROM T_PRPDCOMPANY TC
+		WHERE TC.COMCODE=#comCode#
+	</select>
+
+</mapper>

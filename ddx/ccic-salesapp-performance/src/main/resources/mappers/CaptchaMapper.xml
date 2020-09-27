@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.performance.domain.mapper.CaptchaMapper">
+  <resultMap type="com.ccic.salesapp.performance.domain.vo.dto.Captcha" id="BaseResultMap">
+    <result column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="RANDOM_NUM" jdbcType="VARCHAR" property="randomNum" />
+    <result column="CAPTCHA" jdbcType="VARCHAR" property="captcha" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    ID, RANDOM_NUM, CAPTCHA, STATUS
+  </sql>
+  
+  <select id="selectByRandom" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="com.ccic.salesapp.performance.domain.mapper.CaptchaMapper.Base_Column_List" />
+    from t_user_captcha
+    where RANDOM_NUM = #{randomNum} and STATUS = 1 AND CREATE_DATE> date_add(now(), INTERVAL -5 MINUTE)    /* SYSDATE-5/(24*60)*/
+  </select>
+  
+  <insert id="insert" parameterType="com.ccic.salesapp.performance.domain.vo.dto.Captcha">
+    insert into t_user_captcha ( RANDOM_NUM, CAPTCHA, STATUS,CREATE_DATE)
+    values ( #{randomNum}, #{captcha}, #{status},now())
+  </insert>
+  
+  <update id="update" parameterType="com.ccic.salesapp.performance.domain.vo.dto.Captcha">
+    update t_user_captcha
+    set STATUS = #{status}
+    where RANDOM_NUM = #{randomNum}
+  </update>
+  
+</mapper>

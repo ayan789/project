@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.SalelawPersonMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.basedb.po.SalelawPerson">
+    <id column="usercode" jdbcType="VARCHAR" property="usercode" />
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="comcode" jdbcType="VARCHAR" property="comcode" />
+    <result column="comcanme" jdbcType="VARCHAR" property="comcanme" />
+    <result column="channelcode" jdbcType="VARCHAR" property="channelcode" />
+    <result column="channelname" jdbcType="VARCHAR" property="channelname" />
+    <result column="teamcode" jdbcType="VARCHAR" property="teamcode" />
+    <result column="teamcname" jdbcType="VARCHAR" property="teamcname" />
+    <result column="persontypeid" jdbcType="VARCHAR" property="persontypeid" />
+    <result column="persontypename" jdbcType="VARCHAR" property="persontypename" />
+    <result column="dutyid" jdbcType="VARCHAR" property="dutyid" />
+    <result column="dutyname" jdbcType="VARCHAR" property="dutyname" />
+    <result column="rankcode" jdbcType="VARCHAR" property="rankcode" />
+    <result column="rankname" jdbcType="VARCHAR" property="rankname" />
+    <result column="abtype" jdbcType="VARCHAR" property="abtype" />
+    <result column="entrydate" jdbcType="TIMESTAMP" property="entrydate" />
+    <result column="salesdate" jdbcType="TIMESTAMP" property="salesdate" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="validstatus" jdbcType="VARCHAR" property="validstatus" />
+    <result column="cert_no" jdbcType="VARCHAR" property="certNo" />
+    <result column="employ_type" jdbcType="VARCHAR" property="employType" />
+    <result column="sales_type" jdbcType="VARCHAR" property="salesType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    usercode, id, username, comcode, comcanme, channelcode, channelname, teamcode, teamcname, 
+    persontypeid, persontypename, dutyid, dutyname, rankcode, rankname, abtype, entrydate, 
+    salesdate, create_user, create_time, update_user, update_time, validstatus, cert_no, 
+    employ_type, sales_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_performance_databus_salelaw_person
+    where usercode = #{usercode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_performance_databus_salelaw_person
+    where usercode = #{usercode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.SalelawPerson">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_performance_databus_salelaw_person (usercode, username, comcode, 
+      comcanme, channelcode, channelname, 
+      teamcode, teamcname, persontypeid, 
+      persontypename, dutyid, dutyname, 
+      rankcode, rankname, abtype, 
+      entrydate, salesdate, create_user, 
+      create_time, update_user, update_time, 
+      validstatus, cert_no, employ_type, 
+      sales_type)
+    values (#{usercode,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{comcode,jdbcType=VARCHAR}, 
+      #{comcanme,jdbcType=VARCHAR}, #{channelcode,jdbcType=VARCHAR}, #{channelname,jdbcType=VARCHAR}, 
+      #{teamcode,jdbcType=VARCHAR}, #{teamcname,jdbcType=VARCHAR}, #{persontypeid,jdbcType=VARCHAR}, 
+      #{persontypename,jdbcType=VARCHAR}, #{dutyid,jdbcType=VARCHAR}, #{dutyname,jdbcType=VARCHAR}, 
+      #{rankcode,jdbcType=VARCHAR}, #{rankname,jdbcType=VARCHAR}, #{abtype,jdbcType=VARCHAR}, 
+      #{entrydate,jdbcType=TIMESTAMP}, #{salesdate,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{validstatus,jdbcType=VARCHAR}, #{certNo,jdbcType=VARCHAR}, #{employType,jdbcType=VARCHAR}, 
+      #{salesType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.SalelawPerson">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_performance_databus_salelaw_person
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="usercode != null">
+        usercode,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="comcode != null">
+        comcode,
+      </if>
+      <if test="comcanme != null">
+        comcanme,
+      </if>
+      <if test="channelcode != null">
+        channelcode,
+      </if>
+      <if test="channelname != null">
+        channelname,
+      </if>
+      <if test="teamcode != null">
+        teamcode,
+      </if>
+      <if test="teamcname != null">
+        teamcname,
+      </if>
+      <if test="persontypeid != null">
+        persontypeid,
+      </if>
+      <if test="persontypename != null">
+        persontypename,
+      </if>
+      <if test="dutyid != null">
+        dutyid,
+      </if>
+      <if test="dutyname != null">
+        dutyname,
+      </if>
+      <if test="rankcode != null">
+        rankcode,
+      </if>
+      <if test="rankname != null">
+        rankname,
+      </if>
+      <if test="abtype != null">
+        abtype,
+      </if>
+      <if test="entrydate != null">
+        entrydate,
+      </if>
+      <if test="salesdate != null">
+        salesdate,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="validstatus != null">
+        validstatus,
+      </if>
+      <if test="certNo != null">
+        cert_no,
+      </if>
+      <if test="employType != null">
+        employ_type,
+      </if>
+      <if test="salesType != null">
+        sales_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="usercode != null">
+        #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="comcode != null">
+        #{comcode,jdbcType=VARCHAR},
+      </if>
+      <if test="comcanme != null">
+        #{comcanme,jdbcType=VARCHAR},
+      </if>
+      <if test="channelcode != null">
+        #{channelcode,jdbcType=VARCHAR},
+      </if>
+      <if test="channelname != null">
+        #{channelname,jdbcType=VARCHAR},
+      </if>
+      <if test="teamcode != null">
+        #{teamcode,jdbcType=VARCHAR},
+      </if>
+      <if test="teamcname != null">
+        #{teamcname,jdbcType=VARCHAR},
+      </if>
+      <if test="persontypeid != null">
+        #{persontypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="persontypename != null">
+        #{persontypename,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyid != null">
+        #{dutyid,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyname != null">
+        #{dutyname,jdbcType=VARCHAR},
+      </if>
+      <if test="rankcode != null">
+        #{rankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="rankname != null">
+        #{rankname,jdbcType=VARCHAR},
+      </if>
+      <if test="abtype != null">
+        #{abtype,jdbcType=VARCHAR},
+      </if>
+      <if test="entrydate != null">
+        #{entrydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salesdate != null">
+        #{salesdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validstatus != null">
+        #{validstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="certNo != null">
+        #{certNo,jdbcType=VARCHAR},
+      </if>
+      <if test="employType != null">
+        #{employType,jdbcType=VARCHAR},
+      </if>
+      <if test="salesType != null">
+        #{salesType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.SalelawPerson">
+    update t_performance_databus_salelaw_person
+    <set>
+      <if test="id != null">
+        id = #{id,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="comcode != null">
+        comcode = #{comcode,jdbcType=VARCHAR},
+      </if>
+      <if test="comcanme != null">
+        comcanme = #{comcanme,jdbcType=VARCHAR},
+      </if>
+      <if test="channelcode != null">
+        channelcode = #{channelcode,jdbcType=VARCHAR},
+      </if>
+      <if test="channelname != null">
+        channelname = #{channelname,jdbcType=VARCHAR},
+      </if>
+      <if test="teamcode != null">
+        teamcode = #{teamcode,jdbcType=VARCHAR},
+      </if>
+      <if test="teamcname != null">
+        teamcname = #{teamcname,jdbcType=VARCHAR},
+      </if>
+      <if test="persontypeid != null">
+        persontypeid = #{persontypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="persontypename != null">
+        persontypename = #{persontypename,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyid != null">
+        dutyid = #{dutyid,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyname != null">
+        dutyname = #{dutyname,jdbcType=VARCHAR},
+      </if>
+      <if test="rankcode != null">
+        rankcode = #{rankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="rankname != null">
+        rankname = #{rankname,jdbcType=VARCHAR},
+      </if>
+      <if test="abtype != null">
+        abtype = #{abtype,jdbcType=VARCHAR},
+      </if>
+      <if test="entrydate != null">
+        entrydate = #{entrydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salesdate != null">
+        salesdate = #{salesdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validstatus != null">
+        validstatus = #{validstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="certNo != null">
+        cert_no = #{certNo,jdbcType=VARCHAR},
+      </if>
+      <if test="employType != null">
+        employ_type = #{employType,jdbcType=VARCHAR},
+      </if>
+      <if test="salesType != null">
+        sales_type = #{salesType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where usercode = #{usercode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.SalelawPerson">
+    update t_performance_databus_salelaw_person
+    set id = #{id,jdbcType=BIGINT},
+      username = #{username,jdbcType=VARCHAR},
+      comcode = #{comcode,jdbcType=VARCHAR},
+      comcanme = #{comcanme,jdbcType=VARCHAR},
+      channelcode = #{channelcode,jdbcType=VARCHAR},
+      channelname = #{channelname,jdbcType=VARCHAR},
+      teamcode = #{teamcode,jdbcType=VARCHAR},
+      teamcname = #{teamcname,jdbcType=VARCHAR},
+      persontypeid = #{persontypeid,jdbcType=VARCHAR},
+      persontypename = #{persontypename,jdbcType=VARCHAR},
+      dutyid = #{dutyid,jdbcType=VARCHAR},
+      dutyname = #{dutyname,jdbcType=VARCHAR},
+      rankcode = #{rankcode,jdbcType=VARCHAR},
+      rankname = #{rankname,jdbcType=VARCHAR},
+      abtype = #{abtype,jdbcType=VARCHAR},
+      entrydate = #{entrydate,jdbcType=TIMESTAMP},
+      salesdate = #{salesdate,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      validstatus = #{validstatus,jdbcType=VARCHAR},
+      cert_no = #{certNo,jdbcType=VARCHAR},
+      employ_type = #{employType,jdbcType=VARCHAR},
+      sales_type = #{salesType,jdbcType=VARCHAR}
+    where usercode = #{usercode,jdbcType=VARCHAR}
+  </update>
+</mapper>

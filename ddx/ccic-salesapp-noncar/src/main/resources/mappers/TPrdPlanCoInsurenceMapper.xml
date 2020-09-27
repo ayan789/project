@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanCoInsurenceMapper" >
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCoInsurence" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="plan_CoInsurance_Id" property="planCoinsuranceId" jdbcType="VARCHAR" />
+    <result column="plan_Def_Id" property="planDefId" jdbcType="VARCHAR" />
+    <result column="plan_Co_Type" property="planCoType" jdbcType="VARCHAR" />
+    <result column="coInsuance_Type" property="coinsuanceType" jdbcType="VARCHAR" />
+    <result column="internal_CoInsuance_Type" property="internalCoinsuanceType" jdbcType="VARCHAR" />
+    <result column="leader_Total_Premium" property="leaderTotalPremium" jdbcType="VARCHAR" />
+    <result column="leader_Total_Si" property="leaderTotalSi" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, plan_CoInsurance_Id, plan_Def_Id, plan_Co_Type, coInsuance_Type, internal_CoInsuance_Type, 
+    leader_Total_Premium, leader_Total_Si
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_prd_plan_co_insurence
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_prd_plan_co_insurence
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCoInsurence" >
+    insert into t_prd_plan_co_insurence (id, plan_CoInsurance_Id, plan_Def_Id, 
+      plan_Co_Type, coInsuance_Type, internal_CoInsuance_Type, 
+      leader_Total_Premium, leader_Total_Si)
+    values (#{id,jdbcType=BIGINT}, #{planCoinsuranceId,jdbcType=VARCHAR}, #{planDefId,jdbcType=VARCHAR}, 
+      #{planCoType,jdbcType=VARCHAR}, #{coinsuanceType,jdbcType=VARCHAR}, #{internalCoinsuanceType,jdbcType=VARCHAR}, 
+      #{leaderTotalPremium,jdbcType=VARCHAR}, #{leaderTotalSi,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCoInsurence" >
+    insert into t_prd_plan_co_insurence
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="planCoinsuranceId != null" >
+        plan_CoInsurance_Id,
+      </if>
+      <if test="planDefId != null" >
+        plan_Def_Id,
+      </if>
+      <if test="planCoType != null" >
+        plan_Co_Type,
+      </if>
+      <if test="coinsuanceType != null" >
+        coInsuance_Type,
+      </if>
+      <if test="internalCoinsuanceType != null" >
+        internal_CoInsuance_Type,
+      </if>
+      <if test="leaderTotalPremium != null" >
+        leader_Total_Premium,
+      </if>
+      <if test="leaderTotalSi != null" >
+        leader_Total_Si,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="planCoinsuranceId != null" >
+        #{planCoinsuranceId,jdbcType=VARCHAR},
+      </if>
+      <if test="planDefId != null" >
+        #{planDefId,jdbcType=VARCHAR},
+      </if>
+      <if test="planCoType != null" >
+        #{planCoType,jdbcType=VARCHAR},
+      </if>
+      <if test="coinsuanceType != null" >
+        #{coinsuanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="internalCoinsuanceType != null" >
+        #{internalCoinsuanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderTotalPremium != null" >
+        #{leaderTotalPremium,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderTotalSi != null" >
+        #{leaderTotalSi,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCoInsurence" >
+    update t_prd_plan_co_insurence
+    <set >
+      <if test="planCoinsuranceId != null" >
+        plan_CoInsurance_Id = #{planCoinsuranceId,jdbcType=VARCHAR},
+      </if>
+      <if test="planDefId != null" >
+        plan_Def_Id = #{planDefId,jdbcType=VARCHAR},
+      </if>
+      <if test="planCoType != null" >
+        plan_Co_Type = #{planCoType,jdbcType=VARCHAR},
+      </if>
+      <if test="coinsuanceType != null" >
+        coInsuance_Type = #{coinsuanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="internalCoinsuanceType != null" >
+        internal_CoInsuance_Type = #{internalCoinsuanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderTotalPremium != null" >
+        leader_Total_Premium = #{leaderTotalPremium,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderTotalSi != null" >
+        leader_Total_Si = #{leaderTotalSi,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.databusdb.po.TPrdPlanCoInsurence" >
+    update t_prd_plan_co_insurence
+    set plan_CoInsurance_Id = #{planCoinsuranceId,jdbcType=VARCHAR},
+      plan_Def_Id = #{planDefId,jdbcType=VARCHAR},
+      plan_Co_Type = #{planCoType,jdbcType=VARCHAR},
+      coInsuance_Type = #{coinsuanceType,jdbcType=VARCHAR},
+      internal_CoInsuance_Type = #{internalCoinsuanceType,jdbcType=VARCHAR},
+      leader_Total_Premium = #{leaderTotalPremium,jdbcType=VARCHAR},
+      leader_Total_Si = #{leaderTotalSi,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

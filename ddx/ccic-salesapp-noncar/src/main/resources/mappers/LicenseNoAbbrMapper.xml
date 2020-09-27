@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="licenseNoAbbr">
+		
+	<select id="querylicenseNoAbbr" parameterType="java.lang.String" resultType="java.lang.String">
+	      SELECT * FROM (
+            SELECT S.LICENSE_NO_ABBR FROM T_APP_S_LICENSE_NO_CONFIG S,
+                   (SELECT TC.UPPERCOMCODE COMCODE,ROWNUM RN FROM T_PRPDCOMPANY TC
+                    START WITH TC.COMCODE = #comCode#
+                    CONNECT BY PRIOR TC.UPPERCOMCODE  = TC.COMCODE AND TC.COMCODE<![CDATA[<>]]>TC.UPPERCOMCODE
+                    UNION SELECT #comCode#,0 FROM DUAL) C
+            WHERE S.COM_CODE=C.COMCODE
+            AND   S.VALID_STATUS='1'
+            ORDER BY C.RN)
+      	 WHERE ROWNUM=1
+	</select>
+	
+</mapper>

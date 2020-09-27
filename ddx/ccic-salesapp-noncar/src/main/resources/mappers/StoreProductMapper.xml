@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.StoreProductMapper">
+
+	<resultMap type="com.ccic.salesapp.noncar.dto.StoreProduct"
+		id="BaseResultMap">
+		<result column="ID" property="id" />
+		<result column="PRODUCT_CODE" property="productCode" />
+		<result column="PRODUCT_NAME" property="productName" />
+		<result column="PRODUCT_DESC" property="productDesc" />
+		<result column="PRODUCT_EXPLAIN" property="productExplain" />
+		<result column="PRODUCT_TYPE" property="productType" />
+		<result column="PRODUCT_BUY_URL" property="productBuyUrl" />
+		<result column="PRODUCT_IMG_URL" property="productImgUrl" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="STATE" property="state" />
+		<result column="COM_CODE" property="comCode" />
+		<result column="NEW_CORE" property="xinCore" />
+		<result column="PRODUCT_RISK" property="productRisk" />
+		<result column="USER_CODE" property="userCode" />
+		<result column="SALESUM" property="saleSum" />
+		<result column="applicant_age" property="applicantAge" />
+		<result column="is_healinsurance" property="isHealinsurance" />
+		<result column="isIssueAfterPay" property="isIssueAfterPay" />
+		<result column="path" property="path" />
+		<result column="forPeople_status" property="forPeopleStatus" />
+		<result column="desc" property="desc" />
+	</resultMap>
+
+	<resultMap type="com.ccic.salesapp.noncar.dto.StoreProductMedia"
+		id="MediaResultMap">
+		<result column="material_type" property="materialType" />
+		<result column="material_path" property="materialPath" />
+	</resultMap>
+
+
+	<select id="getProduct" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT * FROM t_noncar_product WHERE PRODUCT_CODE=#{productCode}
+	</select>
+
+	<select id="getMedia" resultType="com.ccic.salesapp.noncar.dto.StoreProductMedia"
+		parameterType="java.lang.String">
+		select material_type materialType, material_path
+		materialPath from t_noncar_media where product_code = #{productCode}
+		and material_status = 1
+	</select>
+
+	<select id="getAll" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+		<bind name="likeUserCode" value="'%'+userCode+'%'"></bind>
+		SELECT a.*,(c.SALESUM + c.base_count) SALESUM, if(a.PRODUCT_CODE =
+		'YEF',if(ispay.isIssueAfterPay is null ,0,1),1) isIssueAfterPay FROM
+		t_noncar_product a
+		left join (
+		select t.comcode isIssueAfterPay from (
+		select up_org_code comcode from t_support_org_branch where org_code =
+		#{comCode}
+		union
+		select #{comCode} ) t where t.comcode ${needPayComCode}
+		)
+		ispay on 1 = 1
+		left join
+		(select t.product_code, t.SALE_SUM base_count,
+		count(DISTINCT b.insure_no) SALESUM from
+		t_noncar_product t left join
+		T_NONCAR_INSUREINFO b on t.product_code = b.product_code
+		where
+		b.status
+		in(6,7) GROUP BY t.product_code ,t.SALE_SUM ) c on
+		c.product_code =
+		a.product_code
+		where a.state=1
+		and
+		a.new_core
+		=#{newCore}
+		<if test="productRisk!= null and productRisk!=''">
+			and a.PRODUCT_RISK = #{productRisk}
+		</if>
+		and (a.com_code is null or exists (
+		select 1 from (
+		select up_org_code
+		comcode from t_support_org_branch where org_code =
+		#{comCode}
+		union
+		select concat('',#{comCode},'')
+		) C
+		where a.com_code like
+		concat('%',c.comcode,'%'))
+		)
+		and (a.user_code is null or a.user_code
+		like #{likeUserCode} )
+
+		<!-- 根据搜索关键词查询 -->
+		<if test="keyWord!= null and keyWord!=''">
+			and a.PRODUCT_NAME like CONCAT(CONCAT('%',
+			#{keyWord}),'%')
+		</if>
+
+		<!-- 根据适用人群查询 -->
+		<choose>
+			<when
+				test="forPeopleStatus!= null and forPeopleStatus!='' and forPeopleStatus==0">
+				and a.forPeople_status in ('1','2','3','4','5','6','7')
+			</when>
+			<when
+				test="forPeopleStatus!= null and forPeopleStatus!='' ">
+				and a.forPeople_status  = #{forPeopleStatus}
+			</when>
+			<otherwise>
+				
+			</otherwise>
+		</choose>
+
+		<!-- 根据销量,价格，上架时间排序 -->
+		<choose>
+			<when test="keyOrderBy!= null and keyOrderBy!='' and keyOrderBy==0">
+				order by a.PRODUCT_DESC
+			</when>
+
+			<when test="keyOrderBy!= null and keyOrderBy!='' and keyOrderBy==1">
+				order by a.PRODUCT_DESC DESC
+			</when>
+
+			<when test="keyOrderBy!= null and keyOrderBy!='' and keyOrderBy==2">
+				order by a.CREATE_DATE
+			</when>
+
+			<when test="keyOrderBy!= null and keyOrderBy!='' and keyOrderBy==3">
+				order by a.CREATE_DATE DESC
+			</when>
+
+			<when test="keyOrderBy!= null and keyOrderBy!='' and keyOrderBy==4">
+				order by SALESUM
+			</when>
+
+			<when test="keyOrderBy!= null and keyOrderBy!='' and keyOrderBy==5">
+				order by SALESUM DESC
+			</when>
+			<otherwise>
+				order by SALESUM DESC
+			</otherwise>
+		</choose>
+		<if test="size>0">
+			limit #{page},#{size}
+		</if>
+	</select>
+
+
+	<select id="isIssueAfterPay" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+		select count(*) isIssueAfterPay from (
+		select up_org_code
+		comcode from
+		t_support_org_branch where org_code = #{comCode}
+		union
+		select #{comCode} ) t where t.comcode ${needPayComCode}
+	</select>
+
+</mapper>

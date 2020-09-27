@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.ZzbInsureInfoMapper">
+
+	<resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.dto.ZzbInsureInfo">
+		<result property="id" column="ID" jdbcType="NUMERIC" />
+		<result property="insureInfoId" column="INSUREINFO_ID"
+			jdbcType="NUMERIC" />
+		<result property="storeName" column="STORE_NAME" jdbcType="VARCHAR" />
+		<result property="storeIdType" column="STORE_IDTYPE" jdbcType="VARCHAR" />
+		<result property="storeId" column="STORE_ID" jdbcType="VARCHAR" />
+		<result property="employeeNum" column="EMPLOYEE_NUM" jdbcType="NUMERIC" />
+		<result property="storeArea" column="STORE_AREA" jdbcType="NUMERIC" />
+		<result property="ownAssets" column="OWN_ASSETS" jdbcType="NUMERIC" />
+		<result property="houseValue" column="HOUSE_VALUE" jdbcType="NUMERIC" />
+		<result property="stockValue" column="STOCK_VALUE" jdbcType="NUMERIC" />
+		<result property="equipmentValue" column="EQUIPMENT_VALUE"
+			jdbcType="NUMERIC" />
+		<result property="storeCash" column="STORE_CASH" jdbcType="NUMERIC" />
+		<result property="contactsName" column="CONTACTS_NAME"
+			jdbcType="VARCHAR" />
+		<result property="contactsMobile" column="CONTACTS_MOBILE"
+			jdbcType="VARCHAR" />
+		<result property="contactsAddress" column="CONTACTS_ADDRESS"
+			jdbcType="VARCHAR" />
+		<result property="roomNum" column="ROOM_NUM" jdbcType="NUMERIC" />
+		<result property="insuredNature" column="INSURED_NATURE"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 查询订单附表 -->
+	<select id="selectByInsuredInfoId" parameterType="java.util.HashMap"
+		resultMap="BaseResultMap">
+		SELECT
+		ID,INSUREINFO_ID,STORE_NAME,STORE_IDTYPE,STORE_ID,EMPLOYEE_NUM,STORE_AREA,OWN_ASSETS,HOUSE_VALUE,STOCK_VALUE,EQUIPMENT_VALUE,STORE_CASH,CONTACTS_NAME,CONTACTS_MOBILE,CONTACTS_ADDRESS,ROOM_NUM,INSURED_NATURE
+		FROM t_noncar_insureinfo_zzb
+		WHERE INSUREINFO_ID = #{insureInfoId}
+	</select>
+
+	<insert id="insertZzbInsureInfo" parameterType="com.ccic.salesapp.noncar.dto.ZzbInsureInfo">
+		insert into T_APP_S_STORE_INSUREINFO_ZZB
+		(ID,INSUREINFO_ID,STORE_NAME,STORE_IDTYPE,STORE_ID,EMPLOYEE_NUM,STORE_AREA,OWN_ASSETS,HOUSE_VALUE,STOCK_VALUE,EQUIPMENT_VALUE,STORE_CASH,CONTACTS_NAME,CONTACTS_MOBILE,CONTACTS_ADDRESS,ROOM_NUM,INSURED_NATURE)
+		VALUES(#{id},#insureInfoId:NUMBER#,#{storeName,jdbcType=VARCHAR},#{storeIdType,jdbcType=VARCHAR},#{storeId,jdbcType=VARCHAR},#employeeNum:NUMBER#,#storeArea:NUMBER#,#ownAssets:NUMBER#,#houseValue:NUMBER#,#stockValue:NUMBER#,#equipmentValue:NUMBER#,#storeCash:NUMBER#,#{contactsName,jdbcType=VARCHAR},#{contactsMobile,jdbcType=VARCHAR},#{contactsAddress,jdbcType=VARCHAR},#roomNum:NUMBER#,#{insuredNature,jdbcType=VARCHAR})
+	</insert>
+
+
+</mapper>

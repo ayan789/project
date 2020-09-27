@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+       xmlns:context="http://www.springframework.org/schema/context"  
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:core="http://cxf.apache.org/core"
+       xmlns:sec="http://cxf.apache.org/configuration/security"
+       xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"  
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://cxf.apache.org/configuration/security http://cxf.apache.org/schemas/configuration/security.xsd
+       http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd  
+       http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+       http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+       
+      <!-- 核保状态查询 -->
+      <jaxws:client id="underInquery" serviceClass="com.ccic.service.core.undwrinquiry.intf.UndwrStatusInquiry"
+      address="http://10.1.176.99:25201/ccic/esb/UndwrStatusInquiryService"></jaxws:client>
+      
+      <!--提交核保  -->
+      <jaxws:client id="submitUnderwrite" serviceClass="com.ccic.service.core.underwrite.intf.SubmitUnderwrite"
+      address="http://10.1.176.99:25201/ccic/esb/SubmitUnderwriteService"></jaxws:client>
+      
+      <!-- 图像识别 -->
+      <jaxws:client id="recongizeImage" serviceClass="com.ccic.service.rule.imagerecognition.intf.ImageRecognitionPort"
+      address="http://10.1.176.99:25201/ccic/esb/ImageRecognitionService"></jaxws:client>
+      
+     <!-- 精确报价  -->
+     <jaxws:client id="preciseQuote" serviceClass="com.ccic.service.cpi.precisequote.intf.PreciseQuote"
+       address="http://10.1.176.99:25201/ccic/esb/CpiPreciseQuoteService"/>   
+     
+      <!-- 转投保单  -->
+      <jaxws:client id="quoteToProposal" serviceClass="com.ccic.service.car.quotetoproposal.intf.QuoteToProposal"
+      address = "http://10.1.176.99:25201/ccic/esb/QuoteProposalService" /> 
+     
+      <!-- 销售支持 & 保单信息  -->
+    <jaxws:client id="carPolicyInquiry" serviceClass="com.ccic.service.core.carpolicy.intf.PortType"
+   address="http://10.1.176.99:25201/ccic/esb/CarPolicyInquiryService"></jaxws:client>
+   	
+     <!-- 销售支持 &  用户验证 -->
+      <jaxws:client id="userLogin" serviceClass="com.ccic.service.userservice.intf.UserAuthenticationService"
+     address = "http://10.1.176.99:25201/ccic/esb/UserAuthenticationService" />
+   
+      <!-- 移动查勘/销售支持 & 用户密码管理 -->
+      <jaxws:client id="userpassword" serviceClass="com.ccic.service.userservice.userpasswordchange.intf.UserPasswordChange"
+     address = "http://10.1.176.99:25201/ccic/esb/UserPasswordChangeService" />
+     
+     <!-- 销售支持 & 用户信息查询 -->
+      <jaxws:client id="userInquiry" serviceClass="com.ccic.service.userservice.userinquiry.intf.UserInquiryService"
+     address = "http://10.1.176.99:25201/ccic/esb/UserInquiryService" />
+     
+     <!-- 销售支持 & 客户保单查询 ECIF-->
+      <jaxws:client id="customPolicy" serviceClass="com.ccic.service.ecif.policyinfosearch.intf.PolicyInfoSearch"
+     address = "http://10.1.176.99:25201/ccic/esb/PolicyInfoSearchService" />  
+         
+      <!--  保费估算 -->
+      <jaxws:client id="easyQuote" serviceClass="com.ccic.service.cpi.easyquote.intf.EasyQuote"
+     address = "http://10.1.176.99:25201/ccic/esb/CpiEasyQuoteService" />   
+     
+      <!-- 销售支持 & 车型查询  -->
+      <jaxws:client id="carModelInfoInquiry" serviceClass="com.ccic.service.cpi.carmodelinfoinquiry.intf.CarModelInfoInquiry"
+     address = "http://10.1.176.99:25201/ccic/esb/CarModelInfoInquiryService" />
+     
+      <!-- 行业车型编码校验 -->
+      <jaxws:client id="carModelInfoCheck" serviceClass="com.ccic.service.cpi.carmodelinfocheck.intf.CarModelInfoCheck"
+     address = "http://10.1.176.99:25201/ccic/esb/CarModelInfoCheckService" />
+     
+     <!-- 销售支持 & 企业客户基本信息查询  ECIF-->
+     <jaxws:client id="EntInfoInquiry" serviceClass="com.ccic.service.ecif.entbaseinfoinquiry.intf.EntBaseInfoInquiry"
+     address="http://10.1.176.99:25201/ccic/esb/EntBaseInfoInquiryService" ></jaxws:client>
+     
+     <!-- 销售支持 & 个人客户基本信息查询 ECIF-->
+     <jaxws:client id="PerInfoInquiry" serviceClass="com.ccic.service.ecif.perbaseinfoinquiry.intf.PerBaseInfoInquiry"
+     address="http://10.1.176.99:25201/ccic/esb/PerBaseInfoInquiryService" ></jaxws:client>
+     
+                      
+        <!--  销售支持 & 查询个人客户客户号     -->                 
+       <jaxws:client id="perCustNoSearch" serviceClass="com.ccic.service.ecif.percustnosearch.intf.PerCustNoSearch"
+       address="http://10.1.176.99:25201/ccic/esb/PerCustNoSearchService"></jaxws:client>
+       
+       <!--新增个人客户号 -->
+         <jaxws:client id="AddPerCustNo" serviceClass="com.ccic.service.ecif.addpercustno.intf.AddPerCustNo"
+       address="http://10.1.176.99:25201/ccic/esb/AddPerCustNoService"></jaxws:client>      
+       
+       <!-- 国政通车型查询 -->
+       <jaxws:client id="EasyCarQuery" serviceClass="com.ccic.service.car.vehicleinfoinquiry.intf.VehicleInfoInquiry"
+       address="http://10.1.176.99:25201/ccic/esb/VehicleInfoInquiryService"></jaxws:client>
+	   
+       <!--支付号申请  -->
+       <jaxws:client id="paymentNoApply" serviceClass="com.ccic.service.payment.paymentnoapply.intf.PaymentNoApply"
+       address="http://10.1.176.99:25201/ccic/esb/PaymentNoApplyService"></jaxws:client>
+       
+       <!--商机同步  -->
+       <jaxws:client id="quoteOrder" serviceClass="com.ccic.service.ecommerce.quoteorder.intf.QuoteOrder"
+       address="http://10.1.176.99:25201/ccic/esb/QuoteOrderService"></jaxws:client>
+       
+       <!-- 随车行李险方案查询 -->
+       <jaxws:client id="formulaInquirySCX" serviceClass="com.ccic.service.commonship.formulainquiry.intf.FormulaInquiry"
+       address="http://10.1.66.99:25011/ddccallweb/services/FormulaInquiryService"></jaxws:client>
+       <!-- 随车行李险方案明细查询  -->
+       <jaxws:client id="formulaDetailInquirySCX" serviceClass="com.ccic.service.commonship.formuladetailinquiry.intf.FormulaDetailInquiry"
+       address="http://10.1.66.99:25011/ddccallweb/services/FormulaDetailInquiryNoCarService"></jaxws:client>
+       <!-- 人身险方案查询  -->
+       <jaxws:client id="formulaInquiryLife" serviceClass="com.ccic.service.lifeservice.formulainquiry.intf.FormulaInquiry"
+       address="http://10.1.66.99:15501/FormulaInquiryService"></jaxws:client>
+       <!-- 人身险方案明细查询  -->
+       <jaxws:client id="formulaDetailInquiryLife" serviceClass="com.ccic.service.lifeservice.formuladetailinquiry.intf.FormulaDetailInquiry"
+       address="http://10.1.66.99:15501/FormulaDetailInquiryService"></jaxws:client>
+       
+       <!-- 电销客户查询接口 -->
+       <jaxws:client id="searchCustomer" serviceClass="com.ccic.service.dianxiao.searchcustomer.intf.SearchCustomerPort"
+       address="http://10.1.176.99:25201/ccic/esb/SearchCustomerService"></jaxws:client>
+       
+       
+       
+       <!-- 财产险： -->
+       <!--(家财险JAB，责任险ZKF) 试算接口 -->
+	   <jaxws:client id="proposalLiabInsGenerateService" serviceClass="com.ccic.service.liabinsurance.proposalliabinsgenerate.intf.ProposalLiabInsGeneratePort"
+		     address="http://10.1.176.99:25201/ccic/esb/ProposalLiabInsGenerateService"></jaxws:client>
+	   
+	   <!--货运险（随车行李险YEJ）试算接口 -->
+	   <jaxws:client id="proposalGenerateService" serviceClass="com.ccic.service.ecargo.proposalgenerate.intf.ProposalGeneratePort"
+		     address="http://10.1.176.99:25201/ccic/esb/ProposalGenerateService"></jaxws:client>
+       
+       <!--请求核保(req：投保单，险种，单号类型) -->
+	   <jaxws:client id="submitUnderwriteService" serviceClass="com.ccic.service.core.underwrite.intf.SubmitUnderwrite"
+		     address="http://10.1.176.99:25201/ccic/esb/SubmitUnderwriteService"></jaxws:client>
+	  
+       <!--意建险: -->
+       <!--试算接口 -->
+	   <jaxws:client id="quotePriceService" serviceClass="com.ccic.service.lifepolicy.quoteprice.intf.QuotePrice"
+		     address="http://10.1.176.99:25201/ccic/esb/LifeQuotePriceService"></jaxws:client>
+		     
+	   <!--请求核保 -->
+	   <jaxws:client id="preUndwrtService" serviceClass="com.ccic.service.lifepolicy.preundwrt.intf.PreUndwrt"
+		     address="http://10.1.176.99:25201/ccic/esb/PreUndwrtService"></jaxws:client>
+	   
+	   <!-- 短信发送（注册验证码） -->
+       <jaxws:client id="sendSms" serviceClass="com.ccic.service.sms.sendsms.intf.SendSms"
+       address = "http://10.1.176.99:25201/ccic/esb/SendSmsService" />
+       
+	  <!-- 保单客户角色 ECIF-->
+      <jaxws:client id="policyCustRoleSearch" serviceClass="com.ccic.service.ecif.policycustrolesearch.intf.PolicyCustRoleSearch"
+     address = "http://10.1.176.99:25201/ccic/esb/PolicyCustRoleSearchService" />
+     
+      <!-- 新华pos-->
+      <jaxws:client id="standardPolicy" serviceClass="xhpos.StandardPolicyPortType"
+     address = "http://123.127.246.18/pos/services/StandardPolicy" />
+     
+     <!-- 代理人手续费查询-->
+      <jaxws:client id="planFeeInquiry" serviceClass="com.ccic.service.agent.planfee.intf.PlanFeeInquiryPort"
+     address = "http://10.1.176.99:25201/ccic/esb/PlanFeeInquiryService" />
+     
+     <!-- 代理人手续费打包送费控-->
+      <jaxws:client id="billPackToFK" serviceClass="com.ccic.service.agent.billpack.intf.BillPackToFKPort"
+     address = "http://10.1.176.99:25201/ccic/esb/BillPackToFKService" />
+	
+	     <!-- 身份证采集接口-->
+      <jaxws:client id="collectIDCardInfo" serviceClass="com.ccic.service.core.collectidcardinfo.intf.collectidcardinfoimpl.CollectIDCardInfo"
+     address = "http://10.1.176.99:25201/ccic/esb/CollectIDCardInfoService" />
+	   <!-- 验证码更新-->
+	    <jaxws:client id="updateVerifyCode" serviceClass="com.ccic.service.core.updateverifycode.intf.updateverifycodeimpl.UpdateVerifyCode"
+     address = "http://10.1.176.99:25201/ccic/esb/UpdateVerifyCodeService" />
+
+
+      <!-- 手续费提现-->
+      <jaxws:client id="withdrawals" serviceClass="com.ccic.service.agent.withdrawals.intf.WithdrawalsPort"
+     address = "http://10.1.176.99:25201/ccic/esb/WithdrawalsService" />
+
+	 <!-- 索赔资料补全信息/案件基本信息（赔案基本信息查询）  -->
+     <jaxws:client id="ClaimInquiry" serviceClass="com.ccic.service.core.claim.intf.ClaimInquiry"
+     address = "http://10.1.176.99:25201/ccic/esb/ClaimInquiryService" />
+     
+     <!-- 新理赔赔案状态查询  -->
+     <jaxws:client id="ClaimStatusInquiry" serviceClass="com.ccic.service.newcarclaim.claimstatusinquiry.intf.ClaimStatusInquiry"
+     address = "http://10.1.176.99:25201/ccic/esb/NewClaimStatusInquiryService" />
+     
+     <!-- 影像上传地址请求接口 -->
+     <jaxws:client id="imageUpload" serviceClass="com.ccic.service.h5img.imgprevupload.intf.ImgPrevUploadPort"
+     address = "http://10.1.176.99:25201/ccic/esb/ImgPrevUploadService" />
+    
+     <!-- 影像查看地址请求接口 -->
+     <jaxws:client id="imagePreview" serviceClass="com.ccic.service.h5img.imgprevview.intf.ImgPrevViewPort"
+     address = "http://10.1.176.99:25201/ccic/esb/ImgPrevViewService" />
+     
+     <!-- 个人薪酬查询  -->
+     <jaxws:client id="salelawSalary" serviceClass="com.ccic.service.sales.salelawsalaryquery.intf.SalaryQueryPort"
+     address = "http://10.1.176.99:25201/ccic/esb/SalelawSalaryQueryService" /> 
+     
+     <!-- 车辆标的库指标查询服务  -->
+     <jaxws:client id="queryQuota" serviceClass="com.ccic.service.car.queryquota.intf.QueryQuotaPort"
+     address = "http://10.1.176.99:25201/ccic/esb/QueryQuotaService" />
+     
+     <!-- 保存送审新产品 -->
+     <jaxws:client id="addNewProduct" serviceClass="com.ccic.service.productmanage.fragdemand.intf.SaveFragDemandPort"
+     address = "http://10.1.176.99:25201/ccic/esb/SaveFragDemandService"/>
+     
+     <!-- 续保认领保单查询 -->
+     <jaxws:client id="renewalQuery" serviceClass="com.ccic.service.xbgl.query.intf.RenewalQueryService"
+     address = "http://10.1.176.99:25201/ccic/esb/RenewalQueryService" />  
+
+     <!-- 车险续保查询 -->
+     <jaxws:client id="renCarQueryService" serviceClass="com.ccic.service.xbgl.carquery.intf.RenCarQueryPort"
+     address = "http://10.1.176.99:25201/ccic/esb/RenCarQueryService" />
+     
+     <!-- 保单操作轨迹查询 -->
+     <jaxws:client id="renDrawHisQuery" serviceClass="com.ccic.service.xbgl.drawhis.intf.RenDrawHisQueryPort"
+     address = "http://10.1.176.99:25201/ccic/esb/RenDrawHisQueryService" />
+     
+     <!-- 续保认领/推送 -->
+     <jaxws:client id="renewalDraw" serviceClass="com.ccic.service.xbgl.draw.intf.RenewalDrawService"
+     address = "http://10.1.176.99:25201/ccic/esb/DrawRenewalService" />
+     
+     <!-- 财产险保单查询接口 -->
+     <jaxws:client id="propertyInsurance" serviceClass="com.ccic.service.commonship.inquirypolicy.intf.InquiryPolicy"
+     address = "http://10.1.176.99:25201/ccic/esb/InquiryPolicyService" />
+    
+     <!-- 人身险保单查询接口 -->
+     <jaxws:client id="personalInsurance" serviceClass="com.ccic.service.lifepolicy.policyinquiry.intf.PolicyInquiry"
+     address = "http://10.1.176.99:25201/ccic/esb/PolicyInquiryService" />
+     
+     <!-- 华泰分期支付申请 -->
+     <jaxws:client id="huataiPeriodApplication" serviceClass="com.ccic.service.car.huataiperiod.intf.HuataiPeriodApplicationPort"
+     address = "http://10.1.176.99:25201/ccic/esb/HuataiPeriodApplicationService" />
+
+     <!-- 获取确认码（忘记密码） -->
+     <jaxws:client id="getSmsVerifycode" serviceClass="com.ccic.service.userservice.getsmsverifycodebysafephone.intf.GetSmsVerifycodeBySafephone"
+     address = "http://10.1.176.99:25201/ccic/esb/GetSmsVerifycodeBySafephoneService" />
+     
+     <!--  客户积分查询     -->                 
+     <jaxws:client id="custCoreInfoSearch" serviceClass="com.ccic.service.ecif.custcoreinfosearch.intf.CustCoreInfoSearchPort"
+     address="http://10.1.176.99:25201/ccic/esb/CustCoreInfoSearchService"></jaxws:client>
+       
+     <!--  增值客户权益查询     -->                 
+     <jaxws:client id="equitiesInquiry" serviceClass="com.ccic.service.zzfw.equitiesinquiry.intf.EquitiesInquiryPort"
+     address="http://10.1.176.99:25201/ccic/esb/EquitiesInquiryService"></jaxws:client>
+       
+     <!--  客户积分计算     -->                 
+     <jaxws:client id="custCoreInfoQuote" serviceClass="com.ccic.service.ecif.custcoreinfoquote.intf.CustCoreInfoQuotePort"
+     address="http://10.1.176.99:25201/ccic/esb/CustCoreInfoQuoteService"></jaxws:client>
+     
+      <!--  客户增值服务     -->                 
+     <jaxws:client id="serviceItemInquiry" serviceClass="com.ccic.service.zzfw.serviceiteminquiry.intf.ServiceItemInquiry"
+     address="http://10.1.176.99:25201/ccic/esb/ServiceItemInquiryService"></jaxws:client>
+
+     <!--  意健险续保查询     -->                 
+     <jaxws:client id="healthRenewalRemind" serviceClass="com.ccic.service.xbgl.health.intf.AccdiHealthQueryService"
+     address="http://10.1.176.99:25201/ccic/esb/AccdiHealthQueryService"></jaxws:client>
+     
+     <!--  余额查询     -->                 
+     <jaxws:client id="balanceQueryService" serviceClass="com.ccic.service.pss.balancequery.intf.BalanceQueryPort"
+     address="http://10.1.176.99:25201/ccic/esb/BalanceQueryService"></jaxws:client>
+     
+     <!--  预扣单生成     -->                 
+     <jaxws:client id="withholdOrderService" serviceClass="com.ccic.service.pss.withholdorder.intf.WithholdOrderPort"
+     address="http://10.1.176.99:25201/ccic/esb/WithholdOrderService"></jaxws:client>
+     
+     <!--  收付费支付通知     -->                 
+     <jaxws:client id="paySuccess" serviceClass="com.ccic.service.payment.paysuccess.intf.PaySuccess"
+     address="http://10.1.66.99:25027/ddccallweb/services/PaySuccess"></jaxws:client>
+     
+     <!--  预扣状态通知     -->                 
+     <jaxws:client id="withholdStatusPort" serviceClass="com.ccic.service.pss.withholdstatus.intf.WithholdStatusPort"
+     address="http://10.1.176.99:25201/ccic/esb/WithholdStatusService"></jaxws:client>
+     
+     <!--  客户信息校验     -->                 
+     <jaxws:client id="customerInformationVerification" serviceClass="com.ccic.service.cpi.customerauthentication.intf.CustomerAuthenticationPort"
+     address="http://10.1.176.99:25201/ccic/esb/CustomerAuthenticationService"></jaxws:client>
+	
+     <http-conf:conduit name="*.http-conduit">  
+            <http-conf:client ConnectionTimeout="20000" ReceiveTimeout="60000" AllowChunking="false"/>   
+    </http-conf:conduit> 
+    
+     <core:bus>
+        <core:inInterceptors>
+          <bean class="org.apache.cxf.interceptor.LoggingInInterceptor"></bean>
+        </core:inInterceptors>
+        <core:outInterceptors>
+          <bean class="org.apache.cxf.interceptor.LoggingOutInterceptor"></bean>
+        </core:outInterceptors>
+     </core:bus>
+
+    
+    <http-conf:conduit name="http://10.1.176.99.*"> 
+            <http-conf:authorization>
+                    <sec:UserName>mobile</sec:UserName>
+                    <sec:Password>mobile</sec:Password>
+             </http-conf:authorization>
+             <http-conf:client ConnectionTimeout="20000" ReceiveTimeout = "60000" AllowChunking="false"/>
+    </http-conf:conduit> 
+    
+    <http-conf:conduit name="http://123.127.246.18.*">       
+             <http-conf:client ProxyServer="10.1.166.166" ProxyServerPort="8080" ProxyServerType="HTTP" ConnectionTimeout="20000" ReceiveTimeout = "60000" AllowChunking="false"/> 
+    </http-conf:conduit>
+  </beans>

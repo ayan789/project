@@ -1,0 +1,1513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.StoreInsureInfoMapper">
+	<resultMap
+		type="com.ccic.salesapp.noncar.dto.ZzbInsureInfoVO" id="BaseResultMap">
+		<result column="ID" property="id" />
+		<result column="INSURE_NO" property="insureNo" />
+		<result column="POLICY_NO" property="policyNo" />
+		<result column="INSURANCE_CODE" property="insuranceCode" />
+		<result column="INSURANCE_NAME" property="insuranceName" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="START_DATE" property="startDate" />
+		<result column="END_DATE" property="endDate" />
+		<result column="START_TIME" property="startTime" />
+		<result column="END_TIME" property="endTime" />
+		<result column="INSURANCE_PERIOD" property="insurancePeriod" />
+		<result column="UNDERWRITE_DATE" property="underwriteDate" />
+		<result column="SUMPREMIUM" property="sumPremium" />
+		<result column="SUMAMOUNT" property="sumAmount" />
+		<result column="BUSINESS_TYPE" property="businessType" />
+		<result column="STATUS" property="status" />
+		<result column="USER_ID" property="userId" />
+		<result column="INSURANCE_COUNT" property="insuranceCount" />
+		<result column="LICENSE_PLATE_NO" property="licensePlateNo" />
+		<result column="COM_CODE" property="comCode" />
+		<result column="HANDLER_CODE" property="handlerCode" />
+		<result column="OPERATOR_CODE" property="operatorCode" />
+		<result column="OPERATOR_NAME" property="operatorName" />
+		<result column="PAYAPPLY_NO" property="payApplyNo" />
+		<result column="IDENTITY_CODE" property="identityCode" />
+		<result column="APPLICANT_NAME" property="applicantName" />
+		<result column="APPLI_IDENTIFY" property="appliIdentify" />
+		<result column="APPLIIDENTIFY_TYPE"
+			property="appliIdentifyType" />
+		<result column="INSURED_NAME" property="insuredName" />
+		<result column="INSURED_IDENTIFY" property="insuredIdentify" />
+		<result column="INSUREDIDENTIFY_TYPE"
+			property="insuredIdentifyType" />
+		<result column="BIRTH_DATE" property="birthDate" />
+		<result column="MOBILE_NO" property="mobileNo" />
+		<result column="ADDRESS" property="address" />
+		<result column="EMAIL" property="email" />
+		<result column="FORMULA_CODE" property="formulaCode" />
+		<result column="FORMULA_NAME" property="formulaName" />
+		<result column="RELATE_INSURED" property="relateInsured" />
+		<result column="IMEI" property="imei" />
+		<result column="AGENT_CODE" property="agentCode" />
+		<result column="AGREEMENT_NO" property="agreementNo" />
+		<result column="AGREEMENT_NAME" property="agreementName" />
+		<result column="INSURANCE_TYPE" property="insuranceType" />
+		<result column="HANDLER_CODE2" property="handlerCode2" />
+		<result column="ISRUNAPP" property="isRunApp" />
+		<result column="PRODUCT_CODE" property="productCode" />
+		<result column="IS_OPENAIR" property="isOpenair" />
+		<result column="SHOW_NO" property="showNo" />
+		<result column="SHOW_NAME" property="showName" />
+		<result column="PROVINCE_CODE" property="provinceCode" />
+		<result column="PREFECTURE_CODE" property="prefectureCode" />
+		<result column="COUNTY_CODE" property="countyCode" />
+		<result column="SIGNSTATUS" property="signStatus" />
+		<result column="IMGID" property="imgId" />
+		<result column="ADDITIONALCODE" property="additionalCode" />
+		<result column="PLATFORM_FLAG" property="platformFlag" />
+		<result column="NCL_USER_CODE" property="nclUserCode" />
+		<result column="PRODUCT_NAME" property="productName" />
+		<result column="EXHIBITION_AREA" property="exhibitionArea" />
+		<result column="INSURED_MOBILE" property="insuredMobile" />
+		<result column="ASSOCIATED_INSURE_ID"
+			property="associatedInsureID" />
+	</resultMap>
+
+	<resultMap
+		type="com.ccic.salesapp.noncar.dto.StoreInsureInfo"
+		id="StoreInsureInfoMap">
+		<result column="ID" property="id" />
+		<result column="INSURE_NO" property="insureNo" />
+		<result column="POLICY_NO" property="policyNo" />
+		<result column="order_no" property="orderNo" />
+		<result column="INSURANCE_CODE" property="insuranceCode" />
+		<result column="INSURANCE_NAME" property="insuranceName" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="START_DATE" property="startDate" />
+		<result column="END_DATE" property="endDate" />
+		<result column="START_TIME" property="startTime" />
+		<result column="END_TIME" property="endTime" />
+		<result column="INSURANCE_PERIOD" property="insurancePeriod" />
+		<result column="UNDERWRITE_DATE" property="underwriteDate" />
+		<result column="SUMPREMIUM" property="sumPremium" />
+		<result column="SUMAMOUNT" property="sumAmount" />
+		<result column="BUSINESS_TYPE" property="businessType" />
+		<result column="STATUS" property="status" />
+		<result column="USER_ID" property="userId" />
+		<result column="INSURANCE_COUNT" property="insuranceCount" />
+		<result column="LICENSE_PLATE_NO" property="licensePlateNo" />
+		<result column="COM_CODE" property="comCode" />
+		<result column="HANDLER_CODE" property="handlerCode" />
+		<result column="OPERATOR_CODE" property="operatorCode" />
+		<result column="OPERATOR_NAME" property="operatorName" />
+		<result column="PAYAPPLY_NO" property="payApplyNo" />
+		<result column="IDENTITY_CODE" property="identityCode" />
+		<result column="APPLICANT_NAME" property="applicantName" />
+		<result column="APPLI_IDENTIFY" property="appliIdentify" />
+		<result column="APPLIIDENTIFY_TYPE"
+			property="appliIdentifyType" />
+		<result column="INSURED_NAME" property="insuredName" />
+		<result column="INSURED_IDENTIFY" property="insuredIdentify" />
+		<result column="INSUREDIDENTIFY_TYPE"
+			property="insuredIdentifyType" />
+		<result column="BIRTH_DATE" property="birthDate" />
+		<result column="MOBILE_NO" property="mobileNo" />
+		<result column="ADDRESS" property="address" />
+		<result column="EMAIL" property="email" />
+		<result column="FORMULA_CODE" property="formulaCode" />
+		<result column="FORMULA_NAME" property="formulaName" />
+		<result column="RELATE_INSURED" property="relateInsured" />
+		<result column="IMEI" property="imei" />
+		<result column="AGENT_CODE" property="agentCode" />
+		<result column="AGREEMENT_NO" property="agreementNo" />
+		<result column="AGREEMENT_NAME" property="agreementName" />
+		<result column="INSURANCE_TYPE" property="insuranceType" />
+		<result column="HANDLER_CODE2" property="handlerCode2" />
+		<result column="ISRUNAPP" property="isRunApp" />
+		<result column="PRODUCT_CODE" property="productCode" />
+		<result column="IS_OPENAIR" property="isOpenair" />
+		<result column="SHOW_NO" property="showNo" />
+		<result column="SHOW_NAME" property="showName" />
+		<result column="PROVINCE_CODE" property="provinceCode" />
+		<result column="PREFECTURE_CODE" property="prefectureCode" />
+		<result column="COUNTY_CODE" property="countyCode" />
+		<result column="SIGNSTATUS" property="signStatus" />
+		<result column="IMGID" property="imgId" />
+		<result column="ADDITIONALCODE" property="additionalCode" />
+		<result column="PLATFORM_FLAG" property="platformFlag" />
+		<result column="NCL_USER_CODE" property="nclUserCode" />
+		<result column="PRODUCT_NAME" property="productName" />
+		<result column="EXHIBITION_AREA" property="exhibitionArea" />
+		<result column="INSURED_MOBILE" property="insuredMobile" />
+		<result column="ASSOCIATED_INSURE_ID"
+			property="associatedInsureID" />
+		<result column="jsonText" property="jsonText" />
+		<result column="is_seefee" property="isSeeFee" />
+		<result column="cust_no" property="custNo" />
+		<result column="cust_source_type" property="custSourceType" />
+		<result column="cust_type" property="custType" />
+	</resultMap>
+
+	<select id="selectBySureInfoNo" resultMap="StoreInsureInfoMap"
+		parameterType="java.lang.String">
+		SELECT * FROM T_noncar_insureinfo where INSURE_NO
+		=#{INSURENO}
+	</select>
+
+	<select id="selectById" resultMap="StoreInsureInfoMap"
+		parameterType="java.lang.Long">
+		SELECT * FROM T_noncar_insureinfo where id = #{id}
+	</select>
+
+	<resultMap
+		type="com.ccic.salesapp.noncar.dto.EInvoiceApplicationForAppDTO"
+		id="EInvoiceApplicationForAppMap">
+		<result column="POLICY_NO" property="policyNo" />
+		<result column="MOBILE_NO" property="mobileNo" />
+	</resultMap>
+	<select id="findelectronicInvoicingApp"
+		resultMap="EInvoiceApplicationForAppMap"
+		parameterType="java.lang.String">
+		SELECT * FROM
+		T_noncar_insureinfo where POLICY_NO
+		=#{policyNo} and
+		MOBILE_NO=#{mobileNo}
+	</select>
+
+	<select id="findonePolicyno" resultMap="StoreInsureInfoMap"
+		parameterType="java.lang.String">
+		SELECT * FROM T_noncar_insureinfo where POLICY_NO
+		=#{policyNo}
+	</select>
+
+	<resultMap
+		type="com.ccic.salesapp.noncar.dto.ElectronicInvoicingDTO"
+		id="ElectronicInvoicingDTOMap">
+		<result column="POLICY_NO" property="policyNo" />
+		<result column="MOBILE_NO" property="mobileNo" />
+		<result column="EMAIL" property="email" />
+	</resultMap>
+
+	<select id="findeinvoiceInquiry"
+		resultMap="ElectronicInvoicingDTOMap" parameterType="java.lang.String">
+		SELECT * FROM
+		T_NONCAR_INSUREINFO where POLICY_NO
+		=#{policyNo}
+	</select>
+
+
+	<resultMap type="com.ccic.salesapp.noncar.dto.ImgBatch"
+		id="ImgBatchMap">
+		<result column="insure_no" property="insurNo" />
+		<result column="img_id" property="pageIds" />
+		<result column="img_type" property="appCode" />
+		<result column="create_user" property="createUser" />
+		<result column="update_user" property="updateUser" />
+		<result column="update_user" property="createTime" />
+		<result column="update_time" property="updateTime" />
+	</resultMap>
+	<select id="findh5imgQueryDownServiceOnePolicy"
+		resultMap="ImgBatchMap" parameterType="java.lang.String">
+		select * from t_noncar_image
+		where insure_no =
+		#{insurNo}
+	</select>
+
+	<insert id="addUploadImageMessage"
+		parameterType="com.ccic.salesapp.noncar.dto.ImgBatch">
+		INSERT INTO
+		t_noncar_image ( insure_no, img_id,
+		img_type,
+		create_time)
+		VALUES
+		(#{insurNo}, #{pageIds}, #{appCode}, NOW());
+	</insert>
+
+	<select id="uploadImageFlag" resultType="java.lang.Integer"
+		parameterType="hashMap">
+		select count(*) from t_noncar_image where insure_no = #{insurNo}
+		<if test="imgType != null">
+			and img_type=#{imgType}
+		</if>
+	</select>
+
+	<resultMap
+		type="com.ccic.salesapp.noncar.dto.response.StoreInsureInfoFormulasResponseVO"
+		id="InsureInfoFormulas">
+		<result column="ID" property="id" />
+		<result column="INSURE_NO" property="insureNo" />
+		<result column="POLICY_NO" property="policyNo" />
+		<result column="INSURANCE_CODE" property="insuranceCode" />
+		<result column="INSURANCE_NAME" property="insuranceName" />
+		<result column="START_DATE" property="startDate" />
+		<result column="END_DATE" property="endDate" />
+		<result column="SUMPREMIUM" property="sumPremium" />
+		<result column="SUMAMOUNT" property="sumAmount" />
+		<result column="PAYAPPLY_NO" property="payApplyNo" />
+		<result column="IDENTITY_CODE" property="identityCode" />
+		<result column="APPLICANT_NAME" property="applicantName" />
+		<result column="APPLI_IDENTIFY" property="appliIdentify" />
+		<result column="APPLIIDENTIFY_TYPE"
+			property="appliIdentifyType" />
+		<result column="INSURED_NAME" property="insuredName" />
+		<result column="INSURED_IDENTIFY" property="insuredIdentify" />
+		<result column="INSUREDIDENTIFY_TYPE"
+			property="insuredIdentifyType" />
+		<result column="MOBILE_NO" property="mobileNo" />
+		<result column="ADDRESS" property="address" />
+		<result column="FORMULA_CODE" property="formulaCode" />
+		<result column="FORMULA_NAME" property="formulaName" />
+		<result column="BE_GUARDIAN_BIRTHDATE"
+			property="beGuardianBirthDate" />
+		<result column="BE_GUARDIAN_SEX" property="beGuardianSex" />
+		<result column="STATUS" property="status" />
+		<result column="IS_OPENAIR" property="isOpenair" />
+		<result column="PRODUCT_CODE" property="productCode" />
+		<result column="ADDITIONALCODE" property="additionalCode" />
+		<result column="EMAIL" property="email" />
+		<result column="INSURED_MOBILE" property="insuredMobile" />
+		<result column="intervalDate" property="intervalDate" />
+		<result column="order_no" property="orderNo" />
+		<result column="relate_insured" property="relateInsured" />
+		<result column="birth_date" property="insuredBirthDate" />
+		<result column="applicant_birthDate"
+			property="applicantBirthDate" />
+		<result column="insuredSheBaoType" property="insuredSheBaoType" />
+		<result column="applicant_email" property="applicantEmail" />
+		<result column="is_seefee" property="isSeeFee" />
+	</resultMap>
+
+
+	<select id="selectInsureInfoAndFormulas"
+		resultMap="InsureInfoFormulas" parameterType="java.lang.String">
+		SELECT
+		A.*,TIME_TO_SEC(TIMEDIFF(start_date,NOW()))
+		intervalDate from
+		T_NONCAR_INSUREINFO A
+		WHERE A.INSURE_NO =
+		#{insureNo}
+	</select>
+
+	<select id="selectInsureInfoById" resultMap="InsureInfoFormulas"
+		parameterType="java.math.BigDecimal">
+		SELECT * FROM T_NONCAR_INSUREINFO WHERE
+		ASSOCIATED_INSURE_ID = #{id}
+	</select>
+
+
+	<insert id="doInsert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.ccic.salesapp.noncar.dto.StoreInsureInfo">
+		insert into
+		T_NONCAR_INSUREINFO ( INSURE_NO,
+		POLICY_NO,
+		order_no,
+		INSURANCE_CODE,
+		INSURANCE_NAME,
+		CREATE_DATE,START_DATE,END_DATE,START_TIME,END_TIME,INSURANCE_PERIOD,UNDERWRITE_DATE,
+		SUMPREMIUM,SUMAMOUNT,BUSINESS_TYPE,STATUS,USER_ID,INSURANCE_COUNT,LICENSE_PLATE_NO,
+		COM_CODE,HANDLER_CODE,OPERATOR_CODE,OPERATOR_NAME,PAYAPPLY_NO,IDENTITY_CODE,
+		APPLICANT_NAME,APPLI_IDENTIFY,APPLIIDENTIFY_TYPE,INSURED_NAME,INSURED_IDENTIFY,INSUREDIDENTIFY_TYPE,BIRTH_DATE,
+		MOBILE_NO,ADDRESS,EMAIL,FORMULA_CODE,FORMULA_NAME,RELATE_INSURED,IMEI,AGENT_CODE,AGREEMENT_NO,AGREEMENT_NAME,INSURANCE_TYPE,HANDLER_CODE2,ISRUNAPP,BE_GUARDIAN_BIRTHDATE,BE_GUARDIAN_SEX,
+		PRODUCT_CODE,IS_OPENAIR,SHOW_NO,SHOW_NAME,PROVINCE_CODE,PREFECTURE_CODE,COUNTY_CODE,SIGNSTATUS,ADDITIONALCODE,PLATFORM_FLAG,NCL_USER_CODE,EXHIBITION_AREA,INSURED_MOBILE,ASSOCIATED_INSURE_ID,
+		is_seefee,applicant_birthDate,insuredSheBaoType,relation_policy_no,agent_name,business_nature,business_nature2,handler2_name,third_party_handler_no,third_party_handler_name)
+		values
+		(#{insureNo},#{policyNo},#{orderNo},#{insuranceCode},#{insuranceName},#{createDate},#{startDate},#{endDate},
+		#{startTime},#{endTime},#{insurancePeriod},#{underwriteDate},#{sumPremium},#{sumAmount},#{businessType},
+		#{status},#{userId},#{insuranceCount},#{licensePlateNo},#{comCode},#{handlerCode},#{operatorCode},
+		#{operatorName},#{payApplyNo},#{identityCode},#{applicantName},#{appliIdentify},#{appliIdentifyType},#{insuredName},
+		#{insuredIdentify},#{insuredIdentifyType},#{birthDate},#{mobileNo},#{address},#{email},#{formulaCode},#{formulaName},
+		#{relateInsured},#{imei},#{agentCode},#{agreementNo},#{agreementName},#{insuranceType},#{handlerCode2},#{isRunApp},#{beGuardianBirthDate},#{beGuardianSex},
+		#{productCode},#{isOpenair},#{showNo},#{showName},#{provinceCode},#{prefectureCode},#{countyCode},#{signStatus},#{additionalCode},#{platformFlag},
+		#{nclUserCode},#{exhibitionArea},#{insuredMobile},#{associatedInsureID},#{isSeeFee},#{applicantBirthDate},#{insuredSheBaoType},#{relationPolicyNo},
+		#{agentName},#{businessNature},#{businessNature2},#{handler2Name},#{thirdPartyHandlerNo},#{thirdPartyHandlerName})
+	</insert>
+
+	<update id="upPolicyNoInfo" parameterType="java.util.Map">
+		update
+		T_NONCAR_INSUREINFO set POLICY_NO=#{policyNo},
+		STATUS='7',UNDERWRITE_DATE=now(),policy_create_date=now() where
+		INSURE_NO=#{insureNo}
+	</update>
+
+	<update id="updateSignStatus"
+		parameterType="com.ccic.salesapp.noncar.dto.StoreInsureInfo">
+		update
+		T_NONCAR_INSUREINFO set SIGNSTATUS='1',
+		IMGID=#{imgId} where
+		INSURE_NO=#{insureNo}
+	</update>
+
+	<update id="updateInsureInfoById" parameterType="java.util.Map">
+		update
+		T_NONCAR_INSUREINFO set STATUS='4' where ID=#{id}
+	</update>
+
+	<update id="updateInsureInfoByIdorWithholdNo"
+		parameterType="java.util.Map">
+		update T_NONCAR_INSUREINFO set
+		WITHHOLDNO=#withholdNo#
+		,ACCOUNTCODE =
+		#accountCode#,PAYMENTNO =
+		#paymentNo#,ITEMNAME =
+		#itemName# where
+		INSURE_NO=#proposalNo#
+	</update>
+
+	<update id="updateAssociatedInsureID"
+		parameterType="java.util.Map">
+		update
+		T_NONCAR_INSUREINFO set
+		ASSOCIATED_INSURE_ID=#{associatedInsureID}
+		where ID=#{id}
+	</update>
+
+	<update id="updatePayApplyNo"
+		parameterType="com.ccic.salesapp.noncar.dto.StoreInsureInfo">
+		update
+		T_NONCAR_INSUREINFO set
+		PAYAPPLY_NO=#{payApplyNo},IDENTITY_CODE=#{identityCode},STATUS=#{status}
+		where INSURE_NO = #{insureNo}
+	</update>
+
+	<update id="upPayStsate" parameterType="java.util.Map">
+		update
+		T_NONCAR_INSUREINFO set STATUS='6' where INSURE_NO=#{insureNo}
+		and
+		STATUS='4'
+	</update>
+
+	<update id="upNoPayStsate" parameterType="java.util.Map">
+		update
+		T_NONCAR_INSUREINFO set STATUS='2' where INSURE_NO=#{insureNo} and
+		STATUS in( '0','1','3')
+	</update>
+
+	<update id="upUnderwritingStatus" parameterType="java.util.Map">
+		update
+		T_NONCAR_INSUREINFO set STATUS='1' where INSURE_NO=#{insureNo} and
+		STATUS in( '0','3')
+	</update>
+
+
+	<update id="doDeleteZCById" parameterType="java.util.HashMap">
+		UPDATE T_NONCAR_INSUREINFO_ZC T SET T.STATUS='0'
+		WHERE
+		T.ID IN
+		<foreach item="idList" collection="idList" separator=","
+			open="(" close=")" index="">
+			#{idList}
+		</foreach>
+
+		<if test="storeCode != null and storeCode !=''">
+			AND JSON_UNQUOTE(T.json_text->'$.storeCode') =
+			#{storeCode}
+		</if>
+
+	</update>
+
+
+	<update id="doDeleteById" parameterType="java.util.HashMap">
+		UPDATE T_NONCAR_INSUREINFO T SET T.STATUS='8'
+		WHERE
+		T.ID IN
+		<foreach item="idList" collection="idList" separator=","
+			open="(" close=")" index="">
+			#{idList}
+		</foreach>
+
+		<if test="operatorNo != null and operatorNo !=''">
+			AND T.USER_ID = #{operatorNo}
+		</if>
+	</update>
+
+	<update id="doUpdate"
+		parameterType="com.ccic.salesapp.noncar.dto.StoreInsureInfo">
+		update
+		T_NONCAR_INSUREINFO
+		set INSURE_NO=#{insureNo},
+		POLICY_NO=#{policyNo},
+		policy_create_date=#{policyCreateDate},
+		INSURANCE_CODE=#{insuranceCode},
+		INSURANCE_NAME=#{insuranceName},
+		CREATE_DATE=#{createDate},
+		START_DATE=#{startDate},
+		END_DATE=#{endDate},
+		START_TIME=#{startTime},
+		END_TIME=#{endTime},
+		INSURANCE_PERIOD=#{insurancePeriod},
+		UNDERWRITE_DATE=#{underwriteDate},
+		SUMPREMIUM=#{sumPremium},
+		SUMAMOUNT=#{sumAmount},
+		BUSINESS_TYPE=#{businessType},
+		STATUS=#{status},
+		USER_ID=#{userId},
+		INSURANCE_COUNT=#{insuranceCount},
+		LICENSE_PLATE_NO=#{licensePlateNo},
+		COM_CODE=#{comCode},
+		HANDLER_CODE=#{handlerCode},
+		OPERATOR_CODE=#{operatorCode},
+		OPERATOR_NAME=#{operatorName},
+		PAYAPPLY_NO=#{payApplyNo},
+		IDENTITY_CODE=#{identityCode},
+		APPLICANT_NAME=#{applicantName},
+		APPLI_IDENTIFY=#{appliIdentify},
+		INSURED_NAME=#{insuredName},
+		INSURED_IDENTIFY=#{insuredIdentify},
+		BIRTH_DATE=#{birthDate},
+		MOBILE_NO=#{mobileNo},
+		ADDRESS=#{address},
+		EMAIL=#{email},
+		FORMULA_CODE=#{formulaCode},
+		FORMULA_NAME=#{formulaName},
+		RELATE_INSURED=#{relateInsured},
+		IMEI=#{imei},
+		AGENT_CODE=#{agentCode},
+		AGREEMENT_NO=#{agreementNo},
+		AGREEMENT_NAME=#{agreementName},
+		INSURANCE_TYPE=#{insuranceType},
+		HANDLER_CODE2=#{handlerCode2},
+		ISRUNAPP=#{isRunApp}
+		where INSURE_NO = #{insureNo}
+	</update>
+	
+	<update id="updatechargeTime"  parameterType="java.util.Map">
+		update
+		t_noncar_insureinfo
+		set pay_success_date=#{chargeTime} where
+		policy_no=#{policyNo}
+	</update>
+		
+	<!-- 订单列表查询接口SQL -->
+	<select id="selectOrderList" resultMap="StoreInsureInfoMap"
+		parameterType="com.ccic.salesapp.noncar.dto.request.StoreQueryListRequestVO">
+		select * from (
+		select
+		ii.INSURE_NO,
+		ii.POLICY_NO,
+		if(ii.insure_no is
+		null,concat('T',zc.id),ii.id ) id,
+		if(ii.order_no is
+		null,zc.order_no,ii.order_no ) order_no,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.riskCode'),ii.INSURANCE_CODE )
+		INSURANCE_CODE,
+		p.PRODUCT_NAME INSURANCE_NAME,
+		if(ii.insure_no is
+		null,zc.create_time,ii.CREATE_DATE ) CREATE_DATE,
+		if(ii.insure_no is
+		null,REPLACE(JSON_UNQUOTE(zc.json_text->'$.startDate'),'T','
+		'),ii.START_DATE ) START_DATE,
+		if(ii.insure_no is
+		null,REPLACE(JSON_UNQUOTE(zc.json_text->'$.endDate'),'T','
+		'),ii.END_DATE ) END_DATE,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.sumPremium'),ii.SUMPREMIUM )
+		SUMPREMIUM,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.sumAmount'),ii.SUMAMOUNT )
+		SUMAMOUNT,
+		if(ii.insure_no is null,if(zc.status = '0'
+		,'8','0'),ii.STATUS ) `STATUS`,
+		if(ii.insure_no is null,st.user_code,
+		ii.USER_ID ) USER_ID,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.formulaSize'),ii.INSURANCE_COUNT )
+		INSURANCE_COUNT,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.licenseNo'),ii.LICENSE_PLATE_NO )
+		LICENSE_PLATE_NO,
+		ii.COM_CODE COM_CODE,
+		ii.OPERATOR_CODE OPERATOR_CODE,
+		ii.OPERATOR_NAME
+		OPERATOR_NAME,
+		ii.PAYAPPLY_NO ,
+		ii.IDENTITY_CODE ,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.appliName'),ii.APPLICANT_NAME )
+		APPLICANT_NAME,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.appliIdentifyNumber'),ii.APPLI_IDENTIFY
+		) APPLI_IDENTIFY,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.appliIdentifyType'),ii.APPLIIDENTIFY_TYPE
+		) APPLIIDENTIFY_TYPE,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.insuredName'),ii.INSURED_NAME )
+		INSURED_NAME,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.insuredIdentifyNumber'),ii.INSURED_IDENTIFY
+		) INSURED_IDENTIFY,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.insuredIdentifyType'),ii.INSUREDIDENTIFY_TYPE
+		) INSUREDIDENTIFY_TYPE,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.insuredBirthDate'),ii.BIRTH_DATE )
+		BIRTH_DATE,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.appliMobile'),ii.MOBILE_NO )
+		MOBILE_NO,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.appliEMail'),ii.EMAIL ) EMAIL,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.formulaCode'),ii.FORMULA_CODE )
+		FORMULA_CODE,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.formulaName'),ii.FORMULA_NAME )
+		FORMULA_NAME,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.appliIdentity'),ii.RELATE_INSURED )
+		RELATE_INSURED,
+		if(ii.insure_no is null,p.product_risk -
+		1,ii.INSURANCE_TYPE ) INSURANCE_TYPE,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.isRunApp'),ii.ISRUNAPP ) ISRUNAPP,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.insuredBirthDate'),ii.BE_GUARDIAN_BIRTHDATE
+		) BE_GUARDIAN_BIRTHDATE,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.beGuardianSex'),ii.BE_GUARDIAN_SEX
+		) BE_GUARDIAN_SEX,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.productCode'),ii.PRODUCT_CODE )
+		PRODUCT_CODE,
+		if(ii.insure_no is null,null,ii.SIGNSTATUS ) SIGNSTATUS,
+		if(ii.insure_no is
+		null,JSON_UNQUOTE(zc.json_text->'$.insuredMobile'),ii.INSURED_MOBILE )
+		INSURED_MOBILE,
+		ii.is_seefee ,
+		if(cc.cust_no is null
+		,JSON_UNQUOTE(zc.json_text->'$.custNo'),
+		cc.cust_no) cust_no,
+		if(cc.cust_source_type is null
+		,JSON_UNQUOTE(zc.json_text->'$.custSourceType'), cc.cust_source_type)
+		cust_source_type,
+		if(cc.cust_type is null,
+		JSON_UNQUOTE(zc.json_text->'$.custType'), cc.cust_type) cust_type
+		from
+		t_noncar_insureinfo_zc zc
+		left join t_noncar_insureinfo ii on
+		zc.order_no = ii.order_no
+		left join t_noncar_product p on
+		p.PRODUCT_CODE = JSON_UNQUOTE(zc.json_text->'$.productCode')
+		left join
+		t_cust_policy_role pr on ii.policy_no = pr.policyno
+		left join
+		t_cust_customer cc on cc.cust_no = pr.cust_code
+		left join
+		t_noncar_store st on st.store_code = JSON_UNQUOTE( zc.json_text ->
+		'$.storeCode' )
+		) ts
+		<where>
+			<!-- 根据订单状态查询 -->
+			<choose>
+				<when test="status==1 and insuranceType==0">
+					TS.STATUS in('0','1','2') and (signstatus is null or
+					signstatus='0')
+				</when>
+
+				<when test="status==1 and insuranceType==1">
+					TS.STATUS in('0','1')
+				</when>
+
+				<when test="status==2 and insuranceType==0">
+					TS.STATUS in('2','4') and signstatus='1'
+				</when>
+
+				<when test="status==2 and insuranceType==1">
+					TS.STATUS in('2','4')
+				</when>
+
+				<when test="status==3">
+					TS.STATUS in('6','7')
+				</when>
+
+				<when test="status==4">
+					TS.STATUS in('0','1','2','4','6','7','10')
+				</when>
+				<otherwise>
+				</otherwise>
+			</choose>
+
+			<!-- 根据日期范围查询 -->
+			<choose>
+				<when test="dateRange!=null and dateRange!='' and dateRange==1">
+					AND CREATE_DATE<![CDATA[>=]]>DATE_SUB(NOW(),
+					INTERVAL 7 DAY) AND CREATE_DATE<![CDATA[<=]]>NOW()
+				</when>
+
+				<when test="dateRange!=null and dateRange!='' and dateRange==2">
+					AND CREATE_DATE<![CDATA[>=]]>DATE_SUB(NOW(),
+					INTERVAL 1 MONTH) AND CREATE_DATE<![CDATA[<=]]>NOW()
+				</when>
+
+				<when test="dateRange!=null and dateRange!='' and dateRange==3">
+					AND CREATE_DATE<![CDATA[>=]]>DATE_SUB(NOW(),
+					INTERVAL 3 MONTH) AND CREATE_DATE<![CDATA[<=]]>NOW()
+				</when>
+
+				<when test="dateRange!=null and dateRange!='' and dateRange==4">
+					AND CREATE_DATE<![CDATA[>=]]>DATE_SUB(NOW(),
+					INTERVAL 6 MONTH) AND CREATE_DATE<![CDATA[<=]]>NOW()
+				</when>
+				<otherwise>
+				</otherwise>
+			</choose>
+
+			<!-- 根据起期和止期查询 -->
+			<if
+				test="orderStrtDate!= null and orderStrtDate!='' and orderEndDate!= null and orderEndDate!=''">
+				AND DATE(CREATE_DATE) BETWEEN #{orderStrtDate} and
+				#{orderEndDate}
+
+			</if>
+
+			<!-- 根据保费金额查询 -->
+			<choose>
+				<when
+					test="amountRange!=null and amountRange!='' and amountRange==1">
+					AND SUMPREMIUM BETWEEN '0' and '2000'
+				</when>
+
+				<when
+					test="amountRange!=null and amountRange!='' and amountRange==2">
+					AND SUMPREMIUM BETWEEN '2000' and '5000'
+				</when>
+
+				<when
+					test="amountRange!=null and amountRange!='' and amountRange==3">
+					AND SUMPREMIUM <![CDATA[>]]>'5000'
+				</when>
+				<otherwise>
+				</otherwise>
+			</choose>
+
+			<!-- 根据最低保费和最高保费查询 -->
+			<if
+				test="minPremium!= null and minPremium!='' and maxPremium!= null and maxPremium!=''">
+				AND SUMPREMIUM BETWEEN #{minPremium} and #{maxPremium}
+
+			</if>
+
+			<!-- 根据出单来源查询 -->
+			<choose>
+				<when test="runappID!=null and runappID!='' and runappID==1">
+					AND ISRUNAPP='0'
+				</when>
+
+				<when test="runappID!=null and runappID!='' and runappID==2">
+					AND ISRUNAPP not in ('0')
+				</when>
+
+				<otherwise>
+				</otherwise>
+			</choose>
+
+			<if test="keyword!= null and keyword!=''">
+				<bind name="name" value="'%'+keyword+'%'" />
+				and (APPLICANT_NAME like #{name} or license_plate_no like #{name} or
+				policy_no like #{name} or mobile_no like #{name})
+			</if>
+
+			<!-- 根据各入参条件查询 -->
+			<if test="userCode!= null and userCode!=''">
+				and TS.USER_ID=#{userCode}
+			</if>
+			<if test="insuranceType!= null and insuranceType!=''">
+				and TS.INSURANCE_TYPE=#{insuranceType}
+			</if>
+
+			<if test="startDate!= null and startDate!=''">
+				and TS.CREATE_DATE <![CDATA[>=]]>
+				str_to_date(#{startDate}, 'yyyy-mm-dd')
+			</if>
+			<if test="endDate!= null and endDate!=''">
+				and TS.CREATE_DATE <![CDATA[<=]]>
+				str_to_date(#{endDate}, 'yyyy-mm-dd')+1
+			</if>
+			<if test="currentDate!= null and currentDate!=''">
+				and date_format(TS.CREATE_DATE,'yyyy-mm') =
+				#{currentDate}
+			</if>
+			<if test="insuranceCode!= null and insuranceCode!=''">
+				and TS.INSURANCE_CODE=#{insuranceCode}
+			</if>
+			<if test="insureNo!= null and insureNo!=''">
+				and
+				TS.INSURE_NO=#{insureNo}
+			</if>
+			<if test="applicantName!= null and applicantName!=''">
+				and TS.APPLICANT_NAME=#{applicantName}
+			</if>
+		</where>
+		order by TS.CREATE_DATE desc
+		<if test="size>0">
+			limit #{page},#{size}
+		</if>
+	</select>
+
+	<!-- 非车险保单查询 -->
+	<resultMap
+		type="com.ccic.salesapp.noncar.repository.basedb.po.EnPolicyListQueryEntity"
+		id="PrpcmainRenewal">
+		<result column="POLICY_NO" property="policyNo" />
+		<result column="APPLICANT_NAME" property="custName" />
+		<result column="END_DATE" property="respEndDate" />
+		<result column="INSURANCE_TYPE" property="insuranceType" />
+		<result column="CUST_LEVEL" property="clsLevel" />
+		<result column="PRODUCT_CODE" property="productCode" />
+	</resultMap>
+
+	<select id="getNoCarPolicy"
+		parameterType="com.ccic.salesapp.noncar.repository.basedb.po.EnPolicyListQueryEntity"
+		resultMap="PrpcmainRenewal">
+		SELECT T.POLICY_NO,
+		T.APPLICANT_NAME ,
+		T.END_DATE,
+		T.INSURANCE_TYPE,
+		T.PRODUCT_CODE,
+		(SELECT CUST_LEVEL FROM B2BBUSI.T_CUSTOMER
+		WHERE
+		CUST_NO=(SELECT MAX(CUST_NO) FROM B2BBUSI.T_CUSTOMER WHERE
+		CUST_NAME=T.APPLICANT_NAME AND CERTIFICATE_TYPE=T.APPLIIDENTIFY_TYPE
+		AND CERTIFICATE_NO=T.APPLI_IDENTIFY )
+		) CUST_LEVEL
+		FROM
+		T_NONCAR_INSUREINFO T
+		WHERE T.POLICY_NO IS NOT NULL
+		<!-- <dynamic prepend=""> -->
+		<if test="staffCode != null">
+			T.HANDLER_CODE=#staffCode#
+		</if>
+		<if test="minPayStartDate != null">
+			T.START_DATE <![CDATA[>=]]>
+			TO_DATE(#minPayStartDate#, 'yyyy-mm-dd')
+		</if>
+		<if test="maxPayStartDate != null">
+			T.START_DATE <![CDATA[<]]>
+			TO_DATE(#maxPayStartDate#, 'yyyy-mm-dd')+1
+		</if>
+		<if test="minRespEndDate != null">
+			T.END_DATE <![CDATA[>=]]>
+			TO_DATE(#minRespEndDate#, 'yyyy-mm-dd')
+		</if>
+		<if test="maxRespEndDate != null">
+			T.END_DATE <![CDATA[<]]>
+			TO_DATE(#maxRespEndDate#, 'yyyy-mm-dd')+1
+		</if>
+		<if test="productCode != null">
+			T.PRODUCT_CODE =#productCode#
+		</if>
+		<if test="custName != null">
+			T.APPLICANT_NAME=#custName#
+		</if>
+		<if test="insuredName != null">
+			T.INSURED_NAME=#insuredName#
+		</if>
+		<if test="policyNo != null">
+			T.POLICY_NO=#policyNo#
+		</if>
+		<if test="insuranceType != null">
+			T.INSURANCE_TYPE=#insuranceType#
+		</if>
+		<!-- </dynamic> -->
+		ORDER BY T.END_DATE,T.POLICY_NO
+	</select>
+
+	<resultMap
+		type="com.ccic.salesapp.noncar.dto.ZzbInsureInfoVO"
+		id="zzbInsureInfoVO">
+		<result column="ID" property="id" />
+		<result column="INSURE_NO" property="insureNo" />
+		<result column="POLICY_NO" property="policyNo" />
+		<result column="INSURANCE_CODE" property="insuranceCode" />
+		<result column="INSURANCE_NAME" property="insuranceName" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="START_DATE" property="startDate" />
+		<result column="END_DATE" property="endDate" />
+		<result column="START_TIME" property="startTime" />
+		<result column="END_TIME" property="endTime" />
+		<result column="INSURANCE_PERIOD" property="insurancePeriod" />
+		<result column="UNDERWRITE_DATE" property="underwriteDate" />
+		<result column="SUMPREMIUM" property="sumPremium" />
+		<result column="SUMAMOUNT" property="sumAmount" />
+		<result column="BUSINESS_TYPE" property="businessType" />
+		<result column="STATUS" property="status" />
+		<result column="USER_ID" property="userId" />
+		<result column="INSURANCE_COUNT" property="insuranceCount" />
+		<result column="LICENSE_PLATE_NO" property="licensePlateNo" />
+		<result column="COM_CODE" property="comCode" />
+		<result column="HANDLER_CODE" property="handlerCode" />
+		<result column="OPERATOR_CODE" property="operatorCode" />
+		<result column="OPERATOR_NAME" property="operatorName" />
+		<result column="PAYAPPLY_NO" property="payApplyNo" />
+		<result column="IDENTITY_CODE" property="identityCode" />
+		<result column="APPLICANT_NAME" property="applicantName" />
+		<result column="APPLI_IDENTIFY" property="appliIdentify" />
+		<result column="INSURED_NAME" property="insuredName" />
+		<result column="INSURED_IDENTIFY" property="insuredIdentify" />
+		<result column="BIRTH_DATE" property="birthDate" />
+		<result column="MOBILE_NO" property="mobileNo" />
+		<result column="ADDRESS" property="address" />
+		<result column="EMAIL" property="email" />
+		<result column="FORMULA_CODE" property="formulaCode" />
+		<result column="FORMULA_NAME" property="formulaName" />
+		<result column="RELATE_INSURED" property="relateInsured" />
+		<result column="IMEI" property="imei" />
+		<result column="AGENT_CODE" property="agentCode" />
+		<result column="AGREEMENT_NO" property="agreementNo" />
+		<result column="AGREEMENT_NAME" property="agreementName" />
+		<result column="INSURANCE_TYPE" property="insuranceType" />
+		<result column="HANDLER_CODE2" property="handlerCode2" />
+		<result column="ISRUNAPP" property="isRunApp" />
+		<result column="APPLIIDENTIFY_TYPE"
+			property="appliIdentifyType" />
+		<result column="INSUREDIDENTIFY_TYPE"
+			property="insuredIdentifyType" />
+		<result column="PRODUCT_CODE" property="productCode" />
+		<result column="IS_OPENAIR" property="isOpenair" />
+		<result column="SHOW_NO" property="showNo" />
+		<result column="SHOW_NAME" property="showName" />
+		<result column="STORE_NAME" jdbcType="DECIMAL"
+			property="storeName" />
+		<result column="STORE_IDTYPE" jdbcType="VARCHAR"
+			property="storeIdType" />
+		<result column="STORE_ID" jdbcType="VARCHAR" property="storeId" />
+		<result column="EMPLOYEE_NUM" jdbcType="DECIMAL"
+			property="employeeNum" />
+		<result column="STORE_AREA" jdbcType="DECIMAL"
+			property="storeArea" />
+		<result column="OWN_ASSETS" jdbcType="DECIMAL"
+			property="ownAssets" />
+		<result column="HOUSE_VALUE" jdbcType="DECIMAL"
+			property="houseValue" />
+		<result column="STOCK_VALUE" jdbcType="DECIMAL"
+			property="stockValue" />
+		<result column="EQUIPMENT_VALUE" jdbcType="DECIMAL"
+			property="equipmentValue" />
+		<result column="STORE_CASH" jdbcType="DECIMAL"
+			property="storeCash" />
+		<result column="CONTACTS_NAME" jdbcType="VARCHAR"
+			property="contactsName" />
+		<result column="CONTACTS_MOBILE" jdbcType="VARCHAR"
+			property="contactsMobile" />
+		<result column="CONTACTS_ADDRESS" jdbcType="VARCHAR"
+			property="contactsAddress" />
+		<result column="ROOM_NUM" jdbcType="DECIMAL" property="roomNum" />
+		<result column="INSURED_NATURE" jdbcType="VARCHAR"
+			property="insuredNature" />
+
+	</resultMap>
+
+	<select id="selectZzbInsureByInsureNo"
+		resultMap="zzbInsureInfoVO" parameterType="java.lang.String">
+		select s.*
+		,STORE_NAME,STORE_IDTYPE,STORE_ID,EMPLOYEE_NUM,STORE_AREA,OWN_ASSETS,HOUSE_VALUE,STOCK_VALUE,EQUIPMENT_VALUE,STORE_CASH,CONTACTS_NAME,CONTACTS_MOBILE,CONTACTS_ADDRESS,ROOM_NUM,INSURED_NATURE
+		from T_NONCAR_INSUREINFO s inner join
+		T_NONCAR_INSUREINFO_Zzb z on s.id
+		= z.insureinfo_id
+		where
+		s.INSURE_NO=#insureNo#
+	</select>
+
+	<select id="selectByPolicyNo" resultMap="StoreInsureInfoMap"
+		parameterType="java.lang.String">
+		select S.*
+		from T_NONCAR_INSUREINFO S where POLICY_NO =
+		#{policyNo}
+	</select>
+
+
+
+	<resultMap type="com.ccic.salesapp.noncar.dto.NoncarOrder"
+		id="NoncarOrderMap">
+		<result column="ID" property="id" />
+		<result column="ORDER_NO" property="orderNo" />
+		<result column="ORDER_STATUS" property="orderStatus" />
+		<result column="IS_DELETE" property="isDelete" />
+		<result column="PRODUCT_CODE" property="productCode" />
+		<result column="INSURE_NO" property="insureNo" />
+		<result column="POLICY_NO" property="policyNo" />
+		<result column="PRODUCT_NAME" property="productName" />
+		<result column="USER_CODE" property="userCode" />
+		<result column="START_DATE" property="startDate" />
+		<result column="END_DATE" property="endDate" />
+		<result column="IDENTITY_CODE" property="identityCode" />
+		<result column="PAY_APPLY_NO" property="payApplyNo" />
+		<result column="INSURANCE_NAME" property="InsuranceName" />
+		<result column="product_Name" property="productName" />
+		<result column="user_Code" property="userCode" />
+		<result column="id_card_type" property="idCardType" />
+		<result column="applicant_name" property="applicantName" />
+		<result column="com_code" property="comCode" />
+		<result column="sum_premium" property="sumPremium" />
+		
+		<result column="strategy_id" property="strategyId" />
+		<result column="plan_id" property="planId" />
+
+		<result column="mobile" property="mobile" />
+		<result column="is_issue_after_pay" property="isIssueAfterPay" />
+		<result column="is_need_sign" property="isNeedSign" />
+		<result column="sign_status" property="signStatus" />
+
+
+
+		<result column="customer_id" property="customerId" />
+		<result column="order_id" property="orderId" />
+		<result column="customer_role_code" property="customerRoleCode" />
+		<result column="is_contact_pol_holder"
+			property="isContactPolHolder" />
+		<result column="pol_holder_insured_rela_code"
+			property="polHolderInsuredRelaCode" />
+		<result column="permanent_address" property="permanentAddress" />
+		<result column="party_category" property="partyCategory" />
+		<result column="customer_name" property="customerName" />
+		<result column="indi_age" property="indiAge" />
+		<result column="indi_gender_code" property="indiGenderCode" />
+		<result column="indi_date_of_birth" property="indiDateOfBirth" />
+		<result column="id_type" property="idType" />
+		<result column="id_no" property="idNo" />
+		<result column="indi_mobile" property="indiMobile" />
+		<result column="email" property="email" />
+
+
+
+		<result column="clause_code" property="clauseCode" />
+		<result column="kind_code" property="kindCode" />
+		<result column="due_premium" property="duePremium" />
+		<result column="insured" property="insured" />
+		<result column="handler_code" property="handlerCode" />
+
+		<result column="img_id" property="imgId" />
+		<result column="img_type" property="imgType" />
+
+
+		<result column="strategy_type" property="strategyType" />
+		<result column="valid_status" property="validStatus" />
+		<result column="need_sign" property="needSign" />
+		<result column="insure_type" property="insureType" />
+		<result column="upload_photo" property="uploadPhoto" />
+		<result column="policy_start_type" property="policyStartType" />
+		<result column="policy_start_range" property="policyStartRange" />
+		<result column="policy_create_date" property="policyCreateDate" />
+
+		<result column="create_time" property="createTime" />
+		<result column="operator_code" property="operatorCode" />
+		<result column="operator_name" property="operatorName" />
+		<result column="agent_code" property="agentCode" />
+		<result column="agreement_no" property="agreementNo" />
+		<result column="agreement_name" property="agreementName" />
+		<result column="handler_code2" property="handlerCode2" />
+		<result column="is_need_upload_img" property="isNeedUploadImg" />
+		<result column="insurance_category" property="insuranceCategory" />
+
+		<result column="relation_order_id" property="relationOrderId" />
+		<result column="strategy_code" property="strategyCode" />
+		
+	</resultMap>
+
+	<select id="findByOrderIsIssueAfterPay"  parameterType="com.ccic.salesapp.noncar.dto.NoncarOrder" resultMap="NoncarOrderMap">
+		select * from t_noncar_order where insure_no = #{submissionNo}
+	</select>
+
+	<select id="findTargetInsureNoByRelationOrderId" parameterType="java.util.List" resultMap="NoncarOrderMap">
+		select * from t_noncar_order where relation_order_id = #{relationOrderId} and insure_no &lt;&gt;#{insureNo}
+	</select>
+
+	<select id="findNoncarOrderByRelationOrderId"  parameterType="java.util.List"
+		resultMap="NoncarOrderMap">
+		select * from t_noncar_order where relation_order_id = #{id};
+	</select>
+
+	<update id="doUpdateTwo"
+		parameterType="com.ccic.salesapp.noncar.dto.NoncarOrder">
+		update t_noncar_order
+		set insure_no=#{insureNo},
+		policy_no=#{policyNo},
+		policy_create_date=#{policyCreateDate},
+		product_code=#{productCode},
+		product_name=#{productName},
+		create_time=#{createTime},
+		start_date=#{startDate},
+		end_date=#{endDate},
+		sum_premium=#{sumPremium},
+		order_status=#{orderStatus},
+		user_code=#{userCode},
+		com_code=#{comCode},
+		handler_code=#{handlerCode},
+		operator_code=#{operatorCode},
+		operator_name=#{operatorName},
+		identity_code=#{identityCode},
+		applicant_name=#{applicantName},
+		agent_code=#{agentCode},
+		agreement_no=#{agreementNo},
+		agreement_name=#{agreementName},
+		handler_code2=#{handlerCode2}
+		where insure_no = #{insureNo}
+	</update>
+	
+	<update id="updateStatusOrderByRelationId"
+		parameterType="java.lang.Long">
+		update t_noncar_order set 
+		order_status = "7"
+		where id = #{relationOrderId}
+	</update>
+
+	<select id="queryZcTwo"
+		parameterType="com.ccic.salesapp.noncar.dto.NoncarOrder"
+		resultMap="NoncarOrderMap">
+		select * from t_noncar_order
+		where order_no =
+		#{orderNo}
+	</select>
+	
+	<select id="queryZcSubmission"
+		parameterType="com.ccic.salesapp.noncar.dto.NoncarOrder"
+		resultMap="NoncarOrderMap">
+		select * from t_noncar_order
+		where order_no =
+		#{orderNo}
+	</select>
+
+	<update id="updateZcInfoTwo"
+		parameterType="com.ccic.salesapp.noncar.dto.NoncarOrder">
+		UPDATE `t_noncar_order`
+		<set>
+			<if test="insureNo != null">
+				insure_no = #{insureNo},
+			</if>
+			<if test="productCode != null">
+				product_code = #{productCode},
+			</if>
+			<if test="orderStatus != null">
+				order_status = #{orderStatus},
+			</if>
+			<if test="payDate != null">
+				pay_date = #{payDate}
+			</if>
+		</set>
+		where order_no =#{orderNo};
+	</update>
+	
+	<select id="selectBySureInfoNoTwo" resultMap="NoncarOrderMap"
+		parameterType="com.ccic.salesapp.noncar.dto.request.ApplyPayVo">
+		select * from t_noncar_order where insure_no=#{insureNo}
+	</select>
+
+	<update id="upPayStsateTwo" parameterType="java.util.Map">
+		update
+		t_noncar_order
+		set order_status='6' where INSURE_NO=#{insureNo}
+		and
+		order_status='4'
+	</update>
+	<select id="selectBynoncarOrder" resultMap="NoncarOrderMap"
+		parameterType="java.lang.String">
+		SELECT * FROM t_noncar_order tno,
+		t_noncar_plan_strategy
+		tnps
+		where tno.INSURE_NO=#{INSURENO} and tno.strategy_id = tnps.id
+	</select>
+	<update id="fupNoPayStsate" parameterType="java.util.Map">
+		update
+		t_noncar_order
+		set ORDER_STATUS='2' where INSURE_NO=#{insureNo} and
+		ORDER_STATUS in(
+		'0','1','3')
+	</update>
+	<update id="upUnderwritingStatusTwo"
+		parameterType="java.util.Map">
+		update
+		t_noncar_order set ORDER_STATUS='1' where
+		INSURE_NO=#{insureNo} and
+		ORDER_STATUS in( '0','3')
+	</update>
+	<update id="fupPolicyNoInfo" parameterType="java.util.Map">
+		update
+		t_noncar_order
+		set POLICY_NO=#{policyNo},
+		ORDER_STATUS='7' where
+		INSURE_NO=#{insureNo}
+	</update>
+	
+	<update id="PolicyNoInfoSubmitMiddJf" parameterType="java.util.Map">
+		update
+		t_noncar_order
+		set ORDER_STATUS='4' where
+		INSURE_NO=#{insureNo}
+	</update>
+	
+	<update id="fupPolicyNoInfoSubmitMidd" parameterType="java.util.Map">
+		update
+		t_noncar_order
+		set POLICY_NO=#{policyNo},
+		ORDER_STATUS='7' where
+		INSURE_NO=#{insureNo}
+	</update>
+	
+	<update id="updateSubmitMiddleStatus" parameterType="java.lang.String">
+		update
+		t_noncar_order
+		set ORDER_STATUS='7' where
+		INSURE_NO=#{proposalNo}
+	</update>
+	
+	<update id="updateSubmitMiddleStatusJf" parameterType="java.lang.String">
+		update
+		t_noncar_order
+		set ORDER_STATUS='4' where
+		INSURE_NO=#{proposalNo}
+	</update>
+	
+	<select id="selectNoncarOrderByInsureNo"
+		resultMap="NoncarOrderMap" parameterType="java.lang.String">
+		select * from t_noncar_order
+		tno,t_noncar_policy_customer tnpc,t_noncar_plan_strategy
+		tnps
+		where tno.insure_no =#{insureNo} and tno.id =
+		tnpc.order_id and customer_role_code = "1" and tno.strategy_id =
+		tnps.id 
+	</select>
+	
+	<select id="selectNoncarOrderBySubmission"
+		resultMap="NoncarOrderMap" parameterType="java.lang.String">
+		select product_name,applicant_name,user_code from t_noncar_order
+		where insure_no =#{submission}
+	</select>
+
+	<select id="selectNoncarOrderByInsureNoSubmission"
+		resultMap="NoncarOrderMap" parameterType="java.lang.String">
+		select * from t_noncar_order
+		where insure_no =#{insureNo}
+	</select>
+	
+	<select id="findInsuredIdTypeapp" resultMap="NoncarOrderMap"
+		parameterType="java.util.List">
+		select tnpc.customer_name,tsd.name as id_type,tnpc.id_no from t_noncar_policy_customer tnpc,
+		t_sys_dict tsd
+		where tnpc.order_id =#{orderId} and tnpc.id_type = tsd.code  and tsd.pcode = "noncar_id_type"
+		and tnpc.customer_role_code = 1
+	</select>
+	
+	<select id="findApplicaIdTypeSubmission" resultMap="NoncarOrderMap"
+		parameterType="java.lang.String">
+		select tnpc.customer_name,tsd.name as id_type,tnpc.id_no from t_noncar_policy_customer tnpc,
+		t_sys_dict tsd
+		where tnpc.order_id =#{id} and tnpc.id_type = tsd.code  and tsd.pcode = "noncar_id_type"
+		and tnpc.customer_role_code = 1
+	</select>
+	
+	<select id="findInsuredIdTypeSubmission" resultMap="NoncarOrderMap"
+		parameterType="java.lang.String">
+		select tnpc.customer_name,tsd.name as id_type,tnpc.id_no from t_noncar_policy_customer tnpc,
+		t_sys_dict tsd
+		where tnpc.order_id =#{id} and tnpc.id_type = tsd.code  and tsd.pcode = "noncar_id_type"
+		and tnpc.customer_role_code = 2
+	</select>
+	
+	<select id="findInsuredIdType" resultMap="NoncarOrderMap"
+		parameterType="java.util.List">
+		select tnpc.customer_name,tsd.name as id_type,tnpc.id_no from t_noncar_policy_customer tnpc,
+		t_sys_dict tsd
+		where tnpc.order_id =#{orderId} and tnpc.id_type = tsd.code  and tsd.pcode = "noncar_id_type"
+		and tnpc.customer_role_code = 2
+	</select>
+
+	<select id="findInsuredIdTyperole" resultMap="NoncarOrderMap"
+		parameterType="java.util.List">
+		select tnpc.customer_name,tsd.name as id_type,tnpc.id_no from t_noncar_policy_customer tnpc,
+		t_sys_dict tsd
+		where tnpc.order_id =#{orderId} and tnpc.id_type = tsd.code  and tsd.pcode = "noncar_id_type"
+		and tnpc.customer_role_code = 4	
+	</select>
+
+	<select id="findInsuredIdTyper" resultMap="NoncarOrderMap"
+		parameterType="java.util.List">
+		select tnpc.customer_name,tsd.name as id_type,tnpc.id_no from t_noncar_policy_customer tnpc,
+		t_sys_dict tsd
+		where tnpc.order_id =#{orderId} and tnpc.id_type = tsd.code  and tsd.pcode = "noncar_id_type"
+		and tnpc.customer_role_code = 5
+	</select>
+	
+	<update id="updateSignStatusTwo"
+		parameterType="com.ccic.salesapp.noncar.dto.NoncarOrder">
+		update t_noncar_order tno  set
+		tno.sign_status='1'
+		where tno.insure_no = #{insureNo}
+	</update>
+	
+    <update id="updateSignStatusSubmissionByRelationOrderId"
+            parameterType="com.ccic.salesapp.noncar.dto.NoncarOrder">
+            update t_noncar_order tno  set
+            tno.sign_status='1',tno.order_status='1'
+            where tno.relation_order_id = #{id}
+    </update>
+
+	<update id="updateSignStatusSubmission"
+			parameterType="com.ccic.salesapp.noncar.dto.NoncarOrder">
+			update t_noncar_order tno  set
+			tno.sign_status='1',tno.order_status='1'
+			where tno.insure_no = #{insureNo}
+	</update>
+
+	<resultMap
+		type="com.ccic.salesapp.noncar.repository.basedb.po.PlanStrategy"
+		id="PlanStrategyMap">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="strategy_type" jdbcType="INTEGER"
+			property="strategyType" />
+		<result column="is_main" jdbcType="INTEGER" property="isMain" />
+		<result column="code" jdbcType="VARCHAR" property="code" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="has_element" jdbcType="INTEGER"
+			property="hasElement" />
+		<result column="scene" jdbcType="VARCHAR" property="scene" />
+		<result column="crowd" jdbcType="VARCHAR" property="crowd" />
+		<result column="org" jdbcType="VARCHAR" property="org" />
+		<result column="memo" jdbcType="VARCHAR" property="memo" />
+		<result column="publicity_info" jdbcType="VARCHAR"
+			property="publicityInfo" />
+		<result column="plan_reverse" jdbcType="INTEGER"
+			property="planReverse" />
+		<result column="plan_reverse_factor" jdbcType="VARCHAR"
+			property="planReverseFactor" />
+		<result column="video_type" jdbcType="INTEGER"
+			property="videoType" />
+		<result column="video_url" jdbcType="VARCHAR"
+			property="videoUrl" />
+		<result column="share_able" jdbcType="INTEGER"
+			property="shareAble" />
+		<result column="show_poster" jdbcType="INTEGER"
+			property="showPoster" />
+		<result column="show_proposal" jdbcType="INTEGER"
+			property="showProposal" />
+		<result column="need_sign" jdbcType="INTEGER"
+			property="needSign" />
+		<result column="upload_photo" jdbcType="INTEGER"
+			property="uploadPhoto" />
+		<result column="insure_type" jdbcType="VARCHAR"
+			property="insureType" />
+		<result column="must_upload_photo" jdbcType="VARCHAR"
+			property="mustUploadPhoto" />
+		<result column="policy_start_type" jdbcType="INTEGER"
+			property="policyStartType" />
+		<result column="policy_start_range" jdbcType="INTEGER"
+			property="policyStartRange" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="create_user" jdbcType="VARCHAR"
+			property="createUser" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+		<result column="update_user" jdbcType="VARCHAR"
+			property="updateUser" />
+	</resultMap>
+	<select id="selectByStrategyId" resultMap="PlanStrategyMap"
+		parameterType="java.lang.Integer">
+		select * from t_noncar_plan_strategy where id =
+		#{strategyId}
+	</select>
+
+	<resultMap id="PlanIDMap"
+		type="com.ccic.salesapp.noncar.dto.PlanAttach">
+		<id column="biz_type" property="bizType" />
+		<id column="biz_id" property="bizId" />
+		<id column="attach_type" property="attachType" />
+		<id column="attach_url" property="attachUrl" />
+		<id column="attach_in_url" property="attachInUrl" />
+		<id column="attach_code" property="attachCode" />
+		<id column="attach_name" property="attachName" />
+		<id column="record_status" property="recordStatus" />
+		<id column="plan_coverage_name" property="planCoverageName" />
+	</resultMap>
+	<!-- 根据订单的planid查询对应的类型为plan的  内网 -->
+	<select id="findByPlanIdOrUrl" resultMap="PlanIDMap"
+		parameterType="java.util.List">
+<!-- 		select GROUP_CONCAT(attach_in_url)attach_url from t_noncar_plan_attach  -->
+<!-- 		where biz_type = "plan" and biz_id=#{planId} and attach_code in("insurance_notice","insurance_declaration","health_notification") -->
+		select * from t_noncar_plan_attach 
+		where biz_type = "plan" and biz_id=#{planId} and attach_code in("insurance_notice","insurance_declaration","health_notification")
+	</select>
+
+	<!-- 保险条款product_clause -->
+	<select id="findByProductClause" parameterType="java.util.List"
+		resultMap="PlanIDMap">
+		select * from t_noncar_order tno, t_noncar_plan_attach tnpa
+		where tno.plan_id = tnpa.biz_id and tno.insure_no =#{insureNo} and tnpa.attach_type ="product_clause"
+	</select>
+
+	<!-- 健康告知 -->
+	<select id="findhealthNotificationList" resultMap="PlanIDMap"
+		parameterType="java.lang.Integer">
+		select attach_code,attach_url from t_noncar_plan_attach 
+		where biz_type = "plan" and biz_id=#{plan_id} and attach_code in("health_notification")
+	</select>
+
+	<!-- 投保须知 -->
+	<select id="findInsuranceNoticeMap" parameterType="java.util.List"
+		resultMap="PlanIDMap">
+		select * from t_noncar_plan_attach where biz_type = "plan" 
+		and biz_id = #{integer}
+		and attach_code in("insurance_notice","insurance_declaration","health_notification")
+	</select>
+
+
+	<!-- 阅读告知（投保须知，投保人声明）read_inform -->
+	<select id="findBylistReadInform" parameterType="java.util.List"
+		resultMap="PlanIDMap">
+		select * from t_noncar_order tno, t_noncar_plan_attach tnpa
+		where tno.plan_id = tnpa.biz_id and tno.insure_no =#{insureNo} and tnpa.attach_type ="read_inform"
+	</select>
+
+	<!-- 操作告知（健康告知）actoion_inform -->
+	<select id="findBylistActoionInform"
+		parameterType="java.util.List" resultMap="PlanIDMap">
+		select * from t_noncar_order tno, t_noncar_plan_attach tnpa
+		where tno.plan_id = tnpa.biz_id and tno.insure_no =#{insureNo} and tnpa.attach_type ="actoion_inform"
+	</select>
+	
+	<resultMap id="NoncarPlanCtMap"
+		type="com.ccic.salesapp.noncar.dto.NoncarPlanCt">
+		<id column="order_id" property="orderId" />
+		<id column="clause_code" property="clauseCode" />
+		<id column="kind_code" property="kindCode" />
+		<id column="due_premium" property="duePremium" />
+		<id column="insured" property="insured" />
+		<id column="plan_id" property="planId" />
+		<id column="plan_coverage_id" property="planCoverageId" />
+		<id column="plan_coverage_name" property="planCoverageName" />
+		<id column="parent_plan_coverage_id"
+			property="parentPlanCoverageId" />
+		<id column="is_nondeductible" property="isNondeductible" />
+		<id column="is_optional" property="isOptional" />
+		<id column="fixed_insure" property="fixedInsure" />
+		<id column="insure_amount" property="insureamount" />
+		<id column="product_element_code" property="productElementCode" />
+		<id column="coverage_name" property="coverageName" />
+	</resultMap>
+	
+	<!-- 条款代码 -->
+	<select id="findBySchemeCode" resultMap="NoncarPlanCtMap"
+		 parameterType="java.util.List" >
+		select insured,clause_name as plan_coverage_name,coverage_name from t_noncar_order_ct where order_id = #{orderId}
+	</select>
+	
+	<!-- 条款代码 -->
+	<select id="findBySchemeCodeZh" resultMap="NoncarPlanCtMap"
+		 parameterType="java.util.List" >
+		select sum_insured as insured,coverage_name from t_noncar_sales_coverage where coverage_id in(
+				select relation_id from t_noncar_order_ct where order_id = #{orderId}
+			)
+		
+	</select>
+
+	<!-- 责任代码 -->
+	<select id="findByResponsibilityCode"
+		resultMap="NoncarPlanCtMap" parameterType="java.lang.Integer">
+		select
+		GROUP_CONCAT(plan_coverage_name) AS plan_coverage_name from
+		t_noncar_plan_ct where plan_id=#{planId} and product_element_code not
+		like 'CF%'
+	</select>
+	<!-- 查询条款责任的保额 -->
+	<select id="findByAmountInsured" resultMap="NoncarPlanCtMap"
+		parameterType="Map">
+		select * from t_noncar_order_ct where clause_code in (
+		select product_element_code from t_noncar_plan_ct pec
+		where pec.plan_coverage_name = #{splitPlanCoverageName}  and pec.plan_id = #{planId}
+		)
+		and kind_code in(
+				select product_element_code from t_noncar_plan_ct pec
+				where pec.plan_coverage_name = #{splitPlanCoverageNameResponsibility}  and pec.plan_id = #{planId}
+		) and order_id = #{orderId}	
+<!-- 		select * from t_noncar_order_ct tnoc where -->
+<!-- 		tnoc.clause_code in ( -->
+<!-- 		select product_element_code from t_noncar_plan_ct pec -->
+<!-- 		where pec.plan_coverage_name = #{substring} and pec.plan_id = #{planId}) -->
+<!-- 		and tnoc.order_id=#{orderId} -->
+	</select>
+	
+	<select id="findPaymentInformationList" resultMap="NoncarOrderMap" parameterType="java.lang.String">
+		select * from t_noncar_order where insure_no = #{insureNo}
+	</select>
+	
+	
+	<resultMap id="PaymentInformationMap"
+		type="com.ccic.salesapp.noncar.repository.basedb.po.PolicyCustomer">
+		<id column="customer_name" property="customerName" />
+		<id column="id_no" property="idNo" />
+		<id column="indi_mobile" property="indiMobile" />
+	</resultMap>
+	<select id="findByInsureName" resultMap="PaymentInformationMap" parameterType="java.util.List">
+		select customer_name,id_no,indi_mobile from t_noncar_order tno,
+		t_noncar_policy_customer tnpc
+		where tno.insure_no = #{insureNo} and tno.id = tnpc.order_id and customer_role_code = "2"
+	</select>
+	
+	
+	<!-- 删除订单信息 -->
+	<update id="doDeleteByIdTwo" parameterType="java.util.HashMap">
+		UPDATE t_noncar_order T SET T.is_delete='1'
+		WHERE
+		T.ID IN
+		<foreach item="idList" collection="idList" separator=","
+			open="(" close=")" index="">
+			#{idList}
+		</foreach>
+		<if test="operatorNo != null and operatorNo !=''">
+			AND T.USER_CODE = #{operatorNo}
+		</if>
+	</update>
+	
+	<resultMap id="NoncarImgRiskVoMap"
+		type="com.ccic.salesapp.noncar.dto.NoncarImgRiskVo">
+		<id column="risk_code" property="riskCode" />
+		<id column="underwriting_operator_role" property="underwritingOperatorRole" />
+		<id column="document_code" property="documentCode" />
+		<id column="insure_no" property="insureNo" />
+		<id column="risk_type" property="riskType" />
+	</resultMap>
+	
+	<!-- 查询承保类型 -->
+	<select id="findByNocarImgRisk" resultMap="NoncarImgRiskVoMap" parameterType="java.lang.String">
+	
+		select * from t_noncar_img_risk where risk_code = #{string}
+	
+<!-- 		select tnir.risk_code,tnir.underwriting_operator_role,tnir.document_code,tno.insure_no from t_noncar_order tno  -->
+<!-- 		LEFT JOIN t_noncar_plan_strategy tnps  -->
+<!-- 		ON tno.strategy_id = tnps.id  -->
+<!-- 		LEFT JOIN t_noncar_img_risk tnir  -->
+<!-- 		ON tnps.insure_type = tnir.risk_code -->
+<!-- 		where insure_no = #{insureNo} -->
+	</select>
+	
+	<!-- 查询承保类型 -->
+	<select id="findByNocarImgRiskAndRiskType" resultMap="NoncarImgRiskVoMap" parameterType="java.lang.String">
+		select * from t_noncar_img_risk where risk_code = #{riskCodeProductCode} and  risk_type = #{insuranceCategory}
+	</select>
+	
+	 <resultMap type="com.ccic.salesapp.noncar.dto.AccidentalInjuryInfo" id="BaseAccidentalInjuryInfoMap">
+    <result column="ID"               property="id" />
+    <result column="INSUREINFO_ID"        property="insureInfoId" />
+    <result column="FAMILY_NAME"        property="familyName" />
+    <result column="FAMILYIDENTIFY_TYPE"   property="familyIdentifyType" />
+    <result column="FAMILYIDENTIFY_NO"   property="familyIdentifyNo" />
+    <result column="FAMILYRELATION"   property="familyRelation" />
+    <result column="MOBILE"   property="mobile" />
+    <result column="INSUREDBIRTH_DATE"   property="insuredBirthDate" />
+    <result column="INSURED_AGE"   property="age" />
+  </resultMap>
+	<!-- 查询被保人信息 -->
+	<select id="findInsuredsById"  resultMap="BaseAccidentalInjuryInfoMap" parameterType="java.lang.Long">
+		select * from t_noncar_accidentalinjury where INSUREINFO_ID=#{insureInfoId} 
+	</select>
+	
+	<resultMap type="com.ccic.salesapp.noncar.dto.submitUwVo.SubmitProposalInfoList" id="ProposalNoAndProductLineMap">
+		<result column="proposal_no"    property="proposalNo" />
+		<result column="product_line"    property="productLine" />
+	</resultMap>
+	<select id="findByProposalNoAndProductLine" resultMap="ProposalNoAndProductLineMap" parameterType="java.lang.String">
+		select insure_no as proposal_no,product_line from t_noncar_order where relation_order_id in(
+		select id from t_noncar_order where insure_no = #{submissionNo}
+		)
+	</select>
+	<select id="selectByNocarInfoNo" resultMap="NoncarOrderMap" parameterType="java.lang.String" >
+		select * from t_noncar_order where insure_no = #{submissionNo}
+	</select>
+</mapper>

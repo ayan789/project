@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ccic.salesapp.performance.repository.basedb.mapper.AgentHandlerMappper">
+	<resultMap type="com.ccic.salesapp.performance.domain.vo.dto.AgentHandlerInfo" id="BaseResultMap">
+        <result column="AGENTCODE" property="agentCode" />
+        <result column="HANDLERCODE" property="handlerCode" />
+        <result column="HANDLERNAME" property="handlerName" />
+        <result column="COMCODE" property="comCode" />
+        <result column="COMCNAME" property="comName" />
+        <result column="USERCODE" property="userCode" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+
+
+    </resultMap>
+    
+    <select id="selectAgentHandlerInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from t_agent_handler_info
+	    where agentcode = #{agentCode}
+	  </select>
+	
+    <update id="updateAgentHandlerInfo" parameterType="com.ccic.salesapp.performance.domain.vo.dto.AgentHandlerInfo">
+	    update t_agent_handler_info
+	    set   usercode = #{userCode}
+	    where agentcode = #{agentCode}
+	  </update>
+  
+    <select id="selectAgentHandlerInfoByUserCode" parameterType="java.lang.String"  resultType="com.ccic.salesapp.performance.domain.vo.dto.AgentHandlerInfo">
+	select * from t_agent_handler_info where usercode = #{userCode}
+	</select>
+	
+	 <select id="selectAgentHandlerInfoByAgentCode" parameterType="java.lang.String"  resultType="com.ccic.salesapp.performance.domain.vo.dto.AgentHandlerInfo">
+	select * from t_agent_handler_info where agentcode = #{agentCode}
+	</select>
+	
+	<select id="agentHandlerAndPremNum" resultType="java.lang.Integer" parameterType="com.ccic.salesapp.performance.domain.vo.dto.AgentHandlerInfo">
+		SELECT count(1) from T_PERFORMANCE_DATABUS_AGENT_PREMIUM where handler1code=#{userCode}
+	</select>
+	
+</mapper>

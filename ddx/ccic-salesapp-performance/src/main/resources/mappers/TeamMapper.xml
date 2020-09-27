@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ccic.salesapp.performance.domain.mapper.TeamMapper">
+	
+
+	<select id="selectTeamRankUsersByUserCode" resultType="com.ccic.salesapp.performance.domain.vo.dto.TeamRankItem">
+	select RANKCODE,RANKNAME,rank_level from (
+select distinct p.RANKCODE,p.RANKNAME , min(l.rank_level ) rank_level 
+		from T_PERFORMANCE_DATABUS_SALELAW_PERSON p
+		left join T_PERFORMANCE_RANKLEVEL l on p.rankcode = l.rank_code
+		where (p.TEAMCODE , p.CHANNELCODE) in (
+				select TEAMCODE , CHANNELCODE from T_PERFORMANCE_DATABUS_SALELAW_PERSON where USERCODE = #{userCode})
+		group by p.RANKCODE,p.RANKNAME
+		) l
+		order by l.rank_level desc
+	</select>
+
+	<select id="selectTeamUserByRankCode" parameterType="HashMap" resultType="com.ccic.salesapp.performance.domain.vo.dto.TeamUser">
+		select p.USERCODE,p.USERNAME,ifnull(d.payreffee,0) realPay from(
+		select p.USERCODE,p.USERNAME from T_PERFORMANCE_DATABUS_SALELAW_PERSON p where
+		p.RANKCODE = #{rankCode} and (p.TEAMCODE , p.CHANNELCODE) in (
+		select TEAMCODE , CHANNELCODE from T_PERFORMANCE_DATABUS_SALELAW_PERSON where usercode = #{userCode})
+		) p
+		left  join t_performance_databus_planfee_day d
+		on p.usercode = d.usercode 
+		 and d.REALPAYDATE in (
+		select max(REALPAYDATE) REALPAYDATE from t_performance_databus_planfee_day where usercode = #{userCode} )
+
+	</select>
+	
+	<select id="selectTeamInfoByUserCode" resultType="com.ccic.salesapp.performance.domain.vo.response.TeamResponse">
+		select b.*, tm.team_name TEAMNAME,tm.team_code TEAMCODE ,tm.vest_orgcd COMCODE,tm.channel_line_code channelcode,tm.channel_line_name CHANNELNAME ,tm.COM_NAME COMNAME from (	select TEAMCODE,count(*) teamSize 
+	 from T_PERFORMANCE_DATABUS_SALELAW_PERSON p where (p.TEAMCODE , p.CHANNELCODE) in (
+	select TEAMCODE , CHANNELCODE from T_PERFORMANCE_DATABUS_SALELAW_PERSON where usercode = #{userCode})
+	GROUP BY TEAMCODE) b
+	left join t_performance_databus_team_info tm on b.teamcode = tm.team_code
+	left join t_prpdcompany p on p.comcode = tm.vest_orgcd
+	</select>
+
+</mapper>
