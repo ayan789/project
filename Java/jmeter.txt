@@ -1,0 +1,14 @@
+http://jmeter.apache.org/download_jmeter.cgi
+tar zxvf apache-jmeter-5.3.tgz
+java -version
+/usr/libexec/java_home -V
+vim ~/.zshrc
+export JAVA_HOME=`/usr/libexec/java_home`
+source ~/.zshrc
+cd apache-jmeter-5.3
+cd bin
+sh jmeter
+添加 Http请求
+添加 配置原件 Http信息头管理器
+content-type,application/json
+添加 监听器 结果树 聚合报告
