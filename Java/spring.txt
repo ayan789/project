@@ -24,6 +24,12 @@ springMVC流程:
 6 返回view给前端控制器并且把模型数据填充到视图中
 7 前端控制器将结果响应给客户
 
+web.xml
+加载前端控制器
+springmvc.xml
+配置映射处理器
+配置视图解析器 将模型与视图匹配在一起
+
 客户请求 -> 前端控制器
 HandlerMapping 处理器适配器 -> 前端控制器
 ModelAndView   视图解析器 -> 前端控制器
