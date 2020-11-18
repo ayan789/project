@@ -1,6 +1,7 @@
 package com.example.tlyannoif;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -37,10 +38,10 @@ public class StreamUtils {
         }).collect(Collectors.toList());
         System.out.println(JSONObject.toJSONString(list3));
         
-        List<StreamUtils> list4 = list.stream().sorted(Comparator.comparing(StreamUtils::getAge)).collect(Collectors.toList());
+        List<StreamUtils> list4 = list.stream().sorted(Comparator.comparing(StreamUtils::getAge)).collect(Collectors.toCollection(ArrayList::new));
         System.out.println(JSONObject.toJSONString(list4));
         
-        List<StreamUtils> list5 = list.stream().sorted(Comparator.comparing(StreamUtils::getAge).reversed()).collect(Collectors.toList());
+        List<StreamUtils> list5 = list.stream().sorted(Comparator.comparing(StreamUtils::getAge).reversed()).collect(Collectors.toCollection(ArrayList::new));
         System.out.println(JSONObject.toJSONString(list5));
         
         List<StreamUtils> list6 = list.stream().skip(1).limit(2).distinct().collect(Collectors.toList());
@@ -52,6 +53,9 @@ public class StreamUtils {
         Map<String, StreamUtils> list_map = new HashMap<>(list.size());
         list.stream().forEach( x -> list_map.put(x.getName(), x));
         System.out.println(JSONObject.toJSONString(list_map));
+        
+        Map<String, List<StreamUtils>> group = list.stream().collect(Collectors.groupingBy(StreamUtils::getGender));
+        System.out.println(JSONObject.toJSONString(group));
         
 	}
 
