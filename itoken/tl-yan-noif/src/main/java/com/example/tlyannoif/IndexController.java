@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Nullable;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -59,9 +62,16 @@ public class IndexController {
         return "up tl-yan-noif";
     }
 
-    @GetMapping("/module_2")
-    public long module_2 () {
-        System.out.println("noif service module_2");
+    @PostMapping("/module_2")
+    public long module_2 (@RequestBody CoinInfo cc) {
+    	
+    	System.out.println("noif service module_2"+"追踪号:"+cc.getUuidLocal().get());
+    	
+    	ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        String uuid = (String) request.getAttribute("requestId");
+        System.out.println(uuid);
+    	
         return 123;
     }
 

@@ -2,7 +2,7 @@ package com.example.tlyannoif;
 
 import java.util.Date;
 
-public class CoinInfo {
+public class CoinInfo extends BaseVo {
     private Integer id;
 
     private Double price;
