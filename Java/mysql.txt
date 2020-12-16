@@ -36,6 +36,7 @@ char和varchar的区别：char的长度是不可变的，而varchar的长度是�
 索引
 分表分库
 左右链接
+大数据量 Mysql8 hash join 等值链接 效率更快
 
 
 存储过程游标
@@ -83,7 +84,33 @@ java mycat、redis，并发和PV，dubbo和springcloud
 DATE_FORMAT,索引会失效,导致全表扫描
 
 
+最大化利用索引 避免全表扫描 减少无效数据查询
+
+不要用OR用union
+
+不要用in用exists
+
+不要判断NULL值
+
+不要判断1=1
+
+垂直拆分和水平拆分
+垂直拆分(各个表拆分到数据库)
+水平拆分(id取模)
+
+接口最少暴露原则
+旁支逻辑异步化
+数据补偿
+墨菲定律 SOP（标准化解决方案）
+select * 对于无用的大字段，如 varchar、blob、text，会增加 io 操作
 
 
 
-
+ALTER TABLE `t_cust_activity_tag` ADD UNIQUE ( `activity_name`,activity_tag )
+ON DUPLICATE KEY UPDATE 
+		id = VALUES(id),
+		activity_id = VALUES(activity_id),
+		activity_name = VALUES(activity_name),
+		activity_tag_id = VALUES(activity_tag_id),
+		activity_tag = VALUES(activity_tag),
+		config_soft = VALUES(config_soft)

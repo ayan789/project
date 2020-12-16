@@ -57,6 +57,10 @@ public class StreamUtils {
         Map<String, List<StreamUtils>> group = list.stream().collect(Collectors.groupingBy(StreamUtils::getGender));
         System.out.println(JSONObject.toJSONString(group));
         
+        list.stream().forEach( x -> {
+        	System.out.println(123);
+        });
+        
 	}
 
 	

@@ -45,5 +45,13 @@ Aop 前置 后置 环绕  切点表达式
 
 事务 对写操作（需要） 对读操作（不需要）
 
+Spring的事务是通过AOP代理类中的一个Advice进行生效的，而传播级别定义了事务与子事务获取连接、事务提交、回滚的具体方式
+
+Spring事务默认只对RuntimeException和Error进行回滚 如IO异常不回滚
+
+通过mybatis连接数据库可能导致Spring事务失效（事务超时）
 
 
+（Controller、Service、Dao）单例Bean,是一个无状态Bean ,是安全的 @Scope
+有状态就是有数据存储功能
+无状态就是不会保存数据

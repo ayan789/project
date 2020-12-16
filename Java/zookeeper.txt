@@ -1,1 +1,19 @@
 zookeeper
+分布式服务框架
+注册中心
+分布式协调
+保证高可用
+每个Server在内存中存储了一份数据
+Zookeeper启动时，将从实例中选举一个leader Leader负责处理数据更新等操作 
+1、创建myid文件，server1机器的内容为：1，server2 机器的内容为：2，server3机器的内容为：3 ，在conf目录下创建一个配置文件zoo.cfg
+主从状态同步 主节点上的Watcher会通知从节点的所有Watcher状态同步
+
+顺序一致性
+原子性 事务请求的结果在所有机器上都是一致的
+实时性 状态数据是实时响应的
+
+Leader 主节点
+Follower 从节点
+Observer 读写服务 定期向Leader汇报自己的节点状态
+
+TCP长连接连

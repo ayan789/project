@@ -3,8 +3,9 @@ mybatis
 XML或注解来配置和映射原生信息
 RowBounds逻辑分页 （有限制 20亿条左右 不建议用） 在mapper.java中的方法中传入RowBounds对象
 PageHelper物理分页 在调用查询方法之前调用 只对后面第一个SQL语句起作用
-一级缓存: 基于sqlSession默认开启相同的sqlSession第二次缓存
-二级缓存: 不同sqlSession两次执行相同namespace下sql语句且向sql中传递的参数也相同第二次缓存
+一级缓存: 基于sqlSession默认开启相同的sqlSession第二次缓存 跨SqlSession是无效 默认开启
+二级缓存: 不同sqlSession两次执行相同namespace下sql语句且向sql中传递的参数也相同第二次缓存 手动开启 读多写少的场景
+第三方缓存 redis
 <select>
 <insert>
 <delete>
