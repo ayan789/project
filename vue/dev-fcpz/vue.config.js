@@ -90,7 +90,7 @@ module.exports = {
       "/api": {
         /* 目标代理服务器地址 */
         //target: "http://mobilesales-supsale.caas.ccic-net.com.cn",
-        target: "http://127.0.0.1:8085",
+        target: "http://127.0.0.1:8080",
         // target: "http://10.100.125.221:8085",
         // target: "http://10.100.172.11:9999", //测试
         // target: "http://10.100.173.19:8081", //报价 高
@@ -103,8 +103,8 @@ module.exports = {
         changeOrigin: true,
         // ws: true,
         pathRewrite: {
-          //"^/api": "/api" // 测试
-          '^/api': '' //  开发
+          "^/api": "/api" // 测试
+          //'^/api': '' //  开发
         }
       }
     }

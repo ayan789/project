@@ -69,6 +69,7 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             body = "系统繁忙，请稍后再试";
         }
+        System.out.println("bbbbb:"+body);
         Map<String, Object> result = new HashMap<>(2, 1);
         result.put("httpStatus",HttpStatus.OK);
         String msg = "{\"code\":\"G0001\",\"message\": \"" + body + "\"}";
@@ -89,9 +90,11 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
 
     protected Mono<ServerResponse> renderErrorResponse(ServerRequest request) {
         Map<String, Object> result = exceptionHandlerResult.get();
+        System.out.println("rrr:"+result.get("body"));
         return ServerResponse.status((HttpStatus) result.get("httpStatus"))
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .body(BodyInserters.fromObject(result.get("body")));
+
     }
 
     private Mono<? extends Void> write(ServerWebExchange exchange,
