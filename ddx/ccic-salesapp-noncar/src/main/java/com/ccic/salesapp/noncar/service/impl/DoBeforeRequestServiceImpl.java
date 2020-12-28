@@ -1,5 +1,6 @@
 package com.ccic.salesapp.noncar.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.ccic.salesapp.noncar.dto.PolicyCustomer;
 import com.ccic.salesapp.noncar.dto.PropertyTrialRequest;
+import com.ccic.salesapp.noncar.dto.order.request.Element;
 import com.ccic.salesapp.noncar.dto.order.request.OrderRequest;
 import com.ccic.salesapp.noncar.dto.order.request.Product;
 import com.ccic.salesapp.noncar.dto.request.InsuredGroup;
@@ -19,17 +21,23 @@ import com.ccic.salesapp.noncar.dto.request.accidentquote.PersonInsured;
 import com.ccic.salesapp.noncar.dto.request.accidentquote.PolicyLob;
 import com.ccic.salesapp.noncar.dto.request.accidentquote.PolicyRisk;
 import com.ccic.salesapp.noncar.dto.request.accidentquote.Vehicle;
-import com.ccic.salesapp.noncar.feign.bean.RequestBody;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.OrderCtMapper;
+import com.ccic.salesapp.noncar.repository.basedb.mapper.PersonMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.PlanMethodMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.UtilMapper;
+import com.ccic.salesapp.noncar.repository.basedb.po.Person;
 import com.ccic.salesapp.noncar.repository.basedb.po.PlanInfo;
 import com.ccic.salesapp.noncar.repository.basedb.po.PlanMethod;
 import com.ccic.salesapp.noncar.service.AccidentQuoteService;
 import com.ccic.salesapp.noncar.service.DoBeforeRequestService;
+import com.ccic.salessapp.common.core.exception.PlatformBaseException;
+import com.ccic.salessapp.common.outService.rest.common.bean.RequestBody;
 import com.ccic.salessapp.common.utils.StringUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class DoBeforeRequestServiceImpl implements DoBeforeRequestService {
 	
 	@Autowired
@@ -43,11 +51,15 @@ public class DoBeforeRequestServiceImpl implements DoBeforeRequestService {
 	
 	@Autowired
 	PlanMethodMapper planMethodMapper;
+	
+	@Autowired
+	PersonMapper personMapper;
 
 	@Override
 	public void doBefore(AccidentQuoteRequest request,OrderRequest orderRequest) throws Exception {
 		//指定机构归属到上海分公司
-		spComCode(request,orderRequest);
+		//2020-10-21 核心代理人查询不到取消这个处理逻辑
+		//spComCode(request,orderRequest); 
 		//根据职业代码为职业类别赋值
 		doWithPersonInsured(request,orderRequest);
 		//处理标的分组
@@ -166,7 +178,7 @@ public class DoBeforeRequestServiceImpl implements DoBeforeRequestService {
 					}
 					
 					//健康告知
-					if("Y".equals(orderRequest.getIsRenewal()) && StringUtils.isNotBlank(orderRequest.getRelationPolicyNo()) /*&& accidentQuoteService.isNewInsured(personInsured, checkPersonInsuredList)*/) {
+					if("Y".equals(orderRequest.getIsDeclaration()) || ( "Y".equals(orderRequest.getIsRenewal()) && StringUtils.isNotBlank(orderRequest.getRelationPolicyNo()) ) /*&& accidentQuoteService.isNewInsured(personInsured, checkPersonInsuredList)*/) {
 						List<CustomerDeclaration> customerDeclarationList =new ArrayList<CustomerDeclaration>();
 						CustomerDeclaration customerDeclaration = new CustomerDeclaration();
 						customerDeclaration.setDeclarationForm("1");
@@ -202,7 +214,7 @@ public class DoBeforeRequestServiceImpl implements DoBeforeRequestService {
 	@Override
 	public void doBefore(PropertyTrialRequest request,OrderRequest orderRequest) {
 		
-		spComCode(request,orderRequest);
+		//spComCode(request,orderRequest);
 		
 		List<PolicyCustomer> policyCustomerList = request.getPolicyCustomerList();
 		for (PolicyCustomer policyCustomer : policyCustomerList) {
@@ -251,4 +263,96 @@ public class DoBeforeRequestServiceImpl implements DoBeforeRequestService {
 			}
 		}
 	}
+
+	@Override
+	public void beforeSaveData(OrderRequest orderRequest) throws Exception {
+		List<Element> list = orderRequest.getMetaDataList();
+		for (int i =0 ;i < list.size();i++) {
+			Element element = list.get(i);
+			//处理雇员清单 不在订单详情中显示
+			if("empList".equals(element.getCode())) {
+				//list.set(i, null);
+			}
+			//模板不存库
+			if("empManifestTemp".equals(element.getCode())) {
+				//list.set(i, null);
+			}
+			
+		}
+		//list.removeAll(Collections.singleton(null));
+		
+	}
+
+	@Override
+	public void afterInitRequestBody(RequestBody request, OrderRequest orderRequest) {
+		//非车
+		if(request instanceof PropertyTrialRequest) {
+			PropertyTrialRequest req = (PropertyTrialRequest) request;
+			afterInitRequestBody(req,orderRequest);
+		}
+		//意健
+		if(request instanceof AccidentQuoteRequest) {
+			AccidentQuoteRequest req = (AccidentQuoteRequest) request;
+			afterInitRequestBody(req,orderRequest);
+		}
+	}
+	
+	
+	private void afterInitRequestBody(AccidentQuoteRequest request, OrderRequest orderRequest) {
+		
+	}
+	
+	
+	private void afterInitRequestBody(PropertyTrialRequest request, OrderRequest orderRequest) {
+		List<Element> list = orderRequest.getMetaDataList();
+		int personNum = 1;
+		for (int i =0 ;i < list.size();i++) {
+			Element element = list.get(i);
+			//处理雇员清单 不在订单详情中显示
+			if("empList".equals(element.getCode())) {
+				String personListId = element.getValue();
+				List<Person> personList =  personMapper.selectByPersonListId(Long.parseLong(personListId));
+				List<com.ccic.salesapp.noncar.dto.request.noncar.Person> noncarPersonList = new ArrayList<com.ccic.salesapp.noncar.dto.request.noncar.Person>();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				com.ccic.salesapp.noncar.dto.PolicyLob policyLob = request.getPolicyLobList().get(0);
+				for (Person person : personList) {
+					//111-居民身份证
+					person.setPersonIdType(person.getPersonIdType().split("-")[0]);
+					com.ccic.salesapp.noncar.dto.request.noncar.Person p = new com.ccic.salesapp.noncar.dto.request.noncar.Person();
+					org.springframework.beans.BeanUtils.copyProperties(person, p);
+					try {
+						if(person.getEffectiveDate() != null) {
+							p.setEffectiveDate(sdf.format(person.getEffectiveDate()));
+						}
+						if(person.getExpiryDate() != null) {
+							p.setExpiryDate(sdf.format(person.getExpiryDate()));
+						}
+					} catch (Exception e) {
+						throw new PlatformBaseException(e, 0);
+					}
+					noncarPersonList.add(p);
+				}
+				personNum = noncarPersonList.size();
+				policyLob.setPersonListList(noncarPersonList);
+				if(policyLob.getTotalNumberOfCopies()==null) {
+					policyLob.setTotalNumberOfCopies("1");
+				}
+				policyLob.getPolicyRiskList().get(0).setInsuredCount(personNum+"");
+				policyLob.setTotalNumberOfCopies((Integer.parseInt(policyLob.getTotalNumberOfCopies())*personNum)+"");
+				//关联订单与人员列表信息
+				try {
+					Person person = new Person();
+					person.setPersonListId(Long.parseLong(personListId));
+					person.setOrderId((Long)(orderRequest.getMap().get("orderId")));
+					personMapper.updateOrderIdByPersonListId(person);
+				} catch (Exception e) {
+					log.error(e.getMessage(),e);
+				}
+				break;
+			}
+		}
+	}
+	
+	
+	
 }

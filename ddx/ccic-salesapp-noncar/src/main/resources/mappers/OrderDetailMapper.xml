@@ -196,9 +196,9 @@
   
   <select id="selectOrderDetailByOrderId" parameterType="java.lang.Long" resultMap="BaseResultMap" >
   	select g.`name`,d.* from t_noncar_order_detail d
+	inner join t_noncar_plan_element_group g on g.id = d.group_id 
 	left join t_noncar_plan_element e on d.element_id = e.id 
 	left join t_noncar_element_config c on e.code = c.code
-	inner join t_noncar_plan_element_group g on g.id = d.group_id 
 	where d.order_id = #{orderId} and g.category = 'policy' and c.control_type != 'hidden'
 	order by g.sort , e.sort, d.array_index
   </select>

@@ -17,6 +17,9 @@ public class Element {
 	@ApiModelProperty("分组id")
 	private Long groupId;
 	
+	@ApiModelProperty("元素代码")
+	private String code;
+	
 	@ApiModelProperty("分组Code")
 	private String groupCode;
 	

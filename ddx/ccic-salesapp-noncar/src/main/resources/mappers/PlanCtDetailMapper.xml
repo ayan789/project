@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.PlanCtDetailMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.basedb.po.PlanCtDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="plan_id" jdbcType="INTEGER" property="planId" />
+    <result column="plan_coverage_id" jdbcType="BIGINT" property="planCoverageId" />
+    <result column="clause_code" jdbcType="VARCHAR" property="clauseCode" />
+    <result column="clause_property" jdbcType="VARCHAR" property="clauseProperty" />
+    <result column="if_caltotal_sum" jdbcType="VARCHAR" property="ifCaltotalSum" />
+    <result column="ct_necessary" jdbcType="VARCHAR" property="ctNecessary" />
+    <result column="if_change_desc" jdbcType="VARCHAR" property="ifChangeDesc" />
+    <result column="ct_desc" jdbcType="VARCHAR" property="ctDesc" />
+    <result column="ct_desc_en" jdbcType="VARCHAR" property="ctDescEn" />
+    <result column="disability_standard" jdbcType="VARCHAR" property="disabilityStandard" />
+    <result column="sum_insured_max" jdbcType="DECIMAL" property="sumInsuredMax" />
+    <result column="sum_insured_min" jdbcType="DECIMAL" property="sumInsuredMin" />
+    <result column="sum_insured_default" jdbcType="DECIMAL" property="sumInsuredDefault" />
+    <result column="premium_orrate" jdbcType="VARCHAR" property="premiumOrrate" />
+    <result column="premium_max" jdbcType="DECIMAL" property="premiumMax" />
+    <result column="premium_min" jdbcType="DECIMAL" property="premiumMin" />
+    <result column="premium_default" jdbcType="DECIMAL" property="premiumDefault" />
+    <result column="if_suinsured" jdbcType="VARCHAR" property="ifSuinsured" />
+    <result column="insured_limit" jdbcType="INTEGER" property="insuredLimit" />
+    <result column="increasex_day" jdbcType="INTEGER" property="increasexDay" />
+    <result column="increasey_prem" jdbcType="DECIMAL" property="increaseyPrem" />
+    <result column="premium_usetype" jdbcType="VARCHAR" property="premiumUsetype" />
+    <result column="discount_percent" jdbcType="VARCHAR" property="discountPercent" />
+    <result column="related_ct_id" jdbcType="INTEGER" property="relatedCtId" />
+    <result column="rate_types" jdbcType="VARCHAR" property="rateTypes" />
+    <result column="period_types" jdbcType="VARCHAR" property="periodTypes" />
+    <result column="link_seats" jdbcType="INTEGER" property="linkSeats" />
+    <result column="insure_unit" jdbcType="VARCHAR" property="insureUnit" />
+    <result column="insure_remark" jdbcType="VARCHAR" property="insureRemark" />
+    <result column="other_remark" jdbcType="VARCHAR" property="otherRemark" />
+    <result column="visible" jdbcType="INTEGER" property="visible" />
+    <result column="required" jdbcType="INTEGER" property="required" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_noncar_plan_ct_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.PlanCtDetail">
+    insert into t_noncar_plan_ct_detail (id, plan_id, plan_coverage_id, 
+      clause_code, clause_property, if_caltotal_sum, 
+      ct_necessary, if_change_desc, ct_desc, 
+      ct_desc_en, disability_standard, sum_insured_max, 
+      sum_insured_min, sum_insured_default, premium_orrate, 
+      premium_max, premium_min, premium_default, 
+      if_suinsured, insured_limit, increasex_day, 
+      increasey_prem, premium_usetype, discount_percent, 
+      related_ct_id, rate_types, period_types, 
+      link_seats, insure_unit, insure_remark, 
+      other_remark, visible, required, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{planId,jdbcType=INTEGER}, #{planCoverageId,jdbcType=BIGINT}, 
+      #{clauseCode,jdbcType=VARCHAR}, #{clauseProperty,jdbcType=VARCHAR}, #{ifCaltotalSum,jdbcType=VARCHAR}, 
+      #{ctNecessary,jdbcType=VARCHAR}, #{ifChangeDesc,jdbcType=VARCHAR}, #{ctDesc,jdbcType=VARCHAR}, 
+      #{ctDescEn,jdbcType=VARCHAR}, #{disabilityStandard,jdbcType=VARCHAR}, #{sumInsuredMax,jdbcType=DECIMAL}, 
+      #{sumInsuredMin,jdbcType=DECIMAL}, #{sumInsuredDefault,jdbcType=DECIMAL}, #{premiumOrrate,jdbcType=VARCHAR}, 
+      #{premiumMax,jdbcType=DECIMAL}, #{premiumMin,jdbcType=DECIMAL}, #{premiumDefault,jdbcType=DECIMAL}, 
+      #{ifSuinsured,jdbcType=VARCHAR}, #{insuredLimit,jdbcType=INTEGER}, #{increasexDay,jdbcType=INTEGER}, 
+      #{increaseyPrem,jdbcType=DECIMAL}, #{premiumUsetype,jdbcType=VARCHAR}, #{discountPercent,jdbcType=VARCHAR}, 
+      #{relatedCtId,jdbcType=INTEGER}, #{rateTypes,jdbcType=VARCHAR}, #{periodTypes,jdbcType=VARCHAR}, 
+      #{linkSeats,jdbcType=INTEGER}, #{insureUnit,jdbcType=VARCHAR}, #{insureRemark,jdbcType=VARCHAR}, 
+      #{otherRemark,jdbcType=VARCHAR}, #{visible,jdbcType=INTEGER}, #{required,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.PlanCtDetail">
+    update t_noncar_plan_ct_detail
+    set plan_id = #{planId,jdbcType=INTEGER},
+      plan_coverage_id = #{planCoverageId,jdbcType=BIGINT},
+      clause_code = #{clauseCode,jdbcType=VARCHAR},
+      clause_property = #{clauseProperty,jdbcType=VARCHAR},
+      if_caltotal_sum = #{ifCaltotalSum,jdbcType=VARCHAR},
+      ct_necessary = #{ctNecessary,jdbcType=VARCHAR},
+      if_change_desc = #{ifChangeDesc,jdbcType=VARCHAR},
+      ct_desc = #{ctDesc,jdbcType=VARCHAR},
+      ct_desc_en = #{ctDescEn,jdbcType=VARCHAR},
+      disability_standard = #{disabilityStandard,jdbcType=VARCHAR},
+      sum_insured_max = #{sumInsuredMax,jdbcType=DECIMAL},
+      sum_insured_min = #{sumInsuredMin,jdbcType=DECIMAL},
+      sum_insured_default = #{sumInsuredDefault,jdbcType=DECIMAL},
+      premium_orrate = #{premiumOrrate,jdbcType=VARCHAR},
+      premium_max = #{premiumMax,jdbcType=DECIMAL},
+      premium_min = #{premiumMin,jdbcType=DECIMAL},
+      premium_default = #{premiumDefault,jdbcType=DECIMAL},
+      if_suinsured = #{ifSuinsured,jdbcType=VARCHAR},
+      insured_limit = #{insuredLimit,jdbcType=INTEGER},
+      increasex_day = #{increasexDay,jdbcType=INTEGER},
+      increasey_prem = #{increaseyPrem,jdbcType=DECIMAL},
+      premium_usetype = #{premiumUsetype,jdbcType=VARCHAR},
+      discount_percent = #{discountPercent,jdbcType=VARCHAR},
+      related_ct_id = #{relatedCtId,jdbcType=INTEGER},
+      rate_types = #{rateTypes,jdbcType=VARCHAR},
+      period_types = #{periodTypes,jdbcType=VARCHAR},
+      link_seats = #{linkSeats,jdbcType=INTEGER},
+      insure_unit = #{insureUnit,jdbcType=VARCHAR},
+      insure_remark = #{insureRemark,jdbcType=VARCHAR},
+      other_remark = #{otherRemark,jdbcType=VARCHAR},
+      visible = #{visible,jdbcType=INTEGER},
+      required = #{required,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, plan_id, plan_coverage_id, clause_code, clause_property, if_caltotal_sum, 
+    ct_necessary, if_change_desc, ct_desc, ct_desc_en, disability_standard, sum_insured_max, 
+    sum_insured_min, sum_insured_default, premium_orrate, premium_max, premium_min, premium_default, 
+    if_suinsured, insured_limit, increasex_day, increasey_prem, premium_usetype, discount_percent, 
+    related_ct_id, rate_types, period_types, link_seats, insure_unit, insure_remark, 
+    other_remark, visible, required, create_time, update_time
+    from t_noncar_plan_ct_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, plan_id, plan_coverage_id, clause_code, clause_property, if_caltotal_sum, 
+    ct_necessary, if_change_desc, ct_desc, ct_desc_en, disability_standard, sum_insured_max, 
+    sum_insured_min, sum_insured_default, premium_orrate, premium_max, premium_min, premium_default, 
+    if_suinsured, insured_limit, increasex_day, increasey_prem, premium_usetype, discount_percent, 
+    related_ct_id, rate_types, period_types, link_seats, insure_unit, insure_remark, 
+    other_remark, visible, required, create_time, update_time
+    from t_noncar_plan_ct_detail
+  </select>
+  
+  <select id="selectClausePropertyByPlanId" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+  	select id, plan_id, plan_coverage_id, clause_code, clause_property, if_caltotal_sum, 
+    ct_necessary, if_change_desc, ct_desc, ct_desc_en, disability_standard, sum_insured_max, 
+    sum_insured_min, sum_insured_default, premium_orrate, premium_max, premium_min, premium_default, 
+    if_suinsured, insured_limit, increasex_day, increasey_prem, premium_usetype, discount_percent, 
+    related_ct_id, rate_types, period_types, link_seats, insure_unit, insure_remark, 
+    other_remark, visible, required, create_time, update_time 
+    from t_noncar_plan_ct_detail where  plan_id = #{planId}
+  </select>
+</mapper>

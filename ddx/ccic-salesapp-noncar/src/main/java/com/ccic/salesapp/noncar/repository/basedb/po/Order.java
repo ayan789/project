@@ -34,6 +34,7 @@ public class Order {
 	private String agentName;
 	private String agreementNo;
 	private String agreementName;
+	private String belongToHandlerCode;
 	private String handlerCode2;
 	private String orderSource;
 	private String signStatus;
@@ -308,6 +309,14 @@ public class Order {
 
 	public void setAgreementName(String agreementName) {
 		this.agreementName = agreementName == null ? null : agreementName.trim();
+	}
+
+	public String getBelongToHandlerCode() {
+		return belongToHandlerCode;
+	}
+
+	public void setBelongToHandlerCode(String belongToHandlerCode) {
+		this.belongToHandlerCode = belongToHandlerCode;
 	}
 
 	public String getHandlerCode2() {

@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ccic.salesapp.noncar.dto.AgentInfoVO;
 import com.ccic.salesapp.noncar.dto.InsuranceApplicationStatus;
+import com.ccic.salesapp.noncar.dto.UserVO;
 import com.ccic.salesapp.noncar.dto.order.ChildProduct;
 import com.ccic.salesapp.noncar.dto.order.Clause;
 import com.ccic.salesapp.noncar.dto.order.Customer;
@@ -35,10 +36,12 @@ import com.ccic.salesapp.noncar.dto.order.group.sales.policy.risk.PolicyRisk;
 import com.ccic.salesapp.noncar.dto.order.group.sales.policy.risk.PropertyPolicyRisk;
 import com.ccic.salesapp.noncar.dto.order.request.GroupOrderRequest;
 import com.ccic.salesapp.noncar.dto.order.response.GroupOrderResponse;
+import com.ccic.salesapp.noncar.dto.request.accidentquote.AccidentQuoteRequest;
 import com.ccic.salesapp.noncar.dto.request.noncar.InvoiceInfo;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.InvoiceInfoMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.OrderCtMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.OrderMapper;
+import com.ccic.salesapp.noncar.repository.basedb.mapper.OrgBranchMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.PolicyCustomerMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.SalesCoverageMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.SalesPlanChildMapper;
@@ -60,6 +63,7 @@ import com.ccic.salessapp.common.outService.rest.common.bean.RequestHead;
 import com.ccic.salessapp.common.request.UserToken;
 import com.ccic.salessapp.common.utils.StringUtils;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -98,6 +102,9 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 	
 	@Autowired
 	GroupOrderRequestService groupOrderRequestService;
+	
+	@Autowired
+	OrgBranchMapper orgBranchMapper;
 	
 	String isPay = "Y";
 
@@ -331,6 +338,9 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 			if(orderRequest.getOrderId() != null && orderRequest.getOrderId() > 0){
 				//查询到订单记录
 				order = orderMapper.selectByPrimaryKey(orderRequest.getOrderId());
+				if(order!= null && StringUtils.isNotBlank(order.getInsureNo())) {
+					throw new PlatformBaseException("当前数据已提交，不可重复提交", 0);
+				}
 				orderId = order.getId();
 				//清除上次暂存数据
 				orderRequest.getMap().put("orderNo", order.getOrderNo());
@@ -518,6 +528,8 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		InvoiceInfo invoiceInfo =   orderRequest.getInvoiceInfo();
 		com.ccic.salesapp.noncar.dto.InvoiceInfo orderInvoiceInfo = new com.ccic.salesapp.noncar.dto.InvoiceInfo();
 		BeanUtils.copyProperties(invoiceInfo, orderInvoiceInfo);
+		orderInvoiceInfo.setTaxEmail(invoiceInfo.getEmail());
+		orderInvoiceInfo.setTaxMobile(invoiceInfo.getMobile());
 		wrapper.setInvoiceInfo(orderInvoiceInfo);
 		
 		return wrapper;
@@ -550,7 +562,7 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		}
 		//方案id
 		order.setComCode(user.getComCode());
-		order.setpComCode(user.getBranchCode());
+		order.setpComCode(orgBranchMapper.selectBranchByComCode(user.getComCode()));
 		//order.setSumAmount(BigDecimal.valueOf(orderRequest.getSumAmount()));
 		order.setSumPremium(BigDecimal.valueOf(orderRequest.getSumPremium()));
 		order.setProductCode(orderRequest.getGroupPlanCode());
@@ -588,6 +600,7 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 			order.setAgentName(orderRequest.getAgentInfo().getAgentName());
 			order.setAgreementName(orderRequest.getAgentInfo().getAgreementName());
 			order.setAgreementNo(orderRequest.getAgentInfo().getAgreementNo());
+			order.setHandlerCode2(orderRequest.getAgentInfo().getHandler2Code());
 		}
 		order.setBusinessSourceCode(orderRequest.getBusinessNatureCode());
 		order.setBusinessNatureName(orderRequest.getBusinessNatureName());
@@ -599,7 +612,10 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		order.setCreateUser(user.getUserCode());
 		order.setUpdateUser(user.getUserCode());
 		
+		String belongToHandlerCode = orderRequest.getUserCode();
+		order.setBelongToHandlerCode(belongToHandlerCode);
 		order.setHandlerCode(user.getUserCode());
+		order.setHandlerName(user.getUserName());
 		order.setIsIssueAfterPay("Y".equals(isPay) ? "1" : "0");
 		return order;
 	}
@@ -637,7 +653,7 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		order.setOrderStatus(InsuranceApplicationStatus.ZANCUN);
 		//方案id
 		order.setComCode(user.getComCode());
-		order.setpComCode(user.getBranchCode());
+		order.setpComCode(orgBranchMapper.selectBranchByComCode(user.getComCode()));
 		//order.setSumAmount(BigDecimal.valueOf(orderRequest.getSumAmount()));
 		order.setSumPremium(BigDecimal.valueOf(orderRequest.getSumPremium()));
 		order.setProductCode(childProduct.getProductCode());
@@ -645,7 +661,7 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		order.setStrategyCode(orderRequest.getSalesPlanCode());
 		order.setOperatorCode(user.getUserCode());
 		order.setOperatorName(user.getUserName());
-		order.setProductName(childProduct.getProductName());
+		order.setProductName(childProduct.getChildPlanName());
 		if("70000".equals(childProduct.getProductLine())) {
 			order.setInsuranceCategory("0");
 		}
@@ -690,7 +706,8 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		
 		order.setCreateUser(user.getUserCode());
 		order.setUpdateUser(user.getUserCode());
-		
+		String belongToHandlerCode = orderRequest.getUserCode();
+		order.setBelongToHandlerCode(belongToHandlerCode);
 		order.setHandlerCode(user.getUserCode());
 		order.setIsIssueAfterPay( "Y".equals(isPay) ? "1" : "0");
 		order.setProductName(childProduct.getProductName());
@@ -705,8 +722,8 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 	 */
 	private GroupRequest buildGroupRequest(GroupOrderRequest orderRequest) {
 		GroupRequest groupRequest = new GroupRequest();
-		groupRequest.setSalesRequestHead(buildGroupRequestHead());
-		groupRequest.setSalesRequestBody(buildGroupRequestBody(orderRequest));
+		groupRequest.setRequestHead(buildGroupRequestHead());
+		groupRequest.setRequestBody(buildGroupRequestBody(orderRequest));
 		return groupRequest;
 	}
 	
@@ -773,7 +790,7 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 			body.setBusinessSourceCode(orderRequest.getBusinessNatureCode());
 			body.setBusinessSource2Code(orderRequest.getBusinessNatureCode());
 		}
-		
+		UserVO uservo = storeProductPlaceUtilService.getHandlerInfo(orderRequest);
 		AgentInfoVO agent = null;
 		agent = orderRequest.getAgentInfo();
 		if (agent != null) {
@@ -810,6 +827,7 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		body.setPolicyLobList(buildPolicyLobList(orderRequest));
 		body.setChannelOpInfoList(buildChannelOpInfoList(orderRequest));
 		body.setPolicyFormList(buildPolicyFormList(orderRequest));
+		updateHandlerInfo(body,uservo);
 		return body;
 	}
 	
@@ -865,8 +883,8 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		//channelInfo.setTrxCode("001"); //渠道交易代码
 		
 		if("1".equals(orderRequest.getIsAgent()) && orderRequest.getAgentInfo() !=null) {
-			channelInfo.setThirdPartyHandlerNo(orderRequest.getAgentInfo().getThirdPartyHandlerNo());
-			channelInfo.setThirdPartyHandlerName(orderRequest.getAgentInfo().getThirdPartyHandlerName());
+			//channelInfo.setThirdPartyHandlerNo(orderRequest.getAgentInfo().getThirdPartyHandlerNo());
+			//channelInfo.setThirdPartyHandlerName(orderRequest.getAgentInfo().getThirdPartyHandlerName());
 		}
 		return channelInfo;
 	}
@@ -960,30 +978,19 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		List<PolicyRisk> policyRiskList = new ArrayList<PolicyRisk>();
 		SalesPlanChild salesPlanChild =  salesPlanChildMapper.selectByPrimaryKey(childProduct.getChildPlanId());
 		if("Y".equals(salesPlanChild.getIsUsed())) {
-			//for (Clause clause : childProduct.getClauseList()) {
-				//SalesCoverage salesCoverage  =   salesCoverageMapper.selectByPrimaryKey(clause.getCoverageId())  ;
-				if("30000".equals(childProduct.getProductLine())) {
-					List<String> insuredTypeList = salesPlanChildMapper.selectInsuredTypeListByChildPlanId(childProduct.getChildPlanId());
-					for (String insuredType : insuredTypeList) {
-						policyRiskList.add(buildPropertyPolicyRisk(childProduct,insuredType, orderRequest));
-					}
-				}else if("30000".equals(childProduct.getProductLine())) {
-					List<String> insuredTypeList = salesPlanChildMapper.selectInsuredTypeListByChildPlanId(childProduct.getChildPlanId());
-					for (String insuredType : insuredTypeList) {
-						policyRiskList.add(buildLiabilityPolicyRisk(childProduct,insuredType, orderRequest));
-					}
-				}else if("70000".equals(childProduct.getProductLine())) {
-					List<String> insuredTypeList = salesPlanChildMapper.selectInsuredTypeListByChildPlanId(childProduct.getChildPlanId());
-					for (String insuredType : insuredTypeList) {
-						policyRiskList.add(buildPersonInsuredPolicyRisk(childProduct,insuredType, orderRequest));
-					}
-				}else {
-					List<String> insuredTypeList = salesPlanChildMapper.selectInsuredTypeListByChildPlanId(childProduct.getChildPlanId());
-					for (String insuredType : insuredTypeList) {
-						policyRiskList.add(buildPolicyRisk(childProduct,insuredType, orderRequest));
-					}
+			if("30000".equals(childProduct.getProductLine())) {
+				for (Clause clause : childProduct.getClauseList()) {
+					policyRiskList.add(buildPropertyPolicyRisk(childProduct,clause, orderRequest));
 				}
-			//}
+			}else if("30000".equals(childProduct.getProductLine())) {
+				for (Clause clause : childProduct.getClauseList()) {
+					policyRiskList.add(buildLiabilityPolicyRisk(childProduct,clause, orderRequest));
+				}
+			}else if("70000".equals(childProduct.getProductLine())) {
+				policyRiskList.add(buildPersonInsuredPolicyRisk(childProduct, orderRequest));
+			}else {
+				throw new PlatformBaseException("不支持的险类"+childProduct.getProductLine(), 0);
+			}
 		}
 		return policyRiskList;
 	}
@@ -994,9 +1001,15 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 	 * @param orderRequest
 	 * @return
 	 */
-	private PolicyRisk buildPropertyPolicyRisk(ChildProduct childProduct ,String itemCategory,GroupOrderRequest orderRequest ) {
+	private PolicyRisk buildPropertyPolicyRisk(ChildProduct childProduct ,Clause clause,GroupOrderRequest orderRequest ) {
 		PolicyRisk policyRisk = new PropertyPolicyRisk();
-		policyRisk =  buildPolicyRisk(childProduct,itemCategory, orderRequest);
+		policyRisk =  buildPolicyRiskByClause(childProduct,clause, orderRequest);
+		policyRisk.setRegionCode("000000");
+		Customer insuredCustomer = getInsuredCustomer(orderRequest);
+		insuredCustomer = transformCustomer(insuredCustomer);
+		BeanUtils.copyProperties(insuredCustomer, policyRisk);
+		policyRisk.setAddress(insuredCustomer.getFullAddress());//调换参数
+		policyRisk.setFullAddress(insuredCustomer.getAddress());
 		return policyRisk;
 	}
 	
@@ -1006,9 +1019,9 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 	 * @param orderRequest
 	 * @return
 	 */
-	private PolicyRisk buildLiabilityPolicyRisk(ChildProduct childProduct ,String itemCategory,GroupOrderRequest orderRequest ) {
+	private PolicyRisk buildLiabilityPolicyRisk(ChildProduct childProduct ,Clause clause,GroupOrderRequest orderRequest ) {
 		PolicyRisk policyRisk = new LiabilityPolicyRisk();
-		policyRisk =  buildPolicyRisk(childProduct,itemCategory, orderRequest);
+		policyRisk =  buildPolicyRiskByClause(childProduct, clause, orderRequest);
 		policyRisk.setAddress(null);
 		return policyRisk;
 	}
@@ -1019,9 +1032,9 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 	 * @param orderRequest
 	 * @return
 	 */
-	private PolicyRisk buildPersonInsuredPolicyRisk(ChildProduct childProduct ,String itemCategory,GroupOrderRequest orderRequest ) {
+	private PolicyRisk buildPersonInsuredPolicyRisk(ChildProduct childProduct ,GroupOrderRequest orderRequest ) {
 		PolicyRisk policyRisk = new PersonInsuredPolicyRisk();
-		policyRisk =  buildPolicyRisk(childProduct,itemCategory, orderRequest);
+		policyRisk =  buildPolicyRisk(childProduct, orderRequest);
 		policyRisk.setInsuredName(policyRisk.getCustomerName());
 		policyRisk.setAddress(null);
 		return policyRisk;
@@ -1060,17 +1073,55 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 	 * @param orderRequest
 	 * @return
 	 */
-	private PolicyRisk buildPolicyRisk(ChildProduct childProduct  ,String itemCategory,  GroupOrderRequest orderRequest ) {
+	private PolicyRisk buildPolicyRisk(ChildProduct childProduct  , GroupOrderRequest orderRequest ) {
 		PolicyRisk policyRisk = new PolicyRisk();
 		Customer insuredCustomer = getInsuredCustomer(orderRequest);
 		insuredCustomer = transformCustomer(insuredCustomer);
 		BeanUtils.copyProperties(insuredCustomer, policyRisk);
-		policyRisk.setPolicyCoverageList(buildPolicyCoverageList( childProduct,itemCategory,orderRequest));
-		//SalesCoverage  salesCoverage  = salesCoverageMapper.selectByPrimaryKey(clause.getCoverageId());
-		policyRisk.setRiskType(childProduct.getProductLine());
-		policyRisk.setItemCategory(itemCategory);
+		policyRisk.setPolicyCoverageList(buildPolicyCoverageList( childProduct,orderRequest));
+		String riskType = salesPlanChildMapper.selectRiskTypeByChildPlanId(childProduct.getChildPlanId());
+		riskType = StringUtils.isBlank(riskType)? childProduct.getProductLine():riskType;
+		policyRisk.setRiskType(riskType);
+		//policyRisk.setItemCategory(itemCategory);
+		policyRisk.setNumberOfCopies(orderRequest.getNumberOfCopys());
 		return policyRisk;
 	}
+	
+	
+	/**
+	 * 构建财产险标的
+	 * @param clause
+	 * @param orderRequest
+	 * @return
+	 */
+	private PolicyRisk buildPolicyRiskByClause(ChildProduct childProduct  ,Clause clause, GroupOrderRequest orderRequest ) {
+		PolicyRisk policyRisk = new PolicyRisk();
+		Customer insuredCustomer = getInsuredCustomer(orderRequest);
+		insuredCustomer = transformCustomer(insuredCustomer);
+		BeanUtils.copyProperties(insuredCustomer, policyRisk);
+		SalesCoverage  salesCoverage  = salesCoverageMapper.selectByPrimaryKey(clause.getCoverageId());
+		clause.setIsMainCoverage(salesCoverage.getMainCt());
+		policyRisk.setPolicyCoverageList(buildPolicyCoverageListByClause( childProduct,clause ,orderRequest));
+		String riskType = salesPlanChildMapper.selectRiskTypeByChildPlanId(childProduct.getChildPlanId());
+		riskType = StringUtils.isBlank(riskType)? childProduct.getProductLine():riskType;
+		policyRisk.setRiskType(riskType);
+		policyRisk.setItemCategory(salesCoverage.getInsuredType());
+		policyRisk.setNumberOfCopies(orderRequest.getNumberOfCopys());
+		return policyRisk;
+	}
+	
+	/**
+	 * 构建财产险责任列表
+	 * @param clause
+	 * @param orderRequest
+	 * @return
+	 */
+	private  List<PolicyCoverage>  buildPolicyCoverageListByClause(ChildProduct childProduct ,Clause clause, GroupOrderRequest orderRequest) {
+		List<PolicyCoverage> policyCoverageList  = new ArrayList<PolicyCoverage>();
+		policyCoverageList.add(buildPolicyCoverage(clause));
+		return policyCoverageList;
+	}
+	
 	
 	/**
 	 * 构建责任列表
@@ -1078,18 +1129,12 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 	 * @param orderRequest
 	 * @return
 	 */
-	private  List<PolicyCoverage>  buildPolicyCoverageList(ChildProduct childProduct ,String itemCategory, GroupOrderRequest orderRequest) {
+	private  List<PolicyCoverage>  buildPolicyCoverageList(ChildProduct childProduct , GroupOrderRequest orderRequest) {
 		List<PolicyCoverage> policyCoverageList  = new ArrayList<PolicyCoverage>();
 		for (Clause clause : childProduct.getClauseList()) {
-			if(StringUtils.isNotBlank(itemCategory)) {
-				SalesCoverage salesCoverage = salesCoverageMapper.selectByPrimaryKey(clause.getCoverageId());
-				clause.setInsuredType(salesCoverage.getInsuredType());
-			}
-			if(StringUtils.isNotBlank(itemCategory) && StringUtils.isNotBlank(clause.getInsuredType()) && clause.getInsuredType().equals(itemCategory)) {
-				policyCoverageList.add(buildPolicyCoverage(clause));
-			}else if(StringUtils.isBlank(itemCategory) && StringUtils.isBlank(clause.getInsuredType())) {
-				policyCoverageList.add(buildPolicyCoverage(clause));
-			}
+			SalesCoverage  salesCoverage  = salesCoverageMapper.selectByPrimaryKey(clause.getCoverageId());
+			clause.setIsMainCoverage(salesCoverage.getMainCt());
+			policyCoverageList.add(buildPolicyCoverage(clause));
 		}
 		return policyCoverageList;
 	}
@@ -1105,4 +1150,36 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		policyCoverage.setCoverageCode(clause.getKindCode());
 		return policyCoverage;
 	}
+	
+	/**
+	 * 更新经办人信息
+	 * @param  requestBody GroupRequestBody
+	 */
+	public void updateHandlerInfo(GroupRequestBody requestBody,UserVO userVO){
+		String handlerCode="";
+		if(null!=requestBody){
+			handlerCode=requestBody.getBelongToHandlerCode();
+		}
+		
+		if("agen".equals(handlerCode.substring(0, 4))){
+			if(null!=requestBody && null!=userVO){//意健险
+				if(StringUtils.isNotBlank(requestBody.getAgentCode())){//代理信息不为空
+					//判断经办人2是否取的默认经办人1
+					if(requestBody.getBelongToHandlerCode().equals(requestBody.getBelongToHandler2Code())){
+						requestBody.setBelongToHandler2Code(userVO.getUserCode());
+						//requestBody.setBelongToHandler2Name(userVO.getUserName());
+					}
+				}else {
+					// agentCode 存在的话  handlerCode取值代理人agentCode，否则同BelongToHandlerCode
+					requestBody.setHandlerCode(userVO.getUserCode());//归属经办人
+					//requestBody.setHandlerName(userVO.getUserName());//归属经办人
+				}
+				requestBody.setBelongToHandlerCode(userVO.getUserCode());
+				requestBody.setBelongToHandlerName(userVO.getUserName());
+				requestBody.setOrgCode(userVO.getCompany());//归属机构
+				//requestBody.setIssueOrgCode(userVO.getCompany());//出单机构
+			}
+		}
+	}
+	
 }

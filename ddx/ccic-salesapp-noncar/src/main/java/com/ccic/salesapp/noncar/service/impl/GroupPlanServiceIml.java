@@ -1,6 +1,8 @@
 package com.ccic.salesapp.noncar.service.impl;
 
 import com.ccic.salessapp.common.outService.rest.common.bean.Request;
+import com.ccic.salessapp.common.outService.rest.common.bean.RequestHead;
+
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -12,8 +14,14 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -21,24 +29,30 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.ccic.salesapp.noncar.controller.GroupPlanCtl;
 import com.ccic.salesapp.noncar.controller.PlanFormCtl;
 import com.ccic.salesapp.noncar.dto.AgentInfoVO;
 import com.ccic.salesapp.noncar.dto.ForwardPayUrl;
 import com.ccic.salesapp.noncar.dto.NoncarOrder;
 import com.ccic.salesapp.noncar.dto.PlanAttach;
+import com.ccic.salesapp.noncar.dto.RecommendRankPlansObj;
+import com.ccic.salesapp.noncar.dto.RecommendRankPlansVo;
 import com.ccic.salesapp.noncar.dto.StoreInsureInfo;
 import com.ccic.salesapp.noncar.dto.order.ChildProduct;
 import com.ccic.salesapp.noncar.dto.order.Clause;
@@ -55,19 +69,30 @@ import com.ccic.salesapp.noncar.dto.request.ForwardPayInsureInfoReqVO;
 import com.ccic.salesapp.noncar.dto.request.GetPayUrlRequestVO;
 import com.ccic.salesapp.noncar.dto.request.IPreciseQuoteRequestVO;
 import com.ccic.salesapp.noncar.dto.request.JointSaleVO;
+import com.ccic.salesapp.noncar.dto.request.PolicyDto;
+import com.ccic.salesapp.noncar.dto.request.PolicyVo;
 import com.ccic.salesapp.noncar.dto.request.PrivyVO;
 import com.ccic.salesapp.noncar.dto.request.noncar.PlanElementDetaiReq;
 import com.ccic.salesapp.noncar.dto.request.planelement.ClaimStatement;
+import com.ccic.salesapp.noncar.dto.request.planelement.CommonProblem;
+import com.ccic.salesapp.noncar.dto.request.planelement.CommonProblemContent;
 import com.ccic.salesapp.noncar.dto.request.planelement.FormulaList;
+import com.ccic.salesapp.noncar.dto.request.planelement.Header;
 import com.ccic.salesapp.noncar.dto.request.planelement.HealthNotice;
 import com.ccic.salesapp.noncar.dto.request.planelement.ImgList;
 import com.ccic.salesapp.noncar.dto.request.planelement.PlanFormConstant;
 import com.ccic.salesapp.noncar.dto.request.planelement.ProductInfo;
 import com.ccic.salesapp.noncar.dto.request.planelement.SafeguardDetail;
+import com.ccic.salesapp.noncar.dto.request.planelement.Swipper;
 import com.ccic.salesapp.noncar.dto.request.planelement.TermsAndConditions;
 import com.ccic.salesapp.noncar.dto.request.planelement.TermsAndConditionsContent;
 import com.ccic.salesapp.noncar.dto.response.GetPayUrlResponseVO;
+import com.ccic.salesapp.noncar.dto.response.InsureRes;
 import com.ccic.salesapp.noncar.dto.response.JsonVO;
+import com.ccic.salesapp.noncar.dto.response.PlanDetail2FamilyResp;
+import com.ccic.salesapp.noncar.dto.response.RecommendRankPlansObjResp;
+import com.ccic.salesapp.noncar.dto.response.RecommendRankPlansRes;
+import com.ccic.salesapp.noncar.dto.response.PolicyRes;
 import com.ccic.salesapp.noncar.dto.response.ResultVO;
 import com.ccic.salesapp.noncar.dto.response.StoreOracleResponseVOTwo;
 import com.ccic.salesapp.noncar.dto.salesplan.GroupPlanVo;
@@ -101,6 +126,7 @@ import com.ccic.salesapp.noncar.repository.basedb.po.PlanStrategy;
 import com.ccic.salesapp.noncar.repository.basedb.po.PolicyCustomer;
 import com.ccic.salesapp.noncar.repository.basedb.po.SalesPlan;
 import com.ccic.salesapp.noncar.repository.basedb.po.SalesPlanConfig;
+import com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanFormMapper;
 import com.ccic.salesapp.noncar.service.GroupPlanService;
 import com.ccic.salesapp.noncar.service.ImageService;
 import com.ccic.salesapp.noncar.service.OrderDetailsInqueryFacade;
@@ -112,8 +138,10 @@ import com.ccic.salessapp.common.core.web.HttpResult;
 import com.ccic.salessapp.common.request.UserToken;
 import com.ccic.salessapp.common.utils.DESEncryptUtil;
 import com.ccic.salessapp.common.utils.PropertiesUtil;
+import com.ccic.salessapp.common.utils.StringUtil;
 import com.ccic.salessapp.common.utils.StringUtils;
 import com.ccic.salessapp.common.utils.UnirestUtil;
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -141,6 +169,7 @@ public class GroupPlanServiceIml implements GroupPlanService {
 	@Value("${esb.address.policyListUrl}")
 	String policyListUrl;
 	
+	@Transactional(rollbackFor = {RuntimeException.class, Error.class})
 	@Override
 	public void groupPlanSync(HttpServletRequest request,HttpServletResponse response) throws IOException {
 			Map<String,Object> responseMap = new HashMap<String,Object>();
@@ -170,19 +199,46 @@ public class GroupPlanServiceIml implements GroupPlanService {
 			log.info("推送报文:"+reqStr);
 		List<GroupSalesPlan> groupSalesPlanList = (List<GroupSalesPlan>) JSONArray.parseArray(reqStr, GroupSalesPlan.class);
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("groupPlanCode", groupSalesPlanList.get(0).getGroupPlanCode());
-		salesPlanMapper.deleteBySalesCoverage(map);
-		salesPlanMapper.deleteBySalesPlanChild(map);
-		salesPlanMapper.deleteBySalesPlan(map);
-		salesPlanMapper.deleteBySalesPlanConfig(map);
+		String salesPlanCode = "";
+		for(GroupSalesPlan groupSalesPlan:groupSalesPlanList) {
+			String code = groupSalesPlan.getGroupPlanCode();
+			if(code!=null && salesPlanCode!=null) {
+				if(!code.equals(salesPlanCode)) {
+					map.put("groupPlanCode", code);
+					salesPlanMapper.deleteBySalesCoverage(map);
+					salesPlanMapper.deleteBySalesPlanChild(map);
+					salesPlanMapper.deleteBySalesPlan(map);
+					salesPlanMapper.deleteBySalesPlanConfig(map);
+				}
+				salesPlanCode=code;
+			}
+		}
+		
+		for(GroupSalesPlan groupSalesPlan:groupSalesPlanList) {
+			String code = groupSalesPlan.getGroupCode();
+			if(code!=null && salesPlanCode!=null) {
+				if(!code.equals(salesPlanCode)) {
+					map.put("groupCode", code);
+					salesPlanMapper.deleteBySalesCoverageCarxy(map);
+					salesPlanMapper.deleteBySalesPlanChildCarxy(map);
+					salesPlanMapper.deleteBySalesPlanCarxy(map);
+					salesPlanMapper.deleteBySalesPlanConfigCarxy(map);
+				}
+				salesPlanCode=code;
+			}
+		}
+		
+		
 		for(GroupSalesPlan groupSalesPlan : groupSalesPlanList) {
 			buildcomAndChennelConfig(groupSalesPlan);
-			salesPlanMapper.insert2(groupSalesPlan);
+			salesPlanMapper.insertGroupSalesPlan(groupSalesPlan);
 			if(groupSalesPlan.getSalesChildPlans()!=null) {
 				for(PlanChild planChild:groupSalesPlan.getSalesChildPlans()) {
-					salesplanchildMapper.insert2(planChild);
-					for(PlanCoverage planCoverage:planChild.getSalesChildPlanCts()) {
-						salesCoverageMapper.insert2(planCoverage);
+					salesplanchildMapper.insertPlanChild(planChild);
+					if(planChild.getSalesChildPlanCts()!=null) {
+						for(PlanCoverage planCoverage:planChild.getSalesChildPlanCts()) {
+							salesCoverageMapper.insertPlanCoverage(planCoverage);
+						}
 					}
 				}
 			}
@@ -212,7 +268,6 @@ public class GroupPlanServiceIml implements GroupPlanService {
 	@SuppressWarnings("unlikely-arg-type")
 	@Override
 	public HttpResult groupPlanDetail(GroupPlanVo groupPlanVo,HttpServletRequest request) {
-		groupPlanVo.setGroupPlanCode("XYZ2050210");
 		//HttpServletRequest request = null;
 		GroupSalesPlanRoot groupSalesPlanRoot = new GroupSalesPlanRoot();
 		SaleInfo saleInfo = new SaleInfo();
@@ -223,18 +278,25 @@ public class GroupPlanServiceIml implements GroupPlanService {
 		int saleNum = orderMapper.selectSaleNum(map_sale);
 		saleInfo.setSaleNum(saleNum+"");
 		UserToken user = planStrategyService.getAccessTokenByUserCode(groupPlanVo.getUserCode());
-		groupPlanVo.setChannelCode(user.getChannelCode());
+		groupPlanVo.setChannelCode(planStrategyService.getChannel(user));
 		groupPlanVo.setComCode(user.getComCode());
-		List<GroupSalesPlan> groupSalesPlanList = salesPlanMapper.selectSalesPlanBygroupPlanCode(groupPlanVo);
-//		if(groupSalesPlanList==null || groupSalesPlanList.size()==0)
-//			return HttpResult.error( 2, "您目前无权限查看");
+		String channel = salesPlanMapper.selectChannelBygroupPlanCode(groupPlanVo.getGroupPlanCode());
+ 		List<GroupSalesPlan> groupSalesPlanList = null;
+ 		if(StringUtils.isNotBlank(channel)) {
+ 			groupSalesPlanList = salesPlanMapper.selectSalesPlanBygroupPlanCode(groupPlanVo);
+ 		}
+ 		else {
+ 			groupSalesPlanList = salesPlanMapper.selectSalesPlanBygroupPlanCodeAllChannel(groupPlanVo);
+ 		}
+		if(groupSalesPlanList==null || groupSalesPlanList.size()==0)
+			return HttpResult.error( 2, "您目前无权限查看");
 		request.getHeader("X-Access-Token");
 		String token = request.getHeader("X-Access-Token");
 		groupSalesPlanRoot.setToken(token.replaceAll("\"", ""));
 		groupSalesPlanRoot.setGroupSalesPlan(groupSalesPlanList);
 		for(GroupSalesPlan groupSalesPlan : groupSalesPlanList) {
 			List<PlanChild> planChildList = new ArrayList<PlanChild>();
-			planChildList = salesplanchildMapper.selectByPrimaryKey2(groupSalesPlan.getSalesPlanId());
+			planChildList = salesplanchildMapper.selectBySalesPlanChildList(groupSalesPlan.getSalesPlanId());
 			if(groupPlanVo.getOrderId()!=null) {
 				Order order = orderMapper.selectByPrimaryKey(Long.parseLong(groupPlanVo.getOrderId()));
 				if(order.getStrategyCode()!=null && groupSalesPlan != null && groupSalesPlan.getSalesPlanCode()!=null && groupSalesPlan.getSalesPlanCode().equals(order.getStrategyCode())) {
@@ -269,14 +331,16 @@ public class GroupPlanServiceIml implements GroupPlanService {
 			Order order = orderMapper.selectByPrimaryKey(Long.parseLong(groupPlanVo.getOrderId()));
 			groupOrderDetail.setOrder(order);
 			
-			if("1".equals(order.getIsAgent())) {
-				AgentInfoVO agentInfo = new AgentInfoVO();
-				agentInfo.setAgentCode(order.getAgentCode());
-				agentInfo.setAgentName(order.getAgentName());
-				agentInfo.setAgreementNo(order.getAgreementNo());
-				agentInfo.setAgreementName(order.getAgreementName());
-				groupOrderDetail.setAgentInfo(agentInfo);
-			}
+			if(1==order.getIsAgent()) {
+			    AgentInfoVO agentInfo = new AgentInfoVO();
+			    agentInfo.setAgentCode(order.getAgentCode());
+			    agentInfo.setAgentName(order.getAgentName());
+			    agentInfo.setAgreementNo(order.getAgreementNo());
+			    agentInfo.setAgreementName(order.getAgreementName());
+			    agentInfo.setBusinessNature(order.getBusinessSourceCode());
+			    agentInfo.setHandler2Code(order.getHandlerCode2());
+			    groupOrderDetail.setAgentInfo(agentInfo);
+		    }
 			if(order.getStartDate()!=null) {
 				Long t1 = order.getStartDate().getTime();
 				Long t2 = new Date().getTime();
@@ -308,7 +372,7 @@ public class GroupPlanServiceIml implements GroupPlanService {
 				childProduct.setProductCode(orderList.get(i).getProductCode());
 				childProduct.setProductName(orderList.get(i).getProductName());
 				childProduct.setProductLine(orderList.get(i).getProductLine());
-				List<Clause> clauseList = orderCtMapper.selectByOrderId2(orderList.get(i).getId());
+				List<Clause> clauseList = orderCtMapper.selectCtByOrder(orderList.get(i).getId());
 				childProduct.setClauseList(clauseList);
 				childProductList.add(childProduct);
 			}
@@ -324,6 +388,223 @@ public class GroupPlanServiceIml implements GroupPlanService {
 					map_insure.put("insureNo", orderMapperMap.get("insureNo")+"");
 					map_insure.put("orderNo",  orderMapperMap.get("orderNo")+"");
 					map_insure.put("policyNo", orderMapperMap.get("policyNo")+"");
+					list.add(map_insure);
+				}
+				groupSalesPlanRoot.getGroupOrderDetail().setInsureNos(list);
+			}
+		}
+		return HttpResult.success(groupSalesPlanRoot,1,"OK");
+	}
+	
+	@Autowired
+	TPrdPlanFormMapper tPrdPlanFormMapper;
+	
+	@Override
+	public HttpResult planDetail2CarXY(GroupPlanVo groupPlanVo,HttpServletRequest request) {
+		GroupSalesPlanRoot groupSalesPlanRoot = new GroupSalesPlanRoot();
+		//车+x+y组合产品的有效期限
+		SaleInfo saleInfo = new SaleInfo();
+		saleInfo.setGiCoveragePeriod("1");//保障期限
+		saleInfo.setGiPeriodType("1");//保障类型
+		//根据组合代码查询组合产品信息
+		HashMap<String, Object> map_sale = new HashMap<String, Object>();
+		map_sale.put("groupCode", groupPlanVo.getGroupCode());
+		HashMap<String,Object> map_product = planStrategyMapper.selectGroupProductByGroupCode(groupPlanVo.getGroupCode());
+		int saleNum = orderMapper.selectSaleNum(map_sale);
+		saleInfo.setSaleNum(saleNum+"");//已售份数
+		//判断业务员所属机构和渠道是否有访问权限
+		UserToken user = planStrategyService.getAccessTokenByUserCode(groupPlanVo.getUserCode());
+		groupPlanVo.setChannelCode(user.getChannelCode());//所属渠道
+		groupPlanVo.setComCode(user.getComCode());//所属机构
+		Header header = new Header();
+		header.setBasePremium(Double.parseDouble(map_product.get("basePrice")+""));//基础保费
+		header.setTitle(map_product.get("groupName")+"");//组合代码
+		header.setDesc(map_product.get("desc")+"");//描述
+		//组合产品已出售份数
+		header.setSaleNum(Integer.parseInt(map_product.get("saleNum")+"")) ;
+		saleInfo.setSaleNum(map_product.get("saleNum")+"") ;
+		HashMap<String,Object> mapSwiper = new HashMap<String, Object>();
+		mapSwiper.put("code", groupPlanVo.getGroupCode());
+		mapSwiper.put("attachType", "swiper");
+		//组合产品详情的banner图片
+		List<Swipper> swip = tPrdPlanFormMapper.selectSwiperCarXY(mapSwiper);
+		if(CollectionUtils.isNotEmpty(swip)) {
+			header.setSwipper(swip);
+		}
+		//封装产品详情头部信息
+		groupSalesPlanRoot.setHeader(header);
+		groupPlanVo.setChannelCode(user.getChannelCode());
+		groupPlanVo.setComCode(user.getComCode());
+ 		String channel = salesPlanMapper.selectChannelBygroupCode(groupPlanVo.getGroupCode());
+ 		List<GroupSalesPlan> groupSalesPlanList = null;
+ 		//如果中台没同步渠道信息只匹配机构
+ 		if(StringUtils.isNotBlank(channel)) {
+ 			groupSalesPlanList = salesPlanMapper.selectSalesPlanByGroupCodeForCarXY(groupPlanVo);
+ 		}
+ 		else {
+ 			groupSalesPlanList = salesPlanMapper.selectSalesPlanByGroupCodeAllChannelForCarXY(groupPlanVo);
+ 		}
+		if(groupSalesPlanList==null || groupSalesPlanList.size()==0)
+			return HttpResult.error( 2, "您目前无权限查看");
+		groupSalesPlanRoot.setGroupSalesPlan(groupSalesPlanList);
+		//组合产品下产品简介
+		HashMap<String,Object> mapAt= new HashMap<String, Object>();
+		mapAt.put("code", groupPlanVo.getGroupCode());
+		mapAt.put("attachType", "product_intro");
+		List<ImgList> listAt = tPrdPlanFormMapper.selectPlanStrategyAttachCarXY(mapAt);
+		ProductInfo productInfo = new ProductInfo();
+		productInfo.setTitle("产品简介");
+		if(CollectionUtils.isNotEmpty(listAt)) {
+			productInfo.setContent(listAt);
+		}
+		//组合产品下保障说明
+		groupSalesPlanRoot.setProductInfo(productInfo);
+		SafeguardDetail safeguardDetail = new SafeguardDetail();
+		mapAt.put("attachType", "insure_desc");//保障说明
+		listAt = tPrdPlanFormMapper.selectPlanStrategyAttachCarXY(mapAt);
+		ClaimStatement claimStatement = new ClaimStatement();
+		//组合产品下理赔说明
+		mapAt.put("attachType", "claim_guide");//理赔说明
+		listAt = tPrdPlanFormMapper.selectPlanStrategyAttachCarXY(mapAt);
+		claimStatement.setTitle("理赔说明");
+		if(CollectionUtils.isNotEmpty(listAt)) {
+			claimStatement.setContent(listAt);
+		}
+		groupSalesPlanRoot.setClaimStatement(claimStatement);
+		TermsAndConditions termsAndConditions = new TermsAndConditions();
+		
+		List<TermsAndConditionsContent> list_termsAndConditions = new ArrayList<TermsAndConditionsContent>();
+		//组合产品下保险条款
+		List<TermsAndConditionsContent> list_conditions_re = tPrdPlanFormMapper.selectConditionsContentCarXY2(mapAt);
+		TermsAndConditionsContent termsAndConditionsRe = new TermsAndConditionsContent();
+		termsAndConditionsRe.setTitle("保险条款");
+		termsAndConditionsRe.setChlidren(list_conditions_re);
+		list_termsAndConditions.add(termsAndConditionsRe);
+		
+		List<TermsAndConditionsContent> list_termsAndConditionsOthers = tPrdPlanFormMapper.selectConditionsContentCarXY(mapAt);
+		list_termsAndConditions.addAll(list_termsAndConditionsOthers);
+		
+		termsAndConditions.setContent(list_termsAndConditions);
+		groupSalesPlanRoot.setTermsAndConditions(termsAndConditions);
+		//组合产品下健康须知
+		termsAndConditions.setTitle("条款须知");
+		HealthNotice healthNotice = new HealthNotice();
+		mapAt.put("attachType", "actoion_inform");//健康须知
+		listAt = tPrdPlanFormMapper.selectPlanStrategyAttachCarXY(mapAt);
+		healthNotice.setTitle("健康须知");
+		if(CollectionUtils.isNotEmpty(listAt)) {
+			healthNotice.setInUrl(listAt.get(0).getImgIn());
+			healthNotice.setUrl(listAt.get(0).getImg());
+			groupSalesPlanRoot.setIsNeedHealthNotice(true);
+		}
+		else {
+			groupSalesPlanRoot.setIsNeedHealthNotice(false);
+		}
+		groupSalesPlanRoot.setHealthNotice(healthNotice);
+		//组合产品下常见问题
+		List<CommonProblemContent> contentList = new ArrayList<CommonProblemContent>();
+		CommonProblem commonProblem = new CommonProblem();
+		commonProblem.setTitle("常见问题");
+		contentList = tPrdPlanFormMapper.selectCommonProblemContentCarXy(mapAt);
+		commonProblem.setContent(contentList);
+		groupSalesPlanRoot.setCommonProblem(commonProblem);
+		//组合产品下子产品信息
+		for(GroupSalesPlan groupSalesPlan : groupSalesPlanList) {
+			List<PlanChild> planChildList = new ArrayList<PlanChild>();
+			planChildList = salesplanchildMapper.selectBySalesPlanChildList(groupSalesPlan.getSalesPlanId());
+			if(groupPlanVo.getOrderId()!=null) {
+				Order order = orderMapper.selectByPrimaryKey(Long.parseLong(groupPlanVo.getOrderId()));
+				if(order.getStrategyCode()!=null && groupSalesPlan != null && groupSalesPlan.getSalesPlanCode()!=null && groupSalesPlan.getSalesPlanCode().equals(order.getStrategyCode())) {
+					groupSalesPlan.setIsDefault("1");
+				}
+				List<HashMap<String,BigDecimal>> map_prem_list = orderMapper.selectPremiumByOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+				for(PlanChild pc : planChildList) {
+					//详情与计划书一致
+					//pc.setTermsAndConditions(buildTermsAndConditions(groupSalesPlan));
+					//pc.setIsNeedHealthNotice(true);
+					//pc.setHealthNotice(buildHealthNotice(groupSalesPlan));
+					for(HashMap<String,BigDecimal> m : map_prem_list) {
+						if((m.get("childPlanCode")+"").equals(pc.getChildPlanCode())) {
+							pc.setIsDefault("1");
+						}
+					}
+				}
+			}
+			groupSalesPlan.setSalesChildPlans(planChildList);
+			//子产品下的责任
+			for(PlanChild planChild:planChildList) {
+				List<PlanCoverage> planCoverageList = salesCoverageMapper.selectByChildPlanId(planChild.getChildPlanId());
+				planChild.setSalesChildPlanCts(planCoverageList);
+			}
+		}
+		//组合方案基本信息
+		groupSalesPlanRoot.setSaleInfo(saleInfo);
+		if(groupPlanVo.getOrderId()!=null) {
+			String dataTag = orderMapper.selectDataTagByOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+			//if("plan".equals(dataTag)) {
+				groupSalesPlanRoot.setUserInfo(user);
+			//}
+			GroupOrderDetail groupOrderDetail = new GroupOrderDetail();
+			Order order = orderMapper.selectByPrimaryKey(Long.parseLong(groupPlanVo.getOrderId()));
+			groupOrderDetail.setOrder(order);
+			
+			if(1==order.getIsAgent()) {
+				AgentInfoVO agentInfo = new AgentInfoVO();
+				agentInfo.setAgentCode(order.getAgentCode());//代理人代码
+				agentInfo.setAgentName(order.getAgentName());//代理人名称
+				agentInfo.setAgreementNo(order.getAgreementNo());//代理人协议号
+				agentInfo.setAgreementName(order.getAgreementName());//代理人协议名称
+				agentInfo.setBusinessNature(order.getBusinessSourceCode());
+			    agentInfo.setHandler2Code(order.getHandlerCode2());
+				groupOrderDetail.setAgentInfo(agentInfo);
+			}
+			if(order.getStartDate()!=null) {
+				Long t1 = order.getStartDate().getTime();
+				Long t2 = new Date().getTime();
+				groupOrderDetail.setIntervalDate(t1-t2);
+			}
+			com.ccic.salesapp.noncar.dto.request.noncar.InvoiceInfo invoiceInfo = invoiceInfoMapper.selectInvoiceInfoByOrderId2(order.getId());
+			if(invoiceInfo!=null)
+			groupOrderDetail.setInvoiceInfo(invoiceInfo);
+			List<Order> orderList = orderMapper.selectByRelationOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+			Map<String,Object> map = new HashMap<String, Object>();
+			map.put("id", Long.parseLong(groupPlanVo.getOrderId()));
+			List<Customer> policyCustomerList = orderMapper.selectByOrderId(map);
+			Map<String,BigDecimal> map_sumpre  = orderMapper.selectSumPremiumByOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+			if(map_sumpre.get("duePremium")!=null)
+			groupOrderDetail.setDuePremium(map_sumpre.get("duePremium").doubleValue());
+			groupOrderDetail.setSalesPlanCode(order.getStrategyCode());
+			groupOrderDetail.setDiscountPremium(Double.parseDouble(map_sumpre.get("discountPremium")+""));
+			List<HashMap<String,BigDecimal>> map_prem_list = orderMapper.selectPremiumByOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+			HashMap<String,Double> m1 = new HashMap<String, Double>();
+			for(HashMap<String,BigDecimal> m : map_prem_list) {
+				m1.put(m.get("key")+"",m.get("value").doubleValue());
+			}
+			groupOrderDetail.setPremiumMap(m1);
+			groupOrderDetail.setCustomerList(policyCustomerList);
+			List<ChildProduct> childProductList = new ArrayList<ChildProduct>();
+			for(int i=0;i<orderList.size();i++) {
+				ChildProduct childProduct = new ChildProduct();	
+				childProduct.setPlanCode(orderList.get(i).getPlanCode());//方案代码
+				childProduct.setProductCode(orderList.get(i).getProductCode());//产品代码
+				childProduct.setProductName(orderList.get(i).getProductName());//产品名称
+				childProduct.setProductLine(orderList.get(i).getProductLine());//产品线
+				List<Clause> clauseList = orderCtMapper.selectCtByOrder(orderList.get(i).getId());
+				childProduct.setClauseList(clauseList);//条款列表
+				childProductList.add(childProduct);
+			}
+			groupOrderDetail.setChildProductList(childProductList);
+			groupSalesPlanRoot.setGroupOrderDetail(groupOrderDetail);
+			List<HashMap<String,Object>> maplist = orderMapper.selectByOrderIdPaymentNoApply(Long.parseLong(groupPlanVo.getOrderId()));
+			if(maplist!=null && maplist.size()>0) {
+				List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+				for(HashMap<String,Object> orderMapperMap : maplist) {
+					Map<String,String> map_insure = new HashMap<String, String>();
+					map_insure.put("planCode", orderMapperMap.get("planCode")+"");
+					map_insure.put("planName", orderMapperMap.get("planName")+"");
+					map_insure.put("insureNo", orderMapperMap.get("insureNo")+"");//投保单号
+					map_insure.put("orderNo",  orderMapperMap.get("orderNo")+"");//订单号
+					map_insure.put("policyNo", orderMapperMap.get("policyNo")+"");//保单号
 					list.add(map_insure);
 				}
 				groupSalesPlanRoot.getGroupOrderDetail().setInsureNos(list);
@@ -368,12 +649,14 @@ public class GroupPlanServiceIml implements GroupPlanService {
 		response.setElementList(groupList);
 		List<OrderCt> productList=  orderCtMapper.selectByOrderId(request.getOrderId());
 		response.setProductList(productList);
-		if("1".equals(order.getIsAgent())) {
+		if(1==order.getIsAgent()) {
 			AgentInfoVO agentInfo = new AgentInfoVO();
 			agentInfo.setAgentCode(order.getAgentCode());
 			//agentInfo.setAgentName(order.geta);
 			agentInfo.setAgreementNo(order.getAgreementNo());
 			agentInfo.setAgreementName(order.getAgreementNo());
+			agentInfo.setBusinessNature(order.getBusinessSourceCode());
+		    agentInfo.setHandler2Code(order.getHandlerCode2());
 			//agentInfo.setBusinessNature(order.get);
 			response.setAgentInfo(agentInfo);
 		}
@@ -571,10 +854,10 @@ public class GroupPlanServiceIml implements GroupPlanService {
 			consumerID="supsale";
 			String desPayNo = DESEncryptUtil.encrypt(paymentNo,desPassword);
 			String desCheckNo= DESEncryptUtil.encrypt(checkNo,desPassword);
-			proposalNo = DESEncryptUtil.encrypt(proposalNo+"-"+"UNITE",desPassword);
+			proposalNo = DESEncryptUtil.encrypt(proposalNo,desPassword);
 			GetPayUrlResponseVO resVO = new GetPayUrlResponseVO();
 			String payUrl = null;
-			String basePayUrl = mobileQuickPayUrl+"?consumerID="+consumerID+"&systemSourceCode="+systemSourceCode+"&paymentNo="+desPayNo+"&checkNo="+desCheckNo+"&ext="+proposalNo;
+			String basePayUrl = mobileQuickPayUrl+"?consumerID="+consumerID+"&systemSourceCode="+systemSourceCode+"&paymentNo="+desPayNo+"&checkNo="+desCheckNo+"&ext="+proposalNo+"-UNITE";
 			if ("1".equals(flag)) { // 二维码支付
 				payUrl = basePayUrl;
 				String qrCode = encode(payUrl);
@@ -756,9 +1039,7 @@ public class GroupPlanServiceIml implements GroupPlanService {
 
 	@Override
 	public HttpResult paySyncNotice(ApplyPayVo applyPayVo) throws Exception {
-		String proposalNo = DESEncryptUtil.decrypt(applyPayVo.getInsureNo(), desPassword);
-		//String proposalNo = applyPayVo.getInsureNo();
-		proposalNo=proposalNo.split("-")[0];
+		String proposalNo = applyPayVo.getInsureNo();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("insureNo", proposalNo);
 		orderMapper.updateByInsureNo(map);
@@ -796,6 +1077,8 @@ public class GroupPlanServiceIml implements GroupPlanService {
 				salesPlanConfig.setSalesPlanId(groupSalesPlan.getSalesPlanId());
 				salesPlanConfig.setGroupPlanCode(groupSalesPlan.getGroupPlanCode());
 				salesPlanConfig.setCode(comCode);
+				if(StringUtils.isNotBlank(groupSalesPlan.getGroupCode()))
+				salesPlanConfig.setGroupCode(groupSalesPlan.getGroupCode());
 				salesPlanConfigMapper.insertSelective(salesPlanConfig);
 			}
 		}
@@ -806,6 +1089,8 @@ public class GroupPlanServiceIml implements GroupPlanService {
 				salesPlanConfig.setSalesPlanId(groupSalesPlan.getSalesPlanId());
 				salesPlanConfig.setGroupPlanCode(groupSalesPlan.getGroupPlanCode());
 				salesPlanConfig.setCode(chennelCode);
+				if(StringUtils.isNotBlank(groupSalesPlan.getGroupCode()))
+				salesPlanConfig.setGroupCode(groupSalesPlan.getGroupCode());
 				salesPlanConfigMapper.insertSelective(salesPlanConfig);
 			}
 		}
@@ -869,13 +1154,641 @@ public class GroupPlanServiceIml implements GroupPlanService {
 	}
 
 	@Override
-	public HttpResult policyList(HashMap<String, Object> map) {
-			String reqJson = "{\"requestBody\":{\"searchType\":\"10\",\"submissionNo\":\""+map.get("submissionNo")+"\"},\"requestHead\":{\"consumerID\":\"supsale\"}}";
-			JSONObject request = JSONObject.parseObject(reqJson);
-			System.out.println("调用提交组合核保接口开始，请求报文："+ JSONObject.toJSONString(request));
-	    	JsonNode jsonNode = UnirestUtil.postForJson(policyListUrl, request);
-	    	System.out.println("调用提交组合核保接口结束，响应报文："+ JSONObject.parseObject(jsonNode.getObject().get("responseBody")+"").get("policies"));
+	public HttpResult policyList(PolicyVo policyVo) {
+	        if(StringUtil.isNullorEmpty(policyVo.getSearchType()))
+	            policyVo.setSearchType("10");
+	        PolicyDto policyDto = new PolicyDto();
+	        RequestHead requestHead = new RequestHead();
+	        requestHead.setConsumerID("supsale");
+	        policyDto.setRequestBody(policyVo);
+	        policyDto.setRequestHead(requestHead);
+	        log.info("调用保单列表接口开始，请求报文："+ JSONObject.toJSONString(policyDto));
+	    	JsonNode jsonNode = UnirestUtil.postForJson(policyListUrl, policyDto);
+	    	log.info("调用保单列表接口结束，响应报文："+ JSONObject.parseObject(jsonNode.getObject().get("responseBody")+"").get("policies"));
 			return HttpResult.success(JSONObject.parseObject(jsonNode.getObject().get("responseBody")+"").get("policies"), 1, "OK");
 	}
+
+    @Override
+    public HttpResult recommendRankPlans(RecommendRankPlansVo recommendRankPlansVo) {
+        RecommendRankPlansObj recommendRankPlansObj = new RecommendRankPlansObj();
+        //调用中台生活无忧家庭版方案推荐接口
+        String reqJson = "{\"requestHead\":{\"consumerID\":\"supsale\"},\"requestBody\":{\"groupPlanCode\":\"XYZ2050222\",\"requestType\":1,\"orgCode\":\"34010000\",\"channelByPerson\":\"C0000015\",\"policyCustomerList\":[{\"sequenceNumber\":1,\"indiAge\":30,\"polHolderInsuredRelaCode\":\"00\",\"isMainInsured\":\"Y\"},{\"sequenceNumber\":2,\"indiAge\":55,\"polHolderInsuredRelaCode\":\"02\",\"isMainInsured\":\"N\"},{\"sequenceNumber\":3,\"indiAge\":5,\"polHolderInsuredRelaCode\":\"03\",\"isMainInsured\":\"N\"}]}}";
+        JSONObject request = JSONObject.parseObject(reqJson);
+        System.out.println("调用提交组合核保接口开始，请求报文："+ JSONObject.toJSONString(request));
+        JsonNode jsonNode = UnirestUtil.postForJson("http://10.1.12.59:8080/daditestgroup/ccicsit/getrecommendrankplansservicerest/Restful", request);
+        String jsonstr = jsonNode.getObject().get("responseBody")+"";
+        System.out.println(jsonstr);
+        RecommendRankPlansRes recommendRankPlansRes = new RecommendRankPlansRes();
+        recommendRankPlansRes = JSONObject.parseObject(jsonstr, RecommendRankPlansRes.class);
+        System.out.println(JSONObject.toJSONString(recommendRankPlansRes));
+        //根据 policyLobList t_noncar_sales_plan 里的 polHolderInsuredRelaCode 累加 childPlanCode
+        recommendRankPlansObj.setRecommendRankPlanList(recommendRankPlansRes.getRecommendRankPlanList());
+        System.out.println(recommendRankPlansObj.getRecommendRankPlanList());
+        buildFor(recommendRankPlansObj);
+        Map<String,Object> mapInsure = new HashMap<String, Object>();
+        System.out.println(recommendRankPlansObj.getSalesPlanCode());
+        GroupPlanVo groupPlanVo = new GroupPlanVo();
+        List<GroupSalesPlan> groupSalesPlanList = null;
+        List<GroupSalesPlan> groupSalesPlantw = new ArrayList<GroupSalesPlan>();
+        for(String item : recommendRankPlansObj.getSalePlanCodelist()) {
+            System.out.println("=====");
+            System.out.println(item);
+            recommendRankPlansObj.setRelationMap(recommendRankPlansObj.getMapList().stream().filter(s->item.equals(s.getSalesPlanCode()))
+                    .collect(Collectors.groupingBy(InsureRes::getPolHolderInsuredRelaCode)));
+            System.out.println(recommendRankPlansObj.getRelationMap());
+            mapInsure.put(item, recommendRankPlansObj.getRelationMap());
+            
+            groupPlanVo.setGroupCode(item);
+            if(StringUtils.isNotBlank(recommendRankPlansObj.getRecommendRankPlansVo().getChannelByPerson())) {
+              groupPlanVo.setChannelCode(recommendRankPlansObj.getRecommendRankPlansVo().getChannelByPerson());
+              groupSalesPlanList = salesPlanMapper.selectSalesPlanByGroupCodeForCarXY(groupPlanVo);
+          }
+          else {
+              groupSalesPlanList = salesPlanMapper.selectSalesPlanByGroupCodeAllChannelForCarXY(groupPlanVo);
+          }
+          
+          if(groupSalesPlanList==null || groupSalesPlanList.size()==0)
+              System.out.println("无权限查看");
+          else
+              groupSalesPlantw.add(groupSalesPlanList.get(0));
+        }
+        recommendRankPlansObj.setGroupSalesPlan(groupSalesPlantw);
+        recommendRankPlansObj.getMapInsureList().add(mapInsure);
+        RecommendRankPlansObjResp recommendRankPlansObjResp = new RecommendRankPlansObjResp();
+        recommendRankPlansObjResp.setMapInsureList(recommendRankPlansObj.getMapInsureList());
+        if(StringUtils.isNotBlank(recommendRankPlansVo.getOrderId())) {
+            groupPlanVo.setOrderId(recommendRankPlansVo.getOrderId());
+        }
+        for(GroupSalesPlan groupSalesPlan : recommendRankPlansObj.getGroupSalesPlan()) {
+          HashMap<String,Object> mapAt= new HashMap<String, Object>();
+          mapAt.put("code", groupSalesPlan.getSalesPlanCode());
+          TermsAndConditions termsAndConditions = new TermsAndConditions();
+          List<TermsAndConditionsContent> list_termsAndConditions = new ArrayList<TermsAndConditionsContent>();
+          //组合产品下保险条款
+          List<TermsAndConditionsContent> list_conditions_re = tPrdPlanFormMapper.selectConditionsContentCarXY2(mapAt);
+          TermsAndConditionsContent termsAndConditionsRe = new TermsAndConditionsContent();
+          termsAndConditionsRe.setTitle("保险条款");
+          termsAndConditionsRe.setChlidren(list_conditions_re);
+          list_termsAndConditions.add(termsAndConditionsRe);
+          
+          List<TermsAndConditionsContent> list_termsAndConditionsOthers = tPrdPlanFormMapper.selectConditionsContentCarXY(mapAt);
+          list_termsAndConditions.addAll(list_termsAndConditionsOthers);
+          
+          termsAndConditions.setContent(list_termsAndConditions);
+          termsAndConditions.setTitle("条款须知");
+          groupSalesPlan.setTermsAndConditions(termsAndConditions);
+          List<PlanChild> planChildList = new ArrayList<PlanChild>();
+          planChildList = salesplanchildMapper.selectBySalesPlanChildList(groupSalesPlan.getSalesPlanId());
+          if(groupPlanVo.getOrderId()!=null) {
+              Order order = orderMapper.selectByPrimaryKey(Long.parseLong(groupPlanVo.getOrderId()));
+              if(order.getStrategyCode()!=null && groupSalesPlan != null && groupSalesPlan.getSalesPlanCode()!=null && groupSalesPlan.getSalesPlanCode().equals(order.getStrategyCode())) {
+                  groupSalesPlan.setIsDefault("1");
+              }
+              List<HashMap<String,BigDecimal>> map_prem_list = orderMapper.selectPremiumByOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+              for(PlanChild pc : planChildList) {
+                  //详情与计划书一致
+                  //pc.setTermsAndConditions(buildTermsAndConditions(groupSalesPlan));
+                  //pc.setIsNeedHealthNotice(true);
+                  //pc.setHealthNotice(buildHealthNotice(groupSalesPlan));
+                  for(HashMap<String,BigDecimal> m : map_prem_list) {
+                      if((m.get("childPlanCode")+"").equals(pc.getChildPlanCode())) {
+                          pc.setIsDefault("1");
+                      }
+                  }
+              }
+          }
+          groupSalesPlan.setSalesChildPlans(planChildList);
+          //子产品下的责任
+          for(PlanChild planChild:planChildList) {
+              List<PlanCoverage> planCoverageList = salesCoverageMapper.selectByChildPlanId(planChild.getChildPlanId());
+              planChild.setSalesChildPlanCts(planCoverageList);
+          }
+      }
+      //组合方案基本信息
+      if(groupPlanVo.getOrderId()!=null) {
+          String dataTag = orderMapper.selectDataTagByOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+          //if("plan".equals(dataTag)) {
+              //groupSalesPlanRoot.setUserInfo(user);
+          //}
+          GroupOrderDetail groupOrderDetail = new GroupOrderDetail();
+          Order order = orderMapper.selectByPrimaryKey(Long.parseLong(groupPlanVo.getOrderId()));
+          groupOrderDetail.setOrder(order);
+          
+          if("1".equals(order.getIsAgent())) {
+              AgentInfoVO agentInfo = new AgentInfoVO();
+              agentInfo.setAgentCode(order.getAgentCode());//代理人代码
+              agentInfo.setAgentName(order.getAgentName());//代理人名称
+              agentInfo.setAgreementNo(order.getAgreementNo());//代理人协议号
+              agentInfo.setAgreementName(order.getAgreementName());//代理人协议名称
+              groupOrderDetail.setAgentInfo(agentInfo);
+          }
+          if(order.getStartDate()!=null) {
+              Long t1 = order.getStartDate().getTime();
+              Long t2 = new Date().getTime();
+              groupOrderDetail.setIntervalDate(t1-t2);
+          }
+          com.ccic.salesapp.noncar.dto.request.noncar.InvoiceInfo invoiceInfo = invoiceInfoMapper.selectInvoiceInfoByOrderId2(order.getId());
+          if(invoiceInfo!=null)
+          groupOrderDetail.setInvoiceInfo(invoiceInfo);
+          List<Order> orderList = orderMapper.selectByRelationOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+          Map<String,Object> map = new HashMap<String, Object>();
+          map.put("id", Long.parseLong(groupPlanVo.getOrderId()));
+          List<Customer> policyCustomerList = orderMapper.selectByOrderId(map);
+          Map<String,BigDecimal> map_sumpre  = orderMapper.selectSumPremiumByOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+          if(map_sumpre.get("duePremium")!=null)
+          groupOrderDetail.setDuePremium(map_sumpre.get("duePremium").doubleValue());
+          groupOrderDetail.setSalesPlanCode(order.getStrategyCode());
+          groupOrderDetail.setDiscountPremium(Double.parseDouble(map_sumpre.get("discountPremium")+""));
+          List<HashMap<String,BigDecimal>> map_prem_list = orderMapper.selectPremiumByOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+          HashMap<String,Double> m1 = new HashMap<String, Double>();
+          for(HashMap<String,BigDecimal> m : map_prem_list) {
+              m1.put(m.get("key")+"",m.get("value").doubleValue());
+          }
+          groupOrderDetail.setPremiumMap(m1);
+          groupOrderDetail.setCustomerList(policyCustomerList);
+          List<ChildProduct> childProductList = new ArrayList<ChildProduct>();
+          for(int i=0;i<orderList.size();i++) {
+              ChildProduct childProduct = new ChildProduct(); 
+              childProduct.setPlanCode(orderList.get(i).getPlanCode());//方案代码
+              childProduct.setProductCode(orderList.get(i).getProductCode());//产品代码
+              childProduct.setProductName(orderList.get(i).getProductName());//产品名称
+              childProduct.setProductLine(orderList.get(i).getProductLine());//产品线
+              List<Clause> clauseList = orderCtMapper.selectCtByOrder(orderList.get(i).getId());
+              childProduct.setClauseList(clauseList);//条款列表
+              childProductList.add(childProduct);
+          }
+          groupOrderDetail.setChildProductList(childProductList);
+          List<HashMap<String,Object>> maplist = orderMapper.selectByOrderIdPaymentNoApply(Long.parseLong(groupPlanVo.getOrderId()));
+          if(maplist!=null && maplist.size()>0) {
+              List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+              for(HashMap<String,Object> orderMapperMap : maplist) {
+                  Map<String,String> map_insure = new HashMap<String, String>();
+                  map_insure.put("planCode", orderMapperMap.get("planCode")+"");
+                  map_insure.put("planName", orderMapperMap.get("planName")+"");
+                  map_insure.put("insureNo", orderMapperMap.get("insureNo")+"");//投保单号
+                  map_insure.put("orderNo",  orderMapperMap.get("orderNo")+"");//订单号
+                  map_insure.put("policyNo", orderMapperMap.get("policyNo")+"");//保单号
+                  list.add(map_insure);
+              }
+          }
+      }
+      recommendRankPlansObjResp.setGroupSalesPlan(recommendRankPlansObj.getGroupSalesPlan());
+      
+      if(groupPlanVo.getOrderId()!=null) {
+          String dataTag = orderMapper.selectDataTagByOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+          //if("plan".equals(dataTag)) {
+              //groupSalesPlanRoot.setUserInfo(user);
+          //}
+          GroupOrderDetail groupOrderDetail = new GroupOrderDetail();
+          Order order = orderMapper.selectByPrimaryKey(Long.parseLong(groupPlanVo.getOrderId()));
+          groupOrderDetail.setOrder(order);
+          
+          if("1".equals(order.getIsAgent())) {
+              AgentInfoVO agentInfo = new AgentInfoVO();
+              agentInfo.setAgentCode(order.getAgentCode());//代理人代码
+              agentInfo.setAgentName(order.getAgentName());//代理人名称
+              agentInfo.setAgreementNo(order.getAgreementNo());//代理人协议号
+              agentInfo.setAgreementName(order.getAgreementName());//代理人协议名称
+              groupOrderDetail.setAgentInfo(agentInfo);
+          }
+          if(order.getStartDate()!=null) {
+              Long t1 = order.getStartDate().getTime();
+              Long t2 = new Date().getTime();
+              groupOrderDetail.setIntervalDate(t1-t2);
+          }
+          com.ccic.salesapp.noncar.dto.request.noncar.InvoiceInfo invoiceInfo = invoiceInfoMapper.selectInvoiceInfoByOrderId2(order.getId());
+          if(invoiceInfo!=null)
+          groupOrderDetail.setInvoiceInfo(invoiceInfo);
+          List<Order> orderList = orderMapper.selectByRelationOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+          Map<String,Object> map = new HashMap<String, Object>();
+          map.put("id", Long.parseLong(groupPlanVo.getOrderId()));
+          List<Customer> policyCustomerList = orderMapper.selectByOrderId(map);
+          Map<String,BigDecimal> map_sumpre  = orderMapper.selectSumPremiumByOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+          if(map_sumpre.get("duePremium")!=null)
+          groupOrderDetail.setDuePremium(map_sumpre.get("duePremium").doubleValue());
+          groupOrderDetail.setSalesPlanCode(order.getStrategyCode());
+          groupOrderDetail.setDiscountPremium(Double.parseDouble(map_sumpre.get("discountPremium")+""));
+          List<HashMap<String,BigDecimal>> map_prem_list = orderMapper.selectPremiumByOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+          HashMap<String,Double> m1 = new HashMap<String, Double>();
+          for(HashMap<String,BigDecimal> m : map_prem_list) {
+              m1.put(m.get("key")+"",m.get("value").doubleValue());
+          }
+          groupOrderDetail.setPremiumMap(m1);
+          groupOrderDetail.setCustomerList(policyCustomerList);
+          List<ChildProduct> childProductList = new ArrayList<ChildProduct>();
+          for(int i=0;i<orderList.size();i++) {
+              ChildProduct childProduct = new ChildProduct(); 
+              childProduct.setPlanCode(orderList.get(i).getPlanCode());//方案代码
+              childProduct.setProductCode(orderList.get(i).getProductCode());//产品代码
+              childProduct.setProductName(orderList.get(i).getProductName());//产品名称
+              childProduct.setProductLine(orderList.get(i).getProductLine());//产品线
+              List<Clause> clauseList = orderCtMapper.selectCtByOrder(orderList.get(i).getId());
+              childProduct.setClauseList(clauseList);//条款列表
+              childProductList.add(childProduct);
+          }
+          groupOrderDetail.setChildProductList(childProductList);
+          recommendRankPlansObjResp.setGroupOrderDetail(groupOrderDetail);
+          List<HashMap<String,Object>> maplist = orderMapper.selectByOrderIdPaymentNoApply(Long.parseLong(groupPlanVo.getOrderId()));
+          if(maplist!=null && maplist.size()>0) {
+              List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+              for(HashMap<String,Object> orderMapperMap : maplist) {
+                  Map<String,String> map_insure = new HashMap<String, String>();
+                  map_insure.put("planCode", orderMapperMap.get("planCode")+"");
+                  map_insure.put("planName", orderMapperMap.get("planName")+"");
+                  map_insure.put("insureNo", orderMapperMap.get("insureNo")+"");//投保单号
+                  map_insure.put("orderNo",  orderMapperMap.get("orderNo")+"");//订单号
+                  map_insure.put("policyNo", orderMapperMap.get("policyNo")+"");//保单号
+                  list.add(map_insure);
+              }
+              recommendRankPlansObjResp.getGroupOrderDetail().setInsureNos(list);
+          }
+      }
+        
+        recommendRankPlansObjResp.setGroupSalesPlan(recommendRankPlansObj.getGroupSalesPlan());
+        return HttpResult.success(recommendRankPlansObjResp);
+    }
+    
+    
+//   public HttpResult buidQWE(RecommendRankPlansObjResp recommendRankPlansObjResp,RecommendRankPlansObj recommendRankPlansObj,RecommendRankPlansVo recommendRankPlansVo){
+//        List<GroupSalesPlan> groupSalesPlanList = null;
+//        GroupPlanVo groupPlanVo = new GroupPlanVo();
+//        if(StringUtils.isNotBlank(recommendRankPlansVo.getOrderId())) {
+//            groupPlanVo.setOrderId(recommendRankPlansVo.getOrderId());
+//        }
+//        groupPlanVo.setComCode(recommendRankPlansObj.getRecommendRankPlansVo().getOrgCode());
+//       
+//        String groupCode = "SXYZ20502220002";
+//        groupPlanVo.setGroupCode(groupCode);
+//        
+//        if(StringUtils.isNotBlank(recommendRankPlansObj.getRecommendRankPlansVo().getChannelByPerson())) {
+//            groupPlanVo.setChannelCode(recommendRankPlansObj.getRecommendRankPlansVo().getChannelByPerson());
+//            groupSalesPlanList = salesPlanMapper.selectSalesPlanByGroupCodeForCarXY(groupPlanVo);
+//        }
+//        else {
+//            groupSalesPlanList = salesPlanMapper.selectSalesPlanByGroupCodeAllChannelForCarXY(groupPlanVo);
+//        }
+//        
+//        if(groupSalesPlanList==null || groupSalesPlanList.size()==0)
+//            return HttpResult.error( 2, "您目前无权限查看");
+//        else
+//            recommendRankPlansObj.setGroupSalesPlan(groupSalesPlanList);
+//        for(GroupSalesPlan groupSalesPlan : groupSalesPlanList) {
+//            HashMap<String,Object> mapAt= new HashMap<String, Object>();
+//            mapAt.put("code", groupSalesPlan.getSalesPlanCode());
+//            TermsAndConditions termsAndConditions = new TermsAndConditions();
+//            List<TermsAndConditionsContent> list_termsAndConditions = new ArrayList<TermsAndConditionsContent>();
+//            //组合产品下保险条款
+//            List<TermsAndConditionsContent> list_conditions_re = tPrdPlanFormMapper.selectConditionsContentCarXY2(mapAt);
+//            TermsAndConditionsContent termsAndConditionsRe = new TermsAndConditionsContent();
+//            termsAndConditionsRe.setTitle("保险条款");
+//            termsAndConditionsRe.setChlidren(list_conditions_re);
+//            list_termsAndConditions.add(termsAndConditionsRe);
+//            
+//            List<TermsAndConditionsContent> list_termsAndConditionsOthers = tPrdPlanFormMapper.selectConditionsContentCarXY(mapAt);
+//            list_termsAndConditions.addAll(list_termsAndConditionsOthers);
+//            
+//            termsAndConditions.setContent(list_termsAndConditions);
+//            termsAndConditions.setTitle("条款须知");
+//            groupSalesPlan.setTermsAndConditions(termsAndConditions);
+//            List<PlanChild> planChildList = new ArrayList<PlanChild>();
+//            planChildList = salesplanchildMapper.selectBySalesPlanChildList(groupSalesPlan.getSalesPlanId());
+//            if(groupPlanVo.getOrderId()!=null) {
+//                Order order = orderMapper.selectByPrimaryKey(Long.parseLong(groupPlanVo.getOrderId()));
+//                if(order.getStrategyCode()!=null && groupSalesPlan != null && groupSalesPlan.getSalesPlanCode()!=null && groupSalesPlan.getSalesPlanCode().equals(order.getStrategyCode())) {
+//                    groupSalesPlan.setIsDefault("1");
+//                }
+//                List<HashMap<String,BigDecimal>> map_prem_list = orderMapper.selectPremiumByOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+//                for(PlanChild pc : planChildList) {
+//                    //详情与计划书一致
+//                    //pc.setTermsAndConditions(buildTermsAndConditions(groupSalesPlan));
+//                    //pc.setIsNeedHealthNotice(true);
+//                    //pc.setHealthNotice(buildHealthNotice(groupSalesPlan));
+//                    for(HashMap<String,BigDecimal> m : map_prem_list) {
+//                        if((m.get("childPlanCode")+"").equals(pc.getChildPlanCode())) {
+//                            pc.setIsDefault("1");
+//                        }
+//                    }
+//                }
+//            }
+//            groupSalesPlan.setSalesChildPlans(planChildList);
+//            //子产品下的责任
+//            for(PlanChild planChild:planChildList) {
+//                List<PlanCoverage> planCoverageList = salesCoverageMapper.selectByChildPlanId(planChild.getChildPlanId());
+//                planChild.setSalesChildPlanCts(planCoverageList);
+//            }
+//        }
+//        //组合方案基本信息
+//        if(groupPlanVo.getOrderId()!=null) {
+//            String dataTag = orderMapper.selectDataTagByOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+//            //if("plan".equals(dataTag)) {
+//                //groupSalesPlanRoot.setUserInfo(user);
+//            //}
+//            GroupOrderDetail groupOrderDetail = new GroupOrderDetail();
+//            Order order = orderMapper.selectByPrimaryKey(Long.parseLong(groupPlanVo.getOrderId()));
+//            groupOrderDetail.setOrder(order);
+//            
+//            if("1".equals(order.getIsAgent())) {
+//                AgentInfoVO agentInfo = new AgentInfoVO();
+//                agentInfo.setAgentCode(order.getAgentCode());//代理人代码
+//                agentInfo.setAgentName(order.getAgentName());//代理人名称
+//                agentInfo.setAgreementNo(order.getAgreementNo());//代理人协议号
+//                agentInfo.setAgreementName(order.getAgreementName());//代理人协议名称
+//                groupOrderDetail.setAgentInfo(agentInfo);
+//            }
+//            if(order.getStartDate()!=null) {
+//                Long t1 = order.getStartDate().getTime();
+//                Long t2 = new Date().getTime();
+//                groupOrderDetail.setIntervalDate(t1-t2);
+//            }
+//            com.ccic.salesapp.noncar.dto.request.noncar.InvoiceInfo invoiceInfo = invoiceInfoMapper.selectInvoiceInfoByOrderId2(order.getId());
+//            if(invoiceInfo!=null)
+//            groupOrderDetail.setInvoiceInfo(invoiceInfo);
+//            List<Order> orderList = orderMapper.selectByRelationOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+//            Map<String,Object> map = new HashMap<String, Object>();
+//            map.put("id", Long.parseLong(groupPlanVo.getOrderId()));
+//            List<Customer> policyCustomerList = orderMapper.selectByOrderId(map);
+//            Map<String,BigDecimal> map_sumpre  = orderMapper.selectSumPremiumByOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+//            if(map_sumpre.get("duePremium")!=null)
+//            groupOrderDetail.setDuePremium(map_sumpre.get("duePremium").doubleValue());
+//            groupOrderDetail.setSalesPlanCode(order.getStrategyCode());
+//            groupOrderDetail.setDiscountPremium(Double.parseDouble(map_sumpre.get("discountPremium")+""));
+//            List<HashMap<String,BigDecimal>> map_prem_list = orderMapper.selectPremiumByOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+//            HashMap<String,Double> m1 = new HashMap<String, Double>();
+//            for(HashMap<String,BigDecimal> m : map_prem_list) {
+//                m1.put(m.get("key")+"",m.get("value").doubleValue());
+//            }
+//            groupOrderDetail.setPremiumMap(m1);
+//            groupOrderDetail.setCustomerList(policyCustomerList);
+//            List<ChildProduct> childProductList = new ArrayList<ChildProduct>();
+//            for(int i=0;i<orderList.size();i++) {
+//                ChildProduct childProduct = new ChildProduct(); 
+//                childProduct.setPlanCode(orderList.get(i).getPlanCode());//方案代码
+//                childProduct.setProductCode(orderList.get(i).getProductCode());//产品代码
+//                childProduct.setProductName(orderList.get(i).getProductName());//产品名称
+//                childProduct.setProductLine(orderList.get(i).getProductLine());//产品线
+//                List<Clause> clauseList = orderCtMapper.selectCtByOrder(orderList.get(i).getId());
+//                childProduct.setClauseList(clauseList);//条款列表
+//                childProductList.add(childProduct);
+//            }
+//            groupOrderDetail.setChildProductList(childProductList);
+//            List<HashMap<String,Object>> maplist = orderMapper.selectByOrderIdPaymentNoApply(Long.parseLong(groupPlanVo.getOrderId()));
+//            if(maplist!=null && maplist.size()>0) {
+//                List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+//                for(HashMap<String,Object> orderMapperMap : maplist) {
+//                    Map<String,String> map_insure = new HashMap<String, String>();
+//                    map_insure.put("planCode", orderMapperMap.get("planCode")+"");
+//                    map_insure.put("planName", orderMapperMap.get("planName")+"");
+//                    map_insure.put("insureNo", orderMapperMap.get("insureNo")+"");//投保单号
+//                    map_insure.put("orderNo",  orderMapperMap.get("orderNo")+"");//订单号
+//                    map_insure.put("policyNo", orderMapperMap.get("policyNo")+"");//保单号
+//                    list.add(map_insure);
+//                }
+//            }
+//        }
+//        recommendRankPlansObjResp.setGroupSalesPlan(recommendRankPlansObj.getGroupSalesPlan());
+//        
+//        if(groupPlanVo.getOrderId()!=null) {
+//            String dataTag = orderMapper.selectDataTagByOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+//            //if("plan".equals(dataTag)) {
+//                //groupSalesPlanRoot.setUserInfo(user);
+//            //}
+//            GroupOrderDetail groupOrderDetail = new GroupOrderDetail();
+//            Order order = orderMapper.selectByPrimaryKey(Long.parseLong(groupPlanVo.getOrderId()));
+//            groupOrderDetail.setOrder(order);
+//            
+//            if("1".equals(order.getIsAgent())) {
+//                AgentInfoVO agentInfo = new AgentInfoVO();
+//                agentInfo.setAgentCode(order.getAgentCode());//代理人代码
+//                agentInfo.setAgentName(order.getAgentName());//代理人名称
+//                agentInfo.setAgreementNo(order.getAgreementNo());//代理人协议号
+//                agentInfo.setAgreementName(order.getAgreementName());//代理人协议名称
+//                groupOrderDetail.setAgentInfo(agentInfo);
+//            }
+//            if(order.getStartDate()!=null) {
+//                Long t1 = order.getStartDate().getTime();
+//                Long t2 = new Date().getTime();
+//                groupOrderDetail.setIntervalDate(t1-t2);
+//            }
+//            com.ccic.salesapp.noncar.dto.request.noncar.InvoiceInfo invoiceInfo = invoiceInfoMapper.selectInvoiceInfoByOrderId2(order.getId());
+//            if(invoiceInfo!=null)
+//            groupOrderDetail.setInvoiceInfo(invoiceInfo);
+//            List<Order> orderList = orderMapper.selectByRelationOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+//            Map<String,Object> map = new HashMap<String, Object>();
+//            map.put("id", Long.parseLong(groupPlanVo.getOrderId()));
+//            List<Customer> policyCustomerList = orderMapper.selectByOrderId(map);
+//            Map<String,BigDecimal> map_sumpre  = orderMapper.selectSumPremiumByOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+//            if(map_sumpre.get("duePremium")!=null)
+//            groupOrderDetail.setDuePremium(map_sumpre.get("duePremium").doubleValue());
+//            groupOrderDetail.setSalesPlanCode(order.getStrategyCode());
+//            groupOrderDetail.setDiscountPremium(Double.parseDouble(map_sumpre.get("discountPremium")+""));
+//            List<HashMap<String,BigDecimal>> map_prem_list = orderMapper.selectPremiumByOrderId(Long.parseLong(groupPlanVo.getOrderId()));
+//            HashMap<String,Double> m1 = new HashMap<String, Double>();
+//            for(HashMap<String,BigDecimal> m : map_prem_list) {
+//                m1.put(m.get("key")+"",m.get("value").doubleValue());
+//            }
+//            groupOrderDetail.setPremiumMap(m1);
+//            groupOrderDetail.setCustomerList(policyCustomerList);
+//            List<ChildProduct> childProductList = new ArrayList<ChildProduct>();
+//            for(int i=0;i<orderList.size();i++) {
+//                ChildProduct childProduct = new ChildProduct(); 
+//                childProduct.setPlanCode(orderList.get(i).getPlanCode());//方案代码
+//                childProduct.setProductCode(orderList.get(i).getProductCode());//产品代码
+//                childProduct.setProductName(orderList.get(i).getProductName());//产品名称
+//                childProduct.setProductLine(orderList.get(i).getProductLine());//产品线
+//                List<Clause> clauseList = orderCtMapper.selectCtByOrder(orderList.get(i).getId());
+//                childProduct.setClauseList(clauseList);//条款列表
+//                childProductList.add(childProduct);
+//            }
+//            groupOrderDetail.setChildProductList(childProductList);
+//            recommendRankPlansObjResp.setGroupOrderDetail(groupOrderDetail);
+//            List<HashMap<String,Object>> maplist = orderMapper.selectByOrderIdPaymentNoApply(Long.parseLong(groupPlanVo.getOrderId()));
+//            if(maplist!=null && maplist.size()>0) {
+//                List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+//                for(HashMap<String,Object> orderMapperMap : maplist) {
+//                    Map<String,String> map_insure = new HashMap<String, String>();
+//                    map_insure.put("planCode", orderMapperMap.get("planCode")+"");
+//                    map_insure.put("planName", orderMapperMap.get("planName")+"");
+//                    map_insure.put("insureNo", orderMapperMap.get("insureNo")+"");//投保单号
+//                    map_insure.put("orderNo",  orderMapperMap.get("orderNo")+"");//订单号
+//                    map_insure.put("policyNo", orderMapperMap.get("policyNo")+"");//保单号
+//                    list.add(map_insure);
+//                }
+//                recommendRankPlansObjResp.getGroupOrderDetail().setInsureNos(list);
+//            }
+//        }
+//        return HttpResult.success(recommendRankPlansObjResp);
+//    }
+
+    @Override
+    public HttpResult planDetail2Family(GroupPlanVo groupPlanVo, HttpServletRequest request) {
+        //head
+        Header header = new Header();
+        HashMap<String, Object> map_sale = new HashMap<String, Object>();
+        map_sale.put("groupCode", groupPlanVo.getGroupCode());
+        HashMap<String,Object> map_product = planStrategyMapper.selectGroupProductByGroupCode(groupPlanVo.getGroupCode());
+        header.setBasePremium(Double.parseDouble(map_product.get("basePrice")+""));//基础保费
+        header.setTitle(map_product.get("groupName")+"");//组合代码
+        header.setDesc(map_product.get("desc")+"");//描述
+        //组合产品已出售份数
+        header.setSaleNum(Integer.parseInt(map_product.get("saleNum")+"")) ;
+        HashMap<String,Object> mapSwiper = new HashMap<String, Object>();
+        mapSwiper.put("code", groupPlanVo.getGroupCode());
+        mapSwiper.put("attachType", "swiper");
+        //组合产品详情的banner图片
+        List<Swipper> swip = tPrdPlanFormMapper.selectSwiperCarXY(mapSwiper);
+        if(CollectionUtils.isNotEmpty(swip)) {
+            header.setSwipper(swip);
+        }
+        log.info("header:" + JSONObject.toJSONString(header));
+        //产品简介 产品理赔 产品保障
+        //组合产品下产品简介
+        HashMap<String,Object> mapAt= new HashMap<String, Object>();
+        mapAt.put("code", groupPlanVo.getGroupCode());
+        mapAt.put("attachType", "product_intro");
+        List<ImgList> listAt = tPrdPlanFormMapper.selectPlanStrategyAttachCarXY(mapAt);
+        ProductInfo productInfo = new ProductInfo();
+        productInfo.setTitle("产品简介");
+        if(CollectionUtils.isNotEmpty(listAt)) {
+            productInfo.setContent(listAt);
+        }
+        //组合产品下保障说明
+        log.info("productInfo:" + JSONObject.toJSONString(productInfo));
+        SafeguardDetail safeguardDetail = new SafeguardDetail();
+        mapAt.put("attachType", "insure_desc");//保障说明
+        listAt = tPrdPlanFormMapper.selectPlanStrategyAttachCarXY(mapAt);
+        ClaimStatement claimStatement = new ClaimStatement();
+        //组合产品下理赔说明
+        mapAt.put("attachType", "claim_guide");//理赔说明
+        listAt = tPrdPlanFormMapper.selectPlanStrategyAttachCarXY(mapAt);
+        claimStatement.setTitle("理赔说明");
+        if(CollectionUtils.isNotEmpty(listAt)) {
+            claimStatement.setContent(listAt);
+        }
+        log.info("claimStatement:" + JSONObject.toJSONString(claimStatement));
+        //常见问题
+        List<CommonProblemContent> contentList = new ArrayList<CommonProblemContent>();
+        CommonProblem commonProblem = new CommonProblem();
+        commonProblem.setTitle("常见问题");
+        contentList = tPrdPlanFormMapper.selectCommonProblemContentCarXy(mapAt);
+        commonProblem.setContent(contentList);
+        log.info("commonProblem:" + JSONObject.toJSONString(commonProblem));
+        
+        PlanDetail2FamilyResp planDetail2FamilyResp = new PlanDetail2FamilyResp();
+        planDetail2FamilyResp.setHeader(header);
+        planDetail2FamilyResp.setClaimStatement(claimStatement);
+        planDetail2FamilyResp.setCommonProblem(commonProblem);
+        planDetail2FamilyResp.setProductInfo(productInfo);
+        return HttpResult.success(planDetail2FamilyResp);
+    }
+    
+    @SuppressWarnings("javadoc")
+    public static void buildFor(RecommendRankPlansObj recommendRankPlansObj) {
+        recommendRankPlansObj.getRecommendRankPlanList().stream().forEach(item -> {
+            recommendRankPlansObj.setRecommendPlanList(item.getRecommendPlanList());
+            buildRecommendPlan(recommendRankPlansObj);
+        });
+    }
+    
+    @SuppressWarnings("javadoc")
+    public static void buildRecommendPlan(RecommendRankPlansObj recommendRankPlansObj) {
+        List<String> strList = Lists.newArrayList();
+        recommendRankPlansObj.getRecommendPlanList().stream().forEach(item -> {
+            recommendRankPlansObj.setSalesPlanCode(item.getSalesPlanCode());
+            strList.add(item.getSalesPlanCode());
+            recommendRankPlansObj.setPolicyLobList(item.getPolicyLobList());
+            GroupPlanCtl.buildPolicyLob(recommendRankPlansObj);
+            
+        });
+        System.out.println(JSONObject.toJSONString(strList));
+        recommendRankPlansObj.setSalePlanCodelist(strList);
+    }
 	
+    public HttpResult policyListStaffOnly(String uuid,PolicyVo policyVo) {
+        if(StringUtil.isNullorEmpty(policyVo.getSearchType()))
+            policyVo.setSearchType("10");
+        PolicyDto policyDto = new PolicyDto();
+        RequestHead requestHead = new RequestHead();
+        requestHead.setConsumerID("supsale");
+        policyDto.setRequestBody(policyVo);
+        policyDto.setRequestHead(requestHead);
+        //证件类型映射
+        if(!StringUtil.isNullorEmpty(policyVo.getIndiIdType())) {
+            Map<String,String> map = new HashMap<>();
+            map.put("01", "111");//身份证
+            map.put("02", "113");//户口薄
+            map.put("03", "414");//护照
+            map.put("04", "114");//中国人民解放军军官证
+            map.put("27", "553");//外国人永久居留证
+            map.put("07", "801");//组织机构代码证
+            map.put("19", "994");//未知企业证件
+            map.put("21", "810");//统一社会信用代码
+            map.put("28", "28");//港澳台居民居住证
+            policyVo.setIndiIdType(map.get(policyVo.getIndiIdType()));
+        }
+        log.info("调用保单列表接口开始，请求报文：" + uuid + JSONObject.toJSONString(policyDto));
+        JsonNode jsonNode = UnirestUtil.postForJson(policyListUrl, policyDto);
+        log.info("调用保单列表接口结束，响应报文：" + uuid + jsonNode.toString());
+        if(jsonNode.getObject().has("responseBody")){
+            log.info("policies info：" + uuid + JSONObject.parseObject(jsonNode.getObject().get("responseBody")+"").get("policies"));
+            List<PolicyRes> policyResList = JSONArray.parseArray(JSONObject.parseObject(jsonNode.getObject().get("responseBody")+"").get("policies").toString(), PolicyRes.class);
+            log.info("policyResList:"+ JSONObject.toJSONString(policyResList));
+            policyResList = policyResList.stream().filter(s->"WTH".equals(s.getProductCode()) || "WTN".equals(s.getProductCode())).filter(s->"2".equals(s.getPolicyStatus())).filter(s-> ((timesBetween(s.getExpiryDate(),new Date()).get("timeFlag")==1) || (timesBetween(s.getExpiryDate(),new Date()).get("timeFlag")==2 && timesBetween(s.getExpiryDate(),new Date()).get("Day")<15))).collect(Collectors.toList());
+            policyResList.stream().forEach( x -> {
+                if(x.getInsuredName().contains(",")) {
+                    x.setProductName("百万医疗家庭版");
+                }
+                else{
+                    x.setProductName("百万医疗个人版");
+                }
+                x.setTimeMap(timesBetween(x.getExpiryDate(), new Date()));
+            });
+            if(policyResList.size()==0) {
+                return HttpResult.error( 0 , "未查询到保单信息");
+            }
+            else {
+                return HttpResult.success(policyResList, 1, "OK");
+            }
+        }
+        else {
+            return HttpResult.error( 0 , "未查询到保单信息");
+        }
+    }
+    
+    
+    
+    public static Map<String,Long> timesBetween(Date sdate,Date bdate) { 
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+        long day = 0;
+        long hour = 0;
+        long min = 0;
+        long sec = 0;
+        long diff = 0;
+        Map<String, Long> timeMap = new HashMap<String, Long>();
+        try {
+           sdate= df.parse(df.format(sdate));
+           bdate= df.parse(df.format(bdate));
+           long stime = sdate.getTime();
+           long btime = bdate.getTime();
+           if(stime>btime){
+              diff = stime - btime;
+              timeMap.put("timeFlag", 1L);//"剩余"
+           }
+           else{
+              diff = btime - stime; 
+              timeMap.put("timeFlag", 2L);//"过期" 
+           }
+          day = diff/(24*60*60*1000);
+          hour = diff/(60*60*1000) - day*24;
+          min = diff/(60*1000) - day*24*60 - hour*60;
+          sec = diff/1000-day*24*60*60-hour*60*60-min*60;
+        } catch (ParseException e) {
+           e.printStackTrace();
+        }
+        timeMap.put("Day", day);
+        timeMap.put("Hour", hour);
+        //timeMap.put("Min", min);
+        //timeMap.put("Sec", sec);
+        return timeMap;
+        }
+
 }

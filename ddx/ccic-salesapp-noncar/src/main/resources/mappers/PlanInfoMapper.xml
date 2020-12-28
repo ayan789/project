@@ -1241,5 +1241,23 @@
 	 where p.id = #{planId,jdbcType=INTEGER} and g.category = 'compute'
   </select>
   
+  <select id="selectRenewalMatchPlanInfo" parameterType="java.util.HashMap"  resultMap="BaseResultMap">
+  	select b.* from
+	t_noncar_plan_strategy a
+	inner join t_noncar_plan_info b on b.strategy_id = a.id
+	inner join t_noncar_plan_method m on m.plan_id = b.id
+	where  
+		a.code = #{productCode,jdbcType=VARCHAR}
+	    a.is_main = '1'
+	    AND a.strategy_type='1'
+	    AND a.valid_status = '1'
+		AND b.status = '7'
+		AND b.put_on_method = '1'
+		AND b.record_status = '0'
+		and m.insurant_upperlimit &gt;= #{insuredPersonNum,jdbcType=INTEGER}
+		and m.insurant_lowerlimit &lt;= #{insuredPersonNum,jdbcType=INTEGER}
+		and m.has_social_insurance = #{hasSocialFnsurance,jdbcType=INTEGER}
+	limit 1
+  </select>
   
 </mapper>

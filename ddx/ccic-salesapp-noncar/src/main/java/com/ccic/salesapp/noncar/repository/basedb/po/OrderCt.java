@@ -28,7 +28,7 @@ public class OrderCt {
 	private Integer relationId;
 
 	private Integer relationType;
-
+	
 	public Long getId() {
 		return id;
 	}

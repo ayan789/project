@@ -73,7 +73,7 @@ public class PolicyServiceImpl implements PolicyService {
 					storeInsureInfoMapper.updatechargeTime(map);
 				} else {
 					// 动态表单
-					NoncarOrder noncarOrder = storeInsureInfoMapper.selectNoncarOrderByInsureNo(request.getCertiNo());
+					NoncarOrder noncarOrder = storeInsureInfoMapper.selectNoncarOrderByInsureNoA(request.getCertiNo());
 					if (noncarOrder != null) {
 						noncarOrder.setPolicyNo(request.getPolicyNo());
 						if ("1".equals(request.getStatus())) {// 生效

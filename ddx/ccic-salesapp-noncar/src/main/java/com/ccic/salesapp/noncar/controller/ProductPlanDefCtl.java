@@ -1,11 +1,14 @@
 package com.ccic.salesapp.noncar.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -222,9 +225,11 @@ public class ProductPlanDefCtl {
 									Map<String, String> tempData = planCoverageLstCt.getTempData();
 									String productElementCode = tempData.get("ProductElementCode");
 									String productClauseCategory = tempData.get("ClauseCategory");
-									String productIsMainCoverage = planCoverageLstCt.getIsMainCoverage();
-									productIsMainCoverage = identifyTypeOrder(productIsMainCoverage);
-									planCoverageLstCt.setClauseProperty(productIsMainCoverage);
+									if(StringUtils.isNotBlank(planCoverageLstCt.getIsMainCoverage())) {
+										String productIsMainCoverage = planCoverageLstCt.getIsMainCoverage();
+										productIsMainCoverage = identifyTypeOrder(productIsMainCoverage);
+										planCoverageLstCt.setClauseProperty(productIsMainCoverage);
+									}
 									planCoverageLstCt.setClauseCode(productElementCode);
 									planCoverageLstCt.setProductElementCode(productElementCode);
 									List<PolicyRiskOrderCar> policyRiskList1 = policyLob.getSharedCoverageGroupList();
@@ -242,7 +247,11 @@ public class ProductPlanDefCtl {
 										if(policyRiskOrderCar.getUnitSumInsured() != null) {
 											sumInsuredMax = new BigDecimal(policyRiskOrderCar.getUnitSumInsured());
 										}
-										premiumMax = new BigDecimal(policyRiskOrderCar.getPremiumRate());
+										if(policyRiskOrderCar.getPremiumRate() != null) {
+											premiumMax = new BigDecimal(policyRiskOrderCar.getPremiumRate());
+										}else {
+											premiumMax = new BigDecimal(productPlanDef.getPolicyTemple().getPolicyLobList().get(0).getDuePremium());
+										}
 										if(policyRiskOrderCar.getAdjustedPremium() != null) {
 											adjustedPremium = new BigDecimal(policyRiskOrderCar.getAdjustedPremium());
 										}
@@ -265,8 +274,8 @@ public class ProductPlanDefCtl {
 									}
 									tPrdPlanCt = tPrdPlanCtMapper.findParentPlanCoverageId1(planCoverageLstCt.getParentPlanCoverageId());
 									Long planCoverageId = tPrdPlanCt.getPlanCoverageId();
-									planCoverageLstCt.setPlanCtdetailId(planCoverageId);
-
+									planCoverageLstCt.setPlanCtdetailId(tPrdPlanCt.getParentPlanCoverageId());
+									planCoverageLstCt.setPlanCoverageId(planCoverageId);
 									tPrdPlanCtDetailMapper.insertTPrdPlanCtDetail(planCoverageLstCt);
 									System.out.println(planCoverageLstCt);
 								}
@@ -279,7 +288,106 @@ public class ProductPlanDefCtl {
 							for (PolicyRiskOrderCar policyRiskCar : policyRiskList2) {
 								List<PolicyRiskOrderCar> policyCoverageList = policyRiskCar.getPolicyCoverageList();
 								if(CollectionUtils.isNotEmpty(policyCoverageList)) {
-								PolicyRiskOrderCar policyRiskOrderCar = null;
+									PolicyRiskOrderCar policyRiskOrderCar = null;
+									for (PolicyRiskOrderCar policyLobList2 : policyCoverageList) {
+										List<PolicyRiskOrderCar> policyCoverageList2 = policyLobList2.getPolicyCoverageList();
+										if(CollectionUtils.isNotEmpty(policyCoverageList2)) {
+											for (int i = 0; i < policyCoverageList2.size(); i++) {
+												policyRiskOrderCar = policyCoverageList2.get(i);
+												policyRiskOrderCar.setPlanDefId(planDefId);
+												Map<String, String> tempData = policyRiskOrderCar.getTempData();
+												String additionalProductElementCode = tempData.get("ProductElementCode");
+												String additionalProductElementName = tempData.get("ProductElementName");
+												
+												Map<String, String> tempData2 = policyLobList2.getTempData();
+												String tempDataClauseCode = tempData2.get("ProductElementCode");
+												String tempDataClauseName = tempData2.get("ProductElementName");
+												Date date = new Date();
+												String num = ("" + date.getTime()).substring(0, 13);
+												Long l2 = Long.parseLong(num);
+												Long longNull =null;
+												policyRiskOrderCar.setParentPlanCoverageId(longNull);
+												policyRiskOrderCar.setPlanCoverageId(l2);
+												policyRiskOrderCar.setProductElementCode(tempDataClauseCode);
+												policyRiskOrderCar.setPlanCoverageName(tempDataClauseName);
+												if(StringUtils.isNotBlank(additionalProductElementCode)) {
+													tPrdPlanCtMapper.insertChildPlanCoverage(policyRiskOrderCar);
+													tPrdPlanCt = tPrdPlanCtMapper.findParentPlanCoverageId(policyRiskOrderCar.getPlanCoverageId());
+												}
+												
+												Date date1 = new Date();
+												String num1 = ("" + date1.getTime()).substring(0, 13);
+												Long l3 = Long.parseLong(num1);
+												policyRiskOrderCar.setPlanCoverageId(l3);
+												Long planCoverageId1 = tPrdPlanCt.getPlanCoverageId();
+												policyRiskOrderCar.setParentPlanCoverageId(planCoverageId1);
+												policyRiskOrderCar.setProductElementCode(additionalProductElementCode);
+												policyRiskOrderCar.setPlanCoverageName(additionalProductElementName);
+												if(StringUtils.isNotBlank(additionalProductElementCode)) {
+													tPrdPlanCtMapper.insertChildPlanCoverage(policyRiskOrderCar);
+												}
+												
+												BigDecimal sumInsuredMax = null;
+												BigDecimal premiumMax = null;
+												if(policyRiskOrderCar.getSumInsured()!=null) {
+													 sumInsuredMax = new BigDecimal(policyRiskOrderCar.getSumInsured());
+												}
+												if(policyRiskOrderCar.getUnitSumInsured()!=null) {
+													 sumInsuredMax =  new BigDecimal(policyRiskOrderCar.getUnitSumInsured());
+												}
+												if(policyRiskOrderCar.getPremiumRate()!=null) {
+													premiumMax = new BigDecimal(policyRiskOrderCar.getPremiumRate());
+												}
+												policyRiskOrderCar.setSumInsuredMax(sumInsuredMax);
+												policyRiskOrderCar.setSumInsuredMin(sumInsuredMax);
+												policyRiskOrderCar.setSumInsuredDefualt(sumInsuredMax);
+												if(policyRiskOrderCar.getAdjustedPremium()!=null) {
+													policyRiskOrderCar.setPremiumOrrate("1");
+													BigDecimal adjustedPremium = new BigDecimal(policyRiskOrderCar.getAdjustedPremium());
+													policyRiskOrderCar.setPremiumMax(adjustedPremium);
+													policyRiskOrderCar.setPremiumMin(adjustedPremium);
+													policyRiskOrderCar.setPremiumDefault(adjustedPremium);
+												}else {
+													policyRiskOrderCar.setPremiumOrrate("2");
+													policyRiskOrderCar.setPremiumMax(premiumMax);
+													policyRiskOrderCar.setPremiumMin(premiumMax);
+													policyRiskOrderCar.setPremiumDefault(premiumMax);
+												}
+												policyRiskOrderCar.setClauseCode(tempDataClauseCode);
+												policyRiskOrderCar.setPlanCoverageId(l2);
+												if(StringUtils.isNotBlank(additionalProductElementCode)) {
+													Long planCoverageId = tPrdPlanCt.getPlanCoverageId();
+													policyRiskOrderCar.setPlanCtdetailId(planCoverageId);
+													policyRiskOrderCar.setPlanCoverageId(l3);
+													if(StringUtils.isNotBlank(policyRiskOrderCar.getIsMainCoverage())) {
+														String productIsMainCoverage = policyRiskOrderCar.getIsMainCoverage();
+														productIsMainCoverage = identifyTypeOrder(productIsMainCoverage);
+														policyRiskOrderCar.setClauseProperty(productIsMainCoverage);
+													}else {
+														policyRiskOrderCar.setClauseProperty("2");
+													}
+													tPrdPlanCtDetailMapper.insertTPrdPlanCtDetail(policyRiskOrderCar);
+												}
+											}
+										}
+									}
+								List<String> list = new ArrayList();
+								List<String> listOne = new ArrayList();
+								for (PolicyRiskOrderCar policyLobList2 : policyCoverageList) {
+									List<PolicyRiskOrderCar> policyCoverageList2 = policyLobList2.getPolicyCoverageList();
+									if(CollectionUtils.isNotEmpty(policyCoverageList2)) {
+										for (int i = 0; i < policyCoverageList2.size(); i++) {
+											policyRiskOrderCar = policyCoverageList2.get(i);
+											policyRiskOrderCar.setPlanDefId(planDefId);
+											Map<String, String> tempData = policyRiskOrderCar.getTempData();
+											String aaCode = tempData.get("ProductElementCode");
+											list.add(aaCode);
+											Map<String, String> tempData2 = policyLobList2.getTempData();
+											String tempDataClauseCode = tempData2.get("ProductElementCode");
+											listOne.add(tempDataClauseCode);
+										}
+									}
+								}
 								policyRiskOrderCar = policyCoverageList.get(0);
 								PolicyRiskOrderCar policyRiskOrderCar2 = null;
 								for (int j = 0; j < policyCoverageList.size(); j++) {
@@ -299,13 +407,18 @@ public class ProductPlanDefCtl {
 										policyRiskOrderCar.setProductElementCode(additionalProductElementCode);
 										policyRiskOrderCar.setPlanCoverageName(additionalProductElementName);
 										policyRiskOrderCar.setIsOptional(additionalIsOptional);
-										tPrdPlanCtMapper.insertChildPlanCoverage(policyRiskOrderCar);
-										tPrdPlanCt = tPrdPlanCtMapper.findParentPlanCoverageId(policyRiskOrderCar.getPlanCoverageId());
 										PolicyRiskOrderCar policyRiskOrderCarList = policyCoverageList.get(0);
 										policyRiskOrderCarList.setPlanDefId(planDefId);
 										String additionalctCode = tempData.get("ctCode");
 										String additionalctName = tempData.get("ctName");
 										String additionalIsOptional1 = tempData.get("IsOptional");
+										boolean anyMatchOne = listOne.stream().anyMatch(s -> Objects.equals(s, additionalProductElementCode));
+										boolean anyMatch = list.stream().anyMatch(s -> Objects.equals(s, additionalctCode));
+										if(anyMatch == true && anyMatchOne == true) {
+											continue;
+										}
+										tPrdPlanCtMapper.insertChildPlanCoverage(policyRiskOrderCar);
+										tPrdPlanCt = tPrdPlanCtMapper.findParentPlanCoverageId(policyRiskOrderCar.getPlanCoverageId());
 										Date date1 = new Date();
 										String num1 = ("" + date1.getTime()).substring(0, 13);
 										Long l3 = Long.parseLong(num1);
@@ -324,10 +437,12 @@ public class ProductPlanDefCtl {
 											BigDecimal premiumMax = null;
 											if(policyRiskOrderCar3.getSumInsured()!=null) {
 												 sumInsuredMax = new BigDecimal(policyRiskOrderCar3.getSumInsured());
-												 premiumMax = new BigDecimal(policyRiskOrderCar3.getPremiumRate());
-											}else {
+											}
+											if(policyRiskOrderCar3.getUnitSumInsured()!=null) {
 												 sumInsuredMax =  new BigDecimal(policyRiskOrderCar3.getUnitSumInsured());
-												 premiumMax = new BigDecimal(policyRiskOrderCar3.getUnitPremium());
+											}
+											if(policyRiskOrderCar3.getPremiumRate()!=null) {
+												premiumMax = new BigDecimal(policyRiskOrderCar3.getPremiumRate());
 											}
 											policyRiskOrderCar3.setSumInsuredMax(sumInsuredMax);
 											policyRiskOrderCar3.setSumInsuredMin(sumInsuredMax);
@@ -348,6 +463,15 @@ public class ProductPlanDefCtl {
 											String tempDataClauseCode = tempDataRiskCode.get("clauseCode");
 											policyRiskOrderCar3.setClauseCode(tempDataClauseCode);
 											policyRiskOrderCar3.setPlanCoverageId(l3);
+											Long planCoverageId = tPrdPlanCt.getPlanCoverageId();
+											policyRiskOrderCar3.setPlanCtdetailId(planCoverageId);
+											if(StringUtils.isNotBlank(policyRiskOrderCar3.getIsMainCoverage())) {
+												String productIsMainCoverage = policyRiskOrderCar3.getIsMainCoverage();
+												productIsMainCoverage = identifyTypeOrder(productIsMainCoverage);
+												policyRiskOrderCar3.setClauseProperty(productIsMainCoverage);
+											}else {
+												policyRiskOrderCar3.setClauseProperty("2");
+											}
 											tPrdPlanCtDetailMapper.insertTPrdPlanCtDetail(policyRiskOrderCar3);
 										}
 									}

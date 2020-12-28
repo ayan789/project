@@ -16,7 +16,9 @@ public class PlanElementDetailDto {
 	private String policyStartType ="";
 	private String policyStartRange ="";
 	private int isWatermark;
+	private int needSign;
 	private Long defaultPlanId=-1L;
+	private String scene="";
 	private  List<BackReasoningFactor> backReasoningFactor = new ArrayList<BackReasoningFactor>();
 	
 	private Header header = new Header();

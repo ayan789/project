@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/ccic-salesapp-base/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ccic-salesapp-base/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ccic-salesapp-eureka/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ccic-salesapp-eureka/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ccic-salesapp-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ccic-salesapp-gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ccic-salesapp-noncar/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ccic-salesapp-noncar/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ccic-salesapp-performance/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ccic-salesapp-performance/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

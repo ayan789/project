@@ -10,6 +10,8 @@ public class SalesPlanConfig {
     private String groupPlanCode;
 
     private String code;
+    
+    private String groupCode;
 
     public Integer getId() {
         return id;
@@ -50,4 +52,14 @@ public class SalesPlanConfig {
     public void setCode(String code) {
         this.code = code == null ? null : code.trim();
     }
+
+	public String getGroupCode() {
+		return groupCode;
+	}
+
+	public void setGroupCode(String groupCode) {
+		this.groupCode = groupCode;
+	}
+    
+    
 }

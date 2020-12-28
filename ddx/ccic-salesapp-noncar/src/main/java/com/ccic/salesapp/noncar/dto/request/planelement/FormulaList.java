@@ -37,6 +37,7 @@ public class FormulaList {
     private TermsAndConditions termsAndConditions = new TermsAndConditions();//条款须知
     private boolean isNeedHealthNotice;
     private HealthNotice healthNotice = new HealthNotice();//健康须知
+    private String scene="";
 	public int getPlanId() {
 		return planId;
 	}
@@ -235,6 +236,12 @@ public class FormulaList {
 	public void setHealthNotice(HealthNotice healthNotice) {
 		this.healthNotice = healthNotice;
 	}
+    public String getScene() {
+        return scene;
+    }
+    public void setScene(String scene) {
+        this.scene = scene;
+    }
     
     
     

@@ -14,13 +14,13 @@ public interface SalesPlanChildMapper {
 
     int insert(SalesPlanChild record);
     
-    int insert2(PlanChild record);
+    int insertPlanChild(PlanChild record);
 
     int insertSelective(SalesPlanChild record);
 
     SalesPlanChild selectByPrimaryKey(Integer id);
     
-    List<PlanChild> selectByPrimaryKey2(Integer id);
+    List<PlanChild> selectBySalesPlanChildList(Integer id);
 
     int updateByPrimaryKeySelective(SalesPlanChild record);
 
@@ -29,4 +29,6 @@ public interface SalesPlanChildMapper {
     SalesPlanChild selectByChildPlanCode(Map map);
     
     List<String> selectInsuredTypeListByChildPlanId(Integer childPlanId);
+    
+   String selectRiskTypeByChildPlanId(Integer childPlanId);
 }

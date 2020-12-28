@@ -60,5 +60,22 @@ public interface PlanStrategyService {
 	 * @return
 	 */
 	List<Long> selectPlanIdsByStrategyCodeUserToken(String strategyCode, UserToken user);
+	/**
+	 * 门店用产品列表查询
+	 * @param request
+	 * @return
+	 */
+	HttpResult<ProductListResponse> storePlanStrategyList(ProductListRequest request);
+	/**
+	 * 获取从人渠道，若无从人渠道将按一下规则取默认值
+	 * （1）对于归属经办人是销售人员的：
+			a.   如果从人渠道为空，则根据归属经办人取基本法系统中从人渠道属性（含四级机构负责人、重客虚拟等所有从人渠道），记录从人渠道标志；
+			b.   如果从人渠道仍为空，则判断归属经办人工号为“9”开头，即视为兼岗工号，从人渠道记录为非销渠道（渠道代码为：C0000023）。
+			c.   经过上述a.b.；两步之后如果从人渠道仍为空，则系统不允许出单，提示：“正在从销售基本法系统同步该业务员归属渠道，请稍后出单”。
+	         （2）对于归属经办人是非销人员的，从人渠道记录为非销渠道（渠道代码为：C0000023）。
+	 * @param user
+	 * @return
+	 */
+	String getChannel(UserToken user);
 
 }

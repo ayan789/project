@@ -1,5 +1,6 @@
 package com.ccic.salesapp.noncar.repository.basedb.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,4 +30,8 @@ public interface PlanStrategyMapper {
     List<Long> selectPlanIdsByStrategyIdUserCode(Map map);
     
     PlanStrategy selectByStrategyCode(String code);
+    
+    HashMap<String,Object> selectGroupProductByGroupCode(String groupCode);
+    
+    List<StoreProduct> selectStaffRenewalProductList(HashMap<String,Object> map);
 }

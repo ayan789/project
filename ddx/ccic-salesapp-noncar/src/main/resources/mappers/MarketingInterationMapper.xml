@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.MarketingInterationMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.basedb.po.MarketingInteration">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="handler_code" jdbcType="VARCHAR" property="handlerCode" />
+    <result column="handler_name" jdbcType="VARCHAR" property="handlerName" />
+    <result column="branch_code" jdbcType="VARCHAR" property="branchCode" />
+    <result column="mark_code" jdbcType="VARCHAR" property="markCode" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="browse_time" jdbcType="TIMESTAMP" property="browseTime" />
+    <result column="share_type" jdbcType="VARCHAR" property="shareType" />
+    <result column="browse_content" jdbcType="VARCHAR" property="browseContent" />
+    <result column="is_contact" jdbcType="VARCHAR" property="isContact" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, handler_code, handler_name, branch_code, mark_code, openid, browse_time, share_type, 
+    browse_content, is_contact, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_cust_marketing_interation
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_cust_marketing_interation
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.MarketingInteration">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_cust_marketing_interation (handler_code, handler_name, branch_code, 
+      mark_code, openid, browse_time, 
+      share_type, browse_content, is_contact, 
+      create_time, update_time)
+    values (#{handlerCode,jdbcType=VARCHAR}, #{handlerName,jdbcType=VARCHAR}, #{branchCode,jdbcType=VARCHAR}, 
+      #{markCode,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, #{browseTime,jdbcType=TIMESTAMP}, 
+      #{shareType,jdbcType=VARCHAR}, #{browseContent,jdbcType=VARCHAR}, #{isContact,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.MarketingInteration">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_cust_marketing_interation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="handlerCode != null">
+        handler_code,
+      </if>
+      <if test="handlerName != null">
+        handler_name,
+      </if>
+      <if test="branchCode != null">
+        branch_code,
+      </if>
+      <if test="markCode != null">
+        mark_code,
+      </if>
+      <if test="openid != null">
+        openid,
+      </if>
+      <if test="browseTime != null">
+        browse_time,
+      </if>
+      <if test="shareType != null">
+        share_type,
+      </if>
+      <if test="browseContent != null">
+        browse_content,
+      </if>
+      <if test="isContact != null">
+        is_contact,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="handlerCode != null">
+        #{handlerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="handlerName != null">
+        #{handlerName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchCode != null">
+        #{branchCode,jdbcType=VARCHAR},
+      </if>
+      <if test="markCode != null">
+        #{markCode,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="browseTime != null">
+        #{browseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shareType != null">
+        #{shareType,jdbcType=VARCHAR},
+      </if>
+      <if test="browseContent != null">
+        #{browseContent,jdbcType=VARCHAR},
+      </if>
+      <if test="isContact != null">
+        #{isContact,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.MarketingInteration">
+    update t_cust_marketing_interation
+    <set>
+      <if test="handlerCode != null">
+        handler_code = #{handlerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="handlerName != null">
+        handler_name = #{handlerName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchCode != null">
+        branch_code = #{branchCode,jdbcType=VARCHAR},
+      </if>
+      <if test="markCode != null">
+        mark_code = #{markCode,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="browseTime != null">
+        browse_time = #{browseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shareType != null">
+        share_type = #{shareType,jdbcType=VARCHAR},
+      </if>
+      <if test="browseContent != null">
+        browse_content = #{browseContent,jdbcType=VARCHAR},
+      </if>
+      <if test="isContact != null">
+        is_contact = #{isContact,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.MarketingInteration">
+    update t_cust_marketing_interation
+    set handler_code = #{handlerCode,jdbcType=VARCHAR},
+      handler_name = #{handlerName,jdbcType=VARCHAR},
+      branch_code = #{branchCode,jdbcType=VARCHAR},
+      mark_code = #{markCode,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR},
+      browse_time = #{browseTime,jdbcType=TIMESTAMP},
+      share_type = #{shareType,jdbcType=VARCHAR},
+      browse_content = #{browseContent,jdbcType=VARCHAR},
+      is_contact = #{isContact,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

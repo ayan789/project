@@ -175,6 +175,7 @@ public class PolicyLob {
 	private List<PolicyDeductible> policyDeductibleList;// 免赔模板信息
 	private List<LimitDeductible> limitDeductibleList;// 保单级别限额免赔信息
 	private List<Person> personList;// 医务人员信息/人员/会计师/设计师/雇员，投保人的投行部负责人、保荐代表人、其分管领导以及各保荐人的简要信息
+	private List<Person> personListList;
 	private List<MedicalInstitution> medicalInstitutionList;// 医疗机构信息
 	private List<Ward> wardList;// 被监护人清单
 	private List<MachineDetail> machineDetailList;// 特种设备清单

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.OrgBranchMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.basedb.po.OrgBranch">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="org_code" jdbcType="VARCHAR" property="orgCode" />
+    <result column="up_org_code" jdbcType="VARCHAR" property="upOrgCode" />
+    <result column="up_branch" jdbcType="CHAR" property="upBranch" />
+    <result column="deep" jdbcType="INTEGER" property="deep" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_support_org_branch
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.OrgBranch">
+    insert into t_support_org_branch (id, org_code, up_org_code, 
+      up_branch, deep)
+    values (#{id,jdbcType=INTEGER}, #{orgCode,jdbcType=VARCHAR}, #{upOrgCode,jdbcType=VARCHAR}, 
+      #{upBranch,jdbcType=CHAR}, #{deep,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.OrgBranch">
+    update t_support_org_branch
+    set org_code = #{orgCode,jdbcType=VARCHAR},
+      up_org_code = #{upOrgCode,jdbcType=VARCHAR},
+      up_branch = #{upBranch,jdbcType=CHAR},
+      deep = #{deep,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, org_code, up_org_code, up_branch, deep
+    from t_support_org_branch
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectBranchByComCode" parameterType="java.lang.String" resultType="java.lang.String">
+  select  up_org_code
+    from t_support_org_branch
+    where org_code = #{comCode,jdbcType=VARCHAR} and up_branch = 1
+  </select>
+  
+
+</mapper>

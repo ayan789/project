@@ -3,33 +3,52 @@ package com.ccic.salesapp.noncar.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.info.ProjectInfoProperties.Build;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.alibaba.fastjson.JSONObject;
+import com.ccic.salesapp.noncar.dto.RecommendRankPlansObj;
+import com.ccic.salesapp.noncar.dto.RecommendRankPlansVo;
 import com.ccic.salesapp.noncar.dto.order.request.OrderDetailRequest;
 import com.ccic.salesapp.noncar.dto.request.ApplyPayVo;
 import com.ccic.salesapp.noncar.dto.request.ForwardPayInsureInfoReqVO;
 import com.ccic.salesapp.noncar.dto.request.GetPayUrlRequestVO;
-import com.ccic.salesapp.noncar.dto.request.PageVO;
 import com.ccic.salesapp.noncar.dto.request.PolicyVo;
+import com.ccic.salesapp.noncar.dto.response.Insure;
+import com.ccic.salesapp.noncar.dto.response.InsureRes;
+import com.ccic.salesapp.noncar.dto.response.PolicyLob;
+import com.ccic.salesapp.noncar.dto.response.PolicyRisk;
+import com.ccic.salesapp.noncar.dto.response.RecommendPlanList;
+import com.ccic.salesapp.noncar.dto.response.RecommendRankPlanList;
+import com.ccic.salesapp.noncar.dto.response.RecommendRankPlansRes;
+import com.ccic.salesapp.noncar.dto.response.RecommendedPlanRes;
 import com.ccic.salesapp.noncar.dto.salesplan.GroupPlanVo;
+import com.ccic.salesapp.noncar.dto.salesplan.GroupSalesPlan;
 import com.ccic.salesapp.noncar.dto.salesplan.GroupSalesPlanRoot;
+import com.ccic.salesapp.noncar.repository.basedb.mapper.SalesPlanMapper;
 import com.ccic.salesapp.noncar.service.GroupPlanService;
 import com.ccic.salesapp.noncar.service.PlanStrategyService;
 import com.ccic.salessapp.common.core.web.HttpResult;
 import com.ccic.salessapp.common.request.UserToken;
+import com.ccic.salessapp.common.utils.StringUtils;
+import com.google.common.collect.Lists;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -46,6 +65,9 @@ public class GroupPlanCtl {
 	
 	@Autowired
 	PlanStrategyService planStrategyService;
+	
+	@Autowired
+    SalesPlanMapper salesPlanMapper;
 	
 	@PostMapping(value = "groupPlanSync")
     @ApiOperation(value = "组合方案同步", notes = "组合方案同步", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -86,6 +108,20 @@ public class GroupPlanCtl {
 			return HttpResult.error(0, "组合方案查询失败,追踪号:"+uuid);
 		}
 	}
+	
+	@PostMapping(value = "planDetail2CarXY")
+    @ApiOperation(value = "组合方案详情&暂存和复制投保单", notes = "组合方案详情", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public HttpResult<GroupSalesPlanRoot> planDetail2CarXY(@RequestBody GroupPlanVo groupPlanVo,HttpServletRequest request){
+		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+		try {
+			return groupPlanService.planDetail2CarXY(groupPlanVo,request);
+		} catch (Exception e) {
+			log.error("追踪号:"+uuid+groupPlanVo.getUserCode()+":"+"groupPlanDetail:"+getStackTraceInfo(e));
+			return HttpResult.error(0, "组合方案查询失败,追踪号:"+uuid);
+		}
+	}
+	
+	
 	
 	@PostMapping(value = "stagCopyInsure")
     @ApiOperation(value = "暂存和复制投保单", notes = "暂存和复制投保单", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -149,27 +185,28 @@ public class GroupPlanCtl {
 	}
 	
 	@PostMapping(value = "policyList")
-    @ApiOperation(value = "保单列表", notes = "保单列表", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "保单列表(联合销售)", notes = "保单列表(联合销售)", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public HttpResult policyList(@RequestBody PolicyVo policyVo){
 		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 		try {
-			HashMap<String,Object> map = new HashMap<String, Object>();
-			PageVO page = new PageVO();
-			page.setPage(policyVo.getPageNo());
-			page.setSize(policyVo.getPageSize());
-			int count = 100;
-			page.init(count);
-			int offset = page.getPage() * page.getSize();
-			int limit = page.getSize();
-			map.put("offset", offset);
-			map.put("limit", limit);
-			map.put("submissionNo", policyVo.getSubmissionNo());
-			return groupPlanService.policyList(map);
+			return groupPlanService.policyList(policyVo);
 		} catch (Exception e) {
 			log.error("追踪号:"+uuid+getStackTraceInfo(e));
 			return HttpResult.error(0, "保单列表查询失败,追踪号:"+uuid);
 		}
 	}
+	
+	@PostMapping(value = "policyListStaffOnly")
+    @ApiOperation(value = "保单列表(员工通道)", notes = "保单列表(员工通道)", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public HttpResult policyListStaffOnly(@RequestBody PolicyVo policyVo){
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        try {
+            return groupPlanService.policyListStaffOnly(uuid , policyVo);
+        } catch (Exception e) {
+            log.error("追踪号:"+uuid+getStackTraceInfo(e));
+            return HttpResult.error(0, "未查询到保单信息");
+        }
+    }
 	
     public static String getStackTraceInfo(Exception e) {
         StringWriter sw = null;
@@ -195,6 +232,65 @@ public class GroupPlanCtl {
                 pw.close();
             }
         }
+    }
+    
+    @PostMapping(value = "planDetail2Family")
+    @ApiOperation(value = "家庭版推荐-初始化信息", notes = "家庭版推荐-初始化信息", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public HttpResult planDetail2Family(@RequestBody GroupPlanVo groupPlanVo,HttpServletRequest request){
+        return groupPlanService.planDetail2Family(groupPlanVo,request);
+    }
+    
+    @PostMapping(value = "recommendRankPlans")
+    @ApiOperation(value = "家庭版推荐", notes = "家庭版推荐", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public HttpResult recommendRankPlans(@RequestBody RecommendRankPlansVo recommendRankPlansVo){
+        //家庭版推荐接口请求信息
+        //家庭版推荐接口放回信息
+        //根据 policyLobList t_noncar_sales_plan 里的 polHolderInsuredRelaCode 累加 childPlanCode 
+        //SELECT * from t_noncar_sales_plan where sales_plan_code='' 基础版 自选1 2
+        //根据sales_plan_code查处对应的方案信息
+        return groupPlanService.recommendRankPlans(recommendRankPlansVo);
+    }
+    
+    @SuppressWarnings("javadoc")
+    public static void buildFor(RecommendRankPlansObj recommendRankPlansObj) {
+        recommendRankPlansObj.getRecommendRankPlanList().stream().forEach(item -> {
+            recommendRankPlansObj.setRecommendPlanList(item.getRecommendPlanList());
+            GroupPlanCtl.buildRecommendPlan(recommendRankPlansObj);
+        });
+    }
+    
+    @SuppressWarnings("javadoc")
+    public static void buildRecommendPlan(RecommendRankPlansObj recommendRankPlansObj) {
+        recommendRankPlansObj.getRecommendPlanList().stream().forEach(item -> {
+            recommendRankPlansObj.setSalesPlanCode(item.getSalesPlanCode());
+            recommendRankPlansObj.getSalePlanCodelist().add(item.getSalesPlanCode());
+            recommendRankPlansObj.setPolicyLobList(item.getPolicyLobList());
+            GroupPlanCtl.buildPolicyLob(recommendRankPlansObj);
+        });
+    }
+    
+    @SuppressWarnings("javadoc")
+    public static void buildPolicyLob(RecommendRankPlansObj recommendRankPlansObj) {
+        recommendRankPlansObj.getPolicyLobList().stream().forEach(item -> {
+          System.out.println("子方案代码：" + item.getChildPlanCode());
+          recommendRankPlansObj.setChildPlanCode(item.getChildPlanCode());
+          recommendRankPlansObj.getChildPlanCodelist().add(item.getChildPlanCode());
+          recommendRankPlansObj.setPolicyRiskList(item.getPolicyRiskList());
+          GroupPlanCtl.buildPolicyRisk(recommendRankPlansObj);
+        });
+    }
+    
+    public static void buildPolicyRisk(RecommendRankPlansObj recommendRankPlansObj) {
+        recommendRankPlansObj.getPolicyRiskList().stream().forEach(item -> {
+              InsureRes insureRes = new InsureRes();
+              System.out.println("子方案代码："+recommendRankPlansObj.getChildPlanCode());
+              System.out.println("与被保人关系："+item.getPolHolderInsuredRelaCode());
+              recommendRankPlansObj.getRelaCodelist().add(item.getPolHolderInsuredRelaCode());
+              insureRes.setChildPlanCode(recommendRankPlansObj.getChildPlanCode());
+              insureRes.setPolHolderInsuredRelaCode(item.getPolHolderInsuredRelaCode());
+              insureRes.setSalesPlanCode(recommendRankPlansObj.getSalesPlanCode());
+              recommendRankPlansObj.getMapList().add(insureRes);
+          });
     }
 	
 }

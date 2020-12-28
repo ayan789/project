@@ -41,6 +41,7 @@ public class PlanChild {
     private String salesPlanId;
 	@ApiModelProperty("特别约定")
     private String policyform;
+	private String secondLine;
 	@ApiModelProperty("方案责任信息")
     private List<PlanCoverage> salesChildPlanCts;
     //private TermsAndConditions termsAndConditions = new TermsAndConditions();//条款须知
@@ -123,6 +124,12 @@ public class PlanChild {
 	}
 	public void setSalesChildPlanCts(List<PlanCoverage> salesChildPlanCts) {
 		this.salesChildPlanCts = salesChildPlanCts;
+	}
+	public String getSecondLine() {
+		return secondLine;
+	}
+	public void setSecondLine(String secondLine) {
+		this.secondLine = secondLine;
 	}
     
     

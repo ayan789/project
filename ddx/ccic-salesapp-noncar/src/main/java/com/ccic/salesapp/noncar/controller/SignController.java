@@ -29,6 +29,7 @@ import com.ccic.salesapp.noncar.repository.basedb.mapper.AppCheckCodeMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.OrderCtMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.OrderDetailMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.PlanStrategyMapper;
+import com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanFormMapper;
 import com.ccic.salesapp.noncar.repository.databusdb.po.StoreFormulas;
 import com.ccic.salesapp.noncar.service.ImageService;
 import com.ccic.salesapp.noncar.service.ModifyUserInfoService;
@@ -49,6 +50,8 @@ import lombok.extern.slf4j.Slf4j;
 public class SignController {
 	@Autowired
 	OrderCtMapper orderCtMapper;
+	@Autowired
+    TPrdPlanFormMapper tPrdPlanFormMapper;
 	@Autowired
 	StoreProductPlaceUtilService stu;
 	@Autowired
@@ -87,22 +90,23 @@ public class SignController {
 			if("1".equals(storeInsureInfo.getSignStatus())) {
 				return HttpResult.error(0, "请勿重复签名！");
 			}
-			//		//校验验证码是否正确
-			AppCheckCode appCheckCode = impl.getCheckCode(storeInsureInfo.getUserId() + storeInsureInfo.getMobileNo());
-			if (appCheckCode != null) {
-				long longTime = Long.parseLong(appCheckCode.getLongTime());
-				long nowLongTime = Long.parseLong(String.valueOf(System.currentTimeMillis()));
-				long cLongTime = nowLongTime - longTime;
-				//验证码的时间为10分钟
-				if (cLongTime > 0 && cLongTime < 600000) {
-					if (!appCheckCode.getCheckCode().equals(uploadSignBookReqVO.getVerificationCode())) {
-						return HttpResult.error(0, "验证码不正确！");
-
-					}
-				} else {
+            if(!StringUtils.isBlank(uploadSignBookReqVO.getVerificationCode())) {
+				//		//校验验证码是否正确
+				AppCheckCode appCheckCode = impl.getCheckCode(storeInsureInfo.getUserId() + storeInsureInfo.getMobileNo());
+				if (appCheckCode != null) {
+					long longTime = Long.parseLong(appCheckCode.getLongTime());
+					long nowLongTime = Long.parseLong(String.valueOf(System.currentTimeMillis()));
+					long cLongTime = nowLongTime - longTime;
+					//验证码的时间为10分钟
+					if (cLongTime > 0 && cLongTime < 600000) {
+						if (!appCheckCode.getCheckCode().equals(uploadSignBookReqVO.getVerificationCode())) {
+							return HttpResult.error(0, "验证码不正确！");
+						}
+					} else {
+						return HttpResult.error(0, "验证码过期，请重新获取！");
+					}	
+				}else {
 					return HttpResult.error(0, "验证码过期，请重新获取！");
-
-
 				}
 			}
 		}else {
@@ -285,18 +289,22 @@ public class SignController {
 			if("1".equals(noncarOrder.getSignStatus())) {
 				return HttpResult.error(0, "请勿重复签名！");
 			}
-			//		//校验验证码是否正确
-			AppCheckCode appCheckCode = impl.getCheckCode(noncarOrder.getUserCode() + noncarOrder.getIndiMobile());
-			if (appCheckCode != null) {
-				long longTime = Long.parseLong(appCheckCode.getLongTime());
-				long nowLongTime = Long.parseLong(String.valueOf(System.currentTimeMillis()));
-				long cLongTime = nowLongTime - longTime;
-				//验证码的时间为10分钟
-				if (cLongTime > 0 && cLongTime < 600000) {
-					if (!appCheckCode.getCheckCode().equals(uploadSignBookReqVO.getVerificationCode())) {
-						return HttpResult.error(0, "验证码不正确！");
+            if(StringUtils.isNotBlank(uploadSignBookReqVO.getVerificationCode())) {
+				//		//校验验证码是否正确
+				AppCheckCode appCheckCode = impl.getCheckCode(noncarOrder.getUserCode() + noncarOrder.getIndiMobile());
+				if (appCheckCode != null) {
+					long longTime = Long.parseLong(appCheckCode.getLongTime());
+					long nowLongTime = Long.parseLong(String.valueOf(System.currentTimeMillis()));
+					long cLongTime = nowLongTime - longTime;
+					//验证码的时间为10分钟
+					if (cLongTime > 0 && cLongTime < 600000) {
+						if (!appCheckCode.getCheckCode().equals(uploadSignBookReqVO.getVerificationCode())) {
+							return HttpResult.error(0, "验证码不正确！");
+						}
+					} else {
+						return HttpResult.error(0, "验证码过期，请重新获取！");
 					}
-				} else {
+				}else {
 					return HttpResult.error(0, "验证码过期，请重新获取！");
 				}
 			}
@@ -365,7 +373,7 @@ public class SignController {
 		//投保人手机号
 		String mobile = noncarOrder.getIndiMobile();
 		String isIssueAfterPay = noncarOrder.getIsIssueAfterPay();
-		
+		String scene = tPrdPlanFormMapper.selectStaffOnlyFlag(forwardPayInsureInfo.getProposalNo());
 		
 		
 		//健康告知
@@ -392,6 +400,7 @@ public class SignController {
 		}
 		response.setMobile(mobile);
 		response.setIsIssueAfterPay(isIssueAfterPay);
+		response.setScene(scene);
 		result.setCode("1");
 		result.setData(response);
 		result.setMsg("SUCCESS");
@@ -452,21 +461,23 @@ public class SignController {
 			if("1".equals(noncarOrder.getSignStatus())) {
 				return HttpResult.error(0, "请勿重复签名！");
 			}
-			//		//校验验证码是否正确
-			AppCheckCode appCheckCode = impl.getCheckCode(noncarOrder.getUserCode() + noncarOrder.getMobile());
-			if (appCheckCode != null) {
-				long longTime = Long.parseLong(appCheckCode.getLongTime());
-				long nowLongTime = Long.parseLong(String.valueOf(System.currentTimeMillis()));
-				long cLongTime = nowLongTime - longTime;
-				//验证码的时间为10分钟
-				if (cLongTime > 0 && cLongTime < 600000) {
-					if (!appCheckCode.getCheckCode().equals(uploadSignBookSubmissionVo.getVerificationCode())) {
-						return HttpResult.error(0, "验证码不正确！");
+				//		//校验验证码是否正确
+				AppCheckCode appCheckCode = impl.getCheckCode(noncarOrder.getUserCode() + noncarOrder.getMobile());
+				if (appCheckCode != null) {
+					long longTime = Long.parseLong(appCheckCode.getLongTime());
+					long nowLongTime = Long.parseLong(String.valueOf(System.currentTimeMillis()));
+					long cLongTime = nowLongTime - longTime;
+					//验证码的时间为10分钟
+					if (cLongTime > 0 && cLongTime < 600000) {
+						if (!appCheckCode.getCheckCode().equals(uploadSignBookSubmissionVo.getVerificationCode())) {
+							return HttpResult.error(0, "验证码不正确！");
+						}
+					} else {
+						return HttpResult.error(0, "验证码过期，请重新获取！");
 					}
-				} else {
+				}else {
 					return HttpResult.error(0, "验证码过期，请重新获取！");
 				}
-			}
 		}else {
 			return HttpResult.error(0, "投保单信息为null");
 		}
@@ -491,7 +502,7 @@ public class SignController {
                     HttpResult submissionUnderwriting = payCtl.submissionUnderwriting(reqSubmitUwVo);
                     String code = submissionUnderwriting.getCode();
                     int parseInt = Integer.parseInt(code);
-                    if(parseInt!=1) {
+                    if(parseInt!=0) {
                         return submissionUnderwriting;
                     }
                     log.info("####################调取核保结束");

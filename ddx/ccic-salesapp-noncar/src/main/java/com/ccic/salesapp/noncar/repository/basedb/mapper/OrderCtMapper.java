@@ -26,7 +26,7 @@ public interface OrderCtMapper {
     
     List<OrderCt> selectByOrderId(Long orderId);
     
-    List<Clause> selectByOrderId2(Long orderId);
+    List<Clause> selectCtByOrder(Long orderId);
     
     int updateByOrderIdKindCode(OrderCt record);
     

@@ -24,6 +24,7 @@
 		<result column="INSURANCE_COUNT" property="insuranceCount" />
 		<result column="LICENSE_PLATE_NO" property="licensePlateNo" />
 		<result column="COM_CODE" property="comCode" />
+		<result column="P_COM_CODE" property="pComCode" />
 		<result column="HANDLER_CODE" property="handlerCode" />
 		<result column="OPERATOR_CODE" property="operatorCode" />
 		<result column="OPERATOR_NAME" property="operatorName" />
@@ -302,7 +303,7 @@
 		INSURANCE_NAME,
 		CREATE_DATE,START_DATE,END_DATE,START_TIME,END_TIME,INSURANCE_PERIOD,UNDERWRITE_DATE,
 		SUMPREMIUM,SUMAMOUNT,BUSINESS_TYPE,STATUS,USER_ID,INSURANCE_COUNT,LICENSE_PLATE_NO,
-		COM_CODE,HANDLER_CODE,OPERATOR_CODE,OPERATOR_NAME,PAYAPPLY_NO,IDENTITY_CODE,
+		COM_CODE,P_COM_CODE,HANDLER_CODE,OPERATOR_CODE,OPERATOR_NAME,PAYAPPLY_NO,IDENTITY_CODE,
 		APPLICANT_NAME,APPLI_IDENTIFY,APPLIIDENTIFY_TYPE,INSURED_NAME,INSURED_IDENTIFY,INSUREDIDENTIFY_TYPE,BIRTH_DATE,
 		MOBILE_NO,ADDRESS,EMAIL,FORMULA_CODE,FORMULA_NAME,RELATE_INSURED,IMEI,AGENT_CODE,AGREEMENT_NO,AGREEMENT_NAME,INSURANCE_TYPE,HANDLER_CODE2,ISRUNAPP,BE_GUARDIAN_BIRTHDATE,BE_GUARDIAN_SEX,
 		PRODUCT_CODE,IS_OPENAIR,SHOW_NO,SHOW_NAME,PROVINCE_CODE,PREFECTURE_CODE,COUNTY_CODE,SIGNSTATUS,ADDITIONALCODE,PLATFORM_FLAG,NCL_USER_CODE,EXHIBITION_AREA,INSURED_MOBILE,ASSOCIATED_INSURE_ID,
@@ -310,7 +311,7 @@
 		values
 		(#{insureNo},#{policyNo},#{orderNo},#{insuranceCode},#{insuranceName},#{createDate},#{startDate},#{endDate},
 		#{startTime},#{endTime},#{insurancePeriod},#{underwriteDate},#{sumPremium},#{sumAmount},#{businessType},
-		#{status},#{userId},#{insuranceCount},#{licensePlateNo},#{comCode},#{handlerCode},#{operatorCode},
+		#{status},#{userId},#{insuranceCount},#{licensePlateNo},#{comCode},#{pComCode},#{handlerCode},#{operatorCode},
 		#{operatorName},#{payApplyNo},#{identityCode},#{applicantName},#{appliIdentify},#{appliIdentifyType},#{insuredName},
 		#{insuredIdentify},#{insuredIdentifyType},#{birthDate},#{mobileNo},#{address},#{email},#{formulaCode},#{formulaName},
 		#{relateInsured},#{imei},#{agentCode},#{agreementNo},#{agreementName},#{insuranceType},#{handlerCode2},#{isRunApp},#{beGuardianBirthDate},#{beGuardianSex},
@@ -1163,6 +1164,11 @@
 		where tno.insure_no =#{insureNo} and tno.id =
 		tnpc.order_id and customer_role_code = "1" and tno.strategy_id =
 		tnps.id 
+	</select>
+	
+	<select id="selectNoncarOrderByInsureNoA" resultMap="NoncarOrderMap" parameterType="java.lang.String">
+		select * from t_noncar_order
+		where insure_no =#{insureNo} 
 	</select>
 	
 	<select id="selectNoncarOrderBySubmission"

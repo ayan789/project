@@ -154,5 +154,4 @@ public class ModifyUserInfoServiceImpl extends AbstractFacade implements ModifyU
 		requestBody.setPriority(new BigInteger(str.getBytes()));
 		return requestBody;
 	}
-
 }

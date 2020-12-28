@@ -1,0 +1,8 @@
+/Users/youths/Document/project/ddx/ccic-salesapp-gateway/src/main/java/com/ccic/salesapp/gateway/properties/PltGatewayProperties.java
+/Users/youths/Document/project/ddx/ccic-salesapp-gateway/src/main/java/com/ccic/salesapp/gateway/api/GatewayFallbackController.java
+/Users/youths/Document/project/ddx/ccic-salesapp-gateway/src/main/java/com/ccic/salesapp/gateway/extend/springfox/SwaggerProvider.java
+/Users/youths/Document/project/ddx/ccic-salesapp-gateway/src/main/java/com/ccic/salesapp/gateway/extend/exception/GatewayExceptionHandler.java
+/Users/youths/Document/project/ddx/ccic-salesapp-gateway/src/main/java/com/ccic/salesapp/gateway/GatewayApplication.java
+/Users/youths/Document/project/ddx/ccic-salesapp-gateway/src/main/java/com/ccic/salesapp/gateway/configuration/GatewayExceptionConfiguration.java
+/Users/youths/Document/project/ddx/ccic-salesapp-gateway/src/main/java/com/ccic/salesapp/gateway/api/SwaggerResourcesController.java
+/Users/youths/Document/project/ddx/ccic-salesapp-gateway/src/main/java/com/ccic/salesapp/gateway/filter/SwaggerHeaderFilter.java

@@ -1,7 +1,13 @@
 package com.ccic.salesapp.noncar.config;
 
-import com.alibaba.fastjson.JSONObject;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponseWrapper;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -13,14 +19,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.ExtendedServletRequestDataBinder;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponseWrapper;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import com.alibaba.fastjson.JSONObject;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Aspect
 @Component
@@ -70,6 +74,9 @@ public class ControllerLogInterceptor {
             for (int i = 0; i < objs.length; i++) {
                 if (!(objs[i] instanceof ExtendedServletRequestDataBinder) && !(objs[i] instanceof HttpServletResponseWrapper)) {
                     if (objs[i] instanceof BeanPropertyBindingResult){
+                        continue;
+                    }
+                    if (objs[i] instanceof MultipartFile){
                         continue;
                     }
                     paramMap.put(argNames[i], objs[i]);

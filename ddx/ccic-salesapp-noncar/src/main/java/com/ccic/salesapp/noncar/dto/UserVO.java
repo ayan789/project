@@ -53,9 +53,10 @@ public class UserVO {
 
 	private String isAuditMan;	//是否审核员
 	
-public String getIsVipManager() {
+	public String getIsVipManager() {
 		return isVipManager;
 	}
+	
 	public void setIsVipManager(String isVipManager) {
 		this.isVipManager = isVipManager;
 	}

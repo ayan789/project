@@ -1,6 +1,7 @@
 package com.ccic.salesapp.noncar.repository.basedb.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -21,4 +22,6 @@ public interface PlanInfoMapper {
     int updateByPrimaryKey(PlanInfo record);
     
     List<Element> selectComputeElementsByPlanId(Integer id);
+    
+    PlanInfo selectRenewalMatchPlanInfo(Map map);
 }

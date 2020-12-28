@@ -24,6 +24,8 @@ public class OrderResponseUrl {
 	
 	private String isIssueAfterPay;
 	
+	private String scene;
+	
 	
 	private String title;
 	

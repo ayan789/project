@@ -138,10 +138,12 @@ public class JaxWsClientConfig {
      return WSUtil.create(withholdOrderPort, WithholdOrderPort.class);
     }
  
-	@Bean
-    public JaxWsPortProxyFactoryBean paySuccessNoticePort() throws MalformedURLException {
-     return WSUtil.create(paySuccessNoticePort, PaySuccessNoticePort.class);
-    }
+	
+	@Bean 
+	public JaxWsPortProxyFactoryBean paySuccessNoticePort() throws MalformedURLException { 
+		return WSUtil.create(paySuccessNoticePort,	PaySuccessNoticePort.class);
+	}
+	
  
 	@Bean
     public JaxWsPortProxyFactoryBean withholdStatusPort() throws MalformedURLException {

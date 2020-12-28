@@ -96,7 +96,10 @@ public class OrderRequest {
 	String relationPolicyNo;// 上个保期保单号
 	
 	@ApiModelProperty("是否续保 Y:是 N：否")
-	private String isRenewal;
+	String isRenewal;
+	
+	@ApiModelProperty("是否健康告知  Y:是 N：否")
+	String isDeclaration;
 	
 	@ApiModelProperty("已选产品")
 	List<Product> productList;

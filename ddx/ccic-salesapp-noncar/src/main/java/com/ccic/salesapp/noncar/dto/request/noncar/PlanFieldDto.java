@@ -14,6 +14,7 @@ public class PlanFieldDto {
 	private int strategyId;
 	private int planId;
 	private int isDefault;
+	private String scene;
 	private String prdPlanCategory;
 	//private String planBatch;
 	private List<PlanElementGroup> planElementGroup;

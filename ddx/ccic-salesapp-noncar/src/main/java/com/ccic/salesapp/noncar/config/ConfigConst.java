@@ -166,4 +166,7 @@ public class ConfigConst {
 	public static final String TO_ZH = "起至";
 	public static final String ZHI = "止";
 	public static final String COM_CODE="31000000";
+	
+	public static final Integer PageInit=1;
+	public static final Integer PageLong=10000;
 }

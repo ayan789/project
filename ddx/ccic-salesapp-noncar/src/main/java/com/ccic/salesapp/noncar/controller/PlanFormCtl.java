@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -15,10 +16,11 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -30,6 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -87,16 +90,24 @@ import com.ccic.salesapp.noncar.dto.request.planelement.TermsAndConditionsConten
 import com.ccic.salesapp.noncar.dto.request.planelement.Tree;
 import com.ccic.salesapp.noncar.dto.request.planelement.Tree2;
 import com.ccic.salesapp.noncar.dto.request.planelement.ValueList;
+import com.ccic.salesapp.noncar.dto.upload.response.UploadResponse;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.InvoiceInfoMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.OrderMapper;
+import com.ccic.salesapp.noncar.repository.basedb.mapper.PersonMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.PlanInfoMapper;
+import com.ccic.salesapp.noncar.repository.basedb.mapper.SalesPlanMapper;
 import com.ccic.salesapp.noncar.repository.basedb.po.Order;
+import com.ccic.salesapp.noncar.repository.basedb.po.Person;
 import com.ccic.salesapp.noncar.repository.basedb.po.PlanInfo;
 import com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanFormMapper;
 import com.ccic.salesapp.noncar.service.PlanFormService;
 import com.ccic.salesapp.noncar.service.PlanStrategyService;
+import com.ccic.salesapp.noncar.service.impl.GroupPlanServiceIml;
+import com.ccic.salesapp.noncar.utils.DayCompare;
+import com.ccic.salesapp.noncar.utils.DayCompareUtils;
 import com.ccic.salesapp.noncar.utils.ExcelRead;
 import com.ccic.salesapp.noncar.utils.JsonUtil;
+import com.ccic.salessapp.common.core.exception.PlatformBaseException;
 import com.ccic.salessapp.common.core.web.HttpResult;
 import com.ccic.salessapp.common.outService.rest.common.bean.Request;
 import com.ccic.salessapp.common.outService.rest.common.bean.RequestHead;
@@ -105,11 +116,13 @@ import com.ccic.salessapp.common.utils.StringUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JsonConfig;
 import net.sf.json.util.PropertyFilter;
 
 @RestController
 @RequestMapping(value = "planForm")
+@Slf4j
 public class PlanFormCtl {
 
 	@Autowired
@@ -132,6 +145,9 @@ public class PlanFormCtl {
 	
 	@Autowired
     private RedisTemplate redisTemplate;
+	
+	@Autowired
+    SalesPlanMapper salesPlanMapper;
 	
 	//动态表单
 	@PostMapping("/getPlanDynamicForms")
@@ -563,7 +579,7 @@ public class PlanFormCtl {
 			}
 		}
 		//调整-2020/06/05 重构排序
-		buildSort(planElementCopy);
+		//buildSort(planElementCopy);
 		planElementGroup.setPlanElementList(planElementCopy);
 		return HttpResult.success(1, PlanFormConstant.SUCCESS_MSG);
 	}
@@ -611,7 +627,7 @@ public class PlanFormCtl {
 				List<PlanElementOption> planElementOptionList = tPrdPlanFormMapper.selectPlanElementOption(m_options);
 				planElement.setPlanElementOptionList(planElementOptionList);
 			}
-			else if ("Cascader".equals(planElement.getControlType()) && "propAdmiArea".equals(planElement.getCode())) {
+			else if ("Cascader".equals(planElement.getControlType()) && org.apache.commons.lang3.StringUtils.endsWith(planElement.getCode(), "Area")) {
 				List<PlanElementOption> planElementOptionList = new ArrayList<PlanElementOption>();
 				Tree addressTree=redisService.getDataFromCacheMap("Address","Area",Tree.class);
 				 if(addressTree!=null){
@@ -713,7 +729,7 @@ public class PlanFormCtl {
                 .filter(item -> plans.stream().map(e -> e.intValue()).collect(Collectors.toList())
                         .contains(item.getPlanId())).collect(Collectors.toList());
 		if(formulaList2==null || formulaList2.size()==0) {
-			 return HttpResult.error(2, "方案已下架");
+			 return HttpResult.error(2, "您暂未开放使用权限");
 		}
 		HttpResult<?> res = buildFormulaDetail(formulaList2,planElementDetailDto,planElementDetaiReq);
 		if(judgeHttpResult(res,p->"0".equals(res.getCode()))) return res;
@@ -739,6 +755,9 @@ public class PlanFormCtl {
 				m_elem_group.put("bizId", formula.getStrategyId());
 				int count = tPrdPlanFormMapper.selectTrial(m_elem_group);
 				if(count>0) formula.setHasTrial("1");
+			}
+			if(StringUtils.isNotBlank(planElementDetailDto.getScene())){
+			    formula.setScene(planElementDetailDto.getScene());
 			}
 			//保障计划
 			HttpResult<?> res = buildSafeguardPlan(formula,planElementDetaiReq);
@@ -954,6 +973,39 @@ public class PlanFormCtl {
 		List<TermsAndConditionsContent> list = new ArrayList<TermsAndConditionsContent>();
 		HashMap<String, Object> m = new HashMap<>();
 		m.put("planId", form.getPlanId());
+		List<ImgList> imgList = tPrdPlanFormMapper.selectPlanStrategyAttach(m);
+		
+		TermsAndConditionsContent c_terms7 = new TermsAndConditionsContent();
+		c_terms7.setId(7);
+		c_terms7.setTitle(PlanFormConstant.IMPORTANCE_HINT_TITIE);
+		m.put("attachCode", PlanFormConstant.IMPORTANCE_HINT);
+		imgList = tPrdPlanFormMapper.selectPlanStrategyAttach(m);
+		if(imgList != null && imgList.size() > 0) {
+			c_terms7.setLink(attachUrl(imgList.get(0).getImg()));
+			contentList.add(c_terms7);
+		}
+		terms.setContent(contentList);
+		
+		TermsAndConditionsContent c_terms2 = new TermsAndConditionsContent();
+		c_terms2.setId(2);
+		c_terms2.setTitle(PlanFormConstant.INSURANCE_NOTICE_TITIE);
+		m.put("attachCode", PlanFormConstant.INSURANCE_NOTICE);
+		imgList = tPrdPlanFormMapper.selectPlanStrategyAttach(m);
+		if(imgList != null && imgList.size() > 0) {
+			c_terms2.setLink(attachUrl(attachUrl(imgList.get(0).getImg())));
+			contentList.add(c_terms2);
+		}
+		
+		TermsAndConditionsContent c_terms5 = new TermsAndConditionsContent();
+		c_terms5.setId(5);
+		c_terms5.setTitle(PlanFormConstant.EXEMPTION_LIABILITY_TITIE);
+		m.put("attachCode", PlanFormConstant.EXEMPTION_LIABILITY);
+		imgList = tPrdPlanFormMapper.selectPlanStrategyAttach(m);
+		if(imgList != null && imgList.size() > 0) {
+			c_terms5.setLink(attachUrl(imgList.get(0).getImg()));
+			contentList.add(c_terms5);
+		}
+		
 		list = tPrdPlanFormMapper.selectConditionsContent(m);
 		if(list!=null && list.size()!=0) {
 			TermsAndConditionsContent c_terms1 = new TermsAndConditionsContent();
@@ -966,15 +1018,7 @@ public class PlanFormCtl {
 			c_terms1.setChlidren(list);
 			contentList.add(c_terms1);
 		}
-		TermsAndConditionsContent c_terms2 = new TermsAndConditionsContent();
-		c_terms2.setId(2);
-		c_terms2.setTitle(PlanFormConstant.INSURANCE_NOTICE_TITIE);
-		m.put("attachCode", PlanFormConstant.INSURANCE_NOTICE);
-		List<ImgList> imgList = tPrdPlanFormMapper.selectPlanStrategyAttach(m);
-		if(imgList != null && imgList.size() > 0) {
-			c_terms2.setLink(attachUrl(attachUrl(imgList.get(0).getImg())));
-			contentList.add(c_terms2);
-		}
+		
 		TermsAndConditionsContent c_terms3 = new TermsAndConditionsContent();
 		c_terms3.setId(3);
 		c_terms3.setTitle(PlanFormConstant.INSURANCE_DECLARATION_TITIE);
@@ -993,15 +1037,7 @@ public class PlanFormCtl {
 			c_terms4.setLink(attachUrl(imgList.get(0).getImg()));
 			contentList.add(c_terms4);
 		}
-		TermsAndConditionsContent c_terms5 = new TermsAndConditionsContent();
-		c_terms5.setId(5);
-		c_terms5.setTitle(PlanFormConstant.EXEMPTION_LIABILITY_TITIE);
-		m.put("attachCode", PlanFormConstant.EXEMPTION_LIABILITY);
-		imgList = tPrdPlanFormMapper.selectPlanStrategyAttach(m);
-		if(imgList != null && imgList.size() > 0) {
-			c_terms5.setLink(attachUrl(imgList.get(0).getImg()));
-			contentList.add(c_terms5);
-		}
+		
 		TermsAndConditionsContent c_terms6 = new TermsAndConditionsContent();
 		c_terms6.setId(6);
 		c_terms6.setTitle(PlanFormConstant.OCCUPATION_TYPE_TITLE);
@@ -1012,16 +1048,7 @@ public class PlanFormCtl {
 			contentList.add(c_terms6);
 		}
 		terms.setContent(contentList);
-		TermsAndConditionsContent c_terms7 = new TermsAndConditionsContent();
-		c_terms7.setId(7);
-		c_terms7.setTitle(PlanFormConstant.IMPORTANCE_HINT_TITIE);
-		m.put("attachCode", PlanFormConstant.IMPORTANCE_HINT);
-		imgList = tPrdPlanFormMapper.selectPlanStrategyAttach(m);
-		if(imgList != null && imgList.size() > 0) {
-			c_terms7.setLink(attachUrl(imgList.get(0).getImg()));
-			contentList.add(c_terms7);
-		}
-		terms.setContent(contentList);
+		
 		return HttpResult.success(1, PlanFormConstant.SUCCESS_MSG);
 	}
 
@@ -1063,7 +1090,8 @@ public class PlanFormCtl {
 
 	//保障计划
 	public HttpResult<?> buildFormulaObj(SafeguardPlan safe, FormulaList form,PlanElementDetaiReq plane) {
-		FormulaObj formulaObj = new FormulaObj();
+	    
+	    FormulaObj formulaObj = new FormulaObj();
 		//责任条款列表
 		List<Insurance> insu = new ArrayList<>();
 		
@@ -1085,6 +1113,7 @@ public class PlanFormCtl {
 		//可选责任条款
 		HttpResult<?> res1 = buildSubsidiaryInsurance(formulaObj, form,insu,plane);
 		if(judgeHttpResult(res1,p->"0".equals(res1.getCode()))) return res1;
+		
 		safe.setFormulaObj(formulaObj);
 		return HttpResult.success(1, PlanFormConstant.SUCCESS_MSG);
 	}
@@ -1495,7 +1524,45 @@ public class PlanFormCtl {
 		 JSONObject json = JSONObject.parseObject(resJson);
 		 JSONObject jsonRes =  json.getJSONObject("responseBody");
 		 JSONObject jsonPolicy =  jsonRes.getJSONObject("policyElementString");
+		 
 		 mapDTO.put("policyInfo", jsonPolicy);
+		    //续保责任映射
+	        Calendar cal = Calendar.getInstance();
+	        int year = cal.get(Calendar.YEAR);
+	        HashMap<String,Object> mapReq = new HashMap<String, Object>();
+	        mapReq.put("year", year);
+	        List<HashMap<String,Object>> list = salesPlanMapper.selectRenewalCoverageMapping(mapReq);
+	        List<String> listStr = new ArrayList<String>();
+	        if(jsonPolicy!=null && ("WTH".equals(jsonPolicy.get("productCode").toString()) || "WTN".equals(jsonPolicy.get("productCode").toString()))) {
+	            //System.out.println(JSONObject.toJSONString(jsonPolicy));
+	            JSONArray policyLobListJson = (JSONArray)jsonPolicy.get("policyLobList");
+	            //System.out.println(JSONObject.toJSONString(policyLobListJson));
+	            JSONObject policyLobListJsonObj = policyLobListJson.getJSONObject(0);
+	            JSONArray policyRiskListJson = (JSONArray)policyLobListJsonObj.get("policyRiskList");
+	            JSONObject policyRiskListJsonObj = policyRiskListJson.getJSONObject(0);
+	            JSONArray insuredGroupListJson = (JSONArray)policyRiskListJsonObj.get("insuredGroupList");
+	            JSONObject insuredGroupListJsonObj = insuredGroupListJson.getJSONObject(0);
+	            JSONArray json8 = (JSONArray)insuredGroupListJsonObj.get("policyCoverageList");
+	            for(int i=0;i<json8.size();i++) {
+	               // System.out.println(json8.getJSONObject(i).get("kindCode"));
+	               // System.out.println(json8.getJSONObject(i).get("isMainCoverage"));
+	                listStr.add(json8.getJSONObject(i).get("kindCode")+"");
+	            }
+	        }
+	        List<HashMap<String,Object>> renewaList = new ArrayList<HashMap<String,Object>>();
+	        if(listStr!=null && listStr.size()>0) {
+	            for(HashMap<String,Object> renewalMap : list) {
+	                for(String renewalSte : listStr) {
+	                    if(renewalSte.equals(renewalMap.get("renewalCoverageCode").toString())) {
+	                        HashMap<String,Object> dmap = new HashMap<String, Object>();
+	                        dmap.put("renewalCoverageCode", renewalMap.get("renewalCoverageCode").toString());
+	                        dmap.put("coverageCode", renewalMap.get("coverageCode").toString());
+	                        renewaList.add(renewalMap);
+	                    }
+	                }
+	            }
+	        }
+        mapDTO.put("renewaCoverageList", renewaList);   
 		return HttpResult.success(mapDTO,1, "OK");
     }
 	
@@ -1626,5 +1693,143 @@ public class PlanFormCtl {
 	 
 	 @Autowired
      RedisService redisService;
+	 
+	 @Autowired
+	 PersonMapper personMapper;
+	 
+	 @PostMapping(value = "/upload")
+	 @Transactional
+	 public HttpResult<UploadResponse> upload(MultipartFile file, String elementCode) throws IOException, ParseException{
+		 	if(file == null) {
+		 		throw new PlatformBaseException("请上传文件！", 0);
+		 	}
+		 	//允许上传的文件类型
+		 	List<String> allowFileTypeList = new ArrayList<String>();
+		 	allowFileTypeList.add("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+		 	allowFileTypeList.add("application/vnd.ms-excel");
+		 	String contentType = file.getContentType();
+		 	if(!allowFileTypeList.contains(contentType)) {
+		 		throw new PlatformBaseException("不正确的文件格式", 0);
+		 	}
+		 
+			ExcelRead excelRead = new ExcelRead();
+			List<ArrayList<String>> sheets = null;
+			if("application/vnd.ms-excel".equals(contentType)) {
+				sheets = excelRead.readXls(file, 1, 1);
+			}if("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet".equals(contentType)) {
+				sheets = excelRead.readXlsx(file, 1, 1);
+			}
+			
+			String  error = checkPersonList(sheets);
+			if(StringUtils.isNotBlank(error)) {
+				throw new PlatformBaseException(error, 0);
+			}
+			
+			UploadResponse response = new UploadResponse();
+			for (int i =0 ;i < sheets.size();i++) {
+				
+				if(sheets.get(i) == null) {
+					continue;
+				}
+				boolean isEmpty = true;
+				for (String value : sheets.get(i)) {
+					if(StringUtils.isNotBlank(value)) {
+						isEmpty = false;
+						break;
+					}
+				}
+				if(isEmpty) {
+					sheets.set(i, null);
+				}
+			}
+			//去除空行
+			sheets.removeAll(Collections.singleton(null));
+			//入库
+			Long personListId =  System.currentTimeMillis() ;
+			for (ArrayList<String> row : sheets) {
+				Person p = new Person();
+				/** 0操作类型*	
+					1姓名*	
+					2证件类型*	
+					3证件号码*	
+					4年龄	
+					5工种类型组别号*	
+					6职业代码*	
+					7职业细类	
+					8职业类别	
+					9年工资总额	
+					10保险起期	
+					11保险止期	
+					12备注*/
+				SimpleDateFormat st = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				p.setPersonListId(personListId);
+				p.setPersonName(row.get(1));
+				p.setPersonIdType(row.get(2));
+				p.setPersonIdNo(row.get(3));
+				if(StringUtils.isNotBlank(row.get(4))) {
+					p.setAge(Integer.parseInt(row.get(4)));
+				}
+				p.setPersonWorkType(row.get(5));
+				p.setPersonWork(row.get(6));
+				if(StringUtils.isNotBlank((row.get(9)))){
+					p.setYearSalaryAmount(Double.valueOf(row.get(9)));
+				}
+				if(StringUtils.isNotBlank((row.get(10)))){
+					p.setEffectiveDate(st.parse(row.get(10)));
+				}
+				if(StringUtils.isNotBlank((row.get(11)))){
+					p.setExpiryDate(st.parse(row.get(11)));
+				}
+				p.setComments(row.get(12));
+				//p.setCreateUser(userCode);
+				
+				personMapper.insertSelective(p);
+			}
+			
+			response.setRows(sheets.size());
+			response.setPersonListId(personListId);
+			log.info(JSONObject.toJSONString(sheets));
+			return HttpResult.success(response,1, "ok");
+	 }
+	 
+	 private String checkPersonList(List<ArrayList<String>> personList) {
+		StringBuffer error = new StringBuffer();
+		for (int i =0 ;i < personList.size();i++) {
+			ArrayList<String> row = personList.get(i);
+			
+			if(row.size() < 1) {
+				continue;
+			}
+			
+			if( row.size() < 2 || org.apache.commons.lang.StringUtils.isBlank(row.get(1))  ) {
+				error.append("第"+(i+2) + "行，姓名为空;");
+			}
+			if( row.size() < 3 || org.apache.commons.lang.StringUtils.isBlank(row.get(2))) {
+				error.append("第"+(i+2) + "行，证件类型为空;");
+			}else {
+				if(row.get(2).indexOf("-")<=0) {
+					error.append("第"+(i+2) + "行，证件类型格式不正确;");
+				}
+			}
+			if(row.size() < 4 || org.apache.commons.lang.StringUtils.isBlank(row.get(3))) {
+				error.append("第"+(i+2) + "行，证件号码为空;");
+			}
+			if(row.size() < 6 || org.apache.commons.lang.StringUtils.isBlank(row.get(5))) {
+				error.append("第"+(i+2) + "行，工种类型组别号为空;");
+			}
+			if(row.size() < 7 || org.apache.commons.lang.StringUtils.isBlank(row.get(6))) {
+				error.append("第"+(i+2) + "行，职业代码为空;");
+			}
+			if(row.size() >= 11 && StringUtils.isNotBlank(row.get(10)) && !Pattern.matches("^\\d{4}-(0?[1-9]|[1][012])-(0?[1-9]|[12][0-9]|[3][01])[\\s]+\\d([0-1][0-9]|2?[0-3]):([0-5][0-9]):([0-5][0-9])$", row.get(10))) {
+				error.append("第"+(i+2) + "行，保险起期格式不正确;");
+			}
+			if(row.size() >= 12 && StringUtils.isNotBlank(row.get(11)) && !Pattern.matches("^\\d{4}-(0?[1-9]|[1][012])-(0?[1-9]|[12][0-9]|[3][01])[\\s]+\\d([0-1][0-9]|2?[0-3]):([0-5][0-9]):([0-5][0-9])$", row.get(11))) {
+				error.append("第"+(i+2) + "行，保险止期格式不正确;");
+			}
+		}
+		return error.toString();
+	 }
 	
+	 
+	 
 }

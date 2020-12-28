@@ -7,6 +7,6 @@ import lombok.Data;
 
 @Data
 public class GroupRequest {
-	private RequestHead salesRequestHead;
-	private RequestBody salesRequestBody;
+	private RequestHead requestHead;
+	private RequestBody requestBody;
 }

@@ -16,8 +16,11 @@ public class Product {
 	@ApiModelProperty("责任代码")
 	String kindCode;
 	
-	@ApiModelProperty("应收保费")
+	@ApiModelProperty("应收保费/费率")
 	Double duePremium;
+	
+	@ApiModelProperty("保费/费率类型")
+	String premiumOrrate;
 	
 	@ApiModelProperty("保额")
 	Double insured;

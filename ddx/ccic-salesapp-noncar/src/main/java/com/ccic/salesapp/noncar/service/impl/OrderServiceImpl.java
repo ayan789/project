@@ -14,6 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,6 +52,8 @@ import com.ccic.salesapp.noncar.dto.request.accidentquote.PolicyRisk;
 import com.ccic.salesapp.noncar.dto.request.noncar.InvoiceInfo;
 import com.ccic.salesapp.noncar.dto.request.noncar.SharedCoverageGroup;
 import com.ccic.salesapp.noncar.dto.request.planelement.FormulaList;
+import com.ccic.salesapp.noncar.dto.request.planelement.HealthNotice;
+import com.ccic.salesapp.noncar.dto.request.planelement.ImgList;
 import com.ccic.salesapp.noncar.dto.request.planelement.TermsAndConditions;
 import com.ccic.salesapp.noncar.dto.response.PropertyTrialResponse;
 import com.ccic.salesapp.noncar.dto.response.SubmitUnderwriteResponse;
@@ -65,7 +68,10 @@ import com.ccic.salesapp.noncar.repository.basedb.mapper.InvoiceInfoMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.OrderCtMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.OrderDetailMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.OrderMapper;
+import com.ccic.salesapp.noncar.repository.basedb.mapper.OrgBranchMapper;
+import com.ccic.salesapp.noncar.repository.basedb.mapper.PlanCtDetailMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.PlanInfoMapper;
+import com.ccic.salesapp.noncar.repository.basedb.mapper.PlanMethodMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.PlanStrategyMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.PolicyCustomerMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.RenewalDatabusExpiredDataMapper;
@@ -74,8 +80,11 @@ import com.ccic.salesapp.noncar.repository.basedb.po.BussLog;
 import com.ccic.salesapp.noncar.repository.basedb.po.Order;
 import com.ccic.salesapp.noncar.repository.basedb.po.OrderCt;
 import com.ccic.salesapp.noncar.repository.basedb.po.OrderDetail;
+import com.ccic.salesapp.noncar.repository.basedb.po.PlanCtDetail;
 import com.ccic.salesapp.noncar.repository.basedb.po.PlanInfo;
+import com.ccic.salesapp.noncar.repository.basedb.po.PlanMethod;
 import com.ccic.salesapp.noncar.repository.basedb.po.PlanStrategy;
+import com.ccic.salesapp.noncar.repository.databusdb.mapper.TPrdPlanFormMapper;
 import com.ccic.salesapp.noncar.service.AccidentQuoteService;
 import com.ccic.salesapp.noncar.service.DoBeforeRequestService;
 import com.ccic.salesapp.noncar.service.OrderService;
@@ -93,7 +102,6 @@ import com.ccic.salessapp.common.outService.rest.common.bean.Response;
 import com.ccic.salessapp.common.request.UserToken;
 import com.ccic.salessapp.common.utils.StringUtil;
 import com.ccic.salessapp.common.utils.StringUtils;
-import com.ccic.salessapp.common.utils.TokenUtil;
 import com.fasterxml.jackson.core.JsonPointer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -160,6 +168,12 @@ public class OrderServiceImpl implements OrderService{
 	PlanInfoMapper planInfoMapper;
 	
 	@Autowired
+	PlanMethodMapper planMethodMapper;
+	
+	@Autowired
+	PlanCtDetailMapper planCtDetailMapper;
+	
+	@Autowired
 	PolicyCustomerMapper policyCustomerMapper;
 	
 	@Value("${spring.profiles.active}")
@@ -176,6 +190,12 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Autowired
 	DoBeforeRequestService doBeforeRequestService;
+	
+	@Autowired
+	OrgBranchMapper orgBranchMapper;
+	
+	@Autowired
+    TPrdPlanFormMapper tPrdPlanFormMapper;
 	
 
 	/***
@@ -198,6 +218,7 @@ public class OrderServiceImpl implements OrderService{
 		HttpResult<OrderResponse> result = HttpResult.error(0, "");
 		OrderResponse orderResponse = new OrderResponse();
 		UserToken user = planStrategyService.getAccessTokenByUserCode(orderRequest.getUserCode());
+		orderRequest.getMap().put("user", user);
 		StoreInfo storeInfo = null;
 		if(user != null && "3".equals(user.getLoginFlag())) {
 			UserToken handlerToken = planStrategyService.getAgentSalesman(user.getUserCode());
@@ -216,8 +237,10 @@ public class OrderServiceImpl implements OrderService{
 		
 		PlanStrategy planStrategy = planStrategyMapper.selectByPrimaryKey(orderRequest.getStrategyId().intValue());
 		PlanInfo planInfo = planInfoMapper.selectByPrimaryKey(orderRequest.getPlanId().intValue());
+		PlanMethod planMethod = planMethodMapper.selectByPlanId(orderRequest.getPlanId().intValue());
 		orderRequest.getMap().put("planStrategy", planStrategy);
 		orderRequest.getMap().put("planInfo", planInfo);
+		orderRequest.getMap().put("planMethod", planMethod);
 		orderRequest.setPlanCategory(planInfo.getPrdPlanCategory());
 		orderResponse.setImgType(planStrategy.getInsureType());
 		//试算要素
@@ -236,6 +259,8 @@ public class OrderServiceImpl implements OrderService{
 		
 		List<String> notUploadImages = new ArrayList<String>();
 		try {
+			//保存业务数据前对一些特殊产品请求参数进行特殊处理
+			doBeforeRequestService.beforeSaveData(orderRequest);
 			//存储业务数据信息
 			saveBizData(orderRequest);
 			
@@ -260,11 +285,14 @@ public class OrderServiceImpl implements OrderService{
 			//存储业务日志
 			//saveBizLog(bussLog);
 		} catch (ParseException e2) {
-			e2.printStackTrace();
+			log.error(e2.getMessage(), e2);
 			result.setCode("0");
 			result.setData(orderResponse);
 			result.setMsg("保存业务信息失败："+ e2.getMessage());
 			return result;
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw new PlatformBaseException("保存业务信息失败", 0);
 		}
 		
 		Order order = (Order)(orderRequest.getMap().get("order"));
@@ -275,6 +303,9 @@ public class OrderServiceImpl implements OrderService{
 		}else if("2".equals(orderRequest.getPlanCategory())) {
 			initRequest = initNocarRequest(orderRequest, storeInfo);
 		}
+		//初始化请求报文后对一些特殊产品进行特殊处理
+		doBeforeRequestService.afterInitRequestBody(initRequest, orderRequest);
+		
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode node = null;
 		try {
@@ -325,8 +356,10 @@ public class OrderServiceImpl implements OrderService{
 			result.setMsg("初始化订单信息失败"+ e1.getMessage());
 			return result;
 		}
-		DoBeforeRequestService doBeforeRequest = null;
 		Response response =	 null;
+		/**代理人经办人更新时候需要用到这里的数据*/
+		UserVO uservo = storeProductPlaceUtilService.getHandlerInfo(orderRequest);
+		
 		//下单试算
     	if("0".equals(orderRequest.getPlanCategory())) {//意健险
     		try {
@@ -355,7 +388,7 @@ public class OrderServiceImpl implements OrderService{
     				return result;//若是暂存，不继续执行
     			}
     			
-    			response =	accidentQuoteService.accidentQuote(request,(String)orderRequest.getMap().get("orderNo"), result, null);
+    			response =	accidentQuoteService.accidentQuote(request,(String)orderRequest.getMap().get("orderNo"), result, uservo);
     			//更新业务数据
     			updateBizData(orderRequest,request,response);
     		} catch (Exception e) {
@@ -393,7 +426,7 @@ public class OrderServiceImpl implements OrderService{
     				result.setMsg("暂存数据完成");
     				return result;//若是暂存，不继续执行
     			}
-    			response =	propertyTrialService.propertyTrial(request,(String)orderRequest.getMap().get("orderNo"), result,new UserVO() , orderRequest.getAgentInfo());
+    			response =	propertyTrialService.propertyTrial(request,(String)orderRequest.getMap().get("orderNo"), result,uservo , orderRequest.getAgentInfo());
     			//更新业务数据
     			updateBizData(orderRequest,request,response);
     		} catch (Exception e) {
@@ -534,7 +567,9 @@ public class OrderServiceImpl implements OrderService{
 			request.setBusinessSourceCode(orderRequest.getBusinessNatureCode());
 			request.setBusinessSource2Code(orderRequest.getBusinessNatureCode());
 		}
-
+		
+		UserToken user = (UserToken) orderRequest.getMap().get("user");
+		
 		if (storeInfo != null) {
 			request.setOrgCode(storeInfo.getUserComCode());// 归属机构代码
 			request.setIssueUserCode(storeInfo.getUserCode());// 出单员代码
@@ -751,8 +786,8 @@ public class OrderServiceImpl implements OrderService{
 		com.ccic.salesapp.noncar.dto.request.noncar.ChannelOpInfo channelInfo = new com.ccic.salesapp.noncar.dto.request.noncar.ChannelOpInfo();
 		channelInfo.setChannelCode("310073");
 		channelInfo.setChannelComCode("310073");
-		channelInfo.setChannelComName("移动销售支持");
-		channelInfo.setChannelName("移动销售支持");
+		channelInfo.setChannelComName("大地行");
+		channelInfo.setChannelName("大地行");
 		channelInfo.setChannelProductCode(orderRequest.getRiskCode());
 		channelInfo.setChannelSeqNo(storeProductPlaceUtilService.getTradeSerialNo());
 		channelInfo.setOperatorCode(storeInfo.getUserCode()); // 渠道操作员代码
@@ -864,6 +899,10 @@ public class OrderServiceImpl implements OrderService{
 		List<com.ccic.salesapp.noncar.dto.request.noncar.PolicyRisk> policyRiskList = new ArrayList<com.ccic.salesapp.noncar.dto.request.noncar.PolicyRisk>();
 		//经济型
 		//条款信息
+		List<Product> productList = getNocarProductList(orderRequest);
+		Map<String,PlanCtDetail> dict = planCtDetailMapper.selectClausePropertyByPlanId(orderRequest.getPlanId().intValue());
+		List<Product> mainProductList = getMainCt(productList,dict);
+		List<Product> shareProductList = getShareCt(productList,dict);
 		//主险1 - 标的信息
 		//PolicyRisk risk = new PolicyRisk();
 		risk.setEffectiveDate(orderRequest.getStartDate());
@@ -872,8 +911,7 @@ public class OrderServiceImpl implements OrderService{
 		risk.setInsuredDescription("");
 		//条款信息1
 		List <com.ccic.salesapp.noncar.dto.request.noncar.PolicyCoverage> policyCoverageList1 = new ArrayList<com.ccic.salesapp.noncar.dto.request.noncar.PolicyCoverage>();
-		List<Product> productList = getNocarProductList(orderRequest);
-		for (Product product : productList) {
+		for (Product product : mainProductList) {
 			//条款信息1
 			com.ccic.salesapp.noncar.dto.request.noncar.PolicyCoverage coverage1 = new com.ccic.salesapp.noncar.dto.request.noncar.PolicyCoverage();
 			coverage1.setEffectiveDate(orderRequest.getStartDate());  
@@ -899,10 +937,77 @@ public class OrderServiceImpl implements OrderService{
 		
 		lob.setPolicyRiskList(policyRiskList);
 		
+		if(shareProductList != null && !shareProductList.isEmpty()) {
+			
+			List<SharedCoverageGroup> sharedCoverageGroupList = new ArrayList<SharedCoverageGroup>();
+			SharedCoverageGroup shareGroup = new SharedCoverageGroup();
+			List <com.ccic.salesapp.noncar.dto.request.noncar.PolicyCoverage> sharedPolicyCoverageList = new ArrayList<com.ccic.salesapp.noncar.dto.request.noncar.PolicyCoverage>();
+			for (Product product : shareProductList) {
+				com.ccic.salesapp.noncar.dto.request.noncar.PolicyCoverage coverage1 = new com.ccic.salesapp.noncar.dto.request.noncar.PolicyCoverage();
+				coverage1.setEffectiveDate(orderRequest.getStartDate());  
+				coverage1.setExpiryDate(orderRequest.getEndDate());         
+				coverage1.setProductElementCode(product.getClauseCode());
+
+				coverage1.setNumberOfCopies(lob.getEachPersonCopies()+"");
+				coverage1.setTotalNumberOfCopies(lob.getEachPersonCopies()+"");
+				sharedPolicyCoverageList.add(coverage1);
+				//附加责任信息
+				List <com.ccic.salesapp.noncar.dto.request.noncar.PolicyCoverage> policyCoverageList02 = new ArrayList<com.ccic.salesapp.noncar.dto.request.noncar.PolicyCoverage>();
+				for (String kindCode : product.getKindCodes()) {
+					com.ccic.salesapp.noncar.dto.request.noncar.PolicyCoverage coverage01 = new com.ccic.salesapp.noncar.dto.request.noncar.PolicyCoverage();
+					coverage01.setEffectiveDate(orderRequest.getStartDate());  
+					coverage01.setExpiryDate(orderRequest.getEndDate());         
+					coverage01.setProductElementCode(kindCode);
+					coverage01.setSumInsured(product.getInsured());
+					coverage01.setDuePremium(product.getDuePremium());
+					policyCoverageList02.add(coverage01);
+				}
+				coverage1.setPolicyCoverageList(policyCoverageList02);
+			}
+			shareGroup.setPolicyCoverageList(sharedPolicyCoverageList);
+			sharedCoverageGroupList.add(shareGroup);
+			lob.setSharedCoverageGroupList(sharedCoverageGroupList);
+		}
 		lobList.add(lob);
 		requestDTO.setPolicyLobList(lobList);
 		return requestDTO;
 	}
+	
+	private List<Product> getMainCt(List<Product> list, Map<String,PlanCtDetail> dict){
+		List<Product> result = new ArrayList<Product>();
+		for (Product product : list) {
+			PlanCtDetail planCtDetail = dict.get(product.getClauseCode());
+			if(planCtDetail == null) {
+				throw new PlatformBaseException("条款"+product.getClauseCode()+"属性数据缺失", 0);
+			}
+			if(!"2".equals(planCtDetail.getClauseProperty())) {
+				result.add(product);
+			}
+		}
+		return result;
+	}
+	
+	private List<Product> getShareCt(List<Product> list, Map<String,PlanCtDetail> dict){
+		List<Product> result = new ArrayList<Product>();
+		for (Product product : list) {
+			PlanCtDetail planCtDetail = dict.get(product.getClauseCode());
+			if(planCtDetail == null) {
+				throw new PlatformBaseException("条款"+product.getClauseCode()+"属性数据缺失", 0);
+			}
+			if("2".equals(planCtDetail.getClauseProperty())) {
+				if(planCtDetail.getSumInsuredDefault() != null) {
+					product.setInsured(planCtDetail.getSumInsuredDefault().doubleValue());
+				}
+				if(planCtDetail.getPremiumDefault() != null) {
+					product.setDuePremium(planCtDetail.getPremiumDefault().doubleValue());
+				}
+				product.setPremiumOrrate(planCtDetail.getPremiumOrrate());
+				result.add(product);
+			}
+		}
+		return result;
+	}
+	
 	
 	/***
 	 * 保存业务数据
@@ -1054,6 +1159,7 @@ public class OrderServiceImpl implements OrderService{
 		//方案id
 		order.setPlanId(orderRequest.getPlanId());
 		order.setComCode(comCode);
+		order.setpComCode(orgBranchMapper.selectBranchByComCode(comCode));
 		order.setpComCode(user.getBranchCode());
 		order.setSumAmount(BigDecimal.valueOf(orderRequest.getSumAmount()));
 		order.setSumPremium(BigDecimal.valueOf(orderRequest.getSumPremium()));
@@ -1113,6 +1219,7 @@ public class OrderServiceImpl implements OrderService{
 		String businessSource2Code = null;
 		String businessAttribute = null;
 		String policyNature = null;
+		String belongToHandlerCode = null;
 		
 		String sumInsured = null;
 		String duePremium = null;
@@ -1210,6 +1317,11 @@ public class OrderServiceImpl implements OrderService{
 				order.setOrderStatus(InsuranceApplicationStatus.DAIHEBAO);
 				order.setPolicyNature(res.getPolicyNature());
 				try {
+					handlerCode = res.getHandlerCode();
+					handlerName = res.getHandlerName();
+					belongToHandlerCode = res.getBelongToHandlerCode();
+					handler2Code = res.getBelongToHandler2Code();
+					
 					vat = res.getVat().doubleValue();
 					beforeVatPremium =  res.getBeforeVatPremium().doubleValue();
 					sumInsured = res.getSumInsured();
@@ -1240,6 +1352,12 @@ public class OrderServiceImpl implements OrderService{
 				order.setInsureNo(res.getProposalNo());
 				order.setOrderStatus(InsuranceApplicationStatus.DAIHEBAO);
 				order.setPolicyNature(res.getPolicyNature());
+				
+				handlerCode = res.getHandlerCode();
+				handlerName = res.getHandlerName();
+				belongToHandlerCode = res.getBelongToHandlerCode();
+				handler2Code = res.getBelongToHandler2Code();
+				
 				vat = res.getVat();
 				beforeVatPremium = res.getBeforeVatPremium();
 				sumInsured = res.getSumInsured()+"";
@@ -1312,6 +1430,7 @@ public class OrderServiceImpl implements OrderService{
 			order.setIsIssueAfterPay("0");
 		}
 		order.setHandlerCode(handlerCode);
+		order.setBelongToHandlerCode(belongToHandlerCode);
 		order.setHandlerCode2(handler2Code);
 		order.setAgentCode(agentCode);
 		order.setAgreementName(agreementName);
@@ -1435,6 +1554,14 @@ public class OrderServiceImpl implements OrderService{
 	//若方案配置需要有社保检查被保人社保是否有社保
 	private void checkMedicalInsuranceCode(OrderRequest orderRequest) throws PlatformBaseException{
 	}
+	
+	//检查被保人个数是否符合配置
+	private void checkInsuredPersonListSize(OrderRequest orderRequest) {
+		long count = orderRequest.getMetaDataList().stream().filter(x->"insuredCustomerRoleCode".equals(x.getCode())).filter(x->"2".equals(x.getValue())).count();
+		PlanInfo planInfo = (PlanInfo)orderRequest.getMap().get("planInfo");
+		
+	}
+	
 	
 	//投保年龄检查
 	private void checkInsuredAge(OrderRequest orderRequest) throws PlatformBaseException{
@@ -1584,37 +1711,25 @@ public class OrderServiceImpl implements OrderService{
 			map = new HashMap<String,Object>();
 		}
 		String item = new String(submitName);
-		
-		String nodeKey = item.split("\\[")[0]+ group;
-		String indexKey = nodeKey+"/" +index;
-		Integer offset = (Integer)map.get(nodeKey);
-		if(offset == null) {
-			map.put(nodeKey, 0);
+		String groupKey = item.split("\\[")[0];
+		String indexKey = "index:"+groupKey;
+		String tempGroupKey = "group";
+		Integer offset = (Integer)map.get(groupKey);
+		if(offset == null) {//新的分组index初始化为0
+			map.put(groupKey, 0);
+			map.put(indexKey, 0);
+			map.put(tempGroupKey, group);
+			offset =  (Integer)map.get(groupKey);
 		}
-		
-		if(offset == null) {
-			map.put(indexKey, 1);
+		if(offset != index) {//存在多条数据index+1
+			map.put(groupKey, offset + 1);
 		}
-		
-		Map<String,HashSet<String>> groupMap = (Map<String, HashSet<String>>) map.get("groupMap");
-		if(groupMap == null) {
-			groupMap = new HashMap<String,HashSet<String>>();
+		if(!group.equals(map.get(tempGroupKey)) ) {//多个分组index+1
+			map.put(indexKey, offset + 1);
+			map.put(tempGroupKey, group);
 		}
-		HashSet<String> set = groupMap.get(item.split("\\[")[0]);
-		if(set == null ) {
-			set = new HashSet<String>();
-		}
-		set.add(group);
-		groupMap.put(item.split("\\[")[0], set);
-		map.put("groupMap", groupMap);
-		int t = 0;
-		for (String groupItem : set) {
-			t += (Integer)map.get(item.split("\\[")[0]+groupItem+"/"+index);
-		}
-		t = t -1;
-		log.info(submitName+":"+((Integer)map.get(nodeKey) + t ) );
-		log.info("map:"+map );
-		return ((Integer)map.get(nodeKey) + t );
+		int keyIndex = (int)map.get(indexKey) + (Integer)map.get(groupKey);
+		return keyIndex;
 	}
 	
 	/**
@@ -1913,9 +2028,32 @@ public class OrderServiceImpl implements OrderService{
 			e.printStackTrace();
 		}
 		response.setOnlinePlanNum(onlinPlanList == null ? 0 : onlinPlanList.size());
-		
-		
+		HealthNotice healthNotice = new HealthNotice();
+		HashMap<String,Object> mapAt= new HashMap<String, Object>();
+		mapAt.put("planId", response.getPlanId());
+		mapAt.put("attachType", "actoion_inform");//健康须知
+        List<ImgList> listAt = tPrdPlanFormMapper.selectPlanStrategyAttach(mapAt);
+		if(CollectionUtils.isNotEmpty(listAt)) {
+            healthNotice.setInUrl(listAt.get(0).getImgIn());
+            healthNotice.setUrl(listAt.get(0).getImg());
+            response.setIsNeedHealthNotice(true);
+        }
+        else {
+            response.setIsNeedHealthNotice(false);
+        }
+		response.setHealthNotice(healthNotice);
 		return HttpResult.success(response);
+	}
+
+	@Override
+	public HttpResult realNameStatus(String orderId) {
+		try {
+			orderMapper.updateNoncarOrderRealName(orderId);
+			orderMapper.updateNoncarInsureinfoRealName(orderId);
+			return HttpResult.success(1,"实名状态更新成功");
+		} catch (Exception e) {
+			return HttpResult.error(0,"实名状态更新失败");
+		}
 	}
 	
 	

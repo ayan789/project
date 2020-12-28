@@ -175,10 +175,10 @@ public class SubmitUnderwritService extends CommonService{
     	
     	String reqJson = JSONObject.fromObject(request,jsonConfig).toString();
     	log.info("调用提交组合核保接口开始，请求报文："+ reqJson);
-    	JsonNode jsonNode = UnirestUtil.postForJson(PropertiesUtil.getProperty("system.submitUw", null), request);
+    	JsonNode jsonNode = UnirestUtil.postForJson(PropertiesUtil.getProperty("esb.address.submitUw", null), request);
 		log.info("调用提交组合核保接口结束，响应报文："+ jsonNode);
 		RespSubmitUwVo response = JSON.parseObject(jsonNode.toString(), RespSubmitUwVo.class);
-        if(response.getResponseBody()!=null) {
+        if(response.getResponseBody()!=null && response.getResponseHead().getStatus()==0) {
             if(response.getResponseBody().getSubmitProposalInfoList().size()!=0) {
                 List<SubmitProposalInfoList> submitProposalIn = response.getResponseBody().getSubmitProposalInfoList();
                 for (SubmitProposalInfoList policyLobListTwo : submitProposalIn) {

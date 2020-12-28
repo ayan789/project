@@ -13,6 +13,7 @@
     <result column="is_used" jdbcType="VARCHAR" property="isUsed" />
     <result column="sales_plan_id" jdbcType="INTEGER" property="salesPlanId" />
     <result column="policyform" jdbcType="VARCHAR" property="policyform" />
+    <result column="second_line" jdbcType="INTEGER" property="secondLine" />
   </resultMap>
   
   <resultMap id="BaseResultMap2" type="com.ccic.salesapp.noncar.dto.salesplan.PlanChild">
@@ -35,7 +36,7 @@
     master_product, is_used, sales_plan_id, policyform
   </sql>
   
-   <select id="selectByPrimaryKey2" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
+   <select id="selectBySalesPlanChildList" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
     select * from t_noncar_sales_plan_child where sales_plan_id = #{salesPlanId,jdbcType=INTEGER} ORDER BY sort
   </select>
   
@@ -71,15 +72,15 @@
       #{salesPlanId,jdbcType=INTEGER}, #{policyform,jdbcType=VARCHAR})
   </insert>
   
-  <insert id="insert2" parameterType="com.ccic.salesapp.noncar.dto.salesplan.PlanChild">
+  <insert id="insertPlanChild" parameterType="com.ccic.salesapp.noncar.dto.salesplan.PlanChild">
     insert into t_noncar_sales_plan_child (child_plan_id, child_plan_code, child_plan_name, 
       product_code, product_name, product_line, 
       insurance_type, master_product, is_used, 
-      sales_plan_id, policyform)
+      sales_plan_id, policyform,second_line)
     values (#{childPlanId,jdbcType=INTEGER}, #{childPlanCode,jdbcType=VARCHAR}, #{childPlanName,jdbcType=VARCHAR}, 
       #{productCode,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, #{productLine,jdbcType=INTEGER}, 
       #{insuranceType,jdbcType=VARCHAR}, #{masterProduct,jdbcType=VARCHAR}, #{isUsed,jdbcType=VARCHAR}, 
-      #{salesPlanId,jdbcType=INTEGER}, #{policyform,jdbcType=VARCHAR})
+      #{salesPlanId,jdbcType=INTEGER}, #{policyform,jdbcType=VARCHAR},#{secondLine,jdbcType=VARCHAR})
   </insert>
   
   <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.SalesPlanChild">
@@ -212,4 +213,13 @@
 	left join t_noncar_sales_coverage co on co.child_plan_id = ch.child_plan_id
 	where ch.child_plan_id =  #{childPlanId,jdbcType=INTEGER}
   </select>
+  
+  <select id="selectRiskTypeByChildPlanId" parameterType="java.lang.Integer" resultType="java.lang.String">
+  select distinct co.risk_type from t_noncar_sales_plan_child ch
+	left join t_noncar_sales_coverage co on co.child_plan_id = ch.child_plan_id
+	where ch.child_plan_id =  #{childPlanId,jdbcType=INTEGER}
+	limit 1
+  </select>
+  
+  
 </mapper>

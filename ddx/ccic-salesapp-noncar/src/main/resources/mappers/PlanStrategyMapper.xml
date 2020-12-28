@@ -76,12 +76,12 @@
   
   <select id="planStrategyList" parameterType="com.ccic.salesapp.noncar.dto.product.request.ProductListRequest" resultType="com.ccic.salesapp.noncar.dto.StoreProduct" >
   	<bind name="likeUserCode" value="'%'+userCode+'%'"></bind>
-  	select * from(
+  	select if(sc.config_state = 1,0,1) isInStore ,t.* from(
 		select s.id,s.code productCode,s.name productName,plan.premium_min productDesc, null productType, 'prIndex' productBuyUrl,
-		(select attach_url from t_noncar_plan_attach where record_status = '0' and biz_type = 'strategy' and biz_id = s.id  and attach_type = 'promotion_image' order by id asc limit 1) productImgUrl, null productExplain,null productRisk,null hotSale,null applicantAge ,null isHealinsurance ,'prIndex' path , null forPeopleStatus, 
+		(select attach_url from t_noncar_plan_attach where record_status = '0' and biz_type = 'strategy' and biz_id = s.id  and attach_type = 'promotion_image' order by id asc limit 1) productImgUrl, null productExplain,null productRisk,null hotSale,null applicantAge ,null isHealinsurance ,concat('nonCar/prIndex?productCode=',s.code) path , null forPeopleStatus, 
 		s.memo `desc` , (select ifnull(sum(if(number_of_copys is null,1,number_of_copys)),0) from t_noncar_order where strategy_code = s.`code` and (order_status = 6 or order_status = 7)) saleSum  , null  isIssueAfterPay ,plan.publicity_info publicityInfo, plan.put_on_time,plan.strategy_id strategyId, 1 productSource
 	from (
-	select strategy_id ,min(put_on_time) put_on_time, min(premium_min) premium_min ,
+	select strategy_id ,min(i.update_time) put_on_time, min(premium_min) premium_min ,
 	concat('保障期间: ',
 	max((case gi_period_type when 1 then 365 when 2 then 30 when 3 then 1 else 1 end)* gi_coverage_period) /
 	(case min(gi_period_type) when 1 then 365 when 2 then 30 when 3 then 1 else 1 end) ,
@@ -160,7 +160,17 @@
 		like #{likeUserCode} )
 
 		) t
+		
+		left join t_noncar_store_config sc on t.productCode = sc.product_code and sc.store_code  = #{storeCode}
+		
 		where 1= 1
+		
+		<!-- 门店产品查询 -->
+		<if test="isInStore!= null and isInStore!=''">
+			and if(sc.config_state = 1,0,1) = #{isInStore}
+		</if>
+		
+		
 		<if test="keyWord!= null and keyWord!=''">
 			and t.productName like CONCAT(CONCAT('%',
 			#{keyWord}),'%')
@@ -196,6 +206,27 @@
 			)
 			
 		</if>
+		<if test="productType == null ">
+		<!-- 员工通道产品 在全部场景中进行排除 -->
+			and (
+			(t.id not in (
+			select strategy_id from t_noncar_strategy_range where range_type = 1  and code  = '05'
+			) and t.productSource = 1
+			)  
+			or (
+			 t.productSource = 0 
+			 <if test='productType!= null and productType=="01"'>
+				and t.productRisk = 1
+			</if>
+			<if test='productType!= null and productType=="02"'>
+				and t.productRisk = 2
+			</if>
+			<if test='productType!= null and productType!="01" and productType!="02" '>
+				and t.productRisk = #{productType}
+			</if>
+			)
+			)
+		</if>
 		
 		<choose>
 			<when test="orderBy!= null and orderBy!='' and orderBy=='price' ">
@@ -211,6 +242,10 @@
 			<when test="orderBy!= null and orderBy!='' and orderBy=='salesnum' ">
 				order by t.SALESUM
 				<if test="asc != null and asc!=''  and asc=='desc' ">desc</if>
+			</when>
+			
+			<when test="orderBy!= null and orderBy!='' and orderBy=='storeSoft' ">
+				order by if(sc.config_state = 0,UNIX_TIMESTAMP(now()) -if(sc.config_soft is null,0,sc.config_soft), UNIX_TIMESTAMP(t.put_on_time) +t.id) desc
 			</when>
 			
 			<otherwise>
@@ -523,4 +558,34 @@
       update_user = #{updateUser,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectGroupProductByGroupCode" parameterType="java.lang.String" resultType="java.util.HashMap">
+  	SELECT group_name groupName,base_price basePrice,`desc`,(SELECT count(1) from t_non_car_wealth_acc_application where `status`='30' and join_sales_type='2' and master_product='1'
+and formula_group_code = #{groupCode}) saleNum from t_noncar_group_product 
+		where sales_plan_group_code=#{groupCode}
+  </select>
+  
+  
+  <select id="selectStaffRenewalProductList" parameterType="java.util.HashMap" resultType="com.ccic.salesapp.noncar.dto.StoreProduct">
+  SELECT a.code productCode,a.name productName,b.product_code as riskCode,max(m.insurant_upperlimit) insuredPersonNum
+    FROM t_noncar_plan_strategy a  LEFT JOIN t_noncar_plan_info b ON a.id = b.strategy_id
+		left join t_noncar_plan_method m on m.plan_id = b.id
+    WHERE a.is_main = '1'
+        AND a.strategy_type='1'
+        AND a.valid_status = '1'
+        AND a.id IN (
+            SELECT b.strategy_id
+            FROM t_noncar_renewal_plan a
+                LEFT JOIN t_noncar_plan_info b ON a.plan_code = b.plan_code
+            WHERE a.is_claim = #{isClaim,jdbcType=VARCHAR}
+				AND a.is_staff = '1'				
+                AND b.status = '7'
+                AND b.put_on_method = '1'
+                AND b.record_status = '0'
+        )
+    	AND m.insurant_upperlimit > 0
+	group by a.code ,a.name ,b.product_code
+	order by insuredPersonNum
+  </select>
+  	
 </mapper>

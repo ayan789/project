@@ -122,19 +122,19 @@ let newObj = {};
           getPlanDynamicForms() {
             let params = {
               // strategyId: 125,
-              strategyId: 984,
+              strategyId: 1311,
               cate: "pl",
               category: "policy"
             };
             const me = this;
-            // getPlanDynamicForms(params).then(res => {
-            // if (res.code === "1") {
-            //   console.log(res.data[0])
-            //   me.formInfo=res.data[0]
-            //   this.renderForm(me.formInfo);
-            // }
-            // });
-            this.renderForm(me.formInfo);
+            getPlanDynamicForms(params).then(res => {
+            if (res.code === "1") {
+              console.log(res.data[0])
+              me.formInfo=res.data[0]
+              this.renderForm(me.formInfo);
+            }
+            });
+            //this.renderForm(me.formInfo);
           
           },
            // inputNumber输入框失去焦点事件 （份数等）
@@ -231,10 +231,10 @@ let newObj = {};
                 planId: 1,
                 planCoverageIds: 1
               };
-              trial(obj)
-                .then(res => {
-                    console.log(res);
-                })
+              // trial(obj)
+              //   .then(res => {
+              //       console.log(res);
+              //   })
           },
           /**
            * code:对应的表单元素code

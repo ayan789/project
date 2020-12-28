@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ccic.salesapp.noncar.dto.order.request.OrderDetailRequest;
 import com.ccic.salesapp.noncar.dto.order.request.OrderRequest;
+import com.ccic.salesapp.noncar.dto.request.RealNameStatusVo;
 import com.ccic.salesapp.noncar.dto.request.StoreQueryListRequestVO;
 import com.ccic.salesapp.noncar.service.OrderService;
 import com.ccic.salessapp.common.core.web.HttpResult;
@@ -55,10 +56,18 @@ public class OrderCtl {
     
     
     @PostMapping(value = "orderDetail")
-    @ApiOperation(value = "订单列表", notes = "订单列表", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "订单详情", notes = "订单详情", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public HttpResult orderDetail(@RequestBody OrderDetailRequest request) {
     	
      return orderService.orderDetail(request);
     }
+    
+    @PostMapping(value = "realNameStatus")
+    @ApiOperation(value = "订单实名状态", notes = "订单实名状态", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public HttpResult realNameStatus(@RequestBody RealNameStatusVo realNameStatusVo) {
+      return orderService.realNameStatus(realNameStatusVo.getOrderId());
+    }
+    
+    
     
 }

@@ -1,0 +1,36 @@
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="mysql" targetRuntime="MyBatis3Simple">
+
+        <commentGenerator type="mybatis.generator.SwaggerCommentGenerator">
+        </commentGenerator>
+
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://10.100.172.11:3306/salesapp?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;useSSL=false"
+                        userId="salesapp"
+                        password="Salesapp123!">
+            <property name="useInformationSchema" value="true" />
+        </jdbcConnection>-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://10.1.11.127:3306/salesapp?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;useSSL=false"
+                        userId="salesbusi"
+                        password="ccic_1865">
+            <property name="useInformationSchema" value="true" />
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="com.ccic.salesapp.noncar.repository.basedb.po" targetProject="src/test/java">
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mappers"  targetProject="src/test/resources">
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.ccic.salesapp.noncar.repository.basedb.mapper"  targetProject="src/main/java">
+        </javaClientGenerator>
+
+        <table tableName="t_user_prpduser" domainObjectName="User" mapperName="UserMapper">
+
+        </table>
+    </context>
+</generatorConfiguration>

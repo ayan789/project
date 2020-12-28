@@ -58,5 +58,8 @@ public interface OrderMapper {
 	
 //	HashMap<String, Object> selectPolicyList(HashMap<String, Object> map);
 	
+    int updateNoncarOrderRealName(String orderId);
+    
+    int updateNoncarInsureinfoRealName(String orderId);
     
 }

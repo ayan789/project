@@ -33,4 +33,5 @@ public class SalesCoverage {
 
     private String insuranceType;
     
+    private String ctGroupType;
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ccic.salesapp.noncar.dto.request.ShortUrlRequestVO;
+import com.ccic.salesapp.noncar.dto.request.UrlRequestVO;
 import com.ccic.salesapp.noncar.service.RedirectService;
 import com.ccic.salessapp.common.core.web.HttpResult;
 
@@ -36,6 +37,13 @@ public class RedirectCtl {
 	@ApiOperation(value = "生成短链接", notes = "生成短链接", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public HttpResult getShortUrl(@RequestBody ShortUrlRequestVO req) {
 		return redirectService.getShortUrl(req);
+	}
+	
+	@PostMapping(value = "/getRedirectUrl")
+	@ApiOperation(value = "生成短链接", notes = "获取重定向链接", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public HttpResult getRedirectUrl(@RequestBody UrlRequestVO req) throws Exception{
+		String redirectUrl = redirectService.getRedirectUrl(req);
+		return HttpResult.success(redirectUrl,1, "OK");
 	}
 	
 }

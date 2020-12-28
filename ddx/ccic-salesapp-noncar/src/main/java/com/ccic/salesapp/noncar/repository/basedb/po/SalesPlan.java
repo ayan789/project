@@ -27,6 +27,15 @@ public class SalesPlan {
     private Date effectiveDate;
 
     private Date expiryDate;
-
+    
+    private String smsTemplateId;
+    
+    private String salesPlanType;
+    
+    private String groupCode;
+    
+    private String groupName;
+    
+    private String discountType;
    
 }

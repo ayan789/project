@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.PersonMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.basedb.po.Person">
+    <result column="person_list_id" jdbcType="BIGINT" property="personListId" />
+    <result column="order_id"  jdbcType="BIGINT" property="orderId"/>
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="comments" jdbcType="VARCHAR" property="comments" />
+    <result column="effective_date" jdbcType="DATE" property="effectiveDate" />
+    <result column="expiry_date" jdbcType="DATE" property="expiryDate" />
+    <result column="gender_code" jdbcType="VARCHAR" property="genderCode" />
+    <result column="person_id_no" jdbcType="VARCHAR" property="personIdNo" />
+    <result column="person_id_type" jdbcType="VARCHAR" property="personIdType" />
+    <result column="person_name" jdbcType="VARCHAR" property="personName" />
+    <result column="person_work" jdbcType="VARCHAR" property="personWork" />
+    <result column="person_work_type" jdbcType="INTEGER" property="personWorkType" />
+    <result column="representative_job_title" jdbcType="INTEGER" property="representativeJobTitle" />
+    <result column="year_salary_amount" jdbcType="VARCHAR" property="yearSalaryAmount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    person_list_id,
+    order_id,
+	age,
+	comments,
+	effective_date,
+	expiry_date,
+	gender_code,
+	person_id_no,
+	person_id_type,
+	person_name,
+	person_work,
+	person_work_type,
+	representative_job_title,
+	year_salary_amount,
+	create_time,
+	create_user
+  </sql>
+  <select id="selectByPersonListId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_noncar_person
+    where person_list_id = #{personListId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="newPersonListId" resultType="java.lang.Integer">
+  	select 
+    ifnull(max(person_list_id) ,0) + 1  person_list_id
+    from t_noncar_person
+  </select>
+  
+  <update id="updateOrderIdByPersonListId" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.Person">
+  	update t_noncar_person set order_id = #{orderId,jdbcType=BIGINT} where person_list_id = #{personListId,jdbcType=BIGINT}
+  </update>
+  
+  <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.Person">
+    
+    insert into t_noncar_person
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="personListId != null">
+        person_list_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="comments != null">
+        comments,
+      </if>
+      <if test="effectiveDate != null">
+        effective_date,
+      </if>
+      <if test="expiryDate != null">
+        expiry_date,
+      </if>
+      <if test="genderCode != null">
+        gender_code,
+      </if>
+      <if test="personIdNo != null">
+        person_id_no,
+      </if>
+      <if test="personIdType != null">
+        person_id_type,
+      </if>
+      <if test="personName != null">
+        person_name,
+      </if>
+      <if test="personWork != null">
+        person_work,
+      </if>
+      <if test="personWorkType != null">
+        person_work_type,
+      </if>
+      <if test="representativeJobTitle != null">
+        representative_job_title,
+      </if>
+      <if test="yearSalaryAmount != null">
+        year_salary_amount,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="personListId != null">
+        #{personListId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveDate != null">
+        #{effectiveDate,jdbcType=DATE},
+      </if>
+      <if test="expiryDate != null">
+        #{expiryDate,jdbcType=DATE},
+      </if>
+      <if test="genderCode != null">
+        #{genderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="personIdNo != null">
+        #{personIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="personIdType != null">
+        #{personIdType,jdbcType=VARCHAR},
+      </if>
+      <if test="personName != null">
+      	#{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="personWork != null">
+        #{personWork,jdbcType=VARCHAR},
+      </if>
+      <if test="personWorkType != null">
+        #{personWorkType,jdbcType=VARCHAR},
+      </if>
+      <if test="representativeJobTitle != null">
+        #{representativeJobTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="yearSalaryAmount != null">
+        #{yearSalaryAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </insert>
+  
+</mapper>

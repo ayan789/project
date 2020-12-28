@@ -15,6 +15,7 @@
     <result column="coverage_name" jdbcType="VARCHAR" property="coverageName" />
     <result column="relation_id" jdbcType="INTEGER" property="relationId" />
     <result column="relation_type" jdbcType="INTEGER" property="relationType" />
+    <result column="insure_unit" jdbcType="VARCHAR" property="insureUnit" />
   </resultMap>
 
   <sql id="Base_Column_List">
@@ -240,7 +241,7 @@
     where order_id = #{orderId,jdbcType=BIGINT}
   </select>
   
-  <select id="selectByOrderId2"  parameterType="java.lang.Long" resultType="com.ccic.salesapp.noncar.dto.order.Clause">
+  <select id="selectCtByOrder"  parameterType="java.lang.Long" resultType="com.ccic.salesapp.noncar.dto.order.Clause">
   	 select 
     oc.clause_code clauseCode,oc.kind_code kindCode,oc.order_id
 		,oc.coverage_name kindName,

@@ -56,9 +56,9 @@ public class GroupOrderRequestServiceImpl implements  GroupOrderRequestService{
 		ResponseHead responseHead = null;
 		ResponseBody responseBody = null;
 		JSONObject json = JSONObject.fromObject(respJson);
-		responseHead = (ResponseHead) JSONObject.toBean(json.getJSONObject("salesResponseHead"), ResponseHead.class);
+		responseHead = (ResponseHead) JSONObject.toBean(json.getJSONObject("responseHead"), ResponseHead.class);
 		if(responseHead.getStatus()==0){
-			responseBody = groupResponseBody(json.getJSONObject("salesResponseBody").toString());
+			responseBody = groupResponseBody(json.getJSONObject("responseBody").toString());
 			log.info("调用销售中台试算接口成功");//响应信息
 		}else{
 			log.info("调用销售中台试算接口失败");//响应信息
@@ -85,9 +85,9 @@ public class GroupOrderRequestServiceImpl implements  GroupOrderRequestService{
 		ResponseHead responseHead = null;
 		ResponseBody responseBody = null;
 		JSONObject json = JSONObject.fromObject(respJson);
-		responseHead = (ResponseHead) JSONObject.toBean(json.getJSONObject("salesResponseHead"), ResponseHead.class);
+		responseHead = (ResponseHead) JSONObject.toBean(json.getJSONObject("responseHead"), ResponseHead.class);
 		if(responseHead.getStatus()==0){
-			responseBody = groupResponseBody(json.getJSONObject("salesResponseBody").toString());
+			responseBody = groupResponseBody(json.getJSONObject("responseBody").toString());
 			log.info("调用销售中台下单接口成功");//响应信息
 		}else{
 			log.info("调用销售中台下单接口失败");//响应信息

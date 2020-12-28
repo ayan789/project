@@ -71,6 +71,7 @@ import com.ccic.salesapp.noncar.service.OrderDetailsInqueryFacade;
 import com.ccic.salesapp.noncar.service.PaymentNoApplyFacade;
 import com.ccic.salesapp.noncar.service.StoreProductPlaceUtilService;
 import com.ccic.salessapp.common.config.WebContants;
+import com.ccic.salessapp.common.core.exception.PlatformBaseException;
 import com.ccic.salessapp.common.core.web.HttpResult;
 import com.ccic.salessapp.common.outService.ws.common.bean.RequestHeadDTO;
 import com.ccic.salessapp.common.request.UserToken;
@@ -686,6 +687,25 @@ public class PaymentNoApplyFacadeImpl extends AbstractFacade implements PaymentN
 
 				return HttpResult.error(0,"验证码不能为空！");
 			}
+			StoreInsureInfo storeInsureInfo = storeInsureInfoMapper.selectBySureInfoNo(proposalNo);
+			if(storeInsureInfo != null ) {
+				if("10".equals(storeInsureInfo.getStatus()) ) {//失效
+					throw new PlatformBaseException("该投保单不是有效状态！", 0);
+				}
+				if("8".equals(storeInsureInfo.getStatus()) ) {//删除
+					throw new PlatformBaseException("该投保单已被删除！", 0);
+				}
+			}else {
+				ApplyPayVo applyPayVo  = new ApplyPayVo();
+				applyPayVo.setInsureNo(proposalNo);
+				NoncarOrder noncarOrder  = storeInsureInfoMapper.selectBySureInfoNoTwo(applyPayVo);
+				if(noncarOrder != null && "10".equals(noncarOrder.getOrderStatus()) ) {//失效
+					throw new PlatformBaseException("该投保单不是有效状态！", 0);
+				}
+				if(noncarOrder != null && "1".equals(noncarOrder.getIsDelete()) ) {//删除
+					throw new PlatformBaseException("该投保单已被删除！", 0);
+				}
+			}
 			String consumerID = null;
 			/*SystemConfig cofig=new SystemConfig("system");
 			consumerID = cofig.getResourceValue("consumerID");
@@ -1197,7 +1217,7 @@ public class PaymentNoApplyFacadeImpl extends AbstractFacade implements PaymentN
 				proposalInfoDTO.setEffectDate(datef.format(list.get(i).get("startDate")));//起保日期
 				proposalInfoDTO.setAmount(Double.parseDouble(list.get(i).get("premium")+""));//金额
 				paymentNoApplyRequestDTO.getProposalInfoDTO().add(proposalInfoDTO);
-				allPremium=allPremium+Double.parseDouble(list.get(i).get("premium")+"");
+				allPremium = add(allPremium, Double.parseDouble(list.get(i).get("premium")+""));
 			}
 			
 			//=================start改造=========================
@@ -1271,6 +1291,12 @@ public class PaymentNoApplyFacadeImpl extends AbstractFacade implements PaymentN
 			}
 			return (Integer) row;
 		}
+		
+		public static double add(double v1, double v2) {
+	        BigDecimal b1 = new BigDecimal(Double.toString(v1));
+	        BigDecimal b2 = new BigDecimal(Double.toString(v2));
+	        return b1.add(b2).doubleValue();
+	    }
 }
 
 

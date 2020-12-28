@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -15,6 +17,8 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSON;
 import com.ccic.salesapp.noncar.dto.AgentInfoVO;
@@ -67,9 +71,15 @@ public class PropertyTrialServiceImpl implements PropertyTrialService {
     	request.setRequestBody(requestBody);
     	updateHandlerInfo(requestBody,userVO);
     	String reqJson = JSONObject.fromObject(request,jsonConfig).toString();
-    	log.info("调用财产险试算接口，请求报文："+ reqJson);
+    	ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest httpRequest = attributes.getRequest();
+        String uuid = (String) httpRequest.getAttribute("requestId");
+        if(StringUtils.isBlank(uuid)) {
+       	 uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        }
+    	log.info("调用财产险试算接口，请求报文：["+uuid+"]"+ reqJson);
     	String respJson = httpService.postJsonRequest(orderNo,reqJson,nocarPropertyTrial);
-		log.info("调用财产险试算接口，返回报文："+ respJson);
+		log.info("调用财产险试算接口，返回报文：["+uuid+"]"+ respJson);
 		
 		ResponseHead responseHead = null;
 		PropertyTrialResponse responseBody = null;

@@ -21,4 +21,6 @@ public interface AppCheckCodeMapper {
 	int checkDoubleClickByMobile(String mobile);
 	
 	Integer checkDoubleClickByUserCode(String userCode);
+
+	void delCheckCode(String userCode);
 }

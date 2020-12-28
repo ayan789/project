@@ -183,4 +183,6 @@ public interface StoreInsureInfoMapper {
 	NoncarOrder selectNoncarOrderBySubmission(String submission);
 
 	List<NoncarPlanCt> findBySchemeCodeZh(Map map);
+
+	NoncarOrder selectNoncarOrderByInsureNoA(String certiNo);
 }

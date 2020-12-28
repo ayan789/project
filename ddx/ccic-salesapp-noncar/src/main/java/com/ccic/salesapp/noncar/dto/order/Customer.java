@@ -59,4 +59,7 @@ public class Customer {
 	@ApiModelProperty("标的地址")
 	String fullAddress;
 	
+	@ApiModelProperty("是否主被保人 Y/N")
+	String isMainInsured;
+	
 }

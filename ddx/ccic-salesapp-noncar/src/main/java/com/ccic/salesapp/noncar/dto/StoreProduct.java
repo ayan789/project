@@ -95,4 +95,10 @@ public class StoreProduct {
 	
 	@ApiModelProperty("是否产品工厂配置的动态表单产品 1：是  0： 否")
 	private String productSource;
+	
+	@ApiModelProperty("是否在门店中显示：1：显示；0：不显示")
+	private String isInStore;
+	
+	@ApiModelProperty("续保产品查询用字段：被保人个数")
+	private Integer insuredPersonNum;
 }

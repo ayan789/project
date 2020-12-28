@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ccic-salesapp-noncar" />
+        <module name="ccic-salesapp-gateway" />
+        <module name="common-components" />
+        <module name="ccic-salesapp-performance" />
+        <module name="ccic-salesapp-eureka" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ccic-salesapp-eureka" target="1.8" />
+      <module name="ccic-salesapp-gateway" target="1.8" />
+      <module name="ccic-salesapp-noncar" target="1.8" />
+      <module name="ccic-salesapp-performance" target="1.8" />
+      <module name="common-components" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ccic-salesapp-eureka" options="-parameters" />
+      <module name="ccic-salesapp-gateway" options="-parameters -extdirs $PROJECT_DIR$/ccic-salesapp-gateway/lib" />
+      <module name="ccic-salesapp-noncar" options="-parameters" />
+      <module name="ccic-salesapp-performance" options="-parameters" />
+      <module name="common-components" options="-parameters" />
+    </option>
+  </component>
+</project>

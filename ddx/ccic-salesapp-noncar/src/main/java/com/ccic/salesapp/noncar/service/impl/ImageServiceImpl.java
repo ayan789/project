@@ -1335,6 +1335,13 @@ public class ImageServiceImpl extends AbstractFacade implements ImageService {
 		if (m2.find()) {
 			okContent2 = m2.replaceAll(ConfigConst.CSS_SPAN_FU);
 		}
+		// 正则去除a标签
+		Pattern pA = Pattern.compile("<a[^<]*?>");
+		Matcher mA = pA.matcher(okContent2.toString());
+		okContent2 = mA.replaceAll("");
+		Pattern pA1 = Pattern.compile("</a>");
+		Matcher mA1 = pA1.matcher(okContent2);
+		okContent2 = mA1.replaceAll("");
 		// 正则表达式 去掉DIV标签里面所有
 		String regEx = ConfigConst.CSS_DIV;
 		Pattern p = Pattern.compile(regEx);
@@ -1479,7 +1486,8 @@ public class ImageServiceImpl extends AbstractFacade implements ImageService {
 			html2pdf(htmlFilePath, url, chineseFontPath);
 			System.out.println("##################html转pdf成功！##################" + url);
 		} catch (Exception e) {
-			logger.error("html转换为pdf失败", e);
+			e.printStackTrace();
+			logger.error("html转换为pdf失败");
 		}
 	}
 
@@ -1757,7 +1765,7 @@ public class ImageServiceImpl extends AbstractFacade implements ImageService {
 		
 		
 		/**投保须知，健康告知**/
-		if("SXYZ20500270001".equals(noncarOrder.getStrategyCode())) {
+		if("SXYZ20502100001".equals(noncarOrder.getStrategyCode())) {
 			Resource InsuranceNoticeTemp = resourceLoader.getResource("classpath:" + "InsuranceNoticeSXYZ20500270001.ftl");
 			InputStream InsuranceNoticeInputStream = InsuranceNoticeTemp.getInputStream();
 			byte[] InsuranceNoticeBytes = new byte[0];
@@ -1772,7 +1780,7 @@ public class ImageServiceImpl extends AbstractFacade implements ImageService {
 			inputStream.read(bytes1);
 			String tempContent = new String(bytes1);
 			map.put("BasicEdition",tempContent);
-		}else if("SXYZ20500270002".equals(noncarOrder.getStrategyCode())) {
+		}else if("SXYZ20502100002".equals(noncarOrder.getStrategyCode())) {
 			Resource InsuranceNoticeTemp = resourceLoader.getResource("classpath:" + "InsuranceNoticeSXYZ20500270002.ftl");
 			InputStream InsuranceNoticeInputStream = InsuranceNoticeTemp.getInputStream();
 			byte[] InsuranceNoticeBytes = new byte[0];
@@ -1787,7 +1795,7 @@ public class ImageServiceImpl extends AbstractFacade implements ImageService {
 			inputStream.read(bytes1);
 			String tempContent = new String(bytes1);
 			map.put("EliteEdition",tempContent);
-		}else if("SXYZ20500270003".equals(noncarOrder.getStrategyCode())) {
+		}else if("SXYZ20502100003".equals(noncarOrder.getStrategyCode())) {
 			Resource InsuranceNoticeTemp = resourceLoader.getResource("classpath:" + "InsuranceNoticeSXYZ20500270003.ftl");
 			InputStream InsuranceNoticeInputStream = InsuranceNoticeTemp.getInputStream();
 			byte[] InsuranceNoticeBytes = new byte[0];
@@ -1802,7 +1810,7 @@ public class ImageServiceImpl extends AbstractFacade implements ImageService {
 			inputStream.read(bytes1);
 			String tempContent = new String(bytes1);
 			map.put("OptionalVersionOne",tempContent);
-		}else if("SXYZ20500270004".equals(noncarOrder.getStrategyCode())) {
+		}else if("SXYZ20502100004".equals(noncarOrder.getStrategyCode())) {
 			Resource InsuranceNoticeTemp = resourceLoader.getResource("classpath:" + "InsuranceNoticeSXYZ20500270004.ftl");
 			InputStream InsuranceNoticeInputStream = InsuranceNoticeTemp.getInputStream();
 			byte[] InsuranceNoticeBytes = new byte[0];
@@ -1817,7 +1825,7 @@ public class ImageServiceImpl extends AbstractFacade implements ImageService {
 			inputStream.read(bytes1);
 			String tempContent = new String(bytes1);
 			map.put("OptionalVersionTwo",tempContent);
-		}else if("SXYZ20500270005".equals(noncarOrder.getStrategyCode())) {
+		}else if("SXYZ20502100005".equals(noncarOrder.getStrategyCode())) {
 			Resource InsuranceNoticeTemp = resourceLoader.getResource("classpath:" + "InsuranceNoticeSXYZ20500270005.ftl");
 			InputStream InsuranceNoticeInputStream = InsuranceNoticeTemp.getInputStream();
 			byte[] InsuranceNoticeBytes = new byte[0];
@@ -1832,7 +1840,7 @@ public class ImageServiceImpl extends AbstractFacade implements ImageService {
 			inputStream.read(bytes1);
 			String tempContent = new String(bytes1);
 			map.put("OptionalVersionThree",tempContent);
-		}else if("SXYZ20500270006".equals(noncarOrder.getStrategyCode())) {
+		}else if("SXYZ20502100006".equals(noncarOrder.getStrategyCode())) {
 			Resource InsuranceNoticeTemp = resourceLoader.getResource("classpath:" + "InsuranceNoticeSXYZ20500270006.ftl");
 			InputStream InsuranceNoticeInputStream = InsuranceNoticeTemp.getInputStream();
 			byte[] InsuranceNoticeBytes = new byte[0];
@@ -1847,7 +1855,7 @@ public class ImageServiceImpl extends AbstractFacade implements ImageService {
 			inputStream.read(bytes1);
 			String tempContent = new String(bytes1);
 			map.put("OptionalVersionFour",tempContent);
-		}else if("SXYZ20500270007".equals(noncarOrder.getStrategyCode())) {
+		}else if("SXYZ20502100007".equals(noncarOrder.getStrategyCode())) {
 			Resource InsuranceNoticeTemp = resourceLoader.getResource("classpath:" + "InsuranceNoticeSXYZ20500270007.ftl");
 			InputStream InsuranceNoticeInputStream = InsuranceNoticeTemp.getInputStream();
 			byte[] InsuranceNoticeBytes = new byte[0];
@@ -1862,7 +1870,7 @@ public class ImageServiceImpl extends AbstractFacade implements ImageService {
 			inputStream.read(bytes1);
 			String tempContent = new String(bytes1);
 			map.put("OptionalVersionFive",tempContent);
-		}else if("SXYZ20500270008".equals(noncarOrder.getStrategyCode())) {
+		}else if("SXYZ20502100008".equals(noncarOrder.getStrategyCode())) {
 			Resource InsuranceNoticeTemp = resourceLoader.getResource("classpath:" + "InsuranceNoticeSXYZ20500270008.ftl");
 			InputStream InsuranceNoticeInputStream = InsuranceNoticeTemp.getInputStream();
 			byte[] InsuranceNoticeBytes = new byte[0];
@@ -1997,7 +2005,7 @@ public class ImageServiceImpl extends AbstractFacade implements ImageService {
 		String underwritingOperatorRole = noncarImgRiskVo.getUnderwritingOperatorRole();
 		Request request = new Request();
 		RequestHead requestHead =new RequestHead();
-		requestHead.setConsumerID("icore");
+		requestHead.setConsumerID("supsale");
 		
 		ImageLinkRequestDTO imageLinkRequestDTO = new ImageLinkRequestDTO();
 		

@@ -13,16 +13,19 @@ public class ChildProduct {
 	@ApiModelProperty("子方案代码")
 	Integer childPlanId;
 	
-	@ApiModelProperty("子方案代码")
+	@ApiModelProperty("方案代码")
 	String planCode;
 	
-	@ApiModelProperty("子产品代码")
+	@ApiModelProperty("产品代码")
 	String productCode;
 	
-	@ApiModelProperty("子产品名称")
+	@ApiModelProperty("产品名称")
 	String productName;
 	
-	@ApiModelProperty("子产品代码")
+	@ApiModelProperty("子方案名称")
+	String childPlanName;
+	
+	@ApiModelProperty("产品线")
 	String productLine;
 	
 	@ApiModelProperty("条款列表")

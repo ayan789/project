@@ -43,28 +43,28 @@
         <h1>投保确认书</h1>
         <div>合同号:${INSURE_NO!}</div>
         
-        <#if str?? && str=="SXYZ20500270001">
+        <#if str?? && str=="SXYZ20502100001">
             ${InsuranceNoticeSXYZ20500270001}
         </#if>
-        <#if str?? && str=="SXYZ20500270002">
+        <#if str?? && str=="SXYZ20502100002">
             ${InsuranceNoticeSXYZ20500270002}
         </#if>
-        <#if str?? && str=="SXYZ20500270003">
+        <#if str?? && str=="SXYZ20502100003">
             ${InsuranceNoticeSXYZ20500270003}
         </#if>
-        <#if str?? && str=="SXYZ20500270004">
+        <#if str?? && str=="SXYZ20502100004">
             ${InsuranceNoticeSXYZ20500270004}
         </#if>
-        <#if str?? && str=="SXYZ20500270005">
+        <#if str?? && str=="SXYZ20502100005">
             ${InsuranceNoticeSXYZ20500270005}
         </#if>
-        <#if str?? && str=="SXYZ20500270006">
+        <#if str?? && str=="SXYZ20502100006">
             ${InsuranceNoticeSXYZ20500270006}
         </#if>
-        <#if str?? && str=="SXYZ20500270007">
+        <#if str?? && str=="SXYZ20502100007">
             ${InsuranceNoticeSXYZ20500270007}
         </#if>
-        <#if str?? && str=="SXYZ20500270008">
+        <#if str?? && str=="SXYZ20502100008">
             ${InsuranceNoticeSXYZ20500270008}
         </#if>
         
@@ -139,28 +139,28 @@
         <p>
             8、在此声明后至保险正式生效日之前，如上述声明内容发生改变，本人应及时通知保险人，保险人有权进行重新评估。
         </p>
-        <#if str?? && str=="SXYZ20500270001">
+        <#if str?? && str=="SXYZ20502100001">
             ${BasicEdition}
         </#if>
-        <#if str?? && str=="SXYZ20500270002">
+        <#if str?? && str=="SXYZ20502100002">
             ${EliteEdition}
         </#if>
-        <#if str?? && str=="SXYZ20500270003">
+        <#if str?? && str=="SXYZ20502100003">
             ${OptionalVersionOne}
         </#if>
-        <#if str?? && str=="SXYZ20500270004">
+        <#if str?? && str=="SXYZ20502100004">
             ${OptionalVersionTwo}
         </#if>
-        <#if str?? && str=="SXYZ20500270005">
+        <#if str?? && str=="SXYZ20502100005">
             ${OptionalVersionThree}
         </#if>
-        <#if str?? && str=="SXYZ20500270006">
+        <#if str?? && str=="SXYZ20502100006">
             ${OptionalVersionFour}
         </#if>
-        <#if str?? && str=="SXYZ20500270007">
+        <#if str?? && str=="SXYZ20502100007">
             ${OptionalVersionFive}
         </#if>
-        <#if str?? && str=="SXYZ20500270008">
+        <#if str?? && str=="SXYZ20502100008">
             ${OptionalVersionSix}
         </#if>
         <p>

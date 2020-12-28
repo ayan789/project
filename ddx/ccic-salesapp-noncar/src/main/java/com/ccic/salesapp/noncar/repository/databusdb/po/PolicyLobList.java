@@ -27,6 +27,7 @@ public class PolicyLobList {
 	@JsonProperty("SharedCoverageGroupList")
 	private List<PolicyRiskOrderCar> sharedCoverageGroupList;
 		
-	
+	@JsonProperty("DuePremium")
+	private Double duePremium;
 
 }

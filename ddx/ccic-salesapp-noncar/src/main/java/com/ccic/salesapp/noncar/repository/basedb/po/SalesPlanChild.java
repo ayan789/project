@@ -25,6 +25,8 @@ public class SalesPlanChild {
     private Integer salesPlanId;
 
     private String policyform;
+    
+    private Integer secondLine;
 
    
 }

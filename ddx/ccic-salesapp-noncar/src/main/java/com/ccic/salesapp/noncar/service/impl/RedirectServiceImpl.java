@@ -1,7 +1,5 @@
 package com.ccic.salesapp.noncar.service.impl;
 
-import java.io.UnsupportedEncodingException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,13 +9,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.ccic.salesapp.noncar.dto.request.ShortUrlRequestVO;
+import com.ccic.salesapp.noncar.dto.request.UrlRequestVO;
 import com.ccic.salesapp.noncar.dto.response.ShortUrlResponseVO;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.UrlMappingMapper;
 import com.ccic.salesapp.noncar.repository.basedb.po.UrlMapping;
 import com.ccic.salesapp.noncar.service.RedirectService;
 import com.ccic.salessapp.common.core.web.HttpResult;
 import com.ccic.salessapp.common.utils.StringUtils;
-
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -82,5 +80,21 @@ public class RedirectServiceImpl implements RedirectService{
 			return HttpResult.error(0, "失败");
 		}
 	}
+	
+	 @Override
+	public String getRedirectUrl(UrlRequestVO req) throws Exception {
+		String urlCode = req.getShareUrlId();
+		String urlMapping = "";
+		try{
+			if(StringUtils.isNotBlank(urlCode)){
+				urlMapping = urlMappingMapper.selectUrlMapping(urlCode);
+			}
+		}catch(Exception e){
+			log.error("系统异常:"+e);
+		}finally{
+		}
+		return urlMapping;
+	}
+
 	
 }

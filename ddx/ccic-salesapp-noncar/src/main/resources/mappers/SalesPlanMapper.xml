@@ -13,11 +13,17 @@
     <result column="channel_by_person" jdbcType="VARCHAR" property="channelByPerson" />
     <result column="effective_date" jdbcType="TIMESTAMP" property="effectiveDate" />
     <result column="expiry_date" jdbcType="TIMESTAMP" property="expiryDate" />
+    <result column="sms_template_id" jdbcType="VARCHAR" property="smsTemplateId" />
+    <result column="sales_plan_type" jdbcType="VARCHAR" property="salesPlanType" />
+    <result column="group_code" jdbcType="VARCHAR" property="groupCode"/>
+    <result column="group_name" jdbcType="VARCHAR" property="groupName"/>
+    <result column="discount_type" jdbcType="VARCHAR" property="discountType"/>
   </resultMap>
   
   
   <resultMap id="BaseResultMap2" type="com.ccic.salesapp.noncar.dto.salesplan.GroupSalesPlan">
     <id column="sales_plan_id" jdbcType="INTEGER" property="salesPlanId" />
+    <result column="group_code" jdbcType="VARCHAR" property="groupCode" />
     <result column="sales_plan_code" jdbcType="VARCHAR" property="salesPlanCode" />
     <result column="sales_plan_name" jdbcType="VARCHAR" property="salesPlanName" />
     <result column="sales_type" jdbcType="VARCHAR" property="salesType" />
@@ -25,6 +31,22 @@
     <result column="group_plan_name" jdbcType="VARCHAR" property="groupPlanName" />
     <result column="effective_date" jdbcType="TIMESTAMP" property="effectiveDate" />
     <result column="expiry_date" jdbcType="TIMESTAMP" property="expiryDate" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMap3" type="com.ccic.salesapp.noncar.dto.salesplan.GroupSalesPlan">
+    <id column="sales_plan_id" jdbcType="INTEGER" property="salesPlanId" />
+    <result column="group_code" jdbcType="VARCHAR" property="groupCode" />
+    <result column="sales_plan_code" jdbcType="VARCHAR" property="salesPlanCode" />
+    <result column="sales_plan_name" jdbcType="VARCHAR" property="salesPlanName" />
+    <result column="sales_type" jdbcType="VARCHAR" property="salesType" />
+    <result column="group_plan_code" jdbcType="VARCHAR" property="groupPlanCode" />
+    <result column="group_plan_name" jdbcType="VARCHAR" property="groupPlanName" />
+    <result column="effective_date" jdbcType="TIMESTAMP" property="effectiveDate" />
+    <result column="expiry_date" jdbcType="TIMESTAMP" property="expiryDate" />
+     <result column="sms_template_id" jdbcType="VARCHAR" property="smsTemplateId" />
+     <result column="sales_plan_type" jdbcType="VARCHAR" property="salesPlanType" />
+     <result column="discount_type" jdbcType="VARCHAR" property="discountType" />
+     <result column="discount_name" jdbcType="VARCHAR" property="discountName" />
   </resultMap>
   
   
@@ -39,6 +61,39 @@
 	(SELECT * from t_noncar_sales_plan_config where type='1' and code in (SELECT up_org_code from t_support_org_branch where org_code=#{comCode})) t2 on 
 	t1.group_plan_code=t2.group_plan_code) and status='2' and expiry_date>now() ORDER BY sort
   </select>
+  
+  <select id="selectSalesPlanBygroupPlanCodeAllChannel" resultMap="BaseResultMap2">
+   SELECT * from t_noncar_sales_plan where group_plan_code='XYZ2050210' and group_plan_code in 
+   (SELECT group_plan_code from t_noncar_sales_plan_config where type='1' and code in (SELECT up_org_code from t_support_org_branch where org_code=#{comCode}))
+   and status='2' and expiry_date>now() ORDER BY sort
+  </select>
+  
+  <select id="selectChannelBygroupCode" resultType="java.lang.String" parameterType="java.lang.String">
+  	SELECT channel_by_person from t_noncar_sales_plan where group_code=#{groupCode} limit 1
+  </select>
+  
+  <select id="selectChannelBygroupPlanCode" resultType="java.lang.String" parameterType="java.lang.String">
+  	SELECT channel_by_person from t_noncar_sales_plan where group_plan_code=#{groupPlanCode} limit 1
+  </select>
+  
+  <select id="selectSalesPlanByGroupCodeForCarXY" resultMap="BaseResultMap3">
+	 SELECT *,
+	CASE discount_type WHEN '01' THEN '原价' WHEN '02' THEN '普惠'  ELSE '钜惠' END discount_name
+	from t_noncar_sales_plan where group_code=#{groupCode} and group_code in 
+    (SELECT DISTINCT(t1.group_code) from 
+	(SELECT * from t_noncar_sales_plan_config where type='2' and code = #{channelCode}) t1 inner join 
+	(SELECT * from t_noncar_sales_plan_config where type='1' and code in (SELECT up_org_code from t_support_org_branch where org_code=#{comCode})) t2 on 
+	t1.group_code=t2.group_code) and status='2' and expiry_date>now() ORDER BY sort,discount_type
+  </select>
+   <select id="selectSalesPlanByGroupCodeAllChannelForCarXY" resultMap="BaseResultMap3">
+   	SELECT *,
+	CASE discount_type WHEN '01' THEN '原价' WHEN '02' THEN '普惠'  ELSE '钜惠' END discount_name
+	from t_noncar_sales_plan where group_code=#{groupCode}
+	<!--  and group_code in (
+	SELECT group_code from t_noncar_sales_plan_config where type='1' and code in (SELECT up_org_code from t_support_org_branch where org_code=#{comCode}))
+	and status='2' and expiry_date>now() ORDER BY sort,discount_type -->
+   </select>
+   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -60,7 +115,7 @@
       #{effectiveDate,jdbcType=TIMESTAMP}, #{expiryDate,jdbcType=TIMESTAMP})
   </insert>
   
-  <insert id="insert2" parameterType="com.ccic.salesapp.noncar.dto.salesplan.GroupSalesPlan">
+  <insert id="insertGroupSalesPlan" parameterType="com.ccic.salesapp.noncar.dto.salesplan.GroupSalesPlan">
   	INSERT INTO `t_noncar_sales_plan` (
 		`sales_plan_id`,
 		`sales_plan_code`,
@@ -72,7 +127,12 @@
 		`org_code`,
 		`channel_by_person`,
 		`effective_date`,
-		`expiry_date` 
+		`expiry_date`,
+		sms_template_id,
+	    sales_plan_type,
+	    group_code,
+	    group_name,
+	    discount_type
 	)
 	VALUES
 		(
@@ -86,7 +146,12 @@
 		#{orgCode},
 		#{channelByPerson},
 		#{effectiveDate},
-		#{expiryDate}
+		#{expiryDate},
+		#{smsTemplateId},
+	    #{salesPlanType},
+	    #{groupCode},
+	    #{groupName},
+	    #{discountType}
 		)
   </insert>
   
@@ -222,6 +287,13 @@
 	t1.group_plan_code=t2.group_plan_code) and status='2'
   </select>
   
+  <select id="selectRenewalCoverageMapping" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+  	SELECT 
+	renewal_coverage_code renewalCoverageCode,
+	coverage_code coverageCode
+	from t_renewal_formula_coverage_mapping where year=#{year}
+  </select>
+	
   <delete id="deleteBySalesCoverage" parameterType="java.util.HashMap">
     delete from t_noncar_sales_coverage where child_plan_id in (SELECT child_plan_id from t_noncar_sales_plan_child where sales_plan_id in (SELECT sales_plan_id from t_noncar_sales_plan where group_plan_code=#{groupPlanCode}))
   </delete>
@@ -236,6 +308,22 @@
   
   <delete id="deleteBySalesPlanConfig" parameterType="java.util.HashMap">
     delete  from t_noncar_sales_plan_config where group_plan_code=#{groupPlanCode}
+  </delete>
+  
+  <delete id="deleteBySalesCoverageCarxy" parameterType="java.util.HashMap">
+    delete from t_noncar_sales_coverage where child_plan_id in (SELECT child_plan_id from t_noncar_sales_plan_child where sales_plan_id in (SELECT sales_plan_id from t_noncar_sales_plan where group_code=#{groupCode}))
+  </delete>
+  
+  <delete id="deleteBySalesPlanChildCarxy" parameterType="java.util.HashMap">
+    delete  from t_noncar_sales_plan_child where sales_plan_id in (SELECT sales_plan_id from t_noncar_sales_plan where group_code=#{groupCode})
+  </delete>
+  
+  <delete id="deleteBySalesPlanCarxy" parameterType="java.util.HashMap">
+    delete  from t_noncar_sales_plan where group_code=#{groupCode}
+  </delete>
+  
+  <delete id="deleteBySalesPlanConfigCarxy" parameterType="java.util.HashMap">
+    delete  from t_noncar_sales_plan_config where group_code=#{groupCode}
   </delete>
   
 </mapper>

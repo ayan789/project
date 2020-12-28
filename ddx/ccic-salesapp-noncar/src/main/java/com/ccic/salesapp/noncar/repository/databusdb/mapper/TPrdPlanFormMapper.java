@@ -59,6 +59,8 @@ public interface TPrdPlanFormMapper {
     
     List<CommonProblemContent> selectCommonProblemContent(HashMap<String, Object> map);
     
+    List<CommonProblemContent> selectCommonProblemContentCarXy(HashMap<String, Object> map);
+    
     PlanElementDetailDto selectPlanStrategy(HashMap<String, Object> map);
     
     Header selectPlanStrategyHeader(HashMap<String, Object> map);
@@ -67,11 +69,17 @@ public interface TPrdPlanFormMapper {
     
     List<ImgList> selectPlanStrategyAttach(HashMap<String, Object> map);
     
+    List<ImgList> selectPlanStrategyAttachCarXY(HashMap<String, Object> map);
+    
     List<ImgList> selectPlanAttachealth(HashMap<String, Object> map);
     
     List<FormulaList> selectPlanInfoFormulas(HashMap<String, Object> map);
     
     List<TermsAndConditionsContent> selectConditionsContent(HashMap<String, Object> map);
+    
+    List<TermsAndConditionsContent> selectConditionsContentCarXY(HashMap<String, Object> map);
+    
+    List<TermsAndConditionsContent> selectConditionsContentCarXY2(HashMap<String, Object> map);
     
     List<RateParams> selectPlanRate(HashMap<String, Object> map);
     
@@ -168,5 +176,8 @@ public interface TPrdPlanFormMapper {
    int selectTrial(HashMap<String, Object> map);
    
    int selectOrderByPlanId(HashMap<String, Object> map);
+   
+   List<Swipper> selectSwiperCarXY(HashMap<String, Object> map);
     
+   String selectStaffOnlyFlag(String insureNo);
 }

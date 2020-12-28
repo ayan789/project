@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.basedb.po.User">
+    <id column="usercode" jdbcType="VARCHAR" property="usercode" />
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="comcode" jdbcType="VARCHAR" property="comcode" />
+    <result column="makecom" jdbcType="VARCHAR" property="makecom" />
+    <result column="accountcode" jdbcType="VARCHAR" property="accountcode" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="postcode" jdbcType="VARCHAR" property="postcode" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="userflag" jdbcType="VARCHAR" property="userflag" />
+    <result column="loginsystem" jdbcType="VARCHAR" property="loginsystem" />
+    <result column="newusercode" jdbcType="VARCHAR" property="newusercode" />
+    <result column="validstatus" jdbcType="VARCHAR" property="validstatus" />
+    <result column="articlecode" jdbcType="VARCHAR" property="articlecode" />
+    <result column="extranetsingleflag" jdbcType="VARCHAR" property="extranetsingleflag" />
+    <result column="agentaccountflag" jdbcType="VARCHAR" property="agentaccountflag" />
+    <result column="vocationcode" jdbcType="VARCHAR" property="vocationcode" />
+    <result column="createdate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="partintime" jdbcType="TIMESTAMP" property="partintime" />
+    <result column="saleseqflag" jdbcType="VARCHAR" property="saleseqflag" />
+    <result column="auth_num" jdbcType="VARCHAR" property="authNum" />
+    <result column="hire_date" jdbcType="TIMESTAMP" property="hireDate" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_user_prpduser
+    where usercode = #{usercode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.User">
+    insert into t_user_prpduser (usercode, id, username, 
+      comcode, makecom, accountcode, 
+      phone, mobile, address, 
+      postcode, email, userflag, 
+      loginsystem, newusercode, validstatus, 
+      articlecode, extranetsingleflag, agentaccountflag, 
+      vocationcode, createdate, partintime, 
+      saleseqflag, auth_num, hire_date
+      )
+    values (#{usercode,jdbcType=VARCHAR}, #{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, 
+      #{comcode,jdbcType=VARCHAR}, #{makecom,jdbcType=VARCHAR}, #{accountcode,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{postcode,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{userflag,jdbcType=VARCHAR}, 
+      #{loginsystem,jdbcType=VARCHAR}, #{newusercode,jdbcType=VARCHAR}, #{validstatus,jdbcType=VARCHAR}, 
+      #{articlecode,jdbcType=VARCHAR}, #{extranetsingleflag,jdbcType=VARCHAR}, #{agentaccountflag,jdbcType=VARCHAR}, 
+      #{vocationcode,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, #{partintime,jdbcType=TIMESTAMP}, 
+      #{saleseqflag,jdbcType=VARCHAR}, #{authNum,jdbcType=VARCHAR}, #{hireDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.User">
+    update t_user_prpduser
+    set id = #{id,jdbcType=BIGINT},
+      username = #{username,jdbcType=VARCHAR},
+      comcode = #{comcode,jdbcType=VARCHAR},
+      makecom = #{makecom,jdbcType=VARCHAR},
+      accountcode = #{accountcode,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      postcode = #{postcode,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      userflag = #{userflag,jdbcType=VARCHAR},
+      loginsystem = #{loginsystem,jdbcType=VARCHAR},
+      newusercode = #{newusercode,jdbcType=VARCHAR},
+      validstatus = #{validstatus,jdbcType=VARCHAR},
+      articlecode = #{articlecode,jdbcType=VARCHAR},
+      extranetsingleflag = #{extranetsingleflag,jdbcType=VARCHAR},
+      agentaccountflag = #{agentaccountflag,jdbcType=VARCHAR},
+      vocationcode = #{vocationcode,jdbcType=VARCHAR},
+      createdate = #{createdate,jdbcType=TIMESTAMP},
+      partintime = #{partintime,jdbcType=TIMESTAMP},
+      saleseqflag = #{saleseqflag,jdbcType=VARCHAR},
+      auth_num = #{authNum,jdbcType=VARCHAR},
+      hire_date = #{hireDate,jdbcType=TIMESTAMP}
+    where usercode = #{usercode,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select usercode, id, username, comcode, makecom, accountcode, phone, mobile, address, 
+    postcode, email, userflag, loginsystem, newusercode, validstatus, articlecode, extranetsingleflag, 
+    agentaccountflag, vocationcode, createdate, partintime, saleseqflag, auth_num, hire_date
+    from t_user_prpduser
+    where usercode = #{usercode,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select usercode, id, username, comcode, makecom, accountcode, phone, mobile, address, 
+    postcode, email, userflag, loginsystem, newusercode, validstatus, articlecode, extranetsingleflag, 
+    agentaccountflag, vocationcode, createdate, partintime, saleseqflag, auth_num, hire_date
+    from t_user_prpduser
+  </select>
+</mapper>

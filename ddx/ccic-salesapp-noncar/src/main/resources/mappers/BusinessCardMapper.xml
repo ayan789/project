@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.BusinessCardMapper">
+
+  <resultMap id="BusinessCardBaseResultMap" type="com.ccic.salesapp.noncar.dto.businessCard.BusinessCardVo">
+    <result column="id"  property="id" />
+    <result column="slogan" property="slogan" />
+    <result column="wechat_number" property="wechatNumber" />
+    <result column="personal_tags_id" property="personalTagsId" />
+    <result column="personal_profile" property="personalProfile" />
+    <result column="work_education_experience" property="workEducationExperience" />
+    <result column="areas_of_expertise" property="areasOfExpertise" />
+    <result column="honors_and_certificates" property="honorsAndCertificates" />
+    <result column="other" property="other" />
+    <result column="user_code" property="userCode" />
+    <result column="create_user" property="createUser" />
+    <result column="update_user" property="updateUser" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updatetime" />
+    <result column="tag_number_id" property="tagNumberId" />
+  </resultMap>
+  <select id="findBusinessCardByUserCode" resultMap="BusinessCardBaseResultMap" parameterType="com.ccic.salesapp.noncar.dto.businessCard.BusinessCardReq">
+  	select * from t_noncar_business_card tnbc where tnbc.user_code = #{userCode}
+  </select>
+    <select id="findByUserCode"  resultMap="BusinessCardBaseResultMap" parameterType="java.lang.String">
+    	select * from t_noncar_business_card tnbc where tnbc.user_code = #{userCode}
+    </select>
+    <select id="findByUserCodeTagsId"  resultMap="BusinessCardBaseResultMap">
+    	select MAX(personal_tags_id) AS personal_tags_id from t_noncar_business_card
+    </select>
+  <insert id="insertBusinessVo"  parameterType="com.ccic.salesapp.noncar.dto.businessCard.BusinessCardVo">
+  	INSERT INTO t_noncar_business_card (slogan,wechat_number,personal_tags_id,personal_profile,work_education_experience,areas_of_expertise,honors_and_certificates,other,user_code)
+  	VALUES (#{slogan}, #{wechatNumber},#{personalTagsId},#{personalProfile},#{workEducationExperience},#{areasOfExpertise},#{honorsAndCertificates},#{other},#{userCode});
+  </insert>
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.dto.businessCard.BusinessCardPersonalTagsList">
+  	<result column="tag_number_id" property="tagNumberId" />
+  	<result column="personal_tags"  property="personalTags" />
+  	<result column="personal_tags_status"  property="personalTagsStatus" />
+  </resultMap>
+  <select id="findBusinessCardPersonalTagsByUserCode" resultMap="BaseResultMap" parameterType="com.ccic.salesapp.noncar.dto.businessCard.BusinessCardReq">
+  	select t2.personal_tags,t2.personal_tags_status from t_noncar_business_card t1
+	LEFT JOIN t_noncar_business_card_label t2 
+	ON t1.personal_tags_id = t2.personal_tags_id
+	where t1.user_code=#{userCode} and t2.personal_tags_status="0"
+  </select>
+  <insert id="addTags" parameterType="java.util.Map">
+  	INSERT INTO t_noncar_business_card_label (personal_tags,personal_tags_status,personal_tags_id,create_time,update_time)
+  	VALUES (#{personalTags},#{personalTagsStatus},#{personalTagsId},now(),now());
+  </insert>
+  <delete id="delTags" parameterType="java.lang.String">
+  	delete from t_noncar_business_card_label where personal_tags_id in(
+	select personal_tags_id from t_noncar_business_card where user_code = #{userCode})
+  </delete>
+  <update id="updateTags" parameterType="com.ccic.salesapp.noncar.dto.businessCard.BusinessCardUpdateTagsReq">
+  	update t_noncar_business_card_label set personal_tags =#{personalTags} where tag_number_id = #{tagNumberId}
+  </update>
+  <update id="updateOtherBusinessCard" parameterType="com.ccic.salesapp.noncar.dto.businessCard.BusinessCardVo">
+  	update t_noncar_business_card set slogan = #{slogan},wechat_number = #{wechatNumber},personal_profile=#{personalProfile},work_education_experience=#{workEducationExperience},areas_of_expertise=#{areasOfExpertise},honors_and_certificates=#{honorsAndCertificates},other=#{other} where user_code =#{userCode}
+  </update>
+</mapper>

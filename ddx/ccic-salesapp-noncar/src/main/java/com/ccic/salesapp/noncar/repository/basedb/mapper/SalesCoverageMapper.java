@@ -15,7 +15,7 @@ public interface SalesCoverageMapper {
 
     int insertSelective(SalesCoverage record);
     
-    int insert2(PlanCoverage record);
+    int insertPlanCoverage(PlanCoverage record);
 
     SalesCoverage selectByPrimaryKey(Integer id);
     

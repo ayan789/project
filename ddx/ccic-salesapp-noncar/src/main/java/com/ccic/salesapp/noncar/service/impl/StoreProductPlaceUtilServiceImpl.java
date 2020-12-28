@@ -28,6 +28,8 @@ import com.ccic.salesapp.noncar.dto.PupilName;
 import com.ccic.salesapp.noncar.dto.StoreInfo;
 import com.ccic.salesapp.noncar.dto.StoreInsureInfo;
 import com.ccic.salesapp.noncar.dto.UserVO;
+import com.ccic.salesapp.noncar.dto.order.request.GroupOrderRequest;
+import com.ccic.salesapp.noncar.dto.order.request.OrderRequest;
 import com.ccic.salesapp.noncar.dto.request.CarInfoVO;
 import com.ccic.salesapp.noncar.dto.request.StoreOracleRequestVO;
 import com.ccic.salesapp.noncar.dto.request.TNoncarInsureZcReqVO;
@@ -47,6 +49,7 @@ import com.ccic.salesapp.noncar.outService.esb.reimbursement.payment.service.Rei
 import com.ccic.salesapp.noncar.repository.basedb.mapper.AgentHandlerInfoMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.CarInfoMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.InvoiceInfoMapper;
+import com.ccic.salesapp.noncar.repository.basedb.mapper.OrgBranchMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.PupilNameMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.StoreAccidentalinjuryMapper;
 import com.ccic.salesapp.noncar.repository.basedb.mapper.StoreFormulasMapper;
@@ -119,6 +122,9 @@ public class StoreProductPlaceUtilServiceImpl implements
 	@Autowired
 	StoreOrderCtl orderCtl;
 	
+	@Autowired
+	OrgBranchMapper orgBranchMapper;
+	
 	@Override
 	public int updateSignStatus(StoreInsureInfo storeInsureInfo) {
 		int row =0;
@@ -170,6 +176,69 @@ public class StoreProductPlaceUtilServiceImpl implements
 		}
 		
 		return list;
+	}
+
+	
+	@Override
+	public UserVO getHandlerInfo(OrderRequest req){
+		UserToken user = planStrategyService.getAccessTokenByUserCode(req.getUserCode());
+		StoreInfo si = null;
+		if(user != null && "3".equals(user.getLoginFlag())) {
+			UserToken handlerToken = planStrategyService.getAgentSalesman(user.getUserCode());
+			si = new StoreInfo();
+			si.setStoreCode(user.getUserCode());
+			si.setUserComCode(handlerToken.getComCode());
+			si.setUserCode(handlerToken.getUserCode());
+			si.setUserName(handlerToken.getUserName());
+		}else {
+			 si=storeProcessService.findStoreByCode(req.getStoreCode());
+		}
+		
+		if("agen".equals(si.getUserCode().substring(0, 4))){
+			UserVO u = null;
+			try {
+				AgentHandlerInfo ah =  agentHandlerInfoMapper.selectAgentHandlerInfoByUserCode( si.getUserCode());
+			    HttpResult httpResult = userInquiryService.userInquiry(ah.getHandlerCode());
+				if("1".equals(httpResult.getCode())){
+					u =(UserVO) httpResult.getData();
+					return u;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	public UserVO getHandlerInfo(GroupOrderRequest req){
+		UserToken user = planStrategyService.getAccessTokenByUserCode(req.getUserCode());
+		StoreInfo si = null;
+		if(user != null && "3".equals(user.getLoginFlag())) {
+			UserToken handlerToken = planStrategyService.getAgentSalesman(user.getUserCode());
+			si = new StoreInfo();
+			si.setStoreCode(user.getUserCode());
+			si.setUserComCode(handlerToken.getComCode());
+			si.setUserCode(handlerToken.getUserCode());
+			si.setUserName(handlerToken.getUserName());
+		}else {
+			 si=storeProcessService.findStoreByCode(user.getStoreCode());
+		}
+		
+		if("agen".equals(si.getUserCode().substring(0, 4))){
+			UserVO u = null;
+			try {
+				AgentHandlerInfo ah =  agentHandlerInfoMapper.selectAgentHandlerInfoByUserCode( si.getUserCode());
+			    HttpResult httpResult = userInquiryService.userInquiry(ah.getHandlerCode());
+				if("1".equals(httpResult.getCode())){
+					u =(UserVO) httpResult.getData();
+					return u;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 
@@ -444,6 +513,7 @@ public class StoreProductPlaceUtilServiceImpl implements
 			 */
 			insureInfo.setRelationPolicyNo(storeReqVO.getRelationPolicyNo());
 			insureInfo.setLicensePlateNo(storeReqVO.getLicenseNo());
+			insureInfo.setPComCode(orgBranchMapper.selectBranchByComCode(insureInfo.getComCode()));//所属分公司
 			storeInsureInfoMapper.doInsert(insureInfo);//保单信息表新增记录
 			
 			if (storeReqVO.getAccidentalInjuryInfos()!=null && storeReqVO.getAccidentalInjuryInfos().size()>0) {	//附加意外险被保险人信息

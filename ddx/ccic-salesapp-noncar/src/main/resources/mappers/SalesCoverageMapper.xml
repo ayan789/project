@@ -16,6 +16,7 @@
     <result column="main_ct" jdbcType="VARCHAR" property="mainCt" />
     <result column="risk_type" jdbcType="VARCHAR" property="riskType" />
     <result column="insurance_type" jdbcType="VARCHAR" property="insuranceType" />
+    <result column="ct_group_type" jdbcType="VARCHAR" property="ctGroupType" />
   </resultMap>
   
   <resultMap id="BaseResultMap2" type="com.ccic.salesapp.noncar.dto.salesplan.PlanCoverage">
@@ -74,17 +75,17 @@
       #{riskType,jdbcType=VARCHAR}, #{insuranceType,jdbcType=VARCHAR})
   </insert>
   
-  <insert id="insert2" parameterType="com.ccic.salesapp.noncar.dto.salesplan.PlanCoverage">
+  <insert id="insertPlanCoverage" parameterType="com.ccic.salesapp.noncar.dto.salesplan.PlanCoverage">
     insert into t_noncar_sales_coverage (coverage_id, coverage_code, coverage_name, 
       clause_code, clause_name, child_plan_id, 
       sum_insured, base_sum_insured, sum_insured_fields, 
       insured_type, insured_name, main_ct, 
-      risk_type, insurance_type)
+      risk_type, insurance_type,ct_group_type)
     values (#{coverageId,jdbcType=INTEGER}, #{coverageCode,jdbcType=VARCHAR}, #{coverageName,jdbcType=VARCHAR}, 
       #{clauseCode,jdbcType=VARCHAR}, #{clauseName,jdbcType=VARCHAR}, #{childPlanId,jdbcType=INTEGER}, 
       #{sumInsured,jdbcType=DECIMAL}, #{baseSumInsured,jdbcType=DECIMAL}, #{sumInsuredFields,jdbcType=VARCHAR}, 
       #{insuredType,jdbcType=VARCHAR}, #{insuredName,jdbcType=VARCHAR}, #{mainCt,jdbcType=VARCHAR}, 
-      #{riskType,jdbcType=VARCHAR}, #{insuranceType,jdbcType=VARCHAR})
+      #{riskType,jdbcType=VARCHAR}, #{insuranceType,jdbcType=VARCHAR},#{ctGroupType,jdbcType=VARCHAR})
   </insert>
   
   <insert id="insertSelective" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.SalesCoverage">

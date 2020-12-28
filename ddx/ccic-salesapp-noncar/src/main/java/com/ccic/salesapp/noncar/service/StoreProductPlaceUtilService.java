@@ -8,6 +8,8 @@ import com.ccic.salesapp.noncar.dto.AgentQueryResVO;
 import com.ccic.salesapp.noncar.dto.NoncarOrder;
 import com.ccic.salesapp.noncar.dto.StoreInsureInfo;
 import com.ccic.salesapp.noncar.dto.UserVO;
+import com.ccic.salesapp.noncar.dto.order.request.GroupOrderRequest;
+import com.ccic.salesapp.noncar.dto.order.request.OrderRequest;
 import com.ccic.salesapp.noncar.dto.request.StoreOracleRequestVO;
 import com.ccic.salesapp.noncar.dto.response.StoreInsureInfoFormulasResponseVO;
 import com.ccic.salesapp.noncar.outService.esb.quoteprice.bean.QuotePriceRequestDTO;
@@ -70,6 +72,10 @@ public interface StoreProductPlaceUtilService {
 	NoncarOrder selectNoncarOrderByInsureNoSubmission(String submissionNo);
 
 	int updateSignStatusSubmission(NoncarOrder noncarOrder);
+
+	UserVO getHandlerInfo(OrderRequest req);
+
+	UserVO getHandlerInfo(GroupOrderRequest req);
 	
  
 

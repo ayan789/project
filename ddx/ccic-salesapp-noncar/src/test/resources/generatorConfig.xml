@@ -1,0 +1,31 @@
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="mysql" targetRuntime="MyBatis3Simple">
+
+        <commentGenerator type="mybatis.generator.SwaggerCommentGenerator">
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://10.1.11.128:3306/supsaledb?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=UTC"
+                        userId="supsalebusi"
+                        password="egvv_38824">
+            <property name="useInformationSchema" value="true" />
+        </jdbcConnection>
+
+
+        <javaModelGenerator targetPackage="com.ccic.salesapp.noncar.repository.basedb.po" targetProject="src/test/java">
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mappers"  targetProject="src/test/resources">
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.ccic.salesapp.noncar.repository.basedb.mapper"  targetProject="src/test/java">
+        </javaClientGenerator>
+
+        <table tableName="t_noncar_plan_ct_detail" domainObjectName="PlanCtDetail" mapperName="PlanCtDetailMapper">
+
+        </table>
+    </context>
+</generatorConfiguration>

@@ -183,7 +183,16 @@
 	</update>
 	
 	<select id="selectPlanField" resultType="com.ccic.salesapp.noncar.dto.request.noncar.PlanFieldDto" parameterType="java.util.HashMap" >
-	SELECT id planId,strategy_id strategyId,plan_code formulaCode,prd_plan_category prdPlanCategory from t_noncar_plan_info where strategy_id=#{strategyId} and `status`=7 and record_status=0  and put_on_method=1
+	SELECT id planId,strategy_id strategyId,plan_code formulaCode,prd_plan_category prdPlanCategory,(
+	SELECT CASE scene
+	WHEN '员工' THEN '05'
+	ELSE '00'
+	END scene  from t_noncar_plan_strategy where id=#{strategyId} and is_main=1 and valid_status=1
+	) scene  from t_noncar_plan_info where strategy_id=#{strategyId} and `status`=7 and record_status=0  and put_on_method=1
+	</select>
+	
+	<select id="selectStaffOnlyFlag" resultType="java.lang.String" parameterType="java.lang.String" >
+		SELECT CASE scene WHEN '员工' THEN '05' ELSE '00' END scene from t_noncar_plan_strategy where code=(SELECT strategy_code from t_noncar_order where INSURE_NO=#{insureNo}) and is_main=1 and valid_status=1
 	</select>
 	
 	<select id="selectTrial" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
@@ -237,8 +246,16 @@
 	 	SELECT id,question title,answer `desc` from t_noncar_plan_strategy_question where strategy_id=#{strategyId}
 	 </select>
 	 
+	 <select id="selectCommonProblemContentCarXy" resultType="com.ccic.salesapp.noncar.dto.request.planelement.CommonProblemContent" parameterType="java.util.HashMap" >
+	 	SELECT id,question title,answer `desc` from t_noncar_plan_strategy_question where code=#{code}
+	 </select>
+	 
 	 <select id="selectPlanStrategy" resultType="com.ccic.salesapp.noncar.dto.request.planelement.PlanElementDetailDto" parameterType="java.util.HashMap" >
-	 	SELECT id strategyId,code productCode,name productName,code riskCode,plan_reverse backReasoning,plan_reverse_factor planReverseFactor,policy_start_type policyStartType,policy_start_range policyStartRang,is_watermark isWatermark from t_noncar_plan_strategy where is_main=1 and valid_status=1 and (id=#{strategyId} or `code` = #{strategyCode}) 
+	 	SELECT id strategyId,code productCode,name productName,code riskCode,plan_reverse backReasoning,plan_reverse_factor planReverseFactor,policy_start_type policyStartType,policy_start_range policyStartRang,is_watermark isWatermark,need_sign needSign, 
+	 	CASE scene
+		WHEN '员工' THEN '05'
+		ELSE '00'
+		END scene from t_noncar_plan_strategy where is_main=1 and valid_status=1 and (id=#{strategyId} or `code` = #{strategyCode})
 	 </select>
 	
 	 <select id="selectPlanStrategyHeader" resultType="com.ccic.salesapp.noncar.dto.request.planelement.Header" parameterType="java.util.HashMap" >
@@ -276,6 +293,13 @@
 	  </if>
 	</select>
 	
+	<select id="selectPlanStrategyAttachCarXY" resultType="com.ccic.salesapp.noncar.dto.request.planelement.ImgList" parameterType="java.util.HashMap" >
+	  SELECT id,IFNULL(attach_url,'') img, IFNULL(attach_in_url,'') imgIn from t_noncar_plan_attach where biz_type='carxy' and code=#{code} 
+	  <if test="attachType != null">
+	  and attach_type=#{attachType}
+	  </if>
+	</select>
+	
 	<select id="selectPlanAttachealth" resultType="com.ccic.salesapp.noncar.dto.request.planelement.ImgList" parameterType="java.util.HashMap" >
 	 SELECT id,attach_url img from t_noncar_plan_attach where biz_type='plan' and attach_type=#{attachType} and biz_id=#{planId} and attach_name=#{attachName}
 	</select>
@@ -288,7 +312,11 @@
 		t1.plan_name formulaName,
 		t1.premium_min basePremium,
 		t1.plan_version edition,
-		t2.has_social_insurance isHaveSheBao,
+		CASE
+		t2.has_social_insurance
+		WHEN 2 THEN 0
+		WHEN 1 THEN 1
+		END isHaveSheBao,
 	    t1.product_code riskCode,
 	    t1.if_period_fixed ifPeriodFixed, 
 	    t1.fix_coverage_period fixCoveragePeriod,
@@ -331,6 +359,32 @@
 			AND tnpa.biz_type='plan'
 			AND t1.product_element_code=tnpa.attach_code		 
     </select>
+    
+    <select id="selectConditionsContentCarXY" resultType="com.ccic.salesapp.noncar.dto.request.planelement.TermsAndConditionsContent" parameterType="java.util.HashMap" >
+			SELECT
+				IFNULL(attach_url,'') link,
+				IFNULL(attach_in_url,'') inLink,
+				attach_code code,
+				attach_name title
+				FROM
+			t_noncar_plan_attach where code =#{code} and attach_code in ('insurance_declaration','insurance_notice','exemption_liability','importance_hint','important_clause') and record_status=0  ORDER BY create_time
+    </select>
+    
+    <select id="selectConditionsContentCarXY2" resultType="com.ccic.salesapp.noncar.dto.request.planelement.TermsAndConditionsContent" parameterType="java.util.HashMap" >
+			SELECT
+				IFNULL(attach_url,'') link,
+				IFNULL(attach_in_url,'') inLink,
+				attach_code code,
+				attach_name title
+				FROM
+			t_noncar_plan_attach where code =#{code} and attach_type='product_clause' and record_status=0  ORDER BY create_time
+    </select>
+    
+     <select id="selectSwiperCarXY" resultType="com.ccic.salesapp.noncar.dto.request.planelement.Swipper" parameterType="java.util.HashMap" >
+		SELECT t1.id,IFNULL(attach_url,'') `value`,IFNULL(attach_in_url,'') inUrl,attach_type type
+		FROM
+		t_noncar_plan_attach t1 where t1.code = #{code} and t1.attach_type='swiper'
+     </select>
     
     <select id="selectPlanRate" resultType="com.ccic.salesapp.noncar.dto.request.planelement.RateParams" parameterType="java.util.HashMap" >
 	 SELECT
@@ -384,7 +438,7 @@
 			t_noncar_plan_ct_detail t1
 			INNER JOIN t_noncar_plan_ct t2 ON t1.plan_coverage_id = t2.plan_coverage_id and t1.plan_id = t2.plan_id 
 		WHERE
-			t1.plan_id = #{planId} and t1.`visible`=1 and t2.parent_plan_coverage_id is not null
+			t1.plan_id = #{planId} and t1.`visible`=1 and t2.parent_plan_coverage_id is not null  and  (t2.shared_group_type != '1' || t2.shared_group_type is null)
 	) t1 left join t_noncar_plan_ct t2 on t1.parent_plan_coverage_id=t2.plan_coverage_id and t1.plan_id = t2.plan_id where t1.plan_id = #{planId}
 	
 			<!-- 
@@ -465,7 +519,12 @@
 	<!-- SELECT code,type,GROUP_CONCAT(link_code) linkCode from  t_noncar_element_code_link where code='securityNum' and cate='ss' GROUP BY type -->
 	 
 	 <select id="selectPlanBackReasoningFactor1" resultType="com.ccic.salesapp.noncar.dto.request.planelement.BackReasoningFactor" parameterType="java.util.HashMap" >
-		SELECT t2.has_social_insurance factorValue,'insuredIsHaveShebao' factor,t1.id planId from t_noncar_plan_info t1 left join 
+		SELECT 
+		CASE
+		t2.has_social_insurance
+		WHEN 2 THEN 0
+		WHEN 1 THEN 1
+		END factorValue,'insuredIsHaveShebao' factor,t1.id planId from t_noncar_plan_info t1 left join 
 		t_noncar_plan_method t2 on t1.id=t2.plan_id
 		where t1.strategy_id=#{strategyId} AND t1.record_status='0' AND t1.`status`='7'
 	 </select>

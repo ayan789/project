@@ -17,4 +17,13 @@ public class ProductListResponse {
 	List<StoreProduct> productList;
 	@ApiModelProperty("总页数")	
 	PageInfo pageInfo;
+	
+	@ApiModelProperty("今日访问量(门店首页用)")	
+	Integer todayAccess;
+	
+	@ApiModelProperty("总计访问量(门店首页用)")	
+	Integer totalAccess;
+	
+	@ApiModelProperty("微信号(门店首页用)")	
+	String wechat;
 }

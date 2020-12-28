@@ -121,17 +121,15 @@ public class PayCtl {
 	@ApiOperation(value = "支付成功后支付状态回写", notes = "支付成功后支付状态回写", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public HttpResult payResultConfirm(@RequestBody ApplyPayVo applyPayVo) throws Exception {
 		String proposalNo = DESEncryptUtil.decrypt(applyPayVo.getInsureNo(), desPassword);
-		StoreInsureInfo storeInsureInfo = storeInsureInfoMapper.selectBySureInfoNo(proposalNo);
-		if (proposalNo.endsWith("-UNITE")) {
-			groupPlanService.paySyncNotice(applyPayVo);
-			return HttpResult.success(1,"SUCCESS");
-		}
-		else if ("1".equals(vehiclePayRedirect(proposalNo))) {
+		StoreInsureInfo storeInsureInfo = new StoreInsureInfo();
+		if ("1".equals(vehiclePayRedirect(proposalNo))) {
+			storeInsureInfo = storeInsureInfoMapper.selectBySureInfoNo(proposalNo);
 			PayResultConfirmRequestVO payResultConfirmRequestVO = new PayResultConfirmRequestVO();
 			payResultConfirmRequestVO.setApplicationNo(applyPayVo.getInsureNo());
 			payResultConfirmRequestVO.setPaySucceedFlag("1");
 			return payResultFeignService.payResultConfirm(payResultConfirmRequestVO);
 		} else {
+			storeInsureInfo = storeInsureInfoMapper.selectBySureInfoNo(proposalNo);
 			return HttpResult.success(paymentNoApplyFacade.payResultConfirm(applyPayVo, storeInsureInfo.getUserId()));
 		}
 	}
@@ -307,20 +305,22 @@ public class PayCtl {
 	@PostMapping("/payResultConfirmTwo")
 	@ApiOperation(value = "支付成功后支付状态回写", notes = "支付成功后支付状态回写", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public HttpResult payResultConfirmTwo(@RequestBody ApplyPayVo applyPayVo) throws Exception {
-		String proposalNo = DESEncryptUtil.decrypt(applyPayVo.getInsureNo(), desPassword);
-		//String proposalNo = applyPayVo.getInsureNo();
-		NoncarOrder noncarOrder = storeInsureInfoMapper.selectBynoncarOrder(proposalNo);
-		if (proposalNo.endsWith("-UNITE")) {
+		NoncarOrder noncarOrder = new NoncarOrder();
+		if(applyPayVo.getInsureNo().endsWith("-UNITE")) {
+			String proposalNo = DESEncryptUtil.decrypt(applyPayVo.getInsureNo().split("-")[0], desPassword);
+			applyPayVo.setInsureNo(proposalNo);
 			groupPlanService.paySyncNotice(applyPayVo);
 			return HttpResult.success(1,"SUCCESS");
 		}
-		else if ("1".equals(vehiclePayRedirect(proposalNo))) {
+		else if ("1".equals(vehiclePayRedirect(applyPayVo.getInsureNo()))) {
+			noncarOrder = storeInsureInfoMapper.selectBynoncarOrder(applyPayVo.getInsureNo());
 			PayResultConfirmRequestVO payResultConfirmRequestVO = new PayResultConfirmRequestVO();
 			payResultConfirmRequestVO.setApplicationNo(applyPayVo.getInsureNo());
 			payResultConfirmRequestVO.setPaySucceedFlag("1");
 			return payResultFeignService.payResultConfirm(payResultConfirmRequestVO);
-		} 
+		}
 		else {
+			noncarOrder = storeInsureInfoMapper.selectBynoncarOrder(applyPayVo.getInsureNo());
 			return HttpResult.success(paymentNoApplyFacade.payResultConfirmTwo(applyPayVo, noncarOrder.getUserCode()));
 		}
 	}
@@ -544,7 +544,7 @@ public class PayCtl {
 		// 提交核保
 		RespSubmitUwVo response = underwritService.submitMiddleGround(reqSubmitUwVo,noncarOrder.getProductCode());
         if (response.getResponseHead() != null ||response.getResponseBody()==null) {
-            if (response.getResponseHead().getStatus() != 1) {
+            if (response.getResponseHead().getStatus() != 0) {
 				return HttpResult.error(0, "核保失败");
 			}
 		}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ccic-salesapp-eureka/ccic-salesapp-eureka.iml" filepath="$PROJECT_DIR$/ccic-salesapp-eureka/ccic-salesapp-eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ccic-salesapp-gateway/ccic-salesapp-gateway.iml" filepath="$PROJECT_DIR$/ccic-salesapp-gateway/ccic-salesapp-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ccic-salesapp-noncar/ccic-salesapp-noncar.iml" filepath="$PROJECT_DIR$/ccic-salesapp-noncar/ccic-salesapp-noncar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ccic-salesapp-performance/ccic-salesapp-performance.iml" filepath="$PROJECT_DIR$/ccic-salesapp-performance/ccic-salesapp-performance.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ccic-salesapp-base/common-components.iml" filepath="$PROJECT_DIR$/ccic-salesapp-base/common-components.iml" />
+    </modules>
+  </component>
+</project>

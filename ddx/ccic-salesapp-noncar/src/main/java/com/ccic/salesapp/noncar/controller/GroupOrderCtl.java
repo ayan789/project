@@ -1,4 +1,6 @@
 package com.ccic.salesapp.noncar.controller;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ccic.salesapp.noncar.dto.order.request.GroupOrderRequest;
 import com.ccic.salesapp.noncar.dto.order.request.OrderDetailRequest;
 import com.ccic.salesapp.noncar.dto.request.StoreQueryListRequestVO;
+import com.ccic.salesapp.noncar.service.GroupOrderFamilyService;
 import com.ccic.salesapp.noncar.service.GroupOrderService;
 import com.ccic.salessapp.common.core.web.HttpResult;
 import com.ccic.salessapp.common.utils.ValidationUtils;
@@ -26,6 +29,9 @@ public class GroupOrderCtl {
 	@Autowired
 	GroupOrderService groupOrderService;
 	
+	@Autowired
+	GroupOrderFamilyService groupOrderFamilyService;
+	
     
     @PostMapping(value = "placeOrder")
     @ApiOperation(value = "下单", notes = "下单", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -41,18 +47,18 @@ public class GroupOrderCtl {
     	//下单试算
     	
     	//提交核保
+    	if(getInsuerdPersonSize(orderRequest) > 1) {
+    		return groupOrderFamilyService.placeOrder(orderRequest);
+    	}
      return groupOrderService.placeOrder(orderRequest);
     }
 
+    
+    public long getInsuerdPersonSize(GroupOrderRequest orderRequest) {
+    	return orderRequest.getCustomerList().stream().filter(x->"2".equals(x.getCustomerRoleCode())).count();
+    }
 
+    
+    
 
-    
-    
-//    @PostMapping(value = "orderDetail")
-//    @ApiOperation(value = "订单列表", notes = "订单列表", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//    public HttpResult orderDetail(@RequestBody OrderDetailRequest request) {
-//    	
-//     return groupOrderService.orderDetail(request);
-//    }
-    
 }

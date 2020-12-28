@@ -42,8 +42,11 @@ public class PlanCoverage {
     private String riskType;
 	@ApiModelProperty("险类")
     private String insuranceType;
+	private String ctGroupType;
 	
 	private String sumInsuredFields;
+	
+	
     
 
 }

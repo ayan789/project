@@ -19,6 +19,8 @@ import com.ccic.salesapp.noncar.dto.StoreInfo;
 import com.ccic.salesapp.noncar.dto.StoreProduct;
 import com.ccic.salesapp.noncar.dto.StoreProductMedia;
 import com.ccic.salesapp.noncar.dto.UserVO;
+import com.ccic.salesapp.noncar.dto.product.request.ProductListRequest;
+import com.ccic.salesapp.noncar.dto.product.response.ProductListResponse;
 import com.ccic.salesapp.noncar.dto.request.AgentRequest;
 import com.ccic.salesapp.noncar.dto.request.StoreOracleRequestVO;
 import com.ccic.salesapp.noncar.dto.request.StoreQueryFormulaRequest;
@@ -138,6 +140,15 @@ public class StoreCtl {
 		}
 		return result;
 	}
+	
+	
+    @PostMapping(value = "productList")
+    @ApiOperation(value = "产品列表查询", notes = "产品列表查询", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public HttpResult<ProductListResponse> productList(@RequestBody ProductListRequest request) {
+    	
+    	
+     return planStrategyService.storePlanStrategyList(request);
+    }
 
 
 	@PostMapping(value = "productQuery")

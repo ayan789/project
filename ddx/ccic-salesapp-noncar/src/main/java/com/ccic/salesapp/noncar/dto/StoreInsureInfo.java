@@ -71,6 +71,9 @@ public class StoreInsureInfo extends DataVO{
 
 	@ApiModelProperty("业务归属机构")
 	private String comCode;
+	
+	@ApiModelProperty("业务归属机构所属分公司")
+	private String pComCode;
 
 	@ApiModelProperty("经办人代码")
 	private String handlerCode;

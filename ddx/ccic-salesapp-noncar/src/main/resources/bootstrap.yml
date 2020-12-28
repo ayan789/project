@@ -121,7 +121,7 @@ system:
   systemSourceCode: ${SYSTEM.SOURCE.CODE}
 #  mobileQuickPayUrl: https://test.95590.cn/ebw-pay/mobile/mobileQuickPay.htm
   mobileQuickPayUrl: ${SYSTEM.MOBILEQUICKPAYURL}
-  submitUw: http://10.2.2.36/salesmo/integration/v1/submitUw
+  
 esb:
   host: ${ESB_HOST}
   address:
@@ -153,8 +153,11 @@ esb:
     policydetailservicerest: ${esb.host}/policydetailservicerest/Restful
     imagelinkservicerest: ${esb.host}/imagelinkservicerest/Restful
     
-    calculateAndGenerate: http://10.2.2.36/salesmo/integration/v1/calculateAndGenerate
-    policyListUrl: http://10.2.2.36/pa/integration/policy/searchList
+    submitUw: ${esb.host}/salesmosubmituwservicerest/Restful
+    calculateAndGenerate: ${esb.host}/salesmocalcandgenpolicyservicerest/Restful
+    policyListUrl: ${esb.host}/searchlistservicerest/Restful
+    renewalstatusqueryservicerest: ${esb.host}/renewalstatusqueryservicerest/Restful
+    cyxclaimsearchbypolicyservicerest: ${esb.host}/cyxclaimsearchbypolicyservicerest/Restful
     
     
   consumerID:

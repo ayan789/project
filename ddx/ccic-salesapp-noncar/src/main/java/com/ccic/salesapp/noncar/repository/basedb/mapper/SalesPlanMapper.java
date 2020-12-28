@@ -15,7 +15,7 @@ public interface SalesPlanMapper {
 
     int insert(SalesPlan record);
     
-    int insert2(GroupSalesPlan record);
+    int insertGroupSalesPlan(GroupSalesPlan record);
 
     int insertSelective(SalesPlan record);
 
@@ -27,7 +27,15 @@ public interface SalesPlanMapper {
     
     List<GroupSalesPlan> selectSalesPlanBygroupPlanCode(GroupPlanVo groupPlanVo);
     
+    List<GroupSalesPlan> selectSalesPlanBygroupPlanCodeAllChannel(GroupPlanVo groupPlanVo);
+    
+    List<GroupSalesPlan> selectSalesPlanByGroupCodeForCarXY(GroupPlanVo groupPlanVo);
+    
+    List<GroupSalesPlan> selectSalesPlanByGroupCodeAllChannelForCarXY(GroupPlanVo groupPlanVo);
+    
     List<HashMap<String,Object>> selectGroupPlanByComChannel(HashMap<String,Object> map);
+    
+    List<HashMap<String,Object>> selectRenewalCoverageMapping(HashMap<String,Object> map);
     
     void deleteBySalesPlan(HashMap<String,Object> map);
     
@@ -36,4 +44,16 @@ public interface SalesPlanMapper {
     void deleteBySalesCoverage(HashMap<String,Object> map);
     
     void deleteBySalesPlanConfig(HashMap<String,Object> map);
+    
+    void deleteBySalesPlanCarxy(HashMap<String,Object> map);
+    
+    void deleteBySalesPlanChildCarxy(HashMap<String,Object> map);
+    
+    void deleteBySalesCoverageCarxy(HashMap<String,Object> map);
+    
+    void deleteBySalesPlanConfigCarxy(HashMap<String,Object> map);
+    
+    String selectChannelBygroupCode(String groupCode);
+    
+    String selectChannelBygroupPlanCode(String groupPlanCode);
 }

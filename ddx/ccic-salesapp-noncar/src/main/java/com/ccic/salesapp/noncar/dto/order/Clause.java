@@ -32,5 +32,8 @@ public class Clause {
 
 	@ApiModelProperty("保额")
 	String sumInsured;
+	
+	@ApiModelProperty("是否主责任")
+	String isMainCoverage;
 
 }

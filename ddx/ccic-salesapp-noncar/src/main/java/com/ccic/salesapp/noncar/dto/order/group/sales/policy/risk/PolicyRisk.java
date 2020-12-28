@@ -20,6 +20,9 @@ public class PolicyRisk {
 	String riskType;//	N	String	HEALTHY/PROPERTY/LIABILITY
 	Integer insuranceType;//	N	Integer	主险/附加/赠送
 	String itemCategory; //标的分类
+	String regionCode;//区域代码
+	
+	private String fullAddress;//	N	String	完整地址
 
 	private BigDecimal duePremium;//责任保费
 	private BigDecimal discountPremium;//折扣责任保费

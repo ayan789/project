@@ -4,10 +4,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSON;
 import com.ccic.salesapp.noncar.dto.UserVO;
@@ -19,6 +23,7 @@ import com.ccic.salesapp.noncar.dto.request.accidentquote.AccidentQuoteResponse;
 import com.ccic.salesapp.noncar.dto.request.accidentquote.PersonInsured;
 import com.ccic.salesapp.noncar.service.AccidentQuoteService;
 import com.ccic.salesapp.noncar.service.HttpService;
+import com.ccic.salessapp.common.core.exception.PlatformBaseException;
 import com.ccic.salessapp.common.core.web.HttpResult;
 import com.ccic.salessapp.common.outService.rest.common.bean.Request;
 import com.ccic.salessapp.common.outService.rest.common.bean.RequestBody;
@@ -70,15 +75,21 @@ public class AccidentQuoteServiceImpl implements  AccidentQuoteService{
 		 requests.setRequestHead(requestHead);
 		 requests.setRequestBody(requestBody);
 		 String reqJson = JSONObject.fromObject(requests,jsonConfig).toString();
-		 log.info("调用意健险保单信息查询接口开始，请求报文："+ reqJson);
+		 ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+         HttpServletRequest request = attributes.getRequest();
+         String uuid = (String) request.getAttribute("requestId");
+         if(StringUtils.isBlank(uuid)) {
+        	 uuid = UUID.randomUUID().toString().replaceAll("-", "");
+         }
+		 log.info("调用意健险保单信息查询接口开始，请求报文：["+uuid+"]"+ reqJson);
 		 String respJson = httpService.postJsonRequest(PolicyNo,reqJson, policydetailservicerest);
-		 log.info("调用意健险保单信息查询接口开始，请求报文："+ respJson);
+		 log.info("调用意健险保单信息查询接口开始，请求报文：["+uuid+"]"+ respJson);
 		 ObjectMapper mapper = new ObjectMapper();
 		 JsonNode actualObj = null;
 		 try {
 			 actualObj = mapper.readTree(respJson);
 		 } catch (IOException e) {
-			 e.printStackTrace();
+			 throw new PlatformBaseException(e, 0);
 		 }
 		 JsonNode jsonNode1 = actualObj.get("responseBody").get("policyElementString");
 		 AccidentQuoteRequest req = com.alibaba.fastjson.JSON.parseObject(mapper.writeValueAsString(jsonNode1), AccidentQuoteRequest.class);
@@ -103,9 +114,15 @@ public class AccidentQuoteServiceImpl implements  AccidentQuoteService{
 		request.setRequestBody(requestBody);
 		updateHandlerInfo((AccidentQuoteRequest)requestBody,userVO);
 		String reqJson = JSONObject.fromObject(request,jsonConfig).toString();
-    	log.info("调用意健险试算接口开始，请求报文："+ reqJson);
+		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest httpRequest = attributes.getRequest();
+        String uuid = (String) httpRequest.getAttribute("requestId");
+        if(StringUtils.isBlank(uuid)) {
+       	 uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        }
+    	log.info("调用意健险试算接口开始，请求报文：["+uuid+"]"+ reqJson);
     	String respJson = httpService.postJsonRequest(bussNo,reqJson, accidentQuote);
-		log.info("调用意健险试算接口结束，返回报文："+ respJson);
+		log.info("调用意健险试算接口结束，返回报文：["+uuid+"]"+ respJson);
 		
 		ResponseHead responseHead = null;
 		AccidentQuoteResponse responseBody = null;

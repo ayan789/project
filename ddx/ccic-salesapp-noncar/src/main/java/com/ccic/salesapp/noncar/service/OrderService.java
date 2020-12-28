@@ -52,5 +52,12 @@ public interface OrderService {
 	 * @return
 	 */
 	HttpResult underwriting(String insureNo);
+	
+	/**
+	 * 是否实名
+	 * @param 
+	 * @return
+	 */
+	HttpResult realNameStatus(String orderId);
 
 }

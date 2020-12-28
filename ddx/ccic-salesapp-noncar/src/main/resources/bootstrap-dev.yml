@@ -14,13 +14,6 @@ REDIS.MAXACTIVE: 8
 REDIS.MAXIDLE: 8
 REDIS.MINIDLE: 0
 
-#REDIS.PASSWORD: RedisDadi
-#REDIS.MASTER: mymaster
-#REDIS.NODES: 10.100.172.11:26379,10.100.172.11:26380
-#REDIS.MAXACTIVE: 8
-#REDIS.MAXIDLE: 8
-#REDIS.MINIDLE: 0
-
 # 日志级别配置
 logging:
   level:
@@ -30,20 +23,17 @@ logging:
 # DB.URL: jdbc:mysql://127.0.0.1:3306/salesapp2?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
 # DB.USERNAME: root
 # DB.PASSWORD: 12345678
-#DB.URL: jdbc:mysql://10.1.11.127:3306/salesapp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
-#DB.USERNAME: salesbusi
-#DB.PASSWORD: ccic_1865
-#DB.URL: jdbc:mysql://10.100.172.11:3306/salesapp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
-#DB.USERNAME: salesapp
-#DB.PASSWORD: Salesapp123!
+# DB.URL: jdbc:mysql://10.100.172.11:3306/salesapp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+# DB.USERNAME: salesapp
+# DB.PASSWORD: Salesapp123!
 # # SIT
-DB.URL: jdbc:mysql://10.1.11.128:3306/supsaledb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
-DB.USERNAME: supsalebusi
-DB.PASSWORD: egvv_38824
+# DB.URL: jdbc:mysql://10.1.11.128:3306/supsaledb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+# DB.USERNAME: supsalebusi
+# DB.PASSWORD: egvv_38824
 # UAT
-# DB.URL: jdbc:mysql://10.1.11.127:3306/salesapp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
-# DB.USERNAME: salesbusi
-# DB.PASSWORD: ccic_1865
+DB.URL: jdbc:mysql://10.1.11.127:3306/salesapp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+DB.USERNAME: salesbusi
+DB.PASSWORD: ccic_1865
 DB.MINIDLE: 5
 DB.MAXACTIVE: 10
 DB.INITIALSIZE: 5
@@ -103,6 +93,3 @@ ESB.ELECTRONICPOLICYIMPL: http.inner
 
 MAIL_SEND_HOST: 10.1.22.166
 MAIL_SEND_PORT: 25
-
-
-

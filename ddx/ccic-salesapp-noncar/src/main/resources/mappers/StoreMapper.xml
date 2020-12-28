@@ -1,5 +1,136 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.StoreMapper">
+<mapper
+	namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.StoreMapper">
+	<resultMap type="com.ccic.salesapp.noncar.dto.StoreInfo"
+		id="BaseResultMap">
+		<result column="ID" property="id" />
+		<result column="STORE_CODE" property="storeCode" />
+		<result column="STORE_NAME" property="storeName" />
+		<result column="STORE_REGION_CODE" property="storeRegionCode" />
+		<result column="STORE_STATE" property="storeState" />
+		<result column="USER_CODE" property="userCode" />
+		<result column="USER_NAME" property="userName" />
+		<result column="USER_COMCODE" property="userComCode" />
+		<result column="USER_TYPE" property="userType" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="USER_TEL" property="userTel" />
+	</resultMap>
 
+	<select id="findByStoreId" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT ID FROM T_NONCAR_STORE WHERE STORE_CODE=#{storeCode}
+	</select>
+	
+	<update id="doTUpdate" parameterType="java.util.Map">
+		UPDATE T_NONCAR_STORE SET STORE_NAME=#{storeName},STORE_REGION_CODE=#{storeRegionCode},USER_COMCODE=#{userComCode} WHERE STORE_CODE=#{storeCode}
+	</update>
+	
+	<resultMap type="com.ccic.salesapp.noncar.dto.request.StoreConfig"
+		id="BaseResulConfigMap">
+		<result column="ID" property="id" />
+		<result column="STORE_CODE" property="storeCode" />
+		<result column="PRODUCT_CODE" property="productCode" />
+		<result column="CONFIG_STATE" property="configState" />
+		<result column="CONFIG_SOFT" property="configSoft" />
+		<result column="STORE_ID" property="storeId" />
+	</resultMap>
+	
+	<insert id="doInsert" parameterType="com.ccic.salesapp.noncar.dto.request.StoreConfig">
+		INSERT INTO T_NONCAR_STORE_CONFIG(STORE_CODE,PRODUCT_CODE,CONFIG_STATE,CONFIG_SOFT,STORE_ID) VALUES(#{storeCode},#{productCode},#{configState},#{configSoft},#{storeId})
+	</insert>
+	
+	<update id="doDelete" parameterType="java.util.Map">
+		UPDATE T_NONCAR_STORE_CONFIG SET CONFIG_STATE = "1" WHERE  STORE_CODE=#{storeCode} AND PRODUCT_CODE = #{proCode}
+	</update>
+
+	<select id="findByStoreAndProductCode"  parameterType="java.lang.String" resultMap="BaseResulConfigMap">
+		SELECT * FROM T_NONCAR_STORE_CONFIG WHERE STORE_CODE = #{storeCode} and PRODUCT_CODE = #{productCode}
+	</select>
+	
+	<update id="updateStoreConfigStatus" parameterType="java.util.Map">
+		UPDATE T_NONCAR_STORE_CONFIG SET CONFIG_STATE = "0" , CONFIG_SOFT =#{configSoft}  WHERE  STORE_CODE=#{storeCode} AND PRODUCT_CODE = #{productCode}
+	</update>
+	
+	<select id="countAccess" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(distinct openid) access from  t_cust_marketing_interation mi
+		where mi.share_type = 3 and mark_code = #{storeCode}
+		<if test="isToday!= null and isToday ==1">
+		and  DATE_FORMAT(browse_time,'%Y-%m-%d') = DATE_FORMAT(now(),'%Y-%m-%d')
+		</if>
+	</select>
+	
+	<select id="findByStoreMinValue"  parameterType="java.lang.String" resultMap="BaseResulConfigMap">
+		select  MIN(config_soft) as config_soft  from t_noncar_store_config where store_code =#{storeCode} and config_state="0"
+	</select>
+	
+	<select id="findByStoreNewsList"  parameterType="com.ccic.salesapp.noncar.dto.request.news.NewsVo" resultType="java.util.Map">
+		SELECT s1.content_id contentId, s2.title,s1.config_soft soft,s2.image,s2.read_count readCount from t_noncar_store_config s1 inner join t_support_content s2 on s1.content_id=s2.id where s1.store_code=#{storeCode} 
+		<if test="keyWord != null and keyWord!=''">
+			and s2.title like CONCAT(CONCAT('%',
+			#{keyWord}),'%')
+		</if>
+		<if test="findType != null and findType!=''">
+			and s2.find_type = #{findType}
+		</if>
+		ORDER BY soft
+	</select>
+	
+	<delete  id="delByStoreNews"  parameterType="java.lang.Integer">
+		delete from t_noncar_store_config where content_id=#{contentId}
+	</delete>
+	
+	<delete id="updateByStoreNews"  parameterType="java.util.Map">
+		UPDATE `t_noncar_store_config` SET `config_soft` = #{soft} WHERE `store_code` = #{storeCode} AND `content_id` = #{contentId}
+	</delete>
+	
+	<insert id="insertByStoreNews"  parameterType="java.util.Map">
+		INSERT INTO `t_noncar_store_config`(`store_code`, `content_id`, `config_soft`,`config_state`) VALUES (#{storeCode}, #{contentId}, #{soft},'0')
+	</insert>
+	
+	<select id="storeNewsList" resultType="java.util.Map" parameterType="com.ccic.salesapp.noncar.dto.request.news.NewsVo">
+	SELECT DISTINCT t.contentId,t.title,if(t.focus>0,1,0) isInStore,t.image,t.readCount from (
+		SELECT s.id contentId,s.title,s.focus,s.find_type,s.image,s.readCount from (
+			SELECT s1.id,s1.title,s1.focus,s1.find_type,s1.image,s1.readCount from (SELECT t.id,t.title,(SELECT count(1) from t_noncar_store_config s where t.id=s.content_id and s.store_code=#{storeCode}) focus,(SELECT find_type from t_support_content where id=t.id) find_type,(SELECT image from t_support_content where id=t.id) image ,(SELECT read_count from t_support_content where id=t.id) readCount  from t_support_content  t where t.type='publish') s1
+			left join t_noncar_store_config s2 on s1.id=s2.content_id where s1.focus>0 order BY s2.config_soft
+		) s
+		UNION ALL
+		SELECT s1.id contentId,s1.title,s1.focus,s1.find_type,s1.image,s1.readCount from (SELECT t.location,t.org_code orgCode,t.id,t.title,(SELECT count(1) from t_noncar_store_config s where t.id=s.content_id and s.store_code=#{storeCode}) focus,(SELECT find_type from t_support_content where id=t.id) find_type,(SELECT image from t_support_content where id=t.id) image ,(SELECT read_count from t_support_content where id=t.id) readCount  from t_support_content  t where t.type='publish' and t.status=4 order by create_time desc) s1
+		where s1.focus=0 and s1.find_type in ('01','02','03','04') and s1.location='find'
+		<if test="orgCodes != null">
+           and s1.orgCode in
+           <foreach item="orgCode" index="index" collection="orgCodes" open="(" separator="," close=")">
+               #{orgCode}
+           </foreach>
+        </if>
+	) t where 1=1
+		<if test="keyWord != null and keyWord!=''">
+			and t.title like CONCAT(CONCAT('%',
+			#{keyWord}),'%')
+		</if>
+		<if test="findType != null and findType!=''">
+			and t.find_type = #{findType}
+		</if>
+	</select>
+	
+	 <select id="queryOrgBranchs"
+            parameterType="com.ccic.salesapp.noncar.dto.request.news.SupportOrgBranchVO"
+            resultType="com.ccic.salesapp.noncar.dto.request.news.SupportOrgBranchResponse">
+        select
+        id,
+        org_code as orgCode,
+        up_org_code as upOrgCode,
+        up_branch as upBranch
+        from t_support_org_branch
+        where 1=1
+        <if test="orgCode != null">
+            and org_code = #{orgCode}
+        </if>
+        <if test="upBranchs != null">
+            and up_branch in
+            <foreach item="upBranch" index="index" collection="upBranchs" open="(" separator="," close=")">
+                #{upBranch}
+            </foreach>
+        </if>
+    </select>
+	
 </mapper>

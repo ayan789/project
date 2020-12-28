@@ -11,6 +11,8 @@ public class GroupPlanVo {
 	String userCode;//用户code
 	@ApiModelProperty(value="组合方案code",name="groupPlanCode",required=true)
 	String groupPlanCode;//组合方案代码
+	@ApiModelProperty(value="组合code",name="groupCode",required=true)
+	String groupCode;//组合代码
 	@ApiModelProperty("订单id")
 	String orderId;//订单ID
 	@ApiModelProperty("渠道")

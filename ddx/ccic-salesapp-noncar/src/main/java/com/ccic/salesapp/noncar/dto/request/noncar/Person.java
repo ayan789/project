@@ -12,9 +12,9 @@ public class Person {
 	private int age ;//����
 	private String comments ;//��ע��Ϣ/���
 	private String doctorCode ;//ҽ����Ա���
-	private Date effectiveDate ;//�����ڣ��������ڣ�
+	private String effectiveDate ;//�����ڣ��������ڣ�
 	private String elementType ;//����Ԫ������
-	private Date expiryDate ;//�ձ����ڣ�����ֹ�ڣ�
+	private String expiryDate ;//�ձ����ڣ�����ֹ�ڣ�
 	private String genderCode ;//�Ա���,Ů��
 	private String hospitalComName ;//����ҽ�ƻ�������
 	private String incumbentJobTitleCode ;//���θ�λ/����
@@ -58,10 +58,10 @@ public class Person {
 	public void setDoctorCode(String doctorCode) {
 		this.doctorCode = doctorCode;
 	}
-	public Date getEffectiveDate() {
+	public String getEffectiveDate() {
 		return effectiveDate;
 	}
-	public void setEffectiveDate(Date effectiveDate) {
+	public void setEffectiveDate(String effectiveDate) {
 		this.effectiveDate = effectiveDate;
 	}
 	public String getElementType() {
@@ -70,10 +70,10 @@ public class Person {
 	public void setElementType(String elementType) {
 		this.elementType = elementType;
 	}
-	public Date getExpiryDate() {
+	public String getExpiryDate() {
 		return expiryDate;
 	}
-	public void setExpiryDate(Date expiryDate) {
+	public void setExpiryDate(String expiryDate) {
 		this.expiryDate = expiryDate;
 	}
 	public String getGenderCode() {

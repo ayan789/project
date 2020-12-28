@@ -18,7 +18,7 @@ public class ExcelUtil {
     public static final String OFFICE_EXCEL_2010_POSTFIX = "xlsx";  
     public static final String EMPTY = "";  
     public static final String POINT = ".";  
-    public static SimpleDateFormat sdf =   new SimpleDateFormat("yyyy/MM/dd");  
+    public static SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
     /** 
      * 获得path的后缀名 
      * @param path 

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccic.salesapp.noncar.repository.basedb.mapper.ContentMapper">
+  <resultMap id="BaseResultMap" type="com.ccic.salesapp.noncar.repository.basedb.po.Content">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="org_code" jdbcType="VARCHAR" property="orgCode" />
+    <result column="org_name" jdbcType="VARCHAR" property="orgName" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="shareable" jdbcType="INTEGER" property="shareable" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="is_active" jdbcType="INTEGER" property="isActive" />
+    <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_code" jdbcType="VARCHAR" property="createCode" />
+    <result column="read_count" jdbcType="INTEGER" property="readCount" />
+    <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="find_type" jdbcType="VARCHAR" property="findType" />
+    <result column="isInStore" jdbcType="VARCHAR" property="isInStore"/>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_support_content
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.Content">
+    insert into t_support_content (id, title, org_code, 
+      org_name, image, type, 
+      location, content, shareable, 
+      status, is_active, publish_time, 
+      create_time, create_code, read_count, 
+      create_name, update_time, update_user, 
+      url, product_code, product_name, 
+      find_type)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}, 
+      #{orgName,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{location,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{shareable,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{isActive,jdbcType=INTEGER}, #{publishTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createCode,jdbcType=VARCHAR}, #{readCount,jdbcType=INTEGER}, 
+      #{createName,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{productCode,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, 
+      #{findType,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.ccic.salesapp.noncar.repository.basedb.po.Content">
+    update t_support_content
+    set title = #{title,jdbcType=VARCHAR},
+      org_code = #{orgCode,jdbcType=VARCHAR},
+      org_name = #{orgName,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      shareable = #{shareable,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      is_active = #{isActive,jdbcType=INTEGER},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_code = #{createCode,jdbcType=VARCHAR},
+      read_count = #{readCount,jdbcType=INTEGER},
+      create_name = #{createName,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      find_type = #{findType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, title, org_code, org_name, image, type, location, content, shareable, 
+    status, is_active, publish_time, create_time, create_code, read_count, create_name, 
+    update_time, update_user, url, product_code, product_name, find_type
+    from t_support_content
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, title, org_code, org_name, image, type, location, content, shareable, 
+    status, is_active, publish_time, create_time, create_code, read_count, create_name, 
+    update_time, update_user, url, product_code, product_name, find_type
+    from t_support_content
+  </select>
+  
+  <select id="selectContentList" parameterType="com.ccic.salesapp.noncar.dto.store.request.ContentRequest" resultMap="BaseResultMap">
+  select t.id , t.title , t.image, if(s.content_id  is null and s.config_state = 1  ,0,1) isInStore from t_support_content t
+	left join t_noncar_store_config s on t.id = s.content_id and s.store_code  = #{storeCode} 
+	where t.`status` = 4 and t.type = 'publish'
+	<if test="isInStore!= null and isInStore!=''">
+			and if(s.config_state = 1,0,1) = #{isInStore}
+		</if>
+	<if test="keyWord!= null and keyWord!=''">
+			and t.title like CONCAT(CONCAT('%',
+			#{keyWord}),'%')
+	</if>
+	order by if(s.config_state = 0,UNIX_TIMESTAMP(now()) -if(s.config_soft is null,0,s.config_soft), UNIX_TIMESTAMP(t.create_time) +t.id) desc
+	  </select>
+</mapper>
