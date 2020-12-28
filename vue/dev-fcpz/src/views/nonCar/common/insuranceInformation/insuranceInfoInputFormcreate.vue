@@ -2451,7 +2451,7 @@ export default {
     // 获取表单信息
     getPlanDynamicForms() {
       let params = {
-        strategyId: this.$store.state.config.detailData.strategyId,
+        strategyId: 1311,
         cate: "pl",
         category: "policy"
       };
@@ -2461,183 +2461,14 @@ export default {
       }
       const me = this;
       const planId = this.orderInfo.planId;
-      getPlanDynamicForms(params).then(res => {
-        if (res.code === "1") {
-          if (res.data && res.data.length) {
-            // 匹配有无社保 选择对应方案进行渲染
-            for (let len = res.data.length, i = 0; i < len; i++) {
-              if (res.data[i].planId == planId) {
-                me.formInfo = res.data[i];
-                // 如果前一个页面有设置，则取试算逻辑里面的 TODO suncao
-                let trialArr =
-                  this.$store.state.config.detailData.trialArr || [];
-                if (trialArr.length > 0) {
-                  for (let i = 0, len = trialArr.length; i < len; i++) {
-                    let { listInfo } = trialArr[i];
-                    for (let index = 0; index < listInfo.length; index++) {
-                      const element = listInfo[index];
-                      if (element.field == "commSecurityPeriod") {
-                        const value = element.value;
-                        if (value) {
-                          const startNum = value.split("-")[0];
-                          const endNum = value.split("-")[1];
-                          this.startDate = this.formatDate(
-                            new Date(
-                              new Date().getTime() +
-                                1000 * 60 * 60 * 24 * parseInt(startNum)
-                            )
-                          );
-                          this.endDate = this.formatDate(
-                            new Date(
-                              new Date().getTime() +
-                                1000 * 60 * 60 * 24 * parseInt(endNum)
-                            )
-                          );
-                        } else {
-                          this.startDate = me.formInfo.insuredDate.startDate.split(
-                            " "
-                          )[0];
-                          this.endDate = me.formInfo.insuredDate.endDate.split(
-                            " "
-                          )[0];
-                        }
-                      } else {
-                        this.startDate = me.formInfo.insuredDate.startDate.split(
-                          " "
-                        )[0];
-                        this.endDate = me.formInfo.insuredDate.endDate.split(
-                          " "
-                        )[0];
-                      }
-                    }
-                  }
-                } else {
-                  this.startDate = me.formInfo.insuredDate.startDate.split(
-                    " "
-                  )[0];
-                  this.endDate = me.formInfo.insuredDate.endDate.split(" ")[0];
-                }
-                this.currentDate3 = new Date(2020, 6, 27);
-                if (
-                  me.formInfo.insuredDate &&
-                  me.formInfo.insuredDate.giPeriodType == "1"
-                ) {
-                  this.giPeriodType = me.formInfo.insuredDate.giPeriodType;
-                  this.giPeriod =
-                    me.formInfo.insuredDate.giCoveragePeriod + "年";
-                } else if (
-                  me.formInfo.insuredDate &&
-                  me.formInfo.insuredDate.giPeriodType == "2"
-                ) {
-                  this.giPeriodType = me.formInfo.insuredDate.giPeriodType;
-                  this.giPeriod =
-                    me.formInfo.insuredDate.giCoveragePeriod + "月";
-                } else if (
-                  me.formInfo.insuredDate &&
-                  me.formInfo.insuredDate.giPeriodType == "3"
-                ) {
-                  this.giPeriodType = me.formInfo.insuredDate.giPeriodType;
-                  this.giPeriod =
-                    me.formInfo.insuredDate.giCoveragePeriod + "天";
-                }
-                this.renderForm(me.formInfo);
-                //  复制投保单或者继续录入，回显
-                if (this.queryOrderId) {
-                  // 发票数据缓存
-                  let storeInsuranceInfo = JSON.parse(
-                    JSON.stringify(res.data[i])
-                  );
-                  console.log(2401, storeInsuranceInfo);
-                  if (storeInsuranceInfo.invoiceFlag != "0") {
-                    //是否有发票
-                    this.showBilling = true;
-                    this.invoiceInfo.copyDataFromType =
-                      storeInsuranceInfo.invoiceInfo.copyDataFromType || "1";
-                    if (storeInsuranceInfo.invoiceFlag == "2") {
-                      // 如果是企业
-                      this.isGroup = true;
-                      // invoiceInfo: {
-                      //   //发票信息
-                      //   copyDataFromType: "1",
-                      //   accountNo: "", // 银行卡账号
-                      //   companyName: "", // 公司名称
-                      //   customerType: "", // 客户类型
-                      //   depositeBankName: "", //开户银行
-                      //   email: "", // 邮箱
-                      //   invoiceType: "", //发票类型
-                      //   mobile: "", //注册电话
-                      //   taxPayerNo: "", //纳税人识别号
-                      //   taxPayerType: "", // 纳税人类型
-                      //   taxRegisterAddress: "", //注册地址
-                      //   taxRegisterTel: "" //注册电话
-                      // },
-
-                      let {
-                        companyName,
-                        taxPayerNo,
-                        taxRegistryAddress,
-                        taxPayerType,
-                        invoiceType,
-                        taxRegistryPhone,
-                        bankName,
-                        accountNumber,
-                        clientType,
-                        taxMobile,
-                        taxEmail
-                      } = storeInsuranceInfo.invoiceInfo;
-                      this.invoiceInfo.accountNo = accountNumber;
-                      this.invoiceInfo.companyName = companyName;
-                      this.invoiceInfo.depositeBankName = bankName;
-                      this.invoiceInfo.email = taxEmail;
-                      this.invoiceInfo.mobile = taxMobile;
-                      this.invoiceInfo.taxPayerNo = taxPayerNo;
-                      this.invoiceInfo.taxRegisterAddress = taxRegistryAddress;
-                      this.invoiceInfo.taxRegisterTel = taxRegistryPhone;
-                      this.invoiceInfo.customerType = clientType;
-                      this.invoiceInfo.taxPayerType = taxPayerType;
-                      this.invoiceInfo.invoiceType = invoiceType;
-
-                      // this.billing.cutstomInfo.customerTypeVal = this.$getCodeOrName(
-                      //   "customerTypeList",
-                      //   this.invoiceInfo.customerType
-                      // );
-                      // this.billing.taxpayerInfo.taxPayerTypeVal = this.$getCodeOrName(
-                      //   "taxpayerTypeList",
-                      //   this.invoiceInfo.taxPayerType
-                      // );
-                      // this.billing.invoiceInfo.invoiceTypeVal = this.$getCodeOrName(
-                      //   "invoiceTypeList",
-                      //   this.invoiceInfo.invoiceType
-                      // );
-                      this.initInvoiceInfo();
-                    } else if (storeInsuranceInfo.invoiceFlag == "1") {
-                      //如果是个人
-                      if (storeInsuranceInfo.invoiceType == 3) {
-                        //需要电子发票
-                        this.isNeedEleInvoice = true;
-                      }
-                      this.invoiceInfo.invoiceType =
-                        storeInsuranceInfo.invoiceInfo.invoiceType;
-                      if (this.$isNull(storeInsuranceInfo.taxEmail)) {
-                        this.invoiceInfo.email =
-                          storeInsuranceInfo.invoiceInfo.taxEmail;
-                      }
-                      this.invoiceInfo.mobile =
-                        storeInsuranceInfo.invoiceInfo.taxMobile;
-                    }
-                  }
-                }
-                return;
-                // enter;
-              } else {
-                // Toast("planId 不一致");
-              }
+       getPlanDynamicForms(params).then(res => {
+            if (res.code === "1") {
+              console.log(res.data[0])
+              me.formInfo=res.data[0]
+              this.renderForm(me.formInfo);
             }
-          }
-          // console.log("res---", res);
-        }
-      });
-    },
+        });
+     },
     //立即投保
     enter() {
       // 立即投保校验
@@ -3972,7 +3803,12 @@ export default {
 /deep/ .__fc_h {
   display: none !important;
 }
-
+.title-link-text {
+  color: #3b8afe;
+  &.cur {
+    color: red;
+  }
+}
 // formcreate part
 #tenmillionForm {
   background: #f7f7f7;
@@ -3982,10 +3818,11 @@ export default {
   height: 100%;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
-  position: absolute;
-  left: 0;
-  top: 0;
+  // position: absolute;
+  // left: 0;
+  // top: 0;
   box-sizing: border-box;
+  overflow-x: hidden;
   /deep/.has-error .ant-input,
   .has-error .ant-input:hover {
     border-color: transparent;
@@ -4061,10 +3898,10 @@ export default {
     justify-content: space-between;
     border-bottom: 1px solid #ebedf0;
     .ant-form-item-label {
-      width: 25%;
+      width: 30%;
     }
     .ant-form-item-control-wrapper {
-      width: 75%;
+      width: 70%;
     }
     .ant-input {
       border: none;
@@ -4113,6 +3950,15 @@ export default {
     .ant-form-item-control {
       background: none;
     }
+    // .ant-select-focused .ant-select-selection__placeholder {
+    //   display: none !important;
+    // }
+    // .ant-select-visited .ant-select-selection__placeholder {
+    //   display: none !important;
+    // }
+    // .ant-select-selection__placeholder {
+    //   display: block !important;
+    // }
   }
 
   .title-img {
@@ -4296,27 +4142,6 @@ export default {
     top: 36px;
   }
 }
-.formTitle {
-  font-size: 17px;
-  font-family: PingFangSC-Medium, PingFang SC;
-  font-weight: 500;
-  color: rgba(17, 17, 17, 1);
-  line-height: 46px;
-  /deep/.ant-form-item label {
-    font-size: 17px;
-    font-family: PingFangSC-Medium, PingFang SC;
-    font-weight: 500;
-    color: rgba(17, 17, 17, 1);
-    line-height: 46px;
-  }
-  .ant-form-item-label > label {
-    font-size: 17px;
-    font-family: PingFangSC-Medium, PingFang SC;
-    font-weight: 500;
-    color: rgba(17, 17, 17, 1);
-    line-height: 46px;
-  }
-}
 #tenmillionForm {
   /deep/.formTitle {
     font-size: 14px;
@@ -4339,12 +4164,26 @@ export default {
       color: #333333;
       line-height: 25px;
     }
+    /deep/.ant-form-item-label {
+      width: 80%;
+    }
+    /deep/.ant-form-item-control-wrapper {
+      width: 20%;
+      .ant-form-item-control {
+        text-align: right;
+        padding-right: 0.32rem;
+        img {
+          vertical-align: inherit;
+        }
+      }
+    }
   }
 
   /deep/.birth {
     border-bottom: 1px solid #ebedf0;
     margin-bottom: 0;
     display: flex;
+    align-items: center;
     .ant-form-item-label,
     .ant-form-item-control-wrapper {
       flex: 1;
@@ -4362,9 +4201,116 @@ export default {
       .ant-form-item-control-wrapper {
         flex: 0;
       }
+      .anticon {
+        color: rgba(0, 0, 0, 0.25);
+        font-size: 0.32rem;
+      }
+      .titleIcon {
+        font-size: 0.37333rem;
+        font-weight: 400;
+        color: #3b8afe;
+        line-height: 0.53333rem;
+      }
     }
     .ant-col-24 {
       height: auto;
+    }
+  }
+  /deep/.labelForm {
+    border-bottom: 1px solid #ebedf0;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    .ant-form-item-label,
+    .ant-form-item-control-wrapper {
+      flex: 1;
+    }
+    .ant-form-item-label {
+      font-size: 0.37333rem;
+      font-weight: 600;
+      color: #333333;
+      line-height: 0.66667rem;
+    }
+    .ant-form-item {
+      margin-bottom: 0;
+    }
+    .titleIcon {
+      font-size: 0.37333rem;
+      font-weight: 400;
+      color: #3b8afe;
+      line-height: 0.53333rem;
+    }
+    .ant-form-item-control-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      .ant-form-item-children {
+        label {
+          display: flex;
+          align-items: center;
+        }
+      }
+      .ant-col-24 {
+        height: auto;
+        flex: 1;
+        .labelItem1 {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+
+          .ant-form-item-label {
+            width: auto;
+            flex: none;
+          }
+          .ant-form-item-control-wrapper {
+            width: 20px;
+            flex: none;
+          }
+        }
+        .labelItem {
+          display: flex;
+          align-items: center;
+
+          .ant-form-item-label {
+            width: auto;
+            flex: none;
+          }
+          .ant-form-item-control-wrapper {
+            width: 100%;
+            flex: none;
+            .ant-form-item-children > label > div {
+              width: 100%;
+              display: flex;
+              align-items: center;
+            }
+          }
+          .labelItem2 {
+            display: flex;
+            align-items: center;
+            .ant-form-item-control-wrapper {
+              width: 100%;
+              flex: none;
+            }
+          }
+        }
+      }
+    }
+    .ant-form-item-control {
+      width: 100%;
+    }
+  }
+  /deep/.uploadFile {
+    .ant-col .ant-col-4 .ant-form-item-label {
+      flex: none;
+      width: 30%;
+    }
+    .ant-form-item-control > .ant-form-item-children > div > span {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ant-upload-list {
+      width: 80%;
     }
   }
 }
@@ -4470,19 +4416,14 @@ export default {
       background: rgba(247, 247, 247, 1);
     }
     .eleInvoiceTip {
-      width: 345px;
+      margin: 5px 15px;
       height: 34px;
-      line-height: 34px;
-      background: rgba(59, 138, 254, 0.1);
+      background: #3b8afe1a;
       border-radius: 2px;
-      text-align: center;
-      display: block;
-      padding: 0 12px;
       font-size: 13px;
-      font-weight: 400;
-      color: rgba(59, 138, 254, 1);
-      box-sizing: border-box;
-      margin: 0 auto;
+      padding: 0;
+      color: #3b8afe;
+      justify-content: start;
     }
     .right5 {
       margin-right: 5px;
@@ -4511,7 +4452,8 @@ export default {
     line-height: 20px;
   }
 }
-/deep/.formRow {
+/deep/.formRow,
+/deep/.titleAndIcon {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -4543,7 +4485,108 @@ export default {
   width: 100%;
   text-align: right;
 }
-/deep/ .ant-select-selection-selected-value {
-    color: #646566;
+/deep/ .ant-input {
+  border: none;
+  text-align: right;
+}
+
+/deep/ .ant-input:hover {
+  border: none;
+}
+/deep/ .has-error .ant-input,
+/deep/ .has-error .ant-input:hover {
+  border: none;
+  background: none;
+}
+/deep/ .ant-input:focus {
+  border: none;
+  box-shadow: none;
+}
+/deep/ img {
+  vertical-align: initial;
+  border-style: none;
+}
+/deep/form .has-feedback > .ant-select .ant-select-selection-selected-value,
+/deep/form
+  .has-feedback
+  :not(.ant-input-group-addon)
+  > .ant-select
+  .ant-select-selection-selected-value {
+  padding-right: 0.5rem;
+}
+/deep/ .van-picker-column__item {
+  color: #8f8f8f !important;
+}
+/deep/ .van-picker-column__item--selected {
+  color: black !important;
+}
+
+#tenmillionForm {
+  .cascade {
+    display: flex;
+    font-size: 14px;
+    font-family: PingFangSC-Semibold, PingFang SC;
+    font-weight: 600;
+    color: #333333;
+    .outUl {
+      flex: 1;
+      padding: 5px 10px;
+    }
+    .childUl {
+      flex: 1;
+      padding: 5px 10px;
+    }
+    .leafUl {
+      flex: 1;
+      padding: 5px 10px;
+    }
+    .activeCity {
+      background: rgba(59, 138, 254, 0.3);
+    }
+  }
+  .van-sidebar-item--select {
+    border-color: #1890ff;
+  }
+  /deep/ .formSwitch {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ebedf0;
+    .ant-form-item-label {
+      width: 30%;
+    }
+    .ant-form-item-control-wrapper {
+      width: 70%;
+      .ant-form-item-control {
+        text-align: right;
+        padding-right: 20px;
+      }
+    }
+  }
+  .empTip {
+    margin: 0 15px;
+    background: #ffe8ca;
+    font-size: 13px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #fc820e;
+    justify-content: start;
+    padding: 5px 15px;
+    border-radius: 10px;
+    p {
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
+/deep/ .van-nav-bar .van-icon {
+  color: white;
+}
+/deep/ .ant-input[disabled] {
+  background-color: #fff;
+}
+/deep/ .ant-select-disabled .ant-select-selection {
+  background-color: #fff;
 }
 </style>
+
