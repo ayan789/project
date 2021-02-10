@@ -114,3 +114,22 @@ ON DUPLICATE KEY UPDATE
 		activity_tag_id = VALUES(activity_tag_id),
 		activity_tag = VALUES(activity_tag),
 		config_soft = VALUES(config_soft)
+
+
+
+ALTER TABLE `t_cust_customer_medal`
+MODIFY COLUMN  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间' ;
+
+ALTER TABLE `t_cust_customer_medal`
+MODIFY COLUMN `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间' ;
+
+alter table t_cust_customer_medal add unique index uni_index(user_code,type);
+
+SELECT * from t_cust_customer_medal
+
+INSERT INTO `salesapp`.`t_cust_customer_medal` 
+(`user_code`,`type`,`status`) VALUES ('1','2','0')
+ON DUPLICATE KEY UPDATE
+`user_code`=VALUES(`user_code`),
+`status`=VALUES(`status`),
+`type`=VALUES(`type`);

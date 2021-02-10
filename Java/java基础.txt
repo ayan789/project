@@ -67,6 +67,7 @@ HashMap(线程不安全) HashTable(不允许建null 线程安全 大小增加到
 单例对象成员变量对同个HashMap操作存在线程安全的问题
 确保集合不被修改Collections提供对应的方法
 CopyOnWrite并发容bai器用于读多写少的并发场景 比如zhi白名单，黑名单，商品dao类目
+使用线程不安全的list保障线程安全 1 threadLocal 2 synchronizedList 3 CopyOnWriteArrayList 
 
 线程
 守护线程（thread.start()之前.setDaemon(true)）不执行业务逻辑，守护线程跟随普通线程，当没有普通线程工作守护线程会立即结束
@@ -122,3 +123,9 @@ tcp 三次握手
 
 udp协议
 无须判断是否连接直接发送数据  数据会丢包
+
+机器人攻击
+接口鉴权
+IP最大访问次数
+是否登陆
+
