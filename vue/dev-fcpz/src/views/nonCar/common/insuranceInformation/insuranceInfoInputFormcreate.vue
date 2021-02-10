@@ -2451,7 +2451,7 @@ export default {
     // 获取表单信息
     getPlanDynamicForms() {
       let params = {
-        strategyId: 1311,
+        strategyId: 1543,
         cate: "pl",
         category: "policy"
       };

@@ -122,7 +122,7 @@ let newObj = {};
           getPlanDynamicForms() {
             let params = {
               // strategyId: 125,
-              strategyId: 1311,
+              strategyId: 1543,
               cate: "pl",
               category: "policy"
             };
