@@ -152,15 +152,15 @@ public class PlanFormCtl {
 	//动态表单
 	@PostMapping("/getPlanDynamicForms")
 	public HttpResult<?> getPlanDynamicForms(@RequestBody FieldVo fieldVo) {
-		List<PlanFieldDto> list = new ArrayList<PlanFieldDto>();
+		List<PlanFieldDto> list2 = new ArrayList<PlanFieldDto>();
 		HashMap<String, Object> m_planField = new HashMap<>();
 		m_planField.put("strategyId", fieldVo.getStrategyId());
 		//方案字段要素
-		list = tPrdPlanFormMapper.selectPlanField(m_planField);
-		List<Long> plans = planStrategyService.selectPlanIdsByStrategyIdUserCode((long)fieldVo.getStrategyId(), fieldVo.getUserCode());
-		List<PlanFieldDto> list2 = list.stream()
-                .filter(item -> plans.stream().map(e -> e.intValue()).collect(Collectors.toList())
-                        .contains(item.getPlanId())).collect(Collectors.toList());
+		list2 = tPrdPlanFormMapper.selectPlanField(m_planField);
+//		List<Long> plans = planStrategyService.selectPlanIdsByStrategyIdUserCode((long)fieldVo.getStrategyId(), fieldVo.getUserCode());
+//		List<PlanFieldDto> list2 = list.stream()
+//                .filter(item -> plans.stream().map(e -> e.intValue()).collect(Collectors.toList())
+//                        .contains(item.getPlanId())).collect(Collectors.toList());
 		for(PlanFieldDto planFieldDto:list2) {
 			HttpResult<?> res = buildPlanFields(planFieldDto, fieldVo);
 			if(fieldVo.getOrderId()!=null) {
